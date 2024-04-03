@@ -8,11 +8,13 @@
   </head>
   <body onload="loadAllTasks()">
     <h1>Task Manager</h1>
-    <input type="text" placeholder="Title" id="description" />
-    <select placeholder="Category" id="category">
-      <option>Technical Task</option>
-      <option>User Story</option>
-    </select>
-    <button onclick="addTask()">Add task</button>
+    <form onsubmit="addTask()">
+      <input required type="text" placeholder="Title" id="description" />
+      <select required placeholder="Category" id="category">
+        <option>Technical Task</option>
+        <option>User Story</option>
+      </select>
+      <button>Add task</button>
+    </form>
   </body>
 </html>

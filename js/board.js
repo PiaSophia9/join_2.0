@@ -5,7 +5,7 @@ function addTask() {
   let category = document.getElementById("category").value;
 
   let task = {
-    description: description,
+    description: description, // Eigentlich müsste es so aussehen mit Anführungszeichen: "description": description Leider entfernt mein Autoformatter diese aber.
     category: category,
     createdAt: new Date().getTime(),
   };
