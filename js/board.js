@@ -19,6 +19,7 @@ let todos = [
 let currentDraggedElement;
 
 function updateHTML() {
+  // Oberer Container für Todos mit category == 'open'
   let open = todos.filter((t) => t["category"] == "open");
 
   document.getElementById("open").innerHTML = "";
@@ -28,6 +29,7 @@ function updateHTML() {
     document.getElementById("open").innerHTML += generateTodoHTML(element);
   }
 
+  // Unterer Container für Todos mit category == 'closed'
   let closed = todos.filter((t) => t["category"] == "closed");
 
   document.getElementById("closed").innerHTML = "";
@@ -52,6 +54,7 @@ function allowDrop(ev) {
 
 function moveTo(category) {
   todos[currentDraggedElement]["category"] = category;
+  //ZB Todo mit id 1: Das Feld 'category' ändert sich zu open oder closed
   updateHTML();
 }
 
