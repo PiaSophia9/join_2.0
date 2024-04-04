@@ -33,6 +33,11 @@ input {
   padding: 8px 16px 8px 16px;
 }
 
+@font-face {
+  font-family: inter;
+  src: url(assets/fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
 /* Board */
 
 .drag-area {
