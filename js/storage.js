@@ -4,6 +4,7 @@ const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
 async function setItem(key, value) {
   const payload = {key, value, token: STORAGE_TOKEN};
   return fetch(STORAGE_URL, {method: "POST", body: JSON.stringify(payload)}).then((res) => res.json());
+  // .then((res) => res.json()) Braucht man das?
 }
 
 async function getItem(key) {

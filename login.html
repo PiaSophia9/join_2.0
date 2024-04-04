@@ -6,12 +6,15 @@
     <title>Login</title>
     <script src="js/storage.js"></script>
     <script src="js/login.js"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body onload="init()">
     <form onsubmit="login(); return false;">
-      <input required type="email" id="email" />
+      <input required type="email" id="email" placeholder="email" />
       <input required type="password" id="password" />
-      <button id="registerBtn">Login</button>
+      <button class="btn_dark" id="registerBtn">Log in</button>
+      <button class="btn_bright" id="">Guest Log in</button>
+      <button>Button</button>
     </form>
     <div id="msgBox"></div>
   </body>
