@@ -1,67 +1,108 @@
 let todos = [
-  {
-    id: 0,
-    title: "Putzen",
-    category: "open",
-  },
-  {
-    id: 1,
-    title: "Kochen",
-    category: "open",
-  },
-  {
-    id: 2,
-    title: "Einkaufen",
-    category: "closed",
-  },
+    {
+        id: 0,
+        title: "Putzen",
+        category: "todo",
+    },
+    {
+        id: 1,
+        title: "Kochen",
+        category: "in-progress",
+    },
+    {
+        id: 2,
+        title: "Einkaufen",
+        category: "done",
+    },
+    {
+        id: 3,
+        title: "Spazieren gehen",
+        category: "await-feedback"
+    }
 ];
 
 let currentDraggedElement;
 
 function updateHTML() {
-  // Oberer Container für Todos mit category == 'open'
-  let open = todos.filter((t) => t["category"] == "open");
+    // Linker Container für Todos mit category == 'todo'
+    let todo = todos.filter((t) => t["category"] == "todo");
 
-  document.getElementById("open").innerHTML = "";
+    document.getElementById("todo").innerHTML = "";
+    if(todo.length == 0) {
+        document.getElementById("todo").innerHTML += generateEmptyHTML();
+    } else {
+        for (let index = 0; index < todo.length; index++) {
+            const element = todo[index];
+            document.getElementById("todo").innerHTML += generateTodoHTML(element);
+        }
+    }
 
-  for (let index = 0; index < open.length; index++) {
-    const element = open[index];
-    document.getElementById("open").innerHTML += generateTodoHTML(element);
-  }
+    // zweiter Container für Todos mit category == 'in-progress'
+    let inProgress = todos.filter((t) => t["category"] == "in-progress");
 
-  // Unterer Container für Todos mit category == 'closed'
-  let closed = todos.filter((t) => t["category"] == "closed");
+    document.getElementById("in-progress").innerHTML = "";
+    if(inProgress.length == 0) {
+        document.getElementById("in-progress").innerHTML += generateEmptyHTML();
+    } else {
+        for (let index = 0; index < inProgress.length; index++) {
+            const element = inProgress[index];
+            document.getElementById("in-progress").innerHTML += generateTodoHTML(element);
+        }
+    }
 
-  document.getElementById("closed").innerHTML = "";
+    // dritter Container für Todos mit category == 'await-feedback'
+    let awaitFeedback = todos.filter((t) => t["category"] == "await-feedback");
 
-  for (let index = 0; index < closed.length; index++) {
-    const element = closed[index];
-    document.getElementById("closed").innerHTML += generateTodoHTML(element);
-  }
+    document.getElementById("await-feedback").innerHTML = "";
+    if(awaitFeedback.length == 0) {
+        document.getElementById("await-feedback").innerHTML += generateEmptyHTML();
+    } else {
+        for (let index = 0; index < awaitFeedback.length; index++) {
+            const element = awaitFeedback[index];
+            document.getElementById("await-feedback").innerHTML += generateTodoHTML(element);
+        }
+    }
+
+    // vierter Container für Todos mit category == 'done'
+    let done = todos.filter((t) => t["category"] == "done");
+
+    document.getElementById("done").innerHTML = "";
+    if(done.length == 0) {
+        document.getElementById("done").innerHTML += generateEmptyHTML();
+    } else {
+        for (let index = 0; index < done.length; index++) {
+            const element = done[index];
+            document.getElementById("done").innerHTML += generateTodoHTML(element);
+        }
+    }
 }
 
 function startDragging(id) {
-  currentDraggedElement = id;
+    currentDraggedElement = id;
 }
 
 function generateTodoHTML(element) {
-  return `<div draggable="true" ondragstart="startDragging(${element["id"]})" class="todo">${element["title"]}</div>`;
+    return `<div draggable="true" ondragstart="startDragging(${element["id"]})" class="todo">${element["title"]}</div>`;
 }
 
-function allowDrop(ev) {
-  ev.preventDefault();
+function generateEmptyHTML() {
+    return `<div class="todo no-task">No tasks here</div>`
+}
+
+function allowDrop(event) {
+    event.preventDefault();
 }
 
 function moveTo(category) {
-  todos[currentDraggedElement]["category"] = category;
-  //ZB Todo mit id 1: Das Feld 'category' ändert sich zu open oder closed
-  updateHTML();
+    todos[currentDraggedElement]["category"] = category;
+    //ZB Todo mit id 1: Das Feld 'category' ändert sich zu open oder closed
+    updateHTML();
 }
 
 function highlight(id) {
-  document.getElementById(id).classList.add("drag-area-highlight");
+    document.getElementById(id).classList.add("drag-area-highlight");
 }
 
 function removeHighlight(id) {
-  document.getElementById(id).classList.remove("drag-area-highlight");
+    document.getElementById(id).classList.remove("drag-area-highlight");
 }
