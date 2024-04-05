@@ -4,82 +4,90 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="add_task.css">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="add_task.css" />
+    <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
+    <script src="add_tasks.js"></script>
+    <script src="../storage.js"></script>
   </head>
-  <body onload="includeHTML()">
+  <body onload="includeHTML(), loadAllTasks()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
       <main>
-        <div>
-          <h1>Add Task</h1>
-          <div class="upper_part">
-            <form onsubmit=""></form>
-            <!-- left section----------------------- -->
-            <section class="left_section">
-              <div>
-                <p>Title*</p>
-                <input class="width_form_elements" type="text" placeholder="Enter a title" />
-              </div>
-              <div>
-                <p>Description</p>
-                <textarea class="width_form_elements textarea_add_task" name="" id="" cols="30" rows="10" placeholder="Enter a Description"></textarea>
-              </div>
-              <div>
-                <p>Assigned to</p>
-                <select class="width_form_elements" name="category">
-                  <option>Select contacts to assign</option>
-                  <option>Technical Task</option>
-                  <option>User Story</option>
-                </select>
-              </div>
-              <p>*This field is required</p>
-            </section>
-            <!-- right section----------------------- -->
-            <section class="right_section">
-              <div>
+        <form id="taskForm" onsubmit="addTask(); return false;">
+          <div>
+            <h1>Add Task</h1>
+
+            <div class="upper_part">
+              <!-- left section----------------------- -->
+              <section class="left_section">
                 <div>
-                  <p>Due date*</p>
-                  <input class="width_form_elements" type="date" placeholder="dd/mm/yyyy" />
+                  <p>Title*</p>
+                  <input required id="taskTitle" class="width_form_elements" type="text" placeholder="Enter a title" />
                 </div>
                 <div>
-                  <p>Prio</p>
-                  <div class="buttons_container">
-                    <button class="prio_buttons">Urgent</button>
-                    <button class="prio_buttons">Medium</button>
-                    <button class="prio_buttons">Low</button>
-                  </div>
+                  <p>Description</p>
+                  <textarea required id="taskDescription" class="width_form_elements textarea_add_task" name="" id="" cols="30" rows="10" placeholder="Enter a Description"></textarea>
                 </div>
                 <div>
-                  <p>Category*</p>
-                  <select class="width_form_elements" name="category">
-                    <option>Select task category</option>
-                    <option>Technical Task</option>
-                    <option>User Story</option>
+                  <p>Assigned to</p>
+                  <select id="taskAssigned" class="width_form_elements" name="category">
+                    <option value="" disabled selected>Select contacts to assign</option>
+                    <option><img src="" alt="" />Sophia Müller CKECKBOX</option>
+                    <option><img src="" alt="" />Anton CKECKBOX</option>
+                    <option><img src="" alt="" />Lydia CKECKBOX</option>
+                    <option><img src="" alt="" />Sarah CKECKBOX</option>
+                    <option><img src="" alt="" />Mona CKECKBOX</option>
+                    <option><img src="" alt="" />Fritz CKECKBOX</option>
                   </select>
                 </div>
+                <p>*This field is required</p>
+              </section>
+              <!-- right section----------------------- -->
+              <section class="right_section">
                 <div>
-                  <p>Subtasks</p>
-                  <input class="width_form_elements" type="text" placeholder="Add new subtask" />
+                  <div>
+                    <p>Due date*</p>
+                    <input id="taskDueDate" class="width_form_elements date" type="date" placeholder="dd/mm/yyyy" />
+                  </div>
+                  <div>
+                    <p>Prio</p>
+                    <div class="buttons_container">
+                      <button onclick="setPrioUrgent()" type="button" class="prio_buttons">Urgent</button>
+                      <button onclick="setPrioMedium()" type="button" class="prio_buttons">Medium</button>
+                      <button onclick="setPrioLow()" type="button" class="prio_buttons">Low</button>
+                    </div>
+                  </div>
+                  <div>
+                    <p>Category*</p>
+                    <select id="taskCategory" class="width_form_elements" name="category">
+                      <option value="" disabled selected>Select task category</option>
+                      <option>Technical Task</option>
+                      <option>User Story</option>
+                    </select>
+                  </div>
+                  <div>
+                    <p>Subtasks</p>
+                    <input id="taskSubtask" class="width_form_elements" type="text" placeholder="Add new subtask" />
+                  </div>
                 </div>
-              </div>
-              <div class="buttons_container">
-                <button class="btn_bright">Clear</button>
-                <button class="btn_dark">Create Task</button>
-              </div>
-            </section>
+                <div class="buttons_container">
+                  <button class="btn_bright">Clear</button>
+                  <button type="submit" class="btn_dark">Create Task</button>
+                </div>
+              </section>
+            </div>
           </div>
-        </div>
-        <!-- lower part----------------------- -->
-        <div class="lower_part">
-          <!-- <p>*This field is required</p>
+          <!-- lower part----------------------- -->
+          <div class="lower_part">
+            <!-- <p>*This field is required</p>
           <div class="buttons_container">
             <button class="btn_bright">Clear</button>
             <button class="btn_dark">Create Task</button>
           </div> -->
-        </div>
+          </div>
+        </form>
       </main>
     </div>
     <script src="../assets/templates/include_header_and_sidebar.js"></script>

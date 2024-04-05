@@ -1,23 +1,43 @@
 let allTasks = [];
+let priority;
 
 /**
  * This function gets value of input and select, creates an object with those values and the time, pushes the object into an array and saves this array in the local storage
  *
  */
 function addTask() {
-  let description = document.getElementById("description").value;
-  let category = document.getElementById("category").value;
+  let title = document.getElementById("taskTitle").value;
+  let description = document.getElementById("taskDescription").value;
+  let dueDate = document.getElementById("taskDueDate").value;
+  let assignedTo = document.getElementById("taskAssigned").value;
+  let category = document.getElementById("taskCategory").value;
+  let subtasks = document.getElementById("taskSubtask").value;
 
   let task = {
-    description: description, // Eigentlich müsste es so aussehen mit Anführungszeichen: "description": description Leider entfernt mein Autoformatter diese aber.
+    // user: users.id,
+    title: title,
+    description: description,
+    dueDate: dueDate,
+    priority: priority,
+    // "urgent", 'medium', 'low'
+    assignedTo: assignedTo,
+    // createDate: new Date().getTime(),
     category: category,
-    createdAt: new Date().getTime(),
+    subtasks: subtasks,
   };
 
-  allTasks.push(task);
+  pushTask(task);
+  storeAllTasks(task);
 
-  let allTasksAsString = JSON.stringify(allTasks);
-  localStorage.setItem("allTasks", allTasksAsString);
+  console.log(allTasks);
+}
+
+function pushTask(task) {
+  allTasks.push(task);
+}
+
+function storeAllTasks(task) {
+  setItem(task, allTasks);
 }
 
 /**
@@ -25,8 +45,20 @@ function addTask() {
  *
  *
  */
-
 function loadAllTasks() {
   let allTasksAsString = localStorage.getItem("allTasks");
   allTasks = JSON.parse(allTasksAsString);
+}
+
+function setPrioUrgent() {
+  priority = "urgent";
+  console.log(priority);
+}
+function setPrioMedium() {
+  priority = "medium";
+  console.log(priority);
+}
+function setPrioLow() {
+  priority = "low";
+  console.log(priority);
 }
