@@ -12,6 +12,7 @@
 
   </head>
   <body onload="init()">
+    <div class="container_main">
     <div class="login_header">
       <img src="../assets/img/logo.png" alt="logo_join" />
       <div class="login_sign_up">
@@ -29,7 +30,7 @@
 
         <div class="login_input">
           <input required type="email" id="email" placeholder="Email" class="icon_mail" />
-          <input required type="password" id="password" placeholder="Password" class="icon_lock"/>
+          <input required type="password" minlength="5" id="password" placeholder="Password" class="icon_lock"/>
         </div>
 
         <div class="login_remember_me">
@@ -47,5 +48,6 @@
     <div class="login_footer">
       <a href="#">Privacy Policy</a>
       <a href="#">Legal notice</a></div>
+    </div>
   </body>
 </html>
