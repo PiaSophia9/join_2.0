@@ -25,6 +25,7 @@ button {
 .btn_dark {
   background-color: #2a3647;
   color: white;
+  height: 48px;
 }
 
 .btn_bright {
