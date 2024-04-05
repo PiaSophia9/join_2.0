@@ -2,7 +2,13 @@
 
 body {
   margin: 0;
-  font-family: "inter";
+  font-family: "Inter", sans-serif;
+  background-color: #f6f7f8;
+}
+
+a {
+  text-decoration: none;
+  color: #a8a8a8;
 }
 
 button {
@@ -13,7 +19,7 @@ button {
   border-radius: 8px;
   border: 0;
   background-color: white;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .btn_dark {
@@ -31,6 +37,8 @@ input {
   border: 1px solid #a8a8a8;
   border-radius: 8px;
   padding: 8px 16px 8px 16px;
+  cursor: pointer;
+  height: 32px;
 }
 
 /* Board */
@@ -55,3 +63,116 @@ input {
   padding: 10px;
   margin: 10px;
 }
+
+.login_header {
+  display: flex;
+  justify-content: space-between;
+  margin: 49px;
+}
+
+.login_header img {
+  width: 100px;
+  margin-top: 31px;
+  margin-left: 28px;
+}
+
+.login_sign_up {
+  display: flex;
+  align-items:  flex-start;
+  gap: 35px;
+}
+
+.font_size_20 {
+  font-size: 20px;
+  margin: 4px;
+  font-weight: 400;
+}
+
+.login_section {
+  display: flex;
+  justify-content: center;
+}
+
+.login_container {
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
+  height: 493px;
+  width: 652px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 200px;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login_form_head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 32px;
+}
+
+.login_form_head h1 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  font-size: 64px;
+}
+
+.login_input {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+ }
+
+ .login_btns {
+  margin-inline: 50px 50px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin-top: 35px
+ }
+
+ .login_remember_me {
+  margin: 32px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+ }
+
+ .login_footer {
+  text-align: center;
+  color: #a8a8a8;
+ }
+
+ .icon_mail {
+  padding-right: 25px;
+  background: url(assets/img/icons/mail.png) no-repeat right;
+  background-size: 20px;
+  background-position-x: calc(100% - 16px);
+ }
+
+ .icon_lock {
+  padding-right: 25px;
+  background: url(assets/img/icons/lock.png) no-repeat right;
+  background-size: 20px;
+  background-position-x: calc(100% - 16px);
+ }
+ .sign_up_container {
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
+  height: 630px;
+  width: 652px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 200px;
+ }

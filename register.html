@@ -5,12 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="js/register.js"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <form onsubmit="addUser(); return false;">
-      <input type="email" id="email" required />
-      <input type="password" id="password" required />
-      <button>Registrieren</button>
+    <div class="login_header">
+      <img src="./assets/img/logo.png" alt="logo_join" />
+      <div class="login_sign_up">
+        <p class="font_size_20">Not a Join user?</p>
+        <button class="btn_dark">Sign up</button>
+      </div>
+    </div>
+    <section class="login_section">
+    <div class="sign_up_container">
+      <form class="login_form" onsubmit="addUser(); return false;">
+        <div class="login_form_head">
+          <h1>Sign up</h1>
+          <img src="assets/img/line.png" alt="line">
+        </div>
+
+        <div class="login_input">
+          <input required type="text" id="name" placeholder="Name" class="icon_mail" />
+          <input required type="email" id="email" placeholder="Email" class="icon_mail" />
+          <input required type="password" id="password" placeholder="Password" class="icon_lock"/>
+          <input required type="password" id="password_confirm" placeholder="Confirm Password" class="icon_lock"/>
+        </div>
+
+        <div class="login_remember_me">
+        <input required type="checkbox" id="remember_me" />
+        <label for="remember_me">I accept the  <a href="#">Privacy Policy</a></label>
+        </div>
+        <div class="login_btns">
+          <button class="btn_dark" id="registerBtn" type="submit">Sign up</button>
+
+        </div>
+      </form>
+    </div>
+  </section>
+    <div id="msgBox"></div>
+    <div class="login_footer">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Legal notice</a></div>
     </form>
   </body>
 </html>
