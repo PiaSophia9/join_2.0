@@ -3,6 +3,7 @@
 body {
   margin: 0;
   font-family: "inter";
+  display: flex;
 }
 
 button {
