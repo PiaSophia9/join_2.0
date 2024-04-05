@@ -4,63 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      .lower_part {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .upper_part {
-        display: flex;
-        height: 100%;
-      }
-
-      .left_section,
-      .right_section {
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      .buttons_container {
-        display: flex;
-        gap: 16px;
-      }
-
-      .prio_buttons {
-        box-shadow: 0px 0px 2px 0px rgb(0, 0, 0, 0.2);
-        font-weight: 200;
-      }
-
-      .prio_buttons:hover {
-        box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
-      }
-
-      main {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-        margin: 64px 130px 64px 88px !important;
-      }
-
-      .width_form_elements {
-        box-sizing: border-box;
-        width: 80%;
-        padding: 8px 16px 8px 16px;
-        border: 1px solid #a8a8a8;
-        border-radius: 8px;
-      }
-
-      /* .textarea_add_task {
-      } */
-    </style>
+    <link rel="stylesheet" href="add_task.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
   </head>
-  <body onload="init()">
-    <div cl w3-include-html="sidebar.html"></div>
+  <body onload="includeHTML()">
+    <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
-      <div class="header_container" cl w3-include-html="header.html"></div>
+      <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
       <main>
         <div>
           <h1>Add Task</h1>
@@ -131,6 +82,6 @@
         </div>
       </main>
     </div>
-    <script src="include_header_and_sidebar.js"></script>
+    <script src="../assets/templates/include_header_and_sidebar.js"></script>
   </body>
 </html>

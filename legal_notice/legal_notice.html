@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
     <title>Legal Notice</title>
   </head>
-  <body onload="init()">
-    <div cl w3-include-html="sidebar.html"></div>
+  <body onload="includeHTML()">
+    <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
-      <div class="header_container" cl w3-include-html="header.html"></div>
+      <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
       <main>
         <h1>Legal Notice</h1>
         <div>
@@ -32,7 +34,7 @@
         </div>
       </main>
     </div>
-    <script src="include_header_and_sidebar.js"></script>
+    <script src="../assets/templates/include_header_and_sidebar.js"></script>
   </body>
 </html>
 
