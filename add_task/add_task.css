@@ -1,11 +1,22 @@
-.lower_part {
+.add_task_main {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
 .upper_part {
   display: flex;
-  height: 100%;
+  /* justify-content: space-evenly; */
+  gap: 40px;
+  /* height: 80%; */
+}
+
+.lower_part {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  /* height: 20%; */
+  align-items: flex-end;
 }
 
 .left_section,
@@ -13,21 +24,39 @@
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 24px;
 }
 
 .buttons_container {
   display: flex;
   gap: 16px;
+  justify-content: flex-end;
+}
+
+.prio_buttons_container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .prio_buttons {
   box-shadow: 0px 0px 2px 0px rgb(0, 0, 0, 0.2);
   font-weight: 200;
+  white-space: nowrap;
+  height: 48px;
 }
 
 .prio_buttons:hover {
   box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
+}
+
+.medium_img {
+  margin-bottom: 3px;
+}
+
+.low_image,
+.urgent_image {
+  height: 14px;
 }
 
 main {
@@ -40,12 +69,44 @@ main {
 
 .width_form_elements {
   box-sizing: border-box;
-  width: 80%;
+  width: 100%;
   padding: 8px 16px 8px 16px;
   border: 1px solid #a8a8a8;
   border-radius: 8px;
+  font-family: "inter";
+  font-size: 20px;
+  min-height: 48px;
 }
 
 .date {
-  font-family: inter;
+  color: #a8a8a8;
+}
+
+.line {
+  color: #d1d1d1;
+  border-top: 1px solid d1d1d1;
+  border-style: solid;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.label_add_task {
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+#taskForm {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.p_add_task {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.textarea_add_task {
+  height: 150px;
 }

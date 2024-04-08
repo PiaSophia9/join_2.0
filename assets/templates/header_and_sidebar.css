@@ -24,7 +24,7 @@ header {
 /* Gneral layout */
 
 main {
-  margin: 72px 60px 72px 60px;
+  margin: 72px 60px 80px 60px;
 }
 
 /* General layout done */
@@ -91,13 +91,14 @@ main {
   display: flex;
   flex-direction: column;
   font-size: 16px;
-  margin-bottom: 72px;
+  margin-bottom: 80px;
   color: #cdcdcd;
+  gap: 16px;
   /* margin-top might lead to problems when responsive */
 }
 
 .legal_link {
-  padding: 8px 0 8px 56px;
+  padding: 0 0 0 56px;
   cursor: pointer;
   color: #cdcdcd;
   text-decoration: none;

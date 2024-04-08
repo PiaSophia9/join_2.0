@@ -28,10 +28,21 @@ button {
   height: 48px;
 }
 
+.btn_dark:hover {
+  background-color: #29abe2;
+  box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
+}
+
 .btn_bright {
-  background-color: white;
+  background-color: transparent;
   color: #2a3647;
   border: 1px solid #2a3647;
+}
+
+.btn_bright:hover {
+  color: #29abe2;
+  border: 1px solid #29abe2;
+  box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
 }
 
 input {
@@ -47,8 +58,6 @@ main {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  margin: 64px 130px 64px 88px !important;
+  margin: 64px 130px 0 88px !important;
   max-width: 1440px;
 }
-
- 
