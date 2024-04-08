@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="board.css">
     <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
     <script src="board.js"></script>
+    <script src="../storage.js"></script>
 </head>
 
-<body onload="updateHTML(); includeHTML()">
+<body onload="init(); includeHTML()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
         <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
@@ -34,11 +35,8 @@
             <div class="drag-areas">
                 <div class="drag-area" id="todo" ondrop="moveTo('todo'); removeHighlight('todo')" ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')"></div>
                 <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress'); removeHighlight('in-progress')" ondragleave="removeHighlight('in-progress')" ondragover="allowDrop(event); highlight('in-progress')"></div>
-                <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback')"
-                    ondragleave="removeHighlight('await-feedback')" ondragend="removeHighlight()"
-                    ondragover="allowDrop(event); highlight('await-feedback')"></div>
-                <div class="drag-area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')"
-                    ondragend="removeHighlight()" ondragover="allowDrop(event); highlight('done')"></div>
+                <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback')" ondragleave="removeHighlight('await-feedback')" ondragend="removeHighlight()" ondragover="allowDrop(event); highlight('await-feedback')"></div>
+                <div class="drag-area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragend="removeHighlight()" ondragover="allowDrop(event); highlight('done')"></div>
             </div>
         </div>
     </main>

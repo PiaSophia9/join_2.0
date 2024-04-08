@@ -1,78 +1,38 @@
-let todos = [
-    {
-        id: 0,
-        title: "Putzen",
-        category: "todo",
-    },
-    {
-        id: 1,
-        title: "Kochen",
-        category: "in-progress",
-    },
-    {
-        id: 2,
-        title: "Einkaufen",
-        category: "done",
-    },
-    {
-        id: 3,
-        title: "Spazieren gehen",
-        category: "await-feedback"
-    }
-];
+let todos = [];
 
 let currentDraggedElement;
 
+async function init() {
+    await loadAllTasks();
+    updateHTML();
+}
+
+async function loadAllTasks() {
+    let response = await getItem('remoteTasks');
+    todos = JSON.parse(response);
+    console.log(todos);
+}
+
 function updateHTML() {
-    // Linker Container für Todos mit category == 'todo'
-    let todo = todos.filter((t) => t["category"] == "todo");
+    let todo = todos.filter((t) => t["status"] == "todo");
+    let inProgress = todos.filter((t) => t["status"] == "in-progress");
+    let awaitFeedback = todos.filter((t) => t["status"] == "await-feedback");
+    let done = todos.filter((t) => t["status"] == "done");
 
-    document.getElementById("todo").innerHTML = "";
-    if(todo.length == 0) {
-        document.getElementById("todo").innerHTML += generateEmptyHTML();
+    updateArea("todo", todo);
+    updateArea("in-progress", inProgress);
+    updateArea("await-feedback", awaitFeedback);
+    updateArea("done", done);
+}
+
+function updateArea(areaName, areaArray) {
+    document.getElementById(areaName).innerHTML = "";
+    if(areaArray.length == 0) {
+        document.getElementById(areaName).innerHTML += generateEmptyHTML();
     } else {
-        for (let index = 0; index < todo.length; index++) {
-            const element = todo[index];
-            document.getElementById("todo").innerHTML += generateTodoHTML(element);
-        }
-    }
-
-    // zweiter Container für Todos mit category == 'in-progress'
-    let inProgress = todos.filter((t) => t["category"] == "in-progress");
-
-    document.getElementById("in-progress").innerHTML = "";
-    if(inProgress.length == 0) {
-        document.getElementById("in-progress").innerHTML += generateEmptyHTML();
-    } else {
-        for (let index = 0; index < inProgress.length; index++) {
-            const element = inProgress[index];
-            document.getElementById("in-progress").innerHTML += generateTodoHTML(element);
-        }
-    }
-
-    // dritter Container für Todos mit category == 'await-feedback'
-    let awaitFeedback = todos.filter((t) => t["category"] == "await-feedback");
-
-    document.getElementById("await-feedback").innerHTML = "";
-    if(awaitFeedback.length == 0) {
-        document.getElementById("await-feedback").innerHTML += generateEmptyHTML();
-    } else {
-        for (let index = 0; index < awaitFeedback.length; index++) {
-            const element = awaitFeedback[index];
-            document.getElementById("await-feedback").innerHTML += generateTodoHTML(element);
-        }
-    }
-
-    // vierter Container für Todos mit category == 'done'
-    let done = todos.filter((t) => t["category"] == "done");
-
-    document.getElementById("done").innerHTML = "";
-    if(done.length == 0) {
-        document.getElementById("done").innerHTML += generateEmptyHTML();
-    } else {
-        for (let index = 0; index < done.length; index++) {
-            const element = done[index];
-            document.getElementById("done").innerHTML += generateTodoHTML(element);
+        for (let index = 0; index < areaArray.length; index++) {
+            const element = areaArray[index];
+            document.getElementById(areaName).innerHTML += generateTodoHTML(element);
         }
     }
 }
@@ -82,7 +42,11 @@ function startDragging(id) {
 }
 
 function generateTodoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element["id"]})" class="todo">${element["title"]}</div>`;
+    return /*html*/ `
+        <div draggable="true" ondragstart="startDragging(${element["category"]})" class="todo">
+            <p>${element["title"]}</p>
+        </div>
+    `;
 }
 
 function generateEmptyHTML() {
