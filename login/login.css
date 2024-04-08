@@ -111,3 +111,8 @@
 .d-none {
     display: none;
 }
+
+#msgBox {
+    height: 200px;
+    text-align: center;
+}

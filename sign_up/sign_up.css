@@ -33,4 +33,16 @@
     top: 64px;
     left: 64px;;
     cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.6s ease-in-out; 
+    border-radius: 50%; 
+    width: 24px; 
+    height: 24px; 
+    padding: 8px;
 }
+
+.arrow:hover {
+    background-color: #f6f7f8; 
+    width: 28px; 
+    height: 28px; 
+  }

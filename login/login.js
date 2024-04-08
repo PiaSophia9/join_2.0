@@ -28,6 +28,8 @@ function resetForm() {
   registerBtn.disabled = false;
 }
 
+// Validate user input before submitting the form
+function validateInputs() {
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get("msg");
 
@@ -35,6 +37,7 @@ if (msg) {
   msgBox.innerHTML = msg;
 } else {
   document.getElementById("msgBox").style.display = "none";
+}
 }
 
 // Falls hier was fehlt nochmal in Video 15 ab Minute 6.25 schauen.

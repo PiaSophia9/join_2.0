@@ -1,11 +1,16 @@
 let allTasks = [];
 let priority;
 
+// function overwriteAllTasks() {
+//   allTasks = [];
+//   console.log(allTasks);
+// }
+
 /**
  * This function gets value of input and select, creates an object with those values and the time, pushes the object into an array and saves this array in the local storage
  *
  */
-function addTask() {
+async function addTask() {
   let title = document.getElementById("taskTitle").value;
   let description = document.getElementById("taskDescription").value;
   let dueDate = document.getElementById("taskDueDate").value;
@@ -19,25 +24,35 @@ function addTask() {
     description: description,
     dueDate: dueDate,
     priority: priority,
-    // "urgent", 'medium', 'low'
     assignedTo: assignedTo,
     // createDate: new Date().getTime(),
     category: category,
     subtasks: subtasks,
   };
 
-  pushTask(task);
-  storeAllTasks(task);
+  // allTasks = [];
+  console.log("task:", task);
+  // await loadAllTasks();
 
-  console.log(allTasks);
+  pushTask(task);
+  await storeAllTasks();
+
+  // console.log("All tasks before adding a new task: ", allTasks);
 }
 
 function pushTask(task) {
+  // allTasks = JSON.parse(allTasks);
+  // console.log("Tasks:", allTasks);
   allTasks.push(task);
 }
 
-function storeAllTasks(task) {
-  setItem(task, allTasks);
+async function storeAllTasks() {
+  await setItem("remoteTasks", allTasks);
+}
+
+async function init() {
+  includeHTML();
+  await loadAllTasks();
 }
 
 /**
@@ -45,9 +60,19 @@ function storeAllTasks(task) {
  *
  *
  */
-function loadAllTasks() {
-  let allTasksAsString = localStorage.getItem("allTasks");
-  allTasks = JSON.parse(allTasksAsString);
+async function loadAllTasks() {
+  // let allTasksAsString = localStorage.getItem("allTasks");
+
+  // try {
+  let response = await getItem("remoteTasks");
+  allTasks = await JSON.parse(response);
+
+  console.log("testTasks:", allTasks);
+  // } catch (error) {
+  //   console.error("Error loading tasks:", error);
+  //   allTasks = [];
+  // allTasks = JSON.parse(allTasksAsString);
+  // }
 }
 
 function setPrioUrgent() {
