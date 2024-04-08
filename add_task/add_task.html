@@ -23,23 +23,32 @@
               <!-- left section----------------------- -->
               <section class="left_section">
                 <div>
-                  <label class="label_add_task">Title*</label>
+                  <label class="label_add_task">Title<span class="red">*</span></label>
                   <input required id="taskTitle" class="width_form_elements" type="text" placeholder="Enter a title" />
                 </div>
                 <div>
                   <label class="label_add_task">Description</label>
-                  <textarea required id="taskDescription" class="width_form_elements textarea_add_task" name="" id="" cols="30" rows="10" placeholder="Enter a Description"></textarea>
+                  <textarea id="taskDescription" class="width_form_elements textarea_add_task" name="" id="" cols="30" rows="10" placeholder="Enter a Description"></textarea>
                 </div>
                 <div>
                   <label class="label_add_task">Assigned to</label>
                   <select id="taskAssigned" class="width_form_elements" name="category">
                     <option value="" disabled selected>Select contacts to assign</option>
-                    <option><img src="" alt="" />Sophia Müller CKECKBOX</option>
-                    <option><img src="" alt="" />Anton CKECKBOX</option>
-                    <option><img src="" alt="" />Lydia CKECKBOX</option>
-                    <option><img src="" alt="" />Sarah CKECKBOX</option>
-                    <option><img src="" alt="" />Mona CKECKBOX</option>
-                    <option><img src="" alt="" />Fritz CKECKBOX</option>
+                    <option>
+                      <img src="../assets/img/icons/add.png" alt="" />
+                      <div class="initials_circle">EJ</div>
+                      Emily Johnson
+                      <div class="checkbox"></div>
+                    </option>
+                    <option class="option">Ethan Williams</option>
+                    <option><img src="" alt="" />Olivia Brown</option>
+                    <option><img src="" alt="" />Liam Davis</option>
+                    <option><img src="" alt="" />Ava Wilson</option>
+                    <option><img src="" alt="" />Noah Miller</option>
+                    <option><img src="" alt="" />Isabella Taylor</option>
+                    <option><img src="" alt="" />Mason Martinez</option>
+                    <option><img src="" alt="" />Sophia Anderson</option>
+                    <option><img src="" alt="" />Elijah Garcia</option>
                   </select>
                 </div>
                 <!-- <p>*This field is required</p> -->
@@ -49,8 +58,8 @@
               <!-- right section----------------------- -->
               <section class="right_section">
                 <div>
-                  <label class="label_add_task">Due date*</label>
-                  <input id="taskDueDate" class="width_form_elements date" type="date" placeholder="dd/mm/yyyy" />
+                  <label class="label_add_task">Due date<span class="red">*</span></label>
+                  <input required id="taskDueDate" class="width_form_elements date" type="date" placeholder="dd/mm/yyyy" />
                 </div>
                 <div>
                   <label class="label_add_task">Prio</label>
@@ -61,8 +70,8 @@
                   </div>
                 </div>
                 <div>
-                  <label class="label_add_task">Category*</label>
-                  <select id="taskCategory" class="width_form_elements" name="category">
+                  <label class="label_add_task">Category<span class="red">*</span></label>
+                  <select required id="taskCategory" class="width_form_elements" name="category">
                     <option value="" disabled selected>Select task category</option>
                     <option>Technical Task</option>
                     <option>User Story</option>
@@ -82,10 +91,10 @@
           </div>
           <!-- lower part----------------------- -->
           <div class="lower_part">
-            <p class="p_add_task">*This field is required</p>
+            <p class="p_add_task"><span class="red">*</span>This field is required</p>
             <div class="buttons_container">
-              <button class="btn_bright">Clear <img src="../assets/img/icons/black_x.svg" alt="" /></button>
-              <button type="submit" class="btn_dark">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
+              <button type="button" onclick="clearInputs()" class="btn_bright">Clear <img src="../assets/img/icons/black_x.svg" alt="" /></button>
+              <button id="submit_task_button" type="submit" class="btn_dark">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
             </div>
           </div>
         </form>
