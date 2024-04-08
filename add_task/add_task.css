@@ -59,14 +59,6 @@
   height: 14px;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  margin: 64px 130px 64px 88px !important;
-}
-
 .width_form_elements {
   box-sizing: border-box;
   width: 100%;
@@ -74,7 +66,7 @@ main {
   border: 1px solid #a8a8a8;
   border-radius: 8px;
   font-family: "inter";
-  font-size: 20px;
+  font-size: 24px;
   min-height: 48px;
 }
 
@@ -100,6 +92,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 80px;
 }
 
 .p_add_task {
@@ -109,4 +102,23 @@ main {
 
 .textarea_add_task {
   height: 150px;
+}
+
+.red {
+  color: red;
+}
+
+.initials_circle {
+  border-radius: 50%;
+  background-color: #ff7a00;
+  border: 4px solid white;
+  height: 48px;
+  width: 48px;
+}
+
+.option {
+  padding-right: 25px;
+  background: url(../assets/img/icons/ellipse_orange.png) no-repeat right;
+  background-size: 20px;
+  background-position-x: calc(100% - 16px);
 }
