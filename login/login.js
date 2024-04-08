@@ -34,7 +34,7 @@ const msg = urlParams.get("msg");
 if (msg) {
   msgBox.innerHTML = msg;
 } else {
-  // Todo display: none
+  document.getElementById("msgBox").style.display = "none";
 }
 
 // Falls hier was fehlt nochmal in Video 15 ab Minute 6.25 schauen.
