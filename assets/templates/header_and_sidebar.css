@@ -76,7 +76,7 @@ main {
 
 .link_sidebar:active {
   background-color: #091931;
-  color: white;
+  filter: brightness(1.5);
 }
 
 .container_logo_sidebar {
