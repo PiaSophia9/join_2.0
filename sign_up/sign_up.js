@@ -1,7 +1,18 @@
 let users = [];
 
+async function initUser() {
+  await loadAllUsers();
+}
+
+async function loadAllUsers() {
+  let response = await getItem("remoteUsers");
+  users = await JSON.parse(response);
+
+  console.log("Loaded Users: ", users);
+}
+
 async function addUser() {
-  let userName = document.getElementById("name");
+  let userName = document.getElementById("username");
   let email = document.getElementById("email");
   let password = document.getElementById("password");
   let passwordConfirm = document.getElementById("password_confirm");
@@ -12,42 +23,41 @@ async function addUser() {
     "password": password.value,
     "passwordConfirm": passwordConfirm.value
   };
-  // registerBtn.disabled = false;
-  console.log('users', users);
-  validatePassword(password, passwordConfirm);
-  pushUsers(user);
-  await storeAllUsers();
-  resetForm();
+  validatePassword();
 }
 
 function pushUsers(user) {
   users.push(user); 
 }
 
+// password validation 
+async function validatePassword(user){
+  let passwordInput = document.getElementById("password");
+  let passwordConfirmInput = document.getElementById("password_confirm");
+  let errorMessage = document.getElementById('passwordError');
+  if(passwordInput.value !== passwordConfirmInput.value) {
+    errorMessage.style.display = 'block';
+    errorMessage.style.color = '#ff7f8e';
+    passwordConfirmInput.style.borderColor = '#ff7f8e';
+    return false;
+  } 
+  errorMessage.textContent = ''; // Fehlermeldung zurücksetzen
+  pushUsers(user);
+  await storeAllUsers();
+  redirectToLogin();
+}
+
 async function storeAllUsers() {
   await setItem("remoteUsers", users);
+  console.log(users);
 }
 
-// funktion not in use at the moment
-async function loadAllUsers() {
-  let response = await getItem("remoteUsers");
-  users = await JSON.parse(response);
-
-  console.log("Loaded Users: ", users);
+function redirectToLogin() {
+  const targetUrl = '../login/login.html';
+  window.location.href = targetUrl;
 }
 
-// password validation - funktioniert nicht
-function validatePassword(password, passwordConfirm){
-  if(password.value != passwordConfirm.value) {
-    passwordConfirm.setCustomValidity("Passwords Don't Match");
-  } else {
-    passwordConfirm.setCustomValidity('');
-  }
-  password.onchange = validatePassword;
-  passwordConfirm.onkeyup = validatePassword;
-}
-
-// checkbox  functionality - when required - does not work
+// checkbox  functionality - when adding "required" - does not work
 function checkBox() {
   let  policyCheckbox = document.getElementById("accept_policy");
   policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
@@ -58,7 +68,6 @@ function resetForm() {
   email.value = "";
   password.value = "";
   passwordConfirm.value = "";
-  registerBtn.disabled = false;
 }
 
 
