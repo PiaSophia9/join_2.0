@@ -1,7 +1,7 @@
 let users = [];
 
 async function init() {
-  loadAllUsers();
+  await loadAllUsers();
 }
 
 
@@ -53,17 +53,16 @@ if (msg) {
 }
 }
 
-// Falls hier was fehlt nochmal in Video 15 ab Minute 6.25 schauen.
-// Function wird noch nicht verwendet:
+// man kann sich mit jedem passwort einloggen --> Password validation Funktion einfügen
 function findUser() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
   let user = users.find((u) => u.email == email.value && u.password == password.value);
   if (user) {
-    // Todo Nachricht: User gefunden oder login erfolgreich oder einfach weiter auf die Seite leiten.
+    // weiterleitung zur Summery - checked
     console.log("user gefunden");
   } else {
-    // Fehlermeldung
+    // Please sing up  / Passwort falsch / Email nicht vorhanden
     console.log("user muss sich noch registrieren");
   }
 }
