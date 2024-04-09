@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: "Inter", sans-serif;
   background-color: #f6f7f8;
+  display: flex;
 }
 
 a {
