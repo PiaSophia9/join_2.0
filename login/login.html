@@ -4,12 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <script src="../storage.js"></script>
-    <script src="login.js"></script>
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="login.css">
     <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
-
   </head>
   <body onload="init()">
     <div class="container_main">
@@ -17,7 +14,7 @@
       <img src="../assets/img/logo.png" alt="logo_join" />
       <div class="login_sign_up">
         <p class="font_size_20">Not a Join user?</p>
-        <button class="btn_dark">Sign up</button>
+        <button class="btn_dark" onclick="window.location.href = '../sign_up/sign_up.html';">Sign up</button>
       </div>
     </div>
     <section class="login_section">
@@ -30,7 +27,7 @@
 
         <div class="login_input">
           <input required type="email" id="email" placeholder="Email" class="icon_mail" />
-          <input required type="password" minlength="5" id="password" placeholder="Password" class="icon_lock"/>
+          <input required type="password" minlength="3" id="password" placeholder="Password" class="icon_lock"/>
         </div>
 
         <div class="login_remember_me">
@@ -44,10 +41,12 @@
       </form>
     </div>
   </section>
-    <div id="msgBox"></div>
+  <div id="msgBox"></div>
     <div class="login_footer">
       <a href="#">Privacy Policy</a>
       <a href="#">Legal notice</a></div>
     </div>
+    <script src="../storage.js"></script>
+    <script src="login.js"></script>
   </body>
 </html>

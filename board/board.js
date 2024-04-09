@@ -1,78 +1,51 @@
-let todos = [
-    {
-        id: 0,
-        title: "Putzen",
-        category: "todo",
-    },
-    {
-        id: 1,
-        title: "Kochen",
-        category: "in-progress",
-    },
-    {
-        id: 2,
-        title: "Einkaufen",
-        category: "done",
-    },
-    {
-        id: 3,
-        title: "Spazieren gehen",
-        category: "await-feedback"
-    }
-];
+let todos = [];
 
 let currentDraggedElement;
 
+async function initBoard() {
+    await loadAllTasks();
+    updateHTML();
+}
+
+/**
+ * This function loads the array "allTasks" from the server and assign it to the array "todos"
+ */
+async function loadAllTasks() {
+    let response = await getItem('remoteTasks');
+    todos = JSON.parse(response);
+}
+
+/**
+ * This function updates the task areas. 
+ * The todo-Array is filtered for each status and a new array for the tasks at this specific status is given back.
+ * Then, these arrays are passed into the function "updateArea"
+ */
 function updateHTML() {
-    // Linker Container für Todos mit category == 'todo'
-    let todo = todos.filter((t) => t["category"] == "todo");
+    let todo = todos.filter((t) => t["status"] == "toDo");
+    let inProgress = todos.filter((t) => t["status"] == "in-progress");
+    let awaitFeedback = todos.filter((t) => t["status"] == "await-feedback");
+    let done = todos.filter((t) => t["status"] == "done");
 
-    document.getElementById("todo").innerHTML = "";
-    if(todo.length == 0) {
-        document.getElementById("todo").innerHTML += generateEmptyHTML();
+    updateArea("toDo", todo);
+    updateArea("in-progress", inProgress);
+    updateArea("await-feedback", awaitFeedback);
+    updateArea("done", done);
+}
+
+/**
+ * In this function, the task-area first gets cleared. After that, if the areaArray is empty, the function "generateEmptyHTML" is called. This function just return a div with the text "no tasks here".
+ * If the array isn't empty, the task-element for every task in the array is created by calling the function "generateTodoHTML"
+ * @param {string} areaName 
+ * @param {Array} areaArray 
+ */
+function updateArea(areaName, areaArray) {
+    document.getElementById(areaName).innerHTML = "";
+    if(areaArray.length == 0) {
+        document.getElementById(areaName).innerHTML += generateEmptyHTML();
     } else {
-        for (let index = 0; index < todo.length; index++) {
-            const element = todo[index];
-            document.getElementById("todo").innerHTML += generateTodoHTML(element);
-        }
-    }
-
-    // zweiter Container für Todos mit category == 'in-progress'
-    let inProgress = todos.filter((t) => t["category"] == "in-progress");
-
-    document.getElementById("in-progress").innerHTML = "";
-    if(inProgress.length == 0) {
-        document.getElementById("in-progress").innerHTML += generateEmptyHTML();
-    } else {
-        for (let index = 0; index < inProgress.length; index++) {
-            const element = inProgress[index];
-            document.getElementById("in-progress").innerHTML += generateTodoHTML(element);
-        }
-    }
-
-    // dritter Container für Todos mit category == 'await-feedback'
-    let awaitFeedback = todos.filter((t) => t["category"] == "await-feedback");
-
-    document.getElementById("await-feedback").innerHTML = "";
-    if(awaitFeedback.length == 0) {
-        document.getElementById("await-feedback").innerHTML += generateEmptyHTML();
-    } else {
-        for (let index = 0; index < awaitFeedback.length; index++) {
-            const element = awaitFeedback[index];
-            document.getElementById("await-feedback").innerHTML += generateTodoHTML(element);
-        }
-    }
-
-    // vierter Container für Todos mit category == 'done'
-    let done = todos.filter((t) => t["category"] == "done");
-
-    document.getElementById("done").innerHTML = "";
-    if(done.length == 0) {
-        document.getElementById("done").innerHTML += generateEmptyHTML();
-    } else {
-        for (let index = 0; index < done.length; index++) {
-            const element = done[index];
-            document.getElementById("done").innerHTML += generateTodoHTML(element);
+        for (let index = 0; index < areaArray.length; index++) {
+            const element = areaArray[index];
+            document.getElementById(areaName).innerHTML += generateTodoHTML(element);
         }
     }
 }
@@ -82,7 +55,12 @@ function startDragging(id) {
 }
 
 function generateTodoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element["id"]})" class="todo">${element["title"]}</div>`;
+    return /*html*/ `
+        <div draggable="true" ondragstart="startDragging(${todos.indexOf(element)})" class="todo">
+            <p>${element["category"]}</p>
+            <h2>${element["title"]}</h2>
+        </div>
+    `;
 }
 
 function generateEmptyHTML() {
@@ -93,11 +71,15 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
-function moveTo(category) {
-    todos[currentDraggedElement]["category"] = category;
-    //ZB Todo mit id 1: Das Feld 'category' ändert sich zu open oder closed
+async function moveTo(status) {
+    todos[currentDraggedElement]["status"] = status;
+    // update status in database
+    await storeAllTasks();
+    // load tasks from database
+    await loadAllTasks();
     updateHTML();
 }
+
 
 function highlight(id) {
     document.getElementById(id).classList.add("drag-area-highlight");
@@ -105,4 +87,8 @@ function highlight(id) {
 
 function removeHighlight(id) {
     document.getElementById(id).classList.remove("drag-area-highlight");
+}
+
+async function storeAllTasks() {
+    await setItem("remoteTasks", todos);
 }
