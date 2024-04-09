@@ -1,4 +1,5 @@
 let todos = [];
+const CATEGORY_COLORS = {'Technical Task': '#1FD7C1', 'User Story': '#0038FF'}
 
 let currentDraggedElement;
 
@@ -56,15 +57,16 @@ function startDragging(id) {
 
 function generateTodoHTML(element) {
     return /*html*/ `
-        <div draggable="true" ondragstart="startDragging(${todos.indexOf(element)})" class="todo">
-            <p>${element["category"]}</p>
-            <h2>${element["title"]}</h2>
+        <div draggable="true" ondragstart="startDragging(${todos.indexOf(element)})" class="task">
+            <span class="task-category" style="background-color: ${CATEGORY_COLORS[element.category]}">${element["category"]}</span>
+            <span class="task-title">${element["title"]}</span>
+            <span class="task-description fade">${element["description"]}</span>
         </div>
     `;
 }
 
 function generateEmptyHTML() {
-    return `<div class="todo no-task">No tasks here</div>`
+    return `<div class="task no-task">No tasks here</div>`
 }
 
 function allowDrop(event) {
