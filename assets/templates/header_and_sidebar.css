@@ -42,6 +42,11 @@ header {
   justify-content: space-between;
   gap: 80px;
   color: white;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  /* overflow-x: hidden; */
 }
 
 .link_sidebar {
@@ -121,4 +126,5 @@ header {
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-left: 232px;
 }
