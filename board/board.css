@@ -68,17 +68,22 @@ input[type="search"]::-webkit-search-cancel-button {
     gap: 24px;
 }
 
-.area-titles h3 {
-    width: 252px;
-    min-width: 220px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 24px;
-    margin-block-end: 0.5em;
-    color: #42526E;
-    font-size: 20px;
-}
+    .area-titles h3 {
+        width: 252px;
+        min-width: 220px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 24px;
+        margin-block-end: 0.5em;
+        color: #42526E;
+        font-size: 20px;
+    }
+
+        .area-titles h3 img {
+            height: 24px;
+            width: 24px;
+        }
 
 .drag-areas {
     display: flex;
@@ -86,27 +91,27 @@ input[type="search"]::-webkit-search-cancel-button {
     gap: 24px;
 }
 
-.drag-area {
-    width: 252px;
-    min-width: 220px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding-bottom: 160px;
-}
+    .drag-area {
+        width: 252px;
+        min-width: 220px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-bottom: 160px;
+        gap: 16px;
+    }
 
-.drag-area-highlight {
-    background-color: rgba(0, 0, 0, 0.2);
-}
+    .drag-area-highlight {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
 
 .task {
     background-color: white;
     border-radius: 24px;
     padding: 16px;
-    margin-top: 10px;
     width: 85%;
     display: flex;
-    gap: 10px;
+    gap: 24px;
     flex-direction: column;
     border: none;
     box-shadow: 0px 0px 10px 3px #00000014;
@@ -137,7 +142,27 @@ input[type="search"]::-webkit-search-cancel-button {
         overflow: hidden;
     }
 
-.no-task {
-    background-color: #cbcbcb;
-}
+    .subtask-progress {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .progress-bar {
+            width: 128px;
+        }
+
+        .subtask-progress span {
+            font-size: 12px;
+        }
+
+    .user-and-prio {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .no-task {
+        background-color: #cbcbcb;
+    }
 
