@@ -1,5 +1,10 @@
 let todos = [];
-const CATEGORY_COLORS = {'Technical Task': '#1FD7C1', 'User Story': '#0038FF'}
+const CATEGORY_COLORS = {'Technical Task': '#1FD7C1', 'User Story': '#0038FF'};
+const PRIO_IMAGE_URLS = {
+    'low': '../assets/img/icons/prio_kow_green.svg', 
+    'medium': '../assets/img/icons/prio_medium_orange.svg', 
+    'urgent': '../assets/img/icons/prio_urgent_red.svg'
+}
 let currentDraggedElement;
 
 async function initBoard() {
@@ -46,6 +51,7 @@ function updateArea(areaName, areaArray) {
         for (let index = 0; index < areaArray.length; index++) {
             const element = areaArray[index];
             document.getElementById(areaName).innerHTML += generateTodoHTML(element);
+            document.getElementById(`prio-image${todos.indexOf(element)}`).innerHTML += generatePrioImage(element);
         }
     }
 }
@@ -59,9 +65,47 @@ function generateTodoHTML(element) {
         <div draggable="true" ondragstart="startDragging(${todos.indexOf(element)})" class="task">
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[element.category]}">${element["category"]}</span>
             <span class="task-title">${element["title"]}</span>
-            <span class="task-description fade">${element["description"]}</span>
+            <span class="task-description">${element["description"]}</span>
+            <!-- if there are no subtasks, the progress-bar should not be displayed -->
+            <div class="subtask-progress">
+                <progress class="progress-bar" value="${calculateSubtaskProgress(element)}" max="100"></progress>
+                <span>Subtasks</span>
+            </div>
+            <div class="user-and-prio">
+                <div class="assigned-to">${createInitials(element)}</div>
+                <!-- image should change dynamically based on the priority -->
+                <div id="prio-image${todos.indexOf(element)}"></div>
+            </div>
         </div>
     `;
+}
+
+function createInitials(element) {
+    if(element["assignedTo"] == "") {
+        return "";
+    } else {
+        let currentName = element["assignedTo"];
+        let currentNameAsString = currentName.toString();
+        let initials = currentNameAsString.match(/\b(\w)/g).join("");
+        let firstTwoInitials = initials.slice(0, 2);
+        return firstTwoInitials;
+    }
+}
+
+function generatePrioImage(element) {
+    let imageContainer = document.getElementById(`prio-image${todos.indexOf(element)}`);
+    if(element["priority"] == undefined) {
+        imageContainer.style.display = "none";
+    } else {
+        return /*html*/ `
+            <img src="${PRIO_IMAGE_URLS[element.priority]}" alt="">
+        `; 
+    }
+}
+
+function calculateSubtaskProgress(element) {
+    let progress = (element["subtasks"].done / element["subtasks"].length) * 100;
+    return progress;
 }
 
 function generateEmptyHTML() {
