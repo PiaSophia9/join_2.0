@@ -1,6 +1,5 @@
 let todos = [];
 const CATEGORY_COLORS = {'Technical Task': '#1FD7C1', 'User Story': '#0038FF'}
-
 let currentDraggedElement;
 
 async function initBoard() {
