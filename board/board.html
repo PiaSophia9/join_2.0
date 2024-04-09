@@ -11,7 +11,7 @@
     <script src="../storage.js"></script>
 </head>
 
-<body onload="init(); includeHTML()">
+<body onload="initBoard(); includeHTML()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
         <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
@@ -33,10 +33,10 @@
                 </div>
             </div>
             <div class="drag-areas">
-                <div class="drag-area" id="todo" ondrop="moveTo('todo'); removeHighlight('todo')" ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')"></div>
+                <div class="drag-area" id="toDo" ondrop="moveTo('toDo'); removeHighlight('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')"></div>
                 <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress'); removeHighlight('in-progress')" ondragleave="removeHighlight('in-progress')" ondragover="allowDrop(event); highlight('in-progress')"></div>
-                <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback')" ondragleave="removeHighlight('await-feedback')" ondragend="removeHighlight()" ondragover="allowDrop(event); highlight('await-feedback')"></div>
-                <div class="drag-area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')" ondragend="removeHighlight()" ondragover="allowDrop(event); highlight('done')"></div>
+                <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback'); removeHighlight('await-feedback')" ondragleave="removeHighlight('await-feedback')" ondragover="allowDrop(event); highlight('await-feedback')"></div>
+                <div class="drag-area" id="done" ondrop="moveTo('done'); removeHighlight('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')"></div>
             </div>
         </div>
     </main>
