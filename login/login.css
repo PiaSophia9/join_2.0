@@ -88,6 +88,12 @@
     gap: 8px;
 }
 
+#remember_me {
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
 .login_footer {
     text-align: center;
     color: #a8a8a8;

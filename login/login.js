@@ -1,16 +1,24 @@
 let users = [];
 
 async function init() {
-  loadUsers();
+  loadAllUsers();
 }
 
-async function loadUsers() {
-  try {
-    users = JSON.parse(await getItem("users"));
-  } catch (e) {
-    console.error("Loading error:", e);
-  }
+
+async function loadAllUsers() {
+  let response = await getItem("remoteUsers");
+  users = await JSON.parse(response);
+
+  console.log("Loaded Users: ", users);
 }
+
+// async function loadUsers() {
+//   try {
+//     users = JSON.parse(await getItem("users"));
+//   } catch (e) {
+//     console.error("Loading error:", e);
+//   }
+// }
 
 async function login() {
   registerBtn.disabled = true;
@@ -20,6 +28,11 @@ async function login() {
   });
   await setItem("users", JSON.stringify(users));
   resetForm();
+}
+
+function checkBox() {
+  let  policyCheckbox = document.getElementById("remember_me");
+  policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
 }
 
 function resetForm() {

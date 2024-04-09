@@ -19,7 +19,7 @@
     <section class="login_section">
     <div class="sign_up_container">
 
-      <form class="login_form" onsubmit="window.location.href = '../login/login.html?msg=Du hast dich erfolgreich registriert'; return false;">
+      <form class="login_form" onsubmit="window.location.href = '../login/login.html?msg=You Signed Up successfully'; return false;">
         <div class="login_form_head">
           <img class="arrow" src="../assets/img/icons/arrow_left.png" alt="go to login" onclick="window.location.href = '../login/login.html';">
           <h1>Sign up</h1>
@@ -35,7 +35,7 @@
 
         <div class="login_remember_me">
 
-        <input type="image" src="../assets/img/icons/check_box_empty.png" id="remember_me" />
+        <input type="image" src="../assets/img/icons/check_box_empty.png" id="accept_policy" onclick="checkBox(); return false;" />
         <label for="remember_me">I accept the  <a class="text_blue" href="#">Privacy Policy</a></label>
         </div>
         <div class="login_btns">
