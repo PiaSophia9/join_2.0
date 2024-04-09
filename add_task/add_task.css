@@ -39,8 +39,9 @@
 
 .prio_buttons_container {
   display: flex;
-  gap: 8px;
+  gap: 5%;
   flex-wrap: wrap;
+  /* justify-content: space-between; */
 }
 
 .prio_buttons {
@@ -48,6 +49,8 @@
   font-weight: 200;
   white-space: nowrap;
   height: 48px;
+  width: 30%;
+  min-width: 160px;
 }
 
 .prio_buttons:hover {
@@ -146,7 +149,19 @@
   }
 
   .buttons_container {
-    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
     margin-top: 24px;
+    gap: 24px;
+  }
+
+  .left_section,
+  .right_section {
+    width: auto;
+  }
+
+  .btn_bright,
+  .btn_dark {
+    max-width: 200px;
   }
 }
