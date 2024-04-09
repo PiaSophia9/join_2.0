@@ -4,7 +4,6 @@ async function init() {
   await loadAllUsers();
 }
 
-
 async function loadAllUsers() {
   let response = await getItem("remoteUsers");
   users = await JSON.parse(response);
@@ -20,14 +19,11 @@ async function loadAllUsers() {
 //   }
 // }
 
+// wird gerade nicht benutzt
 async function login() {
   registerBtn.disabled = true;
-  users.push({
-    email: email.value,
-    password: password.value,
-  });
-  await setItem("users", JSON.stringify(users));
   resetForm();
+  findUser();
 }
 
 function checkBox() {
@@ -41,7 +37,7 @@ function resetForm() {
   registerBtn.disabled = false;
 }
 
-// Validate user input before submitting the form
+// Validate user input before submitting the form - noch nicht fertig
 function validateInputs() {
 const urlParams = new URLSearchParams(window.location.search);
 const msg = urlParams.get("msg");
@@ -53,16 +49,22 @@ if (msg) {
 }
 }
 
-// man kann sich mit jedem passwort einloggen --> Password validation Funktion einfügen
+
 function findUser() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
-  let user = users.find((u) => u.email == email.value && u.password == password.value);
+  let user = users.find( u => u.email == email.value && u.password == password.value);
+  console.log(user);
   if (user) {
-    // weiterleitung zur Summery - checked
     console.log("user gefunden");
+    redirectToSummary();
   } else {
     // Please sing up  / Passwort falsch / Email nicht vorhanden
     console.log("user muss sich noch registrieren");
   }
+}
+
+function redirectToSummary() {
+  const targetUrl = '../summary/summary.html';
+  window.location.href = targetUrl;
 }

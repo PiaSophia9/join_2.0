@@ -23,15 +23,16 @@ async function addUser() {
     "password": password.value,
     "passwordConfirm": passwordConfirm.value
   };
-  validatePassword();
+  pushUsers(user);
+  await validatePassword();
 }
 
 function pushUsers(user) {
   users.push(user); 
 }
 
-// password validation 
-async function validatePassword(user){
+// password validation // 
+async function validatePassword(){
   let passwordInput = document.getElementById("password");
   let passwordConfirmInput = document.getElementById("password_confirm");
   let errorMessage = document.getElementById('passwordError');
@@ -42,7 +43,6 @@ async function validatePassword(user){
     return false;
   } 
   errorMessage.textContent = ''; // Fehlermeldung zurücksetzen
-  pushUsers(user);
   await storeAllUsers();
   redirectToLogin();
 }
