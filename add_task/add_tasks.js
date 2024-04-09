@@ -4,6 +4,7 @@ let priority;
 async function init() {
   includeHTML();
   await loadAllTasks();
+  await loadAssignedContacts();
   renderContactsToAssign();
 }
 
@@ -106,6 +107,23 @@ window.onclick = function (event) {
 
 // Contacts to assign
 
+let contacts = ["Sofia Müller", "Anton Mayer", "Anja Schulz", "Benedikt Ziegler", "David Eisenberg"];
+
+let assignedContacts = [];
+
+function addCheckboxImage(j) {
+  for (let i = 0; i < assignedContacts.length; i++) {
+    const assContact = assignedContacts[i];
+    let contactsIndex = contacts.indexOf(assContact);
+    // result is index in contacts OR -1
+    if (contactsIndex == -1) {
+      document.getElementById(`checkBoxImage${j}`).src = "../assets/img/icons/checkbox_empty.png";
+    } else {
+      document.getElementById(`checkBoxImage${contactsIndex}`).src = "../assets/img/icons/checkbox_filled.png";
+    }
+  }
+}
+
 function createInitials(i) {
   let currentName = contacts[i];
   let currentNameAsString = currentName.toString();
@@ -114,16 +132,16 @@ function createInitials(i) {
   return firstTwoInitials;
 }
 
-let contacts = ["Sofia Müller", "Anton Mayer", "Anja Schulz", "Benedikt Ziegler", "David Eisenberg"];
-
 function renderContactsToAssign() {
-  for (let i = 0; i < contacts.length; i++) {
+  let i = 0;
+  for (i = 0; i < contacts.length; i++) {
     document.getElementById("myDropdown").innerHTML += generateContactToAssign(i);
   }
+  addCheckboxImage(i);
 }
 
 function generateContactToAssign(i) {
-  return `<div class="dropdown-content-div">
+  return `<div class="dropdown-content-div" onclick="stopPropagation()">
   <div class="dropdown_container">
     <div class="initials_circle"><span class="initials_span">${createInitials(i)}</span></div>
     ${contacts[i]}
@@ -132,8 +150,31 @@ function generateContactToAssign(i) {
 </div>`;
 }
 
-function selectAssignedContact(i) {
+async function selectAssignedContact(i) {
+  changeCheckboxImage(i);
+  pushAssignedContacts(i);
+  await storeAssignedContacts();
+}
+
+function changeCheckboxImage(i) {
   document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_filled.png";
-  // box-image ersetzen
-  // Namen in ein array pushen
+}
+
+function pushAssignedContacts(i) {
+  let assignedContact = contacts[i];
+  assignedContacts.push(assignedContact);
+  console.log(assignedContacts);
+}
+
+function stopPropagation() {
+  event.stopPropagation(onclick);
+}
+
+async function storeAssignedContacts() {
+  await setItem("remoteAssignedContacts", assignedContacts);
+}
+
+async function loadAssignedContacts() {
+  let response = await getItem("remoteAssignedContacts");
+  assignedContacts = await JSON.parse(response);
 }

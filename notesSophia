@@ -1,0 +1,12 @@
+async function selectAssignedContact(i) {
+  // function selectOrUnselectContact
+  if (document.getElementById(`checkBoxImage${i}`).src == "../assets/img/icons/checkbox_filled.png") {
+    // change Image
+    // delete from array assignedContacts
+    // await storeAssignedContacts();
+  } else {
+    changeCheckboxImage(i);
+    pushAssignedContacts(i);
+    await storeAssignedContacts();
+  }
+}
