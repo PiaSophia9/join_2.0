@@ -5,7 +5,10 @@ async function init() {
   includeHTML();
   await loadAllTasks();
   await loadAssignedContacts();
+  createAndPushInitials();
+  createAndPushColors();
   renderContactsToAssign();
+  showAssignedtoContacts();
 }
 
 /**
@@ -122,8 +125,27 @@ window.onclick = function (event) {
 // Contacts to assign
 
 let contacts = ["Sofia Müller", "Anton Mayer", "Anja Schulz", "Benedikt Ziegler", "David Eisenberg"];
+let contactInitials = [];
+let contactColors = [];
+
+// let contactInfos = [
+// {
+//   contacts: contacts[i],
+//   contactInitials: contactInitials[i],
+//   contactColors: contactColors[i]
+// },
+// {
+//   contacts: contacts[i],
+//   contactInitials: contactInitials[i],
+//   contactColors: contactColors[i]
+// }
+// ]
 
 let assignedContacts = [];
+let assignedContactInitials = [];
+let assignedContactColors = [];
+
+let colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 
 function addCheckboxImage(j) {
   for (let i = 0; i < assignedContacts.length; i++) {
@@ -138,26 +160,49 @@ function addCheckboxImage(j) {
   }
 }
 
-function createInitials(i) {
-  let currentName = contacts[i];
-  let currentNameAsString = currentName.toString();
-  let initials = currentNameAsString.match(/\b(\w)/g).join("");
-  let firstTwoInitials = initials.slice(0, 2);
-  return firstTwoInitials;
+function createAndPushInitials() {
+  for (let i = 0; i < contacts.length; i++) {
+    let contact = contacts[i];
+    let contactAsString = contact.toString();
+    let initials = contactAsString.match(/\b(\w)/g).join("");
+    let firstTwoInitials = initials.slice(0, 2);
+    contactInitials.push(firstTwoInitials);
+    console.log("contactInitials:", contactInitials);
+  }
 }
 
+function createAndPushColors() {
+  for (let i = 0; i < contacts.length; i++) {
+    let color = colors[generateRandomNumber()];
+    contactColors.push(color);
+    console.log("contactColors:", contactColors);
+  }
+}
+
+function generateRandomNumber() {
+  return Math.floor(Math.random() * 15);
+}
+
+// function createInitials(i) {
+//   let currentName = contacts[i];
+//   let currentNameAsString = currentName.toString();
+//   let initials = currentNameAsString.match(/\b(\w)/g).join("");
+//   let firstTwoInitials = initials.slice(0, 2);
+//   return firstTwoInitials;
+// }
+
 function renderContactsToAssign() {
-  let i = 0;
+  let i = 0; // Todo: do I need that????
   for (i = 0; i < contacts.length; i++) {
     document.getElementById("myDropdown").innerHTML += generateContactToAssign(i);
   }
-  addCheckboxImage(i);
+  addCheckboxImage(i); // Todo: put somewhere else
 }
 
 function generateContactToAssign(i) {
   return `<div class="dropdown-content-div" onclick="stopPropagation()">
   <div class="dropdown_container">
-    <div class="initials_circle"><span class="initials_span">${createInitials(i)}</span></div>
+    <div  style="background-color:${contactColors[i]}" class="initials_circle"><span class="initials_span">${contactInitials[i]}</span></div>
     <span id="contacts${i}">${contacts[i]}</span>
   </div>
   <div id="checkboxContainer${i}"><img id="checkBoxImage${i}" src="../assets/img/icons/checkbox_empty.png" alt="" onclick='selectAssignedContact(${i})'/></div>
@@ -165,9 +210,21 @@ function generateContactToAssign(i) {
 }
 
 async function selectAssignedContact(i) {
-  changeCheckboxImage(i);
-  pushAssignedContacts(i);
+  // function selectOrUnselectContact
+  console.log("i: ", i);
+  if (document.getElementById(`checkBoxImage${i}`).src.endsWith("/checkbox_filled.png")) {
+    document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
+    let currentContact = contacts[i];
+    let indexInAssignedContact = assignedContacts.indexOf(currentContact);
+    console.log("indexInAssignedContact", indexInAssignedContact);
+    assignedContacts.splice(indexInAssignedContact, 1); // aus dem array löschen
+  } else {
+    changeCheckboxImage(i);
+    pushAssignedContacts(i);
+  }
   await storeAssignedContacts();
+  showAssignedtoContacts();
+  console.log("assignedContacts: ", assignedContacts);
 }
 
 function changeCheckboxImage(i) {
@@ -177,7 +234,7 @@ function changeCheckboxImage(i) {
 function pushAssignedContacts(i) {
   let assignedContact = contacts[i];
   assignedContacts.push(assignedContact);
-  console.log(assignedContacts);
+  console.log("assignedContacts: ", assignedContacts);
 }
 
 function stopPropagation() {
@@ -185,6 +242,7 @@ function stopPropagation() {
 }
 
 async function storeAssignedContacts() {
+  // assignedContacts = [];
   await setItem("remoteAssignedContacts", assignedContacts);
 }
 
@@ -192,3 +250,21 @@ async function loadAssignedContacts() {
   let response = await getItem("remoteAssignedContacts");
   assignedContacts = await JSON.parse(response);
 }
+
+function showAssignedtoContacts() {
+  document.getElementById("assignedtoContactsContainer").innerHTML = "";
+  for (let i = 0; i < assignedContacts.length; i++) {
+    let j = contacts.indexOf(assignedContacts[i]);
+    document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(j);
+  }
+}
+
+function generateInitialCircles(i) {
+  // Farbcode durch Variable ersetzen.
+  return `
+  <div id="initialCircle${i}" style="background-color:${contactColors[i]}" class="initials_circle"><span class="initials_span">${contactInitials[i]}</span></div>
+  `;
+}
+
+// store and load contactInitials and contactColors
+// Make one array of objects instead of 3 arrays.
