@@ -16,7 +16,7 @@ async function addTask() {
   let title = document.getElementById("taskTitle").value;
   let description = document.getElementById("taskDescription").value;
   let dueDate = document.getElementById("taskDueDate").value;
-  let assignedTo = document.getElementById("taskAssigned").value;
+  // let assignedTo = document.getElementById("taskAssigned").value;
   let category = document.getElementById("taskCategory").value;
   let subtasks = document.getElementById("taskSubtask").value;
   let status = "toDo";
@@ -26,13 +26,12 @@ async function addTask() {
     description: description,
     dueDate: dueDate,
     priority: priority,
-    assignedTo: assignedTo,
+    assignedTo: assignedContacts,
     category: category,
     subtasks: subtasks,
     status: status,
   };
 
-  enableButton();
   pushTask(task);
   await storeAllTasks();
 }
@@ -77,11 +76,26 @@ function clearInputs() {
   document.getElementById("taskSubtask").value = "";
 }
 
-function enableButton() {
-  if (document.getElementById("taskTitle").value != "" && document.getElementById("taskDueDate").value != "" && document.getElementById("taskCategory").value != "") {
-    document.getElementById("submit_task_button").removeAttribute("disabled");
+// wenn alles leer ist soll nichts getan werden am anfang
+// ich schreibe was rein und wenn alle felder voll sind soll der button enabled werden
+// ich lösche eine Sache - 1. Ifabrfage wird wieder true und
+
+function disOrEnableButton() {
+  // If all those three have value...
+  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("taskCategory").value == "") {
+    // In the beginning the button is disabled and nothin has to be done
+    if (document.getElementById("submit_task_button").hasAttribute("disabled")) {
+      // This else-statement is used if the required inputs had values so that the button was enabled, but then one input was deleted. In this case the disabled attribute has to be set again and the button has to get back the css of the enabled button.
+    } else {
+      document.getElementById("submit_task_button").setAttribute("disabled", "disabled");
+      document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
+      document.getElementById("submit_task_button").classList.remove("btn_dark");
+    }
+    // If all inputs have values, the button is enabled.
   } else {
-    document.getElementById("submit_task_button").setAttribute("disabled");
+    document.getElementById("submit_task_button").removeAttribute("disabled");
+    document.getElementById("submit_task_button").classList.remove("btn_dark_disabled");
+    document.getElementById("submit_task_button").classList.add("btn_dark");
   }
 }
 
@@ -144,7 +158,7 @@ function generateContactToAssign(i) {
   return `<div class="dropdown-content-div" onclick="stopPropagation()">
   <div class="dropdown_container">
     <div class="initials_circle"><span class="initials_span">${createInitials(i)}</span></div>
-    ${contacts[i]}
+    <span id="contacts${i}">${contacts[i]}</span>
   </div>
   <div id="checkboxContainer${i}"><img id="checkBoxImage${i}" src="../assets/img/icons/checkbox_empty.png" alt="" onclick='selectAssignedContact(${i})'/></div>
 </div>`;

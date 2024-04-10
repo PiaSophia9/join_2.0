@@ -24,7 +24,7 @@ button {
 }
 
 .btn_dark {
-  background-color: #2a3647;
+  background-color: #091931;
   color: white;
   height: 48px;
 }
@@ -32,6 +32,11 @@ button {
 .btn_dark:hover {
   background-color: #29abe2;
   box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
+}
+
+.btn_dark_disabled {
+  background-color: #2a3647;
+  color: white;
 }
 
 .btn_bright {

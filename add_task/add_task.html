@@ -24,7 +24,7 @@
               <section class="left_section">
                 <div>
                   <label class="label_add_task">Title<span class="red">*</span></label>
-                  <input required id="taskTitle" class="width_form_elements" type="text" placeholder="Enter a title" />
+                  <input onkeyup="disOrEnableButton()" required id="taskTitle" class="width_form_elements" type="text" placeholder="Enter a title" />
                 </div>
                 <div>
                   <label class="label_add_task">Description</label>
@@ -43,7 +43,7 @@
               <section class="right_section">
                 <div>
                   <label class="label_add_task">Due date<span class="red">*</span></label>
-                  <input required id="taskDueDate" class="width_form_elements date" type="date" placeholder="dd/mm/yyyy" />
+                  <input onchange="disOrEnableButton()" required id="taskDueDate" class="width_form_elements date" type="date" placeholder="dd/mm/yyyy" />
                 </div>
                 <div>
                   <label class="label_add_task">Prio</label>
@@ -54,8 +54,8 @@
                   </div>
                 </div>
                 <div>
-                  <label class="label_add_task">Category<span class="red">*</span></label>
-                  <select required id="taskCategory" class="width_form_elements" name="category">
+                  <label required class="label_add_task">Category<span class="red">*</span></label>
+                  <select onclick="disOrEnableButton()" id="taskCategory" class="width_form_elements" name="category">
                     <option value="" disabled selected>Select task category</option>
                     <option>Technical Task</option>
                     <option>User Story</option>
@@ -73,7 +73,7 @@
             <p class="p_add_task"><span class="red">*</span>This field is required</p>
             <div class="buttons_container">
               <button type="button" onclick="clearInputs()" class="btn_bright">Clear <img src="../assets/img/icons/black_x.svg" alt="" /></button>
-              <button id="submit_task_button" type="submit" class="btn_dark">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
+              <button disabled id="submit_task_button" type="submit" class="btn_dark_disabled">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
             </div>
           </div>
         </form>
