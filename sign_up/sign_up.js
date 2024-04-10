@@ -70,5 +70,11 @@ function resetForm() {
   passwordConfirm.value = "";
 }
 
+function signUpSuccessfully() {
+  text = "You Signed Up successfully";
+  duration = Toast.LENGTH_SHORT;
 
+  toast = Toast.makeText(this /* MyActivity */, text, duration);
+  toast.show();
+}
 
