@@ -57,13 +57,9 @@ function updateArea(areaName, areaArray) {
     }
 }
 
-function startDragging(id) {
-    currentDraggedElement = id;
-}
-
 function generateTodoHTML(element) {
     return /*html*/ `
-        <div draggable="true" ondragstart="startDragging(${todos.indexOf(element)})" class="task">
+        <div draggable="true" ondragstart="startDragging(${todos.indexOf(element)}); highlightAreas()" ondragend="removeHighlightAreas()" class="task" id="task${todos.indexOf(element)}">
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[element.category]}">${element["category"]}</span>
             <span class="task-title">${element["title"]}</span>
             <span class="task-description">${element["description"]}</span>
@@ -79,6 +75,11 @@ function generateTodoHTML(element) {
             </div>
         </div>
     `;
+}
+
+function startDragging(id) {
+    currentDraggedElement = id;
+    dragCardHighlight(currentDraggedElement);
 }
 
 function createInitials(element) {
@@ -133,10 +134,32 @@ function highlight(id) {
     document.getElementById(id).classList.add("drag-area-highlight");
 }
 
+function highlightAreas() {
+    let dragAreas = document.getElementsByClassName('drag-area');
+    for (let i = 0; i < dragAreas.length; i++) {
+        dragAreas[i].classList.add("drag-area-highlight");
+    }
+}
+
+function removeHighlightAreas() {
+    let dragAreas = document.getElementsByClassName('drag-area');
+    for (let i = 0; i < dragAreas.length; i++) {
+        dragAreas[i].classList.remove("drag-area-highlight");
+    }
+}
+
 function removeHighlight(id) {
     document.getElementById(id).classList.remove("drag-area-highlight");
+}
+
+function dragCardHighlight(currentDraggedElement) {
+    document.getElementById(`task${currentDraggedElement}`).classList.add("on-drag-highlight");
 }
 
 async function storeAllTasks() {
     await setItem("remoteTasks", todos);
 }
+
+
+
+// create fullscreen tasks

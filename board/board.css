@@ -104,7 +104,11 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .drag-area-highlight {
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .on-drag-highlight {
+        rotate: 10deg;
     }
 
 .task {
