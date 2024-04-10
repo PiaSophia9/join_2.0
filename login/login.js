@@ -1,7 +1,10 @@
 let users = [];
+let emails = [];
+let passwords = [];
 
 async function init() {
   await loadAllUsers();
+  loadLogInLocalStorage();
 }
 
 async function loadAllUsers() {
@@ -26,9 +29,49 @@ async function login() {
   findUser();
 }
 
+function saveLogInDataInArray() {
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+  emails.push(email.value);
+  passwords.push(password.value);
+  
+}
+
+function saveLogInLocalStorage() {
+  emailsAsText  = JSON.stringify(emails);
+  passwordsAsText = JSON.stringify(passwords);
+  localStorage.setItem("userEmail" , emailsAsText );
+  localStorage.setItem("userPassword" , passwordsAsText );
+}
+
+function loadLogInLocalStorage() {
+  let emailsAsText =  localStorage.getItem("userEmail") ;
+  let  passwordsAsText =  localStorage.getItem("userPassword") ;
+  if (!emailsAsText || !passwordsAsText){return;}
+  else{
+    emails = JSON.parse(emailsAsText);
+    passwords = JSON.parse(passwordsAsText);
+  }
+}
+
 function checkBox() {
   let  policyCheckbox = document.getElementById("remember_me");
   policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
+  saveLogInDataInArray();
+  saveLogInLocalStorage();
+}
+
+function loadRememberMe() {
+  let email = document.getElementById("email");
+  email.value = emails[0];
+  let password = document.getElementById("password"); 
+  password.value= passwords[0];
+}
+
+// funktion wird noch nicht benutzt 
+function uncheckBox() {
+  let policyCheckbox = document.getElementById("remember_me");
+  policyCheckbox.src = "../assets/img/icons/checkbox.png";
 }
 
 function resetForm() {
@@ -38,16 +81,16 @@ function resetForm() {
 }
 
 // Validate user input before submitting the form - noch nicht fertig
-function validateInputs() {
-const urlParams = new URLSearchParams(window.location.search);
-const msg = urlParams.get("msg");
+// function validateInputs() {
+// const urlParams = new URLSearchParams(window.location.search);
+// const msg = urlParams.get("msg");
 
-if (msg) {
-  msgBox.innerHTML = msg;
-} else {
-  document.getElementById("msgBox").style.display = "none";
-}
-}
+// if (msg) {
+//   msgBox.innerHTML = msg;
+// } else {
+//   document.getElementById("msgBox").style.display = "none";
+// }
+// }
 
 
 function findUser() {
