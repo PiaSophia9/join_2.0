@@ -37,7 +37,7 @@
 
         <div class="login_remember_me">
 
-        <input type="image" src="../assets/img/icons/check_box_empty.png" id="accept_policy" onclick="checkBox(); return false;" />
+        <input type="image" src="../assets/img/icons/check_box_empty.png" id="accept_policy" onclick="acceptPolicy(); return false;" />
         <label for="accept_policy">I accept the  <a class="text_blue" href="#">Privacy Policy</a></label>
         </div>
         <div class="login_btns">
@@ -47,7 +47,13 @@
       </form>
     </div>
   </section>
-    <div id="msgBox"></div>
+
+    <div id="modal-bg" class="modal-bg">
+      <div id="modal-content" class="modal-content">
+        
+      </div>
+    </div>
+    
     <div class="login_footer">
       <a href="#">Privacy Policy</a>
       <a href="../legal_notice/legal_notice.html">Legal notice</a></div>
