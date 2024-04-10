@@ -52,6 +52,7 @@ function updateArea(areaName, areaArray) {
             const element = areaArray[index];
             document.getElementById(areaName).innerHTML += generateTodoHTML(element);
             document.getElementById(`prio-image${todos.indexOf(element)}`).innerHTML += generatePrioImage(element);
+            document.getElementById(`assigned-to${todos.indexOf(element)}`).innerHTML += createInitials(element);
         }
     }
 }
@@ -72,7 +73,7 @@ function generateTodoHTML(element) {
                 <span>Subtasks</span>
             </div>
             <div class="user-and-prio">
-                <div class="assigned-to">${createInitials(element)}</div>
+                <div class="assigned-to" id="assigned-to${todos.indexOf(element)}"></div>
                 <!-- image should change dynamically based on the priority -->
                 <div id="prio-image${todos.indexOf(element)}"></div>
             </div>
@@ -88,7 +89,10 @@ function createInitials(element) {
         let currentNameAsString = currentName.toString();
         let initials = currentNameAsString.match(/\b(\w)/g).join("");
         let firstTwoInitials = initials.slice(0, 2);
-        return firstTwoInitials;
+        
+        return /*html*/ `
+            <span class="assigned-user">${firstTwoInitials}</span>
+        `;
     }
 }
 
@@ -124,7 +128,6 @@ async function moveTo(status) {
     await loadAllTasks();
     updateHTML();
 }
-
 
 function highlight(id) {
     document.getElementById(id).classList.add("drag-area-highlight");
