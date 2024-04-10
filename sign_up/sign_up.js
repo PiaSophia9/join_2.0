@@ -2,6 +2,7 @@ let users = [];
 
 async function initUser() {
   await loadAllUsers();
+  signUpSuccessfullyInfo();
 }
 
 async function loadAllUsers() {
@@ -48,6 +49,7 @@ async function validatePassword(){
 }
 
 async function storeAllUsers() {
+  // users = [];
   await setItem("remoteUsers", users);
   console.log(users);
 }
@@ -57,10 +59,20 @@ function redirectToLogin() {
   window.location.href = targetUrl;
 }
 
-// checkbox  functionality - when adding "required" - does not work
+// checkbox  - mit Sophia besprechen 
+function acceptPolicy() {
+  checkBox();
+  // uncheckBox();
+}
+
 function checkBox() {
   let  policyCheckbox = document.getElementById("accept_policy");
   policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
+}
+
+function uncheckBox() {
+  let policyCheckbox = document.getElementById("accept_policy");
+  policyCheckbox.src = "../assets/img/icons/checkbox_empty.png";
 }
 
 function resetForm() {
@@ -70,5 +82,19 @@ function resetForm() {
   passwordConfirm.value = "";
 }
 
+function signUpSuccessfullyInfo() {
+  let modalBg = document.getElementById("modal-bg");
+  let modalContent = document.getElementById("modal-content");
+  modalContent.innerHTML = "";
+  modalBg.style.display = "block";
+  modalContent.innerHTML = `
+  <p id="msg">You Signed Up successfully</p>`;
+  signUpSuccessfullyAnimation(modalBg, modalContent);
+}
 
-
+function signUpSuccessfullyAnimation(modalBg, modalContent) {
+  setTimeout(() => {
+    modalContent.innerHTML = "";
+    modalBg.style.display = "none";
+  }, 1000);
+}
