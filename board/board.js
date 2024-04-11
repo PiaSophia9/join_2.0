@@ -52,7 +52,7 @@ function updateArea(areaName, areaArray) {
             const element = areaArray[index];
             document.getElementById(areaName).innerHTML += generateTodoHTML(element);
             document.getElementById(`prio-image${todos.indexOf(element)}`).innerHTML += generatePrioImage(element);
-            document.getElementById(`assigned-to${todos.indexOf(element)}`).innerHTML += createInitials(element);
+            createInitials(element);
         }
     }
 }
@@ -163,10 +163,11 @@ async function storeAllTasksBoard() {
 }
 
 // open addTask popup
-function openAddTask() {
+async function openAddTask() {
     let modalBg = document.getElementById('modal-bg');
     modalBg.style.width = '100%';
     modalBg.style.left = 0;
+    await loadAllTasks();
     createAndPushInitials();
     createAndPushColors();
     renderContactsToAssign();
