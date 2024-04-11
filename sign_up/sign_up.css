@@ -92,7 +92,7 @@ body {
     left: 30%;
     /* das Element um 50% seiner eigenen Breite nach links verschoben wird. Das Minuszeichen gibt an, dass die Verschiebung nach links erfolgt. */
     transform: translateX(-50%); 
-    animation: slide-up 0.5s ease forwards;
+    animation: slide-up 2s ease forwards;
 }
 
 @keyframes slide-up {
