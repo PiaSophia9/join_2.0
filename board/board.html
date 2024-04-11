@@ -13,7 +13,7 @@
     <script src="../add_task/add_tasks.js"></script>
 </head>
 
-<body onload="initBoard(); includeHTML(); init()">
+<body onload="initBoard(); includeHTML()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
         <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
@@ -28,9 +28,9 @@
                     </div>
                 </div>
                 <div class="area-titles">
-                    <div class="area-title"><h3>To do</h3><img src="../assets/img/icons/plus_button.png"></div>
-                    <div class="area-title"><h3>In Progress</h3><img src="../assets/img/icons/plus_button.png"></div>
-                    <div class="area-title"><h3>Await Feedback</h3><img src="../assets/img/icons/plus_button.png"></div>
+                    <div class="area-title"><h3>To do</h3><button onclick="openAddTask()" class="add-task-button"></button></div>
+                    <div class="area-title"><h3>In Progress</h3><button onclick="openAddTask()" class="add-task-button"></div>
+                    <div class="area-title"><h3>Await Feedback</h3><button onclick="openAddTask()" class="add-task-button"></div>
                     <div class="area-title"><h3>Done</h3></div>
                 </div>
             </div>

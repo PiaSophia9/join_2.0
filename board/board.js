@@ -86,14 +86,16 @@ function createInitials(element) {
     if(element["assignedTo"] == "") {
         return "";
     } else {
-        let currentName = element["assignedTo"];
-        let currentNameAsString = currentName.toString();
-        let initials = currentNameAsString.match(/\b(\w)/g).join("");
-        let firstTwoInitials = initials.slice(0, 2);
-        
-        return /*html*/ `
-            <span class="assigned-user">${firstTwoInitials}</span>
-        `;
+        for (let i = 0; i < element["assignedTo"].length; i++) {
+            let currentName = element["assignedTo"][i];
+            let currentNameAsString = currentName.toString();
+            let initials = currentNameAsString.match(/\b(\w)/g).join("");
+            let firstTwoInitials = initials.slice(0, 2);
+            
+            document.getElementById(`assigned-to${todos.indexOf(element)}`).innerHTML += /*html*/ `
+                <span class="assigned-user">${firstTwoInitials}</span>
+            `;
+        }
     }
 }
 
@@ -160,23 +162,31 @@ async function storeAllTasksBoard() {
     await setItem("remoteTasks", todos);
 }
 
-
 // open addTask popup
 function openAddTask() {
-    document.getElementById('modal-bg').style.display = "flex";
+    let modalBg = document.getElementById('modal-bg');
+    modalBg.style.width = '100%';
+    modalBg.style.left = 0;
+    createAndPushInitials();
+    createAndPushColors();
+    renderContactsToAssign();
+    showAssignedtoContacts();
 }
 
 function closeModal() {
-    let modal = document.getElementById('modal-bg');
-    modal.style.display = "none";
+    let modalBg = document.getElementById('modal-bg');
+    modalBg.style.width = 0;
+    modalBg.style.left = '100%';
 }
 
+
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.addEventListener('click', function(event) {
     let modalBg = document.getElementById('modal-bg');
     if (event.target == modalBg) {
-      modalBg.style.display = "none";
+        modalBg.style.width = 0;
+        modalBg.style.left = '100%';
     }
-}
+});
 
 // create fullscreen tasks

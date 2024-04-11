@@ -38,6 +38,9 @@
   background-position-x: calc(100% - 16px);
   font-size: 20px;
   line-height: 24px;
+  &:hover {
+    cursor: auto;
+  }
 }
 
 /* remove clear-button in input-field */
@@ -82,9 +85,17 @@ input[type="search"]::-webkit-search-cancel-button {
   box-sizing: border-box;
 }
 
-.area-title img {
+.add-task-button {
+  background-image: url(../assets/img/icons/plus_button.png);
+  background-position-x: right;
+  background-repeat: no-repeat;
   height: 24px;
   width: 24px;
+  background-color: #f6f7f8;
+  &:hover {
+    background-image: url(../assets/img/icons/plusbutton_2.png);
+    cursor: pointer;
+  }
 }
 
 .drag-areas {
@@ -190,16 +201,17 @@ input[type="search"]::-webkit-search-cancel-button {
 /* modal */
 /* The Modal (background) */
 .modal-bg {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  position: fixed;
+  bottom: 0;
+  left: 100%;
+  right: 0;
+  width: 0;
+  height: 100%;
+  transition: .2s ease-in-out;
+  z-index: 1;
 }
 
 /* Modal Content/Box */
@@ -207,12 +219,16 @@ input[type="search"]::-webkit-search-cancel-button {
   background-color: #fefefe;
   padding: 20px;
   border: 1px solid #888;
-  width: 75%;
+  width: 70%;
   max-width: 1000px;
   min-height: 650px;
   position: absolute;
-  left: 15%;
-  top: 15%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
 
 /* The Close Button */

@@ -38,6 +38,7 @@ async function addTask() {
   pushTask(task);
   await storeAllTasks();
   console.log(allTasks);
+  clearInputs();
 }
 
 function pushTask(task) {
@@ -72,12 +73,7 @@ function setPrioLow() {
 }
 
 function clearInputs() {
-  document.getElementById("taskTitle").value = "";
-  document.getElementById("taskDescription").value = "";
-  document.getElementById("taskDueDate").value = "";
-  document.getElementById("taskAssigned").value = "";
-  document.getElementById("taskCategory").value = "";
-  document.getElementById("taskSubtask").value = "";
+  document.getElementById("taskForm").reset();
 }
 
 // wenn alles leer ist soll nichts getan werden am anfang
@@ -131,27 +127,6 @@ let contactColors = [];
 
 // ${contactInfos[i].contacts}
 
-// let contact = {
-//   contacts: contacts,
-//   contactInitials: contactInitials,
-//   contactColors: contactColors
-//  }
-
-// contactInfos.push(contact)
-
-// let contactInfos = [
-// {
-//   contacts: contacts,
-//   contactInitials: contactInitials,
-//   contactColors: contactColors
-// },
-// {
-//   contacts: contacts,
-//   contactInitials: contactInitials,
-//   contactColors: contactColors
-// }
-// ]
-
 // let assignedContacts = [
 //   {
 //     assignedContactName: assignedContactName,
@@ -164,20 +139,8 @@ let contactColors = [];
 //     assignedContactColors: assignedContactColors
 //   }
 //   ]
-// let subtasks [
-//   {
-// nameSubtask: nameSubtask,
-// stausSubtask:
-// },
-// {
-//   nameSubtask:
-//   stausSubtask:
-//   },
-// ]
 
 let assignedContacts = [];
-
-// let assignedContacts = [];
 let assignedContactInitials = [];
 let assignedContactColors = [];
 
@@ -304,3 +267,81 @@ function generateInitialCircles(i) {
 
 // store and load contactInitials and contactColors
 // Make one array of objects instead of 3 arrays.
+
+// Subtasks
+
+// let subtasks [
+//   {
+// nameSubtask: nameSubtask,
+// stausSubtask:
+// },
+// {
+//   nameSubtask:
+//   stausSubtask:
+//   },
+// ]
+
+let subtasks = [];
+
+function showIconsSubtasks() {
+  if (document.getElementById("taskSubtask").value !== "") {
+    document.getElementById("iconsSubtasksContainer").classList.remove("d_none");
+  } else {
+    document.getElementById("iconsSubtasksContainer").classList.add("d_none");
+  }
+}
+
+function clearSubtask() {
+  document.getElementById("taskSubtask").value = "";
+  document.getElementById("iconsSubtasksContainer").classList.add("d_none");
+}
+
+function addSubtask() {
+  if (document.getElementById("taskSubtask").value) {
+    let nameSubtask = document.getElementById("taskSubtask").value;
+    let statusSubtask = "inProgress";
+
+    let subtask = {
+      nameSubtask: nameSubtask,
+      statusSubtask: statusSubtask,
+    };
+    subtasks.push(subtask);
+    console.log(subtasks);
+    clearSubtask();
+    renderSubtasks();
+  }
+  // Todo: If Create Task is clicked, subtasks needs to  be stored
+}
+
+function renderSubtasks() {
+  document.getElementById("subtasksRenderContainer").innerHTML = "";
+  for (let i = 0; i < subtasks.length; i++) {
+    let subtaskName = subtasks[i].nameSubtask;
+    document.getElementById("subtasksRenderContainer").innerHTML += generateSubtasks(i, subtaskName);
+  }
+}
+
+function generateSubtasks(i, subtaskName) {
+  return `<div onmouseover="showPenAndTrash(${i})" onmouseout="hidePenAndTrash(${i})" class="rendered_subtask">
+  <span>${subtaskName}</span>
+  <div id="containerPenAndTrash${i}" class="d_none">
+    <img id="pen${i}" src="../assets/img/icons/subtasks_pen.png" alt="">
+    <img src="../assets/img/icons/subtask_line.png" alt="">
+    <img onclick="deleteSubtask(${i})" id="trash${i}" src="../assets/img/icons/subtask_trash.png" alt="">
+  </div>
+</div>`;
+}
+
+function showPenAndTrash(i) {
+  document.getElementById(`containerPenAndTrash${i}`).classList.remove("d_none");
+}
+
+function hidePenAndTrash(i) {
+  document.getElementById(`containerPenAndTrash${i}`).classList.add("d_none");
+}
+
+function deleteSubtask(i) {
+  subtasks.splice(i, 1);
+  // Todo: push array in storage if add task is pressed
+  renderSubtasks();
+}

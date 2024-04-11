@@ -33,8 +33,15 @@ main {
 }
 
 .contacts_button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 80%;
   margin-top: 16px;
+  &:hover {
+    background-color: #29abe2;
+    box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
+  }
 }
 
 .headline_container {
@@ -74,4 +81,57 @@ main {
 
 .contact_name {
   font-size: 47px;
+}
+
+/* The Modal (background) */
+.modal-bg {
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  position: fixed;
+  bottom: 0;
+  left: 100%;
+  right: 0;
+  width: 0;
+  height: 100%;
+  transition: .5s ease;
+  z-index: 1;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+/* The Close Button */
+.close-modal {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@keyframes slide-in {
+  from {
+    display: none;
+  } to {
+    display: flex;
+  }
 }
