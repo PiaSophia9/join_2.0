@@ -23,6 +23,10 @@ button {
   font-family: "Inter", sans-serif;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .btn_dark {
   background-color: #091931;
   color: white;

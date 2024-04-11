@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
     <link rel="stylesheet" href="contacts.css" />
     <script src="contacts.js"></script>
+    <script src="../storage.js"></script>
     <title>Contacts</title>
   </head>
   <!-- Relevant for including header and sidebar: -->
@@ -19,7 +20,7 @@
       <main>
         <div class="contacts_main">
           <section class="left_section">
-            <button class="btn_dark_disabled contacts_button">Add new contact <img src="../assets/img/icons/person.png" alt="" /></button>
+            <button class="btn_dark_disabled contacts_button" onclick="openAddContact()">Add new contact <img src="../assets/img/icons/person_add.png" alt="" /></button>
           </section>
           <section class="right_section">
             <div class="headline_container">
@@ -41,6 +42,12 @@
           </section>
         </div>
       </main>
+      <div class="modal-bg" id="modal-bg">
+        <div class="modal-content" id="modal-content">
+          <span class="close-modal" onclick="closeAddContact()">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div>
+      </div>
     </div>
     <script src="../assets/templates/include_header_and_sidebar.js"></script>
   </body>

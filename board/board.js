@@ -164,7 +164,9 @@ async function storeAllTasksBoard() {
 
 // open addTask popup
 function openAddTask() {
-    document.getElementById('modal-bg').style.display = "flex";
+    let modalBg = document.getElementById('modal-bg');
+    modalBg.style.width = '100%';
+    modalBg.style.left = 0;
     createAndPushInitials();
     createAndPushColors();
     renderContactsToAssign();
@@ -172,15 +174,18 @@ function openAddTask() {
 }
 
 function closeModal() {
-    let modal = document.getElementById('modal-bg');
-    modal.style.display = "none";
+    let modalBg = document.getElementById('modal-bg');
+    modalBg.style.width = 0;
+    modalBg.style.left = '100%';
 }
+
 
 // When the user clicks anywhere outside of the modal, close it
 window.addEventListener('click', function(event) {
     let modalBg = document.getElementById('modal-bg');
     if (event.target == modalBg) {
-      modalBg.style.display = "none";
+        modalBg.style.width = 0;
+        modalBg.style.left = '100%';
     }
 });
 
