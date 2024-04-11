@@ -1,0 +1,51 @@
+// let users = [
+//   {
+//     userName: userName,
+//     userPassword: userPassword,
+//     userInitials: userInitials,
+//     userColor: userColor,
+//   },
+//   {
+//     userName: userName,
+//     userPassword: userPassword,
+//     userInitials: userInitials,
+//     userColor: userColor,
+//   },
+// ];
+
+let users = [];
+
+let colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
+
+function createUser() {
+  let userName = document.getElementById("PLACEHOLDER-ID").value;
+  let userMail = document.getElementById("PLACEHOLDER-ID").value;
+  let userPassword = document.getElementById("PLACEHOLDER-ID").value;
+  let userInitials = createInitials(userName);
+  let userColor = createColors();
+
+  let user = {
+    userName: userName,
+    userMail: userMail,
+    userPassword: userPassword,
+    userInitials: userInitials,
+    userColor: userColor,
+  };
+
+  users.push(user);
+}
+
+function createInitials(userName) {
+  let userNameAsString = userName.toString();
+  let initials = userNameAsString.match(/\b(\w)/g).join("");
+  let firstTwoInitials = initials.slice(0, 2);
+  return firstTwoInitials;
+}
+
+function createColors() {
+  let color = colors[generateRandomNumber()];
+}
+
+function generateRandomNumber() {
+  return Math.floor(Math.random() * 15);
+}

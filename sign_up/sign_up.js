@@ -1,8 +1,9 @@
 let users = [];
 
 async function initUser() {
+  resetForm();
   await loadAllUsers();
-  signUpSuccessfullyInfo();
+  // signUpSuccessfullyInfo();
 }
 
 async function loadAllUsers() {
@@ -24,8 +25,8 @@ async function addUser() {
     "password": password.value,
     "passwordConfirm": passwordConfirm.value
   };
-  pushUsers(user);
-  await validatePassword();
+  await validatePassword(user);
+  
 }
 
 function pushUsers(user) {
@@ -33,7 +34,7 @@ function pushUsers(user) {
 }
 
 // password validation // 
-async function validatePassword(){
+async function validatePassword(user){
   let passwordInput = document.getElementById("password");
   let passwordConfirmInput = document.getElementById("password_confirm");
   let errorMessage = document.getElementById('passwordError');
@@ -41,11 +42,18 @@ async function validatePassword(){
     errorMessage.style.display = 'block';
     errorMessage.style.color = '#ff7f8e';
     passwordConfirmInput.style.borderColor = '#ff7f8e';
+    errorMessage.textContent = 'Passwords do not match';
+    // users = [];
     return false;
-  } 
+    passwordConfirmInput = '';
+  } else {
+    pushUsers(user);
   errorMessage.textContent = ''; // Fehlermeldung zurücksetzen
   await storeAllUsers();
+  // signUpSuccessfullyInfo();
   redirectToLogin();
+  resetForm();
+  }
 }
 
 async function storeAllUsers() {
@@ -76,6 +84,10 @@ function uncheckBox() {
 }
 
 function resetForm() {
+  let userName = document.getElementById("username");
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+  let passwordConfirm = document.getElementById("password_confirm");
   userName.value = "";
   email.value = "";
   password.value = "";
@@ -88,13 +100,11 @@ function signUpSuccessfullyInfo() {
   modalContent.innerHTML = "";
   modalBg.style.display = "block";
   modalContent.innerHTML = `
-  <p id="msg">You Signed Up successfully</p>`;
-  signUpSuccessfullyAnimation(modalBg, modalContent);
-}
-
-function signUpSuccessfullyAnimation(modalBg, modalContent) {
+  <span id="msg">You Signed Up successfully</span>`;
   setTimeout(() => {
     modalContent.innerHTML = "";
     modalBg.style.display = "none";
-  }, 1000);
+  }, 3000);
 }
+
+
