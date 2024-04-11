@@ -1,4 +1,5 @@
 let users = [];
+let colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 
 async function initUser() {
   resetForm();
@@ -14,16 +15,18 @@ async function loadAllUsers() {
 }
 
 async function addUser() {
-  let userName = document.getElementById("username");
-  let email = document.getElementById("email");
-  let password = document.getElementById("password");
-  let passwordConfirm = document.getElementById("password_confirm");
+  let userName = document.getElementById("username").value;
+  let userEmail = document.getElementById("email").value;
+  let userPassword = document.getElementById("password").value;
+  let userInitials = createInitials(userName);
+  let userColor = createColors();
 
   let user = {
-    "name": userName.value,
-    "email": email.value,
-    "password": password.value,
-    "passwordConfirm": passwordConfirm.value
+    userName: userName,
+    userEmail: userEmail,
+    userPassword: userPassword,
+    userInitials: userInitials,
+    userColor: userColor,
   };
   await validatePassword(user);
   
@@ -33,6 +36,24 @@ function pushUsers(user) {
   users.push(user); 
 }
 
+function disOrEnableButton() {
+  // If all those three have value...
+  if (document.getElementById("username").value == "" || document.getElementById("email").value == "" || document.getElementById("password").value == "" || document.getElementById("password_confirm").value == "") {
+    // In the beginning the button is disabled and nothin has to be done
+    if (document.getElementById("registerBtn").hasAttribute("disabled")) {
+      // This else-statement is used if the required inputs had values so that the button was enabled, but then one input was deleted. In this case the disabled attribute has to be set again and the button has to get back the css of the enabled button.
+    } else {
+      document.getElementById("registerBtn").setAttribute("disabled", "disabled");
+      document.getElementById("registerBtn").classList.add("btn_dark_disabled");
+      document.getElementById("registerBtn").classList.remove("btn_dark");
+    }
+    // If all inputs have values, the button is enabled.
+  } else {
+    document.getElementById("registerBtn").removeAttribute("disabled");
+    document.getElementById("registerBtn").classList.remove("btn_dark_disabled");
+    document.getElementById("registerBtn").classList.add("btn_dark");
+  }
+}
 // password validation // 
 async function validatePassword(user){
   let passwordInput = document.getElementById("password");
@@ -45,14 +66,12 @@ async function validatePassword(user){
     errorMessage.textContent = 'Passwords do not match';
     // users = [];
     return false;
-    passwordConfirmInput = '';
   } else {
     pushUsers(user);
   errorMessage.textContent = ''; // Fehlermeldung zurücksetzen
   await storeAllUsers();
   // signUpSuccessfullyInfo();
   redirectToLogin();
-  resetForm();
   }
 }
 
@@ -68,30 +87,22 @@ function redirectToLogin() {
 }
 
 // checkbox  - mit Sophia besprechen 
-function acceptPolicy() {
-  checkBox();
-  // uncheckBox();
-}
+// function acceptPolicy() {
+//   checkBox();
+// }
 
-function checkBox() {
-  let  policyCheckbox = document.getElementById("accept_policy");
-  policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
-}
+// function checkBox() {
+//   let  policyCheckbox = document.getElementById("accept_policy");
+//   policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
+// }
 
-function uncheckBox() {
-  let policyCheckbox = document.getElementById("accept_policy");
-  policyCheckbox.src = "../assets/img/icons/checkbox_empty.png";
-}
+// function uncheckBox() {
+//   let policyCheckbox = document.getElementById("accept_policy");
+//   policyCheckbox.src = "../assets/img/icons/checkbox_empty.png";
+// }
 
 function resetForm() {
-  let userName = document.getElementById("username");
-  let email = document.getElementById("email");
-  let password = document.getElementById("password");
-  let passwordConfirm = document.getElementById("password_confirm");
-  userName.value = "";
-  email.value = "";
-  password.value = "";
-  passwordConfirm.value = "";
+  document.getElementById("signUpForm").reset();
 }
 
 function signUpSuccessfullyInfo() {
@@ -107,4 +118,18 @@ function signUpSuccessfullyInfo() {
   }, 3000);
 }
 
+function createInitials(userName) {
+  let userNameAsString = userName.toString();
+  let initials = userNameAsString.match(/\b(\w)/g).join("");
+  let firstTwoInitials = initials.slice(0, 2);
+  return firstTwoInitials;
+}
+
+function createColors() {
+  let color = colors[generateRandomNumber()];
+}
+
+function generateRandomNumber() {
+  return Math.floor(Math.random() * 15);
+}
 

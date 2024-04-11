@@ -1,0 +1,45 @@
+
+h1 {
+    font-size: 61px;
+}
+.font_27 {
+    font-size: 27px;
+    font-weight: 400;
+}
+.headline_container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 80%;
+}
+.summary_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.right {
+    width: 60%;
+}
+.left {
+    width: 40%;
+}
+.task_container {
+    display: flex;
+    justify-content: center;
+}
+.urgent_task {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.deadline_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.overview_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
