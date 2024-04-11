@@ -37,6 +37,7 @@ async function addTask() {
 
   pushTask(task);
   await storeAllTasks();
+  console.log(allTasks);
 }
 
 function pushTask(task) {
@@ -124,26 +125,51 @@ window.onclick = function (event) {
 
 // Contacts to assign
 
-let contacts = ["Sofia Müller", "Anton Mayer", "Anja Schulz", "Benedikt Ziegler", "David Eisenberg"];
+let contacts = ["Sofia", "Anton Mayer", "Anja Schulz", "Benedikt Ziegler", "David Eisenberg"];
 let contactInitials = [];
 let contactColors = [];
 
+// ${contactInfos[i].contacts}
+
+// let contact = {
+//   contacts: contacts,
+//   contactInitials: contactInitials,
+//   contactColors: contactColors
+//  }
+
+// contactInfos.push(contact)
+
 // let contactInfos = [
 // {
-//   contacts: contacts[i],
-//   contactInitials: contactInitials[i],
-//   contactColors: contactColors[i]
+//   contacts: contacts,
+//   contactInitials: contactInitials,
+//   contactColors: contactColors
 // },
 // {
-//   contacts: contacts[i],
-//   contactInitials: contactInitials[i],
-//   contactColors: contactColors[i]
+//   contacts: contacts,
+//   contactInitials: contactInitials,
+//   contactColors: contactColors
 // }
 // ]
 
+// let assignedContacts = [
+//   {
+//     assignedContactName: assignedContactName,
+//     assignedContactInitials: assignedContactInitials,
+//     assignedContactColors: assignedContactColors
+//   },
+//   {
+//     assignedContactName: assignedContactName,
+//     assignedContactInitials: assignedContactInitials,
+//     assignedContactColors: assignedContactColors
+//   }
+//   ]
+
 let assignedContacts = [];
-let assignedContactInitials = [];
-let assignedContactColors = [];
+
+// let assignedContacts = [];
+// let assignedContactInitials = [];
+// let assignedContactColors = [];
 
 let colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 
