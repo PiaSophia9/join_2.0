@@ -25,9 +25,26 @@ async function loadAllUsers() {
 
 // wird gerade nicht benutzt
 async function login() {
-  registerBtn.disabled = true;
-  resetForm();
   findUser();
+}
+
+function disOrEnableButton() {
+  // If all those two have value...
+  if (document.getElementById("email").value == "" || document.getElementById("password").value == "") {
+    // In the beginning the button is disabled and nothin has to be done
+    if (document.getElementById("registerBtn").hasAttribute("disabled")) {
+      // This else-statement is used if the required inputs had values so that the button was enabled, but then one input was deleted. In this case the disabled attribute has to be set again and the button has to get back the css of the enabled button.
+    } else {
+      document.getElementById("registerBtn").setAttribute("disabled", "disabled");
+      document.getElementById("registerBtn").classList.add("btn_dark_disabled");
+      document.getElementById("registerBtn").classList.remove("btn_dark");
+    }
+    // If all inputs have values, the button is enabled.
+  } else {
+    document.getElementById("registerBtn").removeAttribute("disabled");
+    document.getElementById("registerBtn").classList.remove("btn_dark_disabled");
+    document.getElementById("registerBtn").classList.add("btn_dark");
+  }
 }
 
 function saveLogInDataInArray() {
@@ -38,11 +55,7 @@ function saveLogInDataInArray() {
   
 }
 function resetForm() {
-  let email = document.getElementById("email");
-  let password = document.getElementById("password");
-  email.value = "";
-  password.value = "";
-  registerBtn.disabled = false;
+document.getElementById('logInForm').reset();
 }
 
 function saveLogInLocalStorage() {
@@ -113,6 +126,7 @@ function findUser() {
   } else {
     // Please sing up  / Passwort falsch / Email nicht vorhanden
     console.log("user muss sich noch registrieren");
+    //redirect to SignUp.html
   }
 }
 

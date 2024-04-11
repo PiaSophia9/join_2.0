@@ -19,15 +19,15 @@
     </div>
     <section class="login_section">
     <div class="login_container">
-      <form class="login_form"  onsubmit="findUser(); return false;">
+      <form id="logInForm" class="login_form"  onsubmit="login(); return false;">
         <div class="login_form_head">
           <h1>Log in</h1>
           <img src="../assets/img/line.png" alt="line">
         </div>
 
         <div class="login_input">
-          <input required type="email" id="email" placeholder="Email" class="icon_mail" onclick="loadRememberMe()" />
-          <input required type="password" minlength="3" id="password" placeholder="Password" class="icon_lock"/>
+          <input onkeyup="disOrEnableButton()" required type="email" id="email" placeholder="Email" class="icon_mail" onclick="loadRememberMe()" />
+          <input onkeyup="disOrEnableButton()" required type="password" minlength="3" id="password" placeholder="Password" class="icon_lock"/>
         </div>
 
         <div class="login_remember_me">
@@ -36,7 +36,7 @@
         
         </div>
         <div class="login_btns">
-          <button class="btn_dark" id="registerBtn" type="submit">Log in</button>
+          <button disabled class="btn_dark_disabled" id="registerBtn" type="submit">Log in</button>
           <button class="btn_bright" onclick="window.location.href = '../summary/summary.html';">Guest Log in</button>
         </div>
       </form>
