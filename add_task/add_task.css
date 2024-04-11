@@ -79,6 +79,7 @@
   font-size: 20px;
   min-height: 48px;
   font-family: "Inter", sans-serif;
+  display: flex;
 }
 
 .date {
@@ -119,12 +120,58 @@
   color: red;
 }
 
-.subtask_add_task {
+/* .subtask_add_task {
+  position: relative;
   padding-right: 25px;
-  background: url(../assets/img/icons/close.png) no-repeat right;
+
   background-size: 14px;
   background-position-x: calc(100% - 16px);
 }
+
+.x_in_subtask {
+  position: absolute;
+  background: url(../assets/img/icons/close.png) no-repeat right;
+}
+
+.check_mark_subtask {
+  position: absolute;
+} */
+
+.subtasks_input {
+  flex: 1;
+  padding: 0;
+  border: none;
+  font-size: 16px;
+  font-family: "Inter", sans-serif;
+}
+
+.subtask_container {
+  background-color: white;
+  padding-right: 0;
+  display: flex;
+  align-items: center;
+}
+
+.subtask_image {
+  width: 24px;
+  height: 24px;
+}
+
+.subtask_line {
+  height: 24px;
+}
+
+/* .input {
+  display: flex;
+  gap: 1rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 0.5rem 0;
+} */
+
+/* input {
+  all: unset;
+} */
 
 /* dropdown */
 
