@@ -9,3 +9,24 @@ async function selectAssignedContact(i) {
   }
   await storeAssignedContacts();
 }
+
+let contact = {
+  contacts: contacts,
+  contactInitials: contactInitials,
+  contactColors: contactColors,
+};
+
+contactInfos.push(contact);
+
+let contactInfos = [
+  {
+    contacts: contacts,
+    contactInitials: contactInitials,
+    contactColors: contactColors,
+  },
+  {
+    contacts: contacts,
+    contactInitials: contactInitials,
+    contactColors: contactColors,
+  },
+];
