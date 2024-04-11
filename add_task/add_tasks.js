@@ -38,6 +38,7 @@ async function addTask() {
   pushTask(task);
   await storeAllTasks();
   console.log(allTasks);
+  clearInputs();
 }
 
 function pushTask(task) {
@@ -72,12 +73,7 @@ function setPrioLow() {
 }
 
 function clearInputs() {
-  document.getElementById("taskTitle").value = "";
-  document.getElementById("taskDescription").value = "";
-  document.getElementById("taskDueDate").value = "";
-  document.getElementById("taskAssigned").value = "";
-  document.getElementById("taskCategory").value = "";
-  document.getElementById("taskSubtask").value = "";
+  document.getElementById("taskForm").reset();
 }
 
 // wenn alles leer ist soll nichts getan werden am anfang
@@ -164,16 +160,17 @@ let contactColors = [];
 //     assignedContactColors: assignedContactColors
 //   }
 //   ]
-let subtasks [
-  {
-nameSubtask: nameSubtask,
-stausSubtask:
-},
-{
-  nameSubtask:
-  stausSubtask:
-  },
-]
+
+// let subtasks [
+//   {
+// nameSubtask: nameSubtask,
+// stausSubtask:
+// },
+// {
+//   nameSubtask:
+//   stausSubtask:
+//   },
+// ]
 
 let assignedContacts = [];
 
