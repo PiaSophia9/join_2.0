@@ -164,16 +164,16 @@ let contactColors = [];
 //     assignedContactColors: assignedContactColors
 //   }
 //   ]
-let subtasks [
-  {
-nameSubtask: nameSubtask,
-stausSubtask:
-},
-{
-  nameSubtask:
-  stausSubtask:
-  },
-]
+// let subtasks [
+//   {
+// nameSubtask: nameSubtask,
+// stausSubtask:
+// },
+// {
+//   nameSubtask:
+//   stausSubtask:
+//   },
+// ]
 
 let assignedContacts = [];
 
