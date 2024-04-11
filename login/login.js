@@ -5,6 +5,7 @@ let passwords = [];
 async function init() {
   await loadAllUsers();
   loadLogInLocalStorage();
+  resetForm();
 }
 
 async function loadAllUsers() {
@@ -36,6 +37,13 @@ function saveLogInDataInArray() {
   passwords.push(password.value);
   
 }
+function resetForm() {
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+  email.value = "";
+  password.value = "";
+  registerBtn.disabled = false;
+}
 
 function saveLogInLocalStorage() {
   emailsAsText  = JSON.stringify(emails);
@@ -61,12 +69,17 @@ function checkBox() {
   saveLogInLocalStorage();
 }
 
+//funktioniert noch nicht richtig // eckige klammern und "" müssen entfernt werden
 function loadRememberMe() {
   let email = document.getElementById("email");
-  email.value = emails[0];
-  let password = document.getElementById("password"); 
-  password.value= passwords[0];
+  let userEmail = localStorage.getItem("userEmail"); 
+  email.value = userEmail; 
+
+  let password = document.getElementById("password");
+  let userPassword = localStorage.getItem("userPassword"); 
+  password.value = userPassword; 
 }
+
 
 // funktion wird noch nicht benutzt 
 function uncheckBox() {
@@ -74,11 +87,7 @@ function uncheckBox() {
   policyCheckbox.src = "../assets/img/icons/checkbox.png";
 }
 
-function resetForm() {
-  email.value = "";
-  password.value = "";
-  registerBtn.disabled = false;
-}
+
 
 // Validate user input before submitting the form - noch nicht fertig
 // function validateInputs() {
