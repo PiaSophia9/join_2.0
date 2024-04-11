@@ -272,6 +272,27 @@
   gap: 8px;
 }
 
+input:focus {
+  outline: none;
+}
+
+.icons_subtasks_container {
+  display: flex;
+}
+
+.d_none {
+  display: none;
+}
+
+#subtasksRenderContainer {
+  width: 100%;
+}
+
+.rendered_subtask {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 1030px) {
   .upper_part {
     flex-direction: column;

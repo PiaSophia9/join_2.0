@@ -49,13 +49,25 @@
           </div>
           <div>
             <label class="label_add_task">Subtasks</label>
-            <input id="taskSubtask" class="width_form_elements subtask_add_task" type="text" placeholder="Add new subtask" />
-            <!-- <div class="width_form_elements subtask_container">
-              <input id="taskSubtask" class="subtasks_input" type="text" placeholder="Add new subtask" />
-              <img class="subtask_image" src="../assets/img/icons/subtask_x.png" alt="">
-              <img class="subtask_line" src="../assets/img/icons/subtask_line.png" alt="">
-              <img class="subtask_image" src="../assets/img/icons/subtask_check.png" alt="">
-            </div> -->
+            <!-- <input id="taskSubtask" class="width_form_elements subtask_add_task" type="text" placeholder="Add new subtask" /> -->
+            <div class="width_form_elements subtask_container">
+              <input oninput="showIconsSubtasks()" id="taskSubtask" class="subtasks_input" type="text" placeholder="Add new subtask" />
+              <div id="iconsSubtasksContainer" class="icons_subtasks_container d_none">
+                <img onclick="clearSubtask()" class="subtask_image" src="../assets/img/icons/subtask_x.png" alt="">
+                <img class="subtask_line" src="../assets/img/icons/subtask_line.png" alt="">
+                <img onclick="addSubtask()" class="subtask_image" src="../assets/img/icons/subtask_check.png" alt="">
+              </div>
+            </div>
+              <div id="subtasksRenderContainer">
+                <!-- <div onmouseover="showPenAndTrash()" onmouseout="hidePenAndTrash()" class="rendered_subtask">
+                  <span>Subtask</span>
+                  <div id="containerPenAndTrash" class="d_none">
+                    <img src="../assets/img/icons/subtasks_pen.png" alt="">
+                    <img src="../assets/img/icons/subtask_line.png" alt="">
+                    <img src="../assets/img/icons/subtask_trash.png" alt="">
+                  </div>
+                </div> -->
+              </div>
           </div>
         </section>
       </div>
