@@ -15,77 +15,7 @@
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
       <main class="add_task_main">
-        <form id="taskForm" onsubmit="addTask(); return false;">
-          <div>
-            <h1>Add Task</h1>
-
-            <div class="upper_part">
-              <!-- left section----------------------- -->
-              <section class="left_section">
-                <div>
-                  <label class="label_add_task">Title<span class="red">*</span></label>
-                  <input onkeyup="disOrEnableButton()" required id="taskTitle" class="width_form_elements" type="text" placeholder="Enter a title" />
-                </div>
-                <div>
-                  <label class="label_add_task">Description</label>
-                  <textarea id="taskDescription" class="width_form_elements textarea_add_task" name="" id="" cols="30" rows="10" placeholder="Enter a Description"></textarea>
-                </div>
-                
-                <div class="dropdown">
-                  <label class="label_add_task">Assigned to</label>
-                  <button type="button" onclick="myFunction()" class="dropbtn">
-                    Select contacts to assign <img class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
-                  </button>
-                  <div id="myDropdown" class="dropdown-content">
-                </div>
-                <div id="assignedtoContactsContainer" class="assignedto_contacts_container"></div>
-              </section>
-
-              <hr class="line" />
-              <!-- right section----------------------- -->
-              <section class="right_section">
-                <div>
-                  <label class="label_add_task">Due date<span class="red">*</span></label>
-                  <input onchange="disOrEnableButton()" required id="taskDueDate" class="width_form_elements date" type="date" placeholder="dd/mm/yyyy" />
-                </div>
-                <div>
-                  <label class="label_add_task">Prio</label>
-                  <div class="prio_buttons_container">
-                    <button onclick="setPrioUrgent()" type="button" class="prio_buttons">Urgent <img class="urgent_image" src="../assets/img/icons/prio_urgent_red.svg" alt="" /></button>
-                    <button onclick="setPrioMedium()" type="button" class="prio_buttons">Medium <img class="medium_img" src="../assets/img/icons/prio_medium_orange.svg" alt="" /></button>
-                    <button onclick="setPrioLow()" type="button" class="prio_buttons">Low <img class="low_image" src="../assets/img/icons/prio_kow_green.svg" alt="" /></button>
-                  </div>
-                </div>
-                <div>
-                  <label required class="label_add_task">Category<span class="red">*</span></label>
-                  <select onclick="disOrEnableButton()" id="taskCategory" class="width_form_elements" name="category">
-                    <option value="" disabled selected>Select task category</option>
-                    <option>Technical Task</option>
-                    <option>User Story</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="label_add_task">Subtasks</label>
-                  <input id="taskSubtask" class="width_form_elements subtask_add_task" type="text" placeholder="Add new subtask" />
-                  <div class="width_form_elements subtask_container">
-                    <input class="subtasks_input" type="text" placeholder="Add new subtask" />
-                    <img class="subtask_image" src="../assets/img/icons/subtask_x.png" alt="">
-                    <img class="subtask_line" src="../assets/img/icons/subtask_line.png" alt="">
-                    <img class="subtask_image" src="../assets/img/icons/subtask_check.png" alt="">
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-          <!-- lower part----------------------- -->
-          <div class="lower_part">
-            <p class="p_add_task"><span class="red">*</span>This field is required</p>
-            <div class="buttons_container">
-              <button type="button" onclick="clearInputs()" class="btn_bright">Clear <img src="../assets/img/icons/black_x.svg" alt="" /></button>
-              <button disabled id="submit_task_button" type="submit" class="btn_dark_disabled">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
-            </div>
-          </div>
-        </form>
+        <div w3-include-html="add_task_template.html"></div>
       </main>
     </div>
     <script src="../assets/templates/include_header_and_sidebar.js"></script>

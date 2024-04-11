@@ -8,14 +8,14 @@ const PRIO_IMAGE_URLS = {
 let currentDraggedElement;
 
 async function initBoard() {
-    await loadAllTasks();
+    await loadAllTasksBoard();
     updateHTML();
 }
 
 /**
  * This function loads the array "allTasks" from the server and assign it to the array "todos"
  */
-async function loadAllTasks() {
+async function loadAllTasksBoard() {
     let response = await getItem('remoteTasks');
     todos = JSON.parse(response);
 }
@@ -124,9 +124,9 @@ function allowDrop(event) {
 async function moveTo(status) {
     todos[currentDraggedElement]["status"] = status;
     // update status in database
-    await storeAllTasks();
+    await storeAllTasksBoard();
     // load tasks from database
-    await loadAllTasks();
+    await loadAllTasksBoard();
     updateHTML();
 }
 
@@ -156,10 +156,27 @@ function dragCardHighlight(currentDraggedElement) {
     document.getElementById(`task${currentDraggedElement}`).classList.add("on-drag-highlight");
 }
 
-async function storeAllTasks() {
+async function storeAllTasksBoard() {
     await setItem("remoteTasks", todos);
 }
 
 
+// open addTask popup
+function openAddTask() {
+    document.getElementById('modal-bg').style.display = "flex";
+}
+
+function closeModal() {
+    let modal = document.getElementById('modal-bg');
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    let modalBg = document.getElementById('modal-bg');
+    if (event.target == modalBg) {
+      modalBg.style.display = "none";
+    }
+}
 
 // create fullscreen tasks
