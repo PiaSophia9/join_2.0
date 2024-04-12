@@ -74,3 +74,8 @@ h2 {
     box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
     padding: 20px 40px 20px 40px;
 }
+#todaysDate {
+    font-size: 21px;
+    font-weight: 700;
+    color: #2a3647;
+}

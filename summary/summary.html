@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
     <title>Summary</title>
   </head>
-  <body onload="includeHTML()">
+  <body onload="includeHTML(), loadAllUsers()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
@@ -39,7 +39,7 @@
               </div>
               <img src="../assets/img/icons/summary_vertical_line.png" alt="line">
               <div>
-                <p>Date</p>
+                <p id="todaysDate"></p>
                 <span>Upcoming Deadline</span>
               </div>
             </div>
@@ -53,11 +53,15 @@
 
           <section class="left">
             <h2>Good morning</h2>
+            <p id="logged_user"></p>
           </section>
         </div>
       </main>
     </div>
     <script src="summary.js"></script>
     <script src="../assets/templates/include_header_and_sidebar.js"></script>
+    <script src="../storage.js"></script>
+    <script src="../login/login.js"></script>
+    <script src="../sign_up/sign_up.js"></script>
   </body>
 </html>
