@@ -2,10 +2,10 @@ let users = [];
 let emails = [];
 let passwords = [];
 
-async function init() {
+async function initLogIn() {
   await loadAllUsers();
   loadLogInLocalStorage();
-  resetForm();
+  resetLogInForm();
 }
 
 async function loadAllUsers() {
@@ -28,7 +28,7 @@ async function login() {
   findUser();
 }
 
-function disOrEnableButton() {
+function disOrEnableLogInBtn() {
   // If all those two have value...
   if (document.getElementById("email").value == "" || document.getElementById("password").value == "") {
     // In the beginning the button is disabled and nothin has to be done
@@ -54,7 +54,7 @@ function saveLogInDataInArray() {
   passwords.push(password.value);
   
 }
-function resetForm() {
+function resetLogInForm() {
 document.getElementById('logInForm').reset();
 }
 

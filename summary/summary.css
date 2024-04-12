@@ -2,6 +2,11 @@
 h1 {
     font-size: 61px;
 }
+h2 {
+    font-size: 48px;
+    font-weight: 500;
+    color: #2a3647;
+}
 .font_27 {
     font-size: 27px;
     font-weight: 400;
@@ -14,32 +19,58 @@ h1 {
 }
 .summary_container {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     gap: 20px;
 }
 .right {
-    width: 60%;
+    width: 560px;
+    margin-right: 88px;
 }
 .left {
-    width: 40%;
+    width: 385px;
 }
 .task_container {
     display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+.tasks {
+    width: 264px;
+    height: 168px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
+    display: flex;
     justify-content: center;
+    align-items: center;
 }
 .urgent_task {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    
 }
 .deadline_container {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    height: 168px;
+    width: 560px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
+    margin-bottom: 32px;
 }
 .overview_container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    width: 560px;
+}
+.overview_img {
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
+    padding: 20px 40px 20px 40px;
 }
