@@ -12,15 +12,15 @@
     <title>Contacts</title>
   </head>
   <!-- Relevant for including header and sidebar: -->
-  <body onload="includeHTML(); loadContacts()">
+  <body onload="initContacts()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
-
       <main>
         <div class="contacts_main">
           <section class="left_section">
             <button class="btn_dark_disabled contacts_button" onclick="openAddContact()">Add new contact <img src="../assets/img/icons/person_add.png" alt="" /></button>
+            <div class="all-contacts" id="all-contacts"></div>
           </section>
           <section class="right_section">
             <div class="headline_container">

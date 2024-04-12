@@ -1,5 +1,12 @@
 let contacts = [];
-let contactColors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
+const contactColors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
+let sortedStartingLetters = [];
+
+async function initContacts() {
+    includeHTML();
+    await loadContacts();
+    displayContacts();
+}
 
 async function loadContacts() {
     try {
@@ -9,6 +16,42 @@ async function loadContacts() {
     } catch (error) {
         console.log('No contacts stored in database');
     }
+}
+
+function displayContacts() {
+    let contactsContainer = document.getElementById('all-contacts');
+    sortContactsByInitials();
+
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i];
+        contactsContainer.innerHTML += createContactAlphabet(contact);
+        for (let j = 0; j < contacts.length; j++) {
+            let contactsByLetterContainer = document.getElementById('contacts-by-letter');
+            contactsByLetterContainer.innerHTML += /*html*/ `
+                <p>${contact.contactName}</p>
+            `;
+        }
+    }
+}
+
+function sortContactsByInitials() {
+    contacts.sort(function (a, b) {
+        if (a.contactName < b.contactName) {
+          return -1;
+        }
+        if (a.contactName > b.contactName) {
+          return 1;
+        }
+        return 0;
+    });
+    console.log(contacts);
+}
+
+function createContactAlphabet(contact) {
+    return /*html*/ `
+        <h2>${contact.contactName[0]}</h2>
+        <div id="contacts-by-letter"></div>
+    `;
 }
 
 async function addContact() {
@@ -28,6 +71,8 @@ async function addContact() {
     console.log(typeof(contacts));
     contacts.push(contact);
     storeContacts();
+    // clear contact form
+    // show toast message that contact was successfully created
 }
 
 async function storeContacts() {
