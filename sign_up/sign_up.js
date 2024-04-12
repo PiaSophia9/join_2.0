@@ -64,7 +64,6 @@ async function validatePassword(user){
     errorMessage.style.color = '#ff7f8e';
     passwordConfirmInput.style.borderColor = '#ff7f8e';
     errorMessage.textContent = 'Passwords do not match';
-    // users = [];
     return false;
   } else {
     pushUsers(user);
@@ -92,6 +91,9 @@ function redirectToLogin() {
 // }
 
 // function checkBox() {
+//   if (document.getElementById("accept_policy").src.endsWith("/checkbox_filled.png")) {
+
+//   }
 //   let  policyCheckbox = document.getElementById("accept_policy");
 //   policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
 // }
@@ -127,6 +129,7 @@ function createInitials(userName) {
 
 function createColors() {
   let color = colors[generateRandomNumber()];
+  return color;
 }
 
 function generateRandomNumber() {

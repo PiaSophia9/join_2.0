@@ -1,4 +1,5 @@
 let users = [];
+let loggedInUserId = "";
 let emails = [];
 let passwords = [];
 
@@ -23,10 +24,11 @@ async function loadAllUsers() {
 //   }
 // }
 
-// wird gerade nicht benutzt
+
 async function login() {
   findUser();
 }
+
 
 function disOrEnableLogInBtn() {
   // If all those two have value...
@@ -47,15 +49,22 @@ function disOrEnableLogInBtn() {
   }
 }
 
+function resetLogInForm() {
+  document.getElementById('logInForm').reset();
+}
+
+function checkBox() {
+  let  policyCheckbox = document.getElementById("remember_me");
+  policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
+  saveLogInDataInArray();
+  saveLogInLocalStorage();
+}
+
 function saveLogInDataInArray() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
   emails.push(email.value);
   passwords.push(password.value);
-  
-}
-function resetLogInForm() {
-document.getElementById('logInForm').reset();
 }
 
 function saveLogInLocalStorage() {
@@ -75,12 +84,6 @@ function loadLogInLocalStorage() {
   }
 }
 
-function checkBox() {
-  let  policyCheckbox = document.getElementById("remember_me");
-  policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
-  saveLogInDataInArray();
-  saveLogInLocalStorage();
-}
 
 //funktioniert noch nicht richtig // eckige klammern und "" müssen entfernt werden
 function loadRememberMe() {
@@ -100,28 +103,16 @@ function uncheckBox() {
   policyCheckbox.src = "../assets/img/icons/checkbox.png";
 }
 
-
-
-// Validate user input before submitting the form - noch nicht fertig
-// function validateInputs() {
-// const urlParams = new URLSearchParams(window.location.search);
-// const msg = urlParams.get("msg");
-
-// if (msg) {
-//   msgBox.innerHTML = msg;
-// } else {
-//   document.getElementById("msgBox").style.display = "none";
-// }
-// }
-
-
 function findUser() {
+ 
   let email = document.getElementById("email");
   let password = document.getElementById("password");
-  let user = users.find( u => u.email == email.value && u.password == password.value);
+  let user = users.find( u => u.userEmail == email.value && u.userPassword == password.value);
   console.log(user);
   if (user) {
     console.log("user gefunden");
+    loggedInUserId = users.indexOf(user);
+    console.log(loggedInUserId);
     redirectToSummary();
   } else {
     // Please sing up  / Passwort falsch / Email nicht vorhanden
