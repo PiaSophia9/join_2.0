@@ -281,7 +281,7 @@ input:focus {
 }
 
 .d_none {
-  display: none;
+  display: none !important;
 }
 
 #subtasksRenderContainer {
@@ -291,6 +291,38 @@ input:focus {
 .rendered_subtask {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  margin-top: 8px;
+  align-items: center;
+  height: 32px;
+  cursor: pointer;
+}
+
+/* .rendered_subtask:hover {
+  background-color: ;
+} */
+
+.rendered_subtask:focus {
+  background-color: white;
+  border: none;
+  border-bottom: 1px solid #29abe2;
+}
+
+[contenteditable] {
+  outline: 0px solid transparent;
+}
+
+/* .span_subtasks {
+  width: 100%;
+} */
+
+.rendered_subtasks_span {
+  padding-left: 16px;
+  padding-right: 8px;
+}
+
+.span_container {
+  display: flex;
 }
 
 @media (max-width: 1030px) {

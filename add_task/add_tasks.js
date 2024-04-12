@@ -19,9 +19,7 @@ async function addTask() {
   let title = document.getElementById("taskTitle").value;
   let description = document.getElementById("taskDescription").value;
   let dueDate = document.getElementById("taskDueDate").value;
-  // let assignedTo = document.getElementById("taskAssigned").value;
   let category = document.getElementById("taskCategory").value;
-  let subtasks = document.getElementById("taskSubtask").value;
   let status = "toDo";
 
   let task = {
@@ -29,6 +27,7 @@ async function addTask() {
     description: description,
     dueDate: dueDate,
     priority: priority,
+    // assignedTo: assignedContactInfos,
     assignedTo: assignedContacts,
     category: category,
     subtasks: subtasks,
@@ -127,18 +126,28 @@ let contactColors = [];
 
 // ${contactInfos[i].contacts}
 
-// let assignedContacts = [
-//   {
-//     assignedContactName: assignedContactName,
-//     assignedContactInitials: assignedContactInitials,
-//     assignedContactColors: assignedContactColors
-//   },
-//   {
-//     assignedContactName: assignedContactName,
-//     assignedContactInitials: assignedContactInitials,
-//     assignedContactColors: assignedContactColors
+// RIGHT STRUKTURE FOR LATER
+
+// let assignedContactInfos = [];
+
+// function addassignedContactInfos() {
+//   let assignedContact = []; //Todo: Umbenennen
+//   let assignedContactInitial = [];
+//   let assignedContactColor = [];
+
+//   let assignedContactInfo = {
+//     assignedContact: assignedContact,
+//     assignedContactInitial: assignedContactInitial,
+//     assignedContactColor: assignedContactColor
 //   }
-//   ]
+
+//   pushAssignedContactInfo(assignedContactInfo);
+
+// }
+
+// function pushAssignedContactInfo(assignedContactInfo) {
+//   assignedContactInfos.push(assignedContactInfo);
+// }
 
 let assignedContacts = [];
 let assignedContactInitials = [];
@@ -265,10 +274,10 @@ function generateInitialCircles(i) {
   `;
 }
 
+// Subtasks
+
 // store and load contactInitials and contactColors
 // Make one array of objects instead of 3 arrays.
-
-// Subtasks
 
 // let subtasks [
 //   {
@@ -322,12 +331,20 @@ function renderSubtasks() {
 }
 
 function generateSubtasks(i, subtaskName) {
-  return `<div onmouseover="showPenAndTrash(${i})" onmouseout="hidePenAndTrash(${i})" class="rendered_subtask">
-  <span>${subtaskName}</span>
+  return `<div id="renderedSubtask${i}" onclick="makeRenderedSubtasksEditable(${i})" onmouseover="showPenAndTrash(${i})" onmouseout="hidePenAndTrash(${i})" class="rendered_subtask">
+  <div class="span_container ">
+    <span class="rendered_subtasks_span">&#x2022</span>
+    <span id="subtasName${i}"> ${subtaskName}</span>
+  </div>
   <div id="containerPenAndTrash${i}" class="d_none">
-    <img id="pen${i}" src="../assets/img/icons/subtasks_pen.png" alt="">
+    <img onclick="makeRenderedSubtasksEditable(${i})" id="pen${i}" src="../assets/img/icons/subtasks_pen.png" alt="">
     <img src="../assets/img/icons/subtask_line.png" alt="">
     <img onclick="deleteSubtask(${i})" id="trash${i}" src="../assets/img/icons/subtask_trash.png" alt="">
+  </div>
+  <div id="containerTrashAndCheck${i}" class="d_none">
+    <img onclick="deleteRenderedSubtask(${i})" src="../assets/img/icons/subtask_trash.png" alt="">
+    <img src="../assets/img/icons/subtask_line.png" alt="">
+    <img onclick="overwriteSubtask(${i})" src="../assets/img/icons/subtask_check.png" alt="">
   </div>
 </div>`;
 }
@@ -344,4 +361,31 @@ function deleteSubtask(i) {
   subtasks.splice(i, 1);
   // Todo: push array in storage if add task is pressed
   renderSubtasks();
+}
+
+function makeRenderedSubtasksEditable(i) {
+  document.getElementById(`renderedSubtask${i}`).setAttribute("contenteditable", true);
+  document.getElementById(`renderedSubtask${i}`).onmouseover = function () {};
+  showTrashAndCheck(i);
+}
+
+function showTrashAndCheck(i) {
+  document.getElementById(`containerTrashAndCheck${i}`).classList.remove("d_none");
+}
+
+function deleteRenderedSubtask(i) {
+  deleteSubtask(i);
+}
+
+function overwriteSubtask(i) {
+  // In dieser Funktion passiert der Fehler
+  let newValueSubtaskName = document.getElementById(`subtasName${i}`).innerText;
+  subtasks[i].nameSubtask = newValueSubtaskName;
+  renderSubtasks();
+  // containerTrashAndCheck soll verschwinden - funktioniert nicht:
+  document.getElementById(`containerTrashAndCheck${i}`).classList.add("d_none");
+  // Die Funktion showPenAndTrash soll wieder onmouseover ausgeführt werden - funktioniert nicht:
+  document.getElementById(`renderedSubtask${i}`).onmouseover = function () {
+    showPenAndTrash(i);
+  }; // funktioniert nicht
 }

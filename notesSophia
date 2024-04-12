@@ -10,17 +10,30 @@ async function selectAssignedContact(i) {
   await storeAssignedContacts();
 }
 
+contactInfos.push(contact);
+
+let contactInfos = [
+  {
+    contacts: contacts,
+    contactInitials: contactInitials,
+    contactColors: contactColors,
+  },
+  {
+    contacts: contacts,
+    contactInitials: contactInitials,
+    contactColors: contactColors,
+  },
+];
+
 let contact = {
   contacts: contacts,
   contactInitials: contactInitials,
   contactColors: contactColors,
 };
 
-contactInfos.push(contact);
-
-let contactInfos = [
+let contacts = [
   {
-    contacts: contacts,
+    contactName: contactName,
     contactInitials: contactInitials,
     contactColors: contactColors,
   },
