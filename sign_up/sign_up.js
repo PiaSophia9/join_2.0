@@ -2,7 +2,7 @@ let users = [];
 let colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 
 async function initUser() {
-  resetForm();
+  resetSignUpForm();
   await loadAllUsers();
   // signUpSuccessfullyInfo();
 }
@@ -36,7 +36,7 @@ function pushUsers(user) {
   users.push(user); 
 }
 
-function disOrEnableButton() {
+function disOrEnableSignUpBtn() {
   // If all those three have value...
   if (document.getElementById("username").value == "" || document.getElementById("email").value == "" || document.getElementById("password").value == "" || document.getElementById("password_confirm").value == "") {
     // In the beginning the button is disabled and nothin has to be done
@@ -101,7 +101,7 @@ function redirectToLogin() {
 //   policyCheckbox.src = "../assets/img/icons/checkbox_empty.png";
 // }
 
-function resetForm() {
+function resetSignUpForm() {
   document.getElementById("signUpForm").reset();
 }
 

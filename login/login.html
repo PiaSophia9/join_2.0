@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="login.css">
     <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
   </head>
-  <body onload="init()">
+  <body onload="initLogIn()">
     <div class="container_main">
     <div class="login_header">
       <img src="../assets/img/logo.png" alt="logo_join" />
@@ -26,8 +26,8 @@
         </div>
 
         <div class="login_input">
-          <input onkeyup="disOrEnableButton()" required type="email" id="email" placeholder="Email" class="icon_mail" onclick="loadRememberMe()" />
-          <input onkeyup="disOrEnableButton()" required type="password" minlength="3" id="password" placeholder="Password" class="icon_lock"/>
+          <input onkeyup="disOrEnableLogInBtn()" required type="email" id="email" placeholder="Email" class="icon_mail" onclick="loadRememberMe()" />
+          <input onkeyup="disOrEnableLogInBtn()" required type="password" minlength="3" id="password" placeholder="Password" class="icon_lock"/>
         </div>
 
         <div class="login_remember_me">
