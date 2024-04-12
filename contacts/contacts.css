@@ -99,9 +99,10 @@ main {
 }
 
 /* Modal Content/Box */
-.modal-content {
+.add-contact-modal {
+  display: flex;
   background-color: #fefefe;
-  padding: 20px;
+  /* padding: 20px; */
   border: 1px solid #888;
   width: 70%;
   position: absolute;
@@ -111,6 +112,7 @@ main {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   white-space: nowrap;
+  min-height: 400px;
 }
 
 /* The Close Button */
@@ -127,6 +129,31 @@ main {
   text-decoration: none;
   cursor: pointer;
 }
+
+/* add contact popup */
+.left-side-modal {
+  width: 30%;
+  background-color: #2A3647;
+}
+
+.right-side-modal {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.form-and-image {
+  display: flex;
+  align-items: center;
+}
+
+.add-contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+
 
 @keyframes slide-in {
   from {
