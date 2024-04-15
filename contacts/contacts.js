@@ -39,13 +39,12 @@ function displayContacts() {
             let contactsAtLetterContainer = document.getElementById(`contacts-at-letter${startingLetter}`)
             if(contact.contactName[0] == startingLetter) {
                 contactsAtLetterContainer.innerHTML += /*html*/ `
-                    <div class="contact" id="contact${i}" onclick="displayFullContact(${i})">
+                    <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
                         <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
                         <div class="name-and-mail">
-                            <span>${contact.contactName}</span>
-                            <span>${contact.contactMail}</span>
+                            <span id="contact-name${i}">${contact.contactName}</span>
+                            <span class="contact-mail">${contact.contactMail}</span>
                         </div>
-                        
                     </div>
                 `;
                 break;  // if contact matches the starting letter, jump back to first for-loop
@@ -54,20 +53,38 @@ function displayContacts() {
     } 
 }
 
-function displayFullContact(i) {
+function toggleActiveContact(i) {
+    let selectedContact = document.getElementById(`contact${i}`);
+    let allContacts = document.querySelectorAll('.contact');
+
+    allContacts.forEach(e => {e.classList.remove('contact-selected')});
+    selectedContact.classList.add('contact-selected');
+}
+
+function displayContactDetails(i) {
     let contactContainer = document.getElementById('contact-container');
     let contact = contacts[i];
+    let contactInformation = document.getElementById('contact-information');
 
     contactContainer.innerHTML = /*html*/ `
         <div style="background-color: ${contact.contactColor}" class="initials_circle"><span class="initials_span">${contact.contactInitials}</span></div>
+        <div class="name-and-edit">
             <div class="name_container">
                 <span class="contact_name">${contact.contactName}</span>
             </div>
             <div class="edit_delete_container">
-                <span>Edit</span>
-                <span>Delete</span>
+                <button class="edit-button" onclick="editContact(${i})">Edit</button>
+                <button class="edit-button" onclick="deleteContact(${i})">Delete</button>
             </div>
         </div>
+    `;
+
+    contactInformation.innerHTML = /*html*/ `
+        <p>Contact Information</p>
+        <h4>Email</h4>
+        <a href="mailto: ${contact.contactMail}">${contact.contactMail}</a>
+        <h4>Phone</h4>
+        <span>${contact.contactPhone}</span>
     `;
 }
 
@@ -106,11 +123,18 @@ async function addContact() {
         'contactInitials': contactInitials,
         'contactColor': contactColor
     }
-    console.log(typeof(contacts));
     contacts.push(contact);
     storeContacts();
     // clear contact form
     // show toast message that contact was successfully created
+}
+
+async function editContact(i) {
+
+}
+
+async function deleteContact(i) {
+
 }
 
 async function storeContacts() {
