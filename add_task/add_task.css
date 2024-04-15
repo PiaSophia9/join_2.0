@@ -1,19 +1,13 @@
-.header_and_main {
-  height: 100vh;
-}
-
 .add_task_main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  margin-bottom: 80px;
 }
 
 .upper_part {
   display: flex;
-  /* justify-content: space-evenly; */
   gap: 40px;
-  /* height: 80%; */
   font-size: 20px;
 }
 
@@ -21,7 +15,6 @@
   display: flex;
   justify-content: space-between;
   gap: 40px;
-  /* height: 20%; */
   align-items: flex-end;
   margin-top: 24px;
   font-size: 20px;
@@ -45,7 +38,6 @@
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 }
 
 .prio_buttons {
@@ -109,10 +101,6 @@
   display: block;
 }
 
-/* #taskSubtask input [type="text"] {
-  background-color: white;
-} */
-
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 50px white inset;
 }
@@ -156,23 +144,6 @@ input:-webkit-autofill:focus {
   color: red;
 }
 
-/* .subtask_add_task {
-  position: relative;
-  padding-right: 25px;
-
-  background-size: 14px;
-  background-position-x: calc(100% - 16px);
-}
-
-.x_in_subtask {
-  position: absolute;
-  background: url(../assets/img/icons/close.png) no-repeat right;
-}
-
-.check_mark_subtask {
-  position: absolute;
-} */
-
 .subtasks_input {
   flex: 1;
   padding: 0;
@@ -209,21 +180,8 @@ input:-internal-autofill-selected {
   height: 24px;
 }
 
-/* .input {
-  display: flex;
-  gap: 1rem;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  padding: 0.5rem 0;
-} */
+/* Dropdown */
 
-/* input {
-  all: unset;
-} */
-
-/* dropdown */
-
-/* Dropdown Button */
 .dropbtn {
   box-sizing: border-box;
   width: 100%;
@@ -249,13 +207,6 @@ input:-internal-autofill-selected {
   width: 10px;
 }
 
-/* Dropdown button on hover & focus */
-/* .dropbtn:hover,
-.dropbtn:focus {
-  background-color: #2980b9;
-} */
-
-/* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -274,7 +225,6 @@ input:-internal-autofill-selected {
   border-radius: 8px;
 }
 
-/* Links inside the dropdown */
 .dropdown-content-div {
   color: black;
   padding: 12px 16px;
@@ -283,12 +233,10 @@ input:-internal-autofill-selected {
   justify-content: space-between;
 }
 
-/* Change color of dropdown links on hover */
 .dropdown-content-div:hover {
   background-color: #ddd;
 }
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {
   display: block;
 }
@@ -299,8 +247,9 @@ input:-internal-autofill-selected {
   gap: 24px;
 }
 
+/* End Dropdown */
+
 .initials_circle {
-  /* background-color: orange; */
   border-radius: 50%;
   border: 2px solid white;
   height: 42px;
@@ -350,10 +299,6 @@ input:focus {
   cursor: pointer;
 }
 
-/* .rendered_subtask:hover {
-  background-color: ;
-} */
-
 .rendered_subtask:focus {
   background-color: white;
   border: none;
@@ -363,10 +308,6 @@ input:focus {
 [contenteditable] {
   outline: 0px solid transparent;
 }
-
-/* .span_subtasks {
-  width: 100%;
-} */
 
 .rendered_subtasks_span {
   padding-left: 16px;
@@ -381,6 +322,7 @@ input:focus {
   .upper_part {
     flex-direction: column;
     width: 100%;
+    gap: 0;
   }
 
   .line {
@@ -392,7 +334,10 @@ input:focus {
   }
 
   .lower_part {
-    display: block;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    margin-top: 0;
   }
 
   .buttons_container {
@@ -410,5 +355,13 @@ input:focus {
   .btn_bright,
   .btn_dark {
     max-width: 200px;
+  }
+
+  #taskForm {
+    margin-bottom: 0;
+  }
+
+  .add_task_main {
+    margin: 100px 32px 0 32px !important;
   }
 }

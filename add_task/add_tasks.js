@@ -348,6 +348,7 @@ function deleteSubtask(i) {
 function makeRenderedSubtasksEditable(i) {
   document.getElementById(`renderedSubtask${i}`).setAttribute("contenteditable", true);
   document.getElementById(`renderedSubtask${i}`).onmouseover = function () {};
+  hidePenAndTrash(i);
   showTrashAndCheck(i);
 }
 
@@ -364,10 +365,33 @@ function overwriteSubtask(i) {
   let newValueSubtaskName = document.getElementById(`subtasName${i}`).innerText;
   subtasks[i].nameSubtask = newValueSubtaskName;
   renderSubtasks();
-  // containerTrashAndCheck soll verschwinden - funktioniert nicht:
   document.getElementById(`containerTrashAndCheck${i}`).classList.add("d_none");
-  // Die Funktion showPenAndTrash soll wieder onmouseover ausgeführt werden - funktioniert nicht:
-  document.getElementById(`renderedSubtask${i}`).onmouseover = function () {
-    showPenAndTrash(i);
-  }; // funktioniert nicht
+  event.stopPropagation();
+  document.getElementById(`containerPenAndTrash${i}`).classList.add("d_none");
+  event.stopPropagation();
 }
+
+// inputs required red
+
+function showRequiredInputs() {
+  document.getElementById("taskTitle").style.borderColor = "red";
+}
+
+// async function validatePassword(user) {
+//   let passwordInput = document.getElementById("password");
+//   let passwordConfirmInput = document.getElementById("password_confirm");
+//   let errorMessage = document.getElementById("passwordError");
+//   if (passwordInput.value !== passwordConfirmInput.value) {
+//     errorMessage.style.display = "block";
+//     errorMessage.style.color = "#ff7f8e";
+//     passwordConfirmInput.style.borderColor = "#ff7f8e";
+//     errorMessage.textContent = "Passwords do not match";
+//     return false;
+//   } else {
+//     pushUsers(user);
+//     errorMessage.textContent = ""; // Fehlermeldung zurücksetzen
+//     await storeAllUsers();
+//     // signUpSuccessfullyInfo();
+//     redirectToLogin();
+//   }
+// }
