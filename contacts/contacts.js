@@ -1,6 +1,7 @@
 let contacts = [];
 const contactColors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 let sortedStartingLetters = [];
+let uniqueStartingLetters = [];
 
 async function initContacts() {
     includeHTML();
@@ -12,7 +13,6 @@ async function loadContacts() {
     try {
         let response = await getItem('remoteContacts');
         contacts = JSON.parse(response);
-        console.log(contacts);
     } catch (error) {
         console.log('No contacts stored in database');
     }
@@ -20,21 +20,57 @@ async function loadContacts() {
 
 function displayContacts() {
     let contactsContainer = document.getElementById('all-contacts');
-    sortContactsByInitials();
+    sortContactsByName();
+    createStartingLetters();
 
+    // display starting letters
+    for (let i = 0; i < uniqueStartingLetters.length; i++) {
+        let letter = uniqueStartingLetters[i];
+        contactsContainer.innerHTML += /*html*/ `
+            <h3 class="starting-letter">${letter}</h3>
+            <div class="contacts-at-letter" id="contacts-at-letter${letter}"></div>
+        `;
+    }
+    // put each contact under the correct starting letter
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
-        contactsContainer.innerHTML += createContactAlphabet(contact);
-        for (let j = 0; j < contacts.length; j++) {
-            let contactsByLetterContainer = document.getElementById('contacts-by-letter');
-            contactsByLetterContainer.innerHTML += /*html*/ `
-                <p>${contact.contactName}</p>
-            `;
+        for (let j = 0; j < uniqueStartingLetters.length; j++) {
+            let startingLetter = uniqueStartingLetters[j];
+            let contactsAtLetterContainer = document.getElementById(`contacts-at-letter${startingLetter}`)
+            if(contact.contactName[0] == startingLetter) {
+                contactsAtLetterContainer.innerHTML += /*html*/ `
+                    <div class="contact" id="contact${i}" onclick="displayFullContact(contact)">
+                        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
+                        <div class="name-and-mail">
+                            <span>${contact.contactName}</span>
+                            <span>${contact.contactMail}</span>
+                        </div>
+                        
+                    </div>
+                `;
+                break;  // if contact matches the starting letter, jump back to first for-loop
+            }
         }
-    }
+    } 
 }
 
-function sortContactsByInitials() {
+function displayFullContact(contact) {
+    let contactContainer = document.getElementById('contact-container');
+
+    contactContainer.innerHTML += /*html*/ `
+        <div style="background-color: ${contact.contactColor}" class="initials_circle"><span class="initials_span">${contact.contactInitials}</span></div>
+            <div class="name_container">
+                <span class="contact_name">Anton Mayer</span>
+            </div>
+            <div class="edit_delete_container">
+                <span>Edit</span>
+                <span>Delete</span>
+            </div>
+        </div>
+    `;
+}
+
+function sortContactsByName() {
     contacts.sort(function (a, b) {
         if (a.contactName < b.contactName) {
           return -1;
@@ -44,15 +80,16 @@ function sortContactsByInitials() {
         }
         return 0;
     });
-    console.log(contacts);
 }
 
-function createContactAlphabet(contact) {
-    return /*html*/ `
-        <h2>${contact.contactName[0]}</h2>
-        <div id="contacts-by-letter"></div>
-    `;
+function createStartingLetters() {
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        sortedStartingLetters.push(contacts[i].contactName[0]);
+    }
+    uniqueStartingLetters = [...new Set(sortedStartingLetters)];
 }
+
 
 async function addContact() {
     let contactName = document.getElementById('name-input');

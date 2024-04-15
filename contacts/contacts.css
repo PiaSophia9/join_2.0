@@ -11,7 +11,7 @@ body {
 }
 
 main {
-  height: 100%;
+  margin: 96px 130px 0 28px !important;
 }
 
 .contacts_main {
@@ -21,11 +21,13 @@ main {
 
 .left_section {
   background-color: white;
-  height: 100%;
-  width: 30%;
+  height: 720px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: 32px 24px 32px 24px;
+  width: 30%;
+  min-width: 300px;
+  overflow-y: auto;
 }
 
 .right_section {
@@ -34,10 +36,9 @@ main {
 
 .contacts_button {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 80%;
   margin-top: 16px;
+  gap: 16px;
   &:hover {
     background-color: #29abe2;
     box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
@@ -63,6 +64,12 @@ main {
   font-size: 47px;
 }
 
+.initials_circle_small {
+  height: 42px;
+  width: 42px;
+  font-size: 12px;
+}
+
 .initials_and_name_container {
   display: flex;
   align-items: center;
@@ -83,7 +90,23 @@ main {
   font-size: 47px;
 }
 
-/* The Modal (background) */
+.starting-letter {
+  border-bottom: 1px solid lightgray;
+  padding: 17px 36px 17px 36px;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  padding: 15px 24px 15px 24px;
+}
+
+.name-and-mail {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Modal (background) */
 .modal-bg {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
@@ -152,6 +175,8 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+
 
 
 
