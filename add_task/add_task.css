@@ -43,7 +43,7 @@
 
 .prio_buttons_container {
   display: flex;
-  gap: 4%;
+  gap: 16px;
   flex-wrap: wrap;
   /* justify-content: space-between; */
 }
@@ -54,11 +54,28 @@
   white-space: nowrap;
   height: 48px;
   width: 30%;
-  min-width: 160px;
+  min-width: 120px;
+  max-width: 180px;
+  padding: 8px 8px 8px 8px;
 }
 
 .prio_buttons:hover {
   box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
+}
+
+.urgent_button {
+  color: white;
+  background-color: #ff3d00;
+}
+
+.medium_button {
+  color: white;
+  background-color: #ffa800;
+}
+
+.low_button {
+  color: white;
+  background-color: #7ae229;
 }
 
 .medium_img {
@@ -70,7 +87,7 @@
   height: 14px;
 }
 
-.width_form_elements {
+.form_elements {
   box-sizing: border-box;
   width: 100%;
   padding: 8px 16px 8px 16px;
@@ -82,8 +99,25 @@
   display: flex;
 }
 
+.form_elements:focus {
+  border: 2px solid #5ec0e9 !important;
+  outline: none !important;
+}
+
 .date {
   color: #a8a8a8;
+  display: block;
+}
+
+/* #taskSubtask input [type="text"] {
+  background-color: white;
+} */
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px white inset;
+}
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px white inset;
 }
 
 .line {
@@ -114,6 +148,8 @@
 
 .textarea_add_task {
   height: 150px;
+  width: 100%;
+  resize: none;
 }
 
 .red {
@@ -141,8 +177,16 @@
   flex: 1;
   padding: 0;
   border: none;
-  font-size: 16px;
+  font-size: 20px;
   font-family: "Inter", sans-serif;
+}
+
+input:-internal-autofill-selected {
+  background-color: white !important;
+}
+
+.subtasks_input:focus {
+  background-color: white;
 }
 
 .subtask_container {
@@ -150,6 +194,10 @@
   padding-right: 0;
   display: flex;
   align-items: center;
+}
+
+.subtask_container_blue_border {
+  border: 2px solid #5ec0e9;
 }
 
 .subtask_image {
@@ -190,6 +238,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.dropbtn:focus {
+  border: 2px solid #5ec0e9;
 }
 
 .dropdown_arrow {
@@ -251,8 +303,8 @@
   /* background-color: orange; */
   border-radius: 50%;
   border: 2px solid white;
-  height: 32px;
-  width: 32px;
+  height: 42px;
+  width: 42px;
   display: flex;
   justify-content: center;
   align-items: center;

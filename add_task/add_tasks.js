@@ -5,11 +5,12 @@ async function init() {
   includeHTML();
   await loadAllTasks();
   await loadContacts();
-  await loadAssignedContacts();
+  // await loadAssignedContacts();
   // createAndPushInitials();
   // createAndPushColors();
   renderContactsToAssign();
   showAssignedtoContacts();
+  console.log("allTasks on load:", allTasks);
 }
 
 /**
@@ -28,7 +29,6 @@ async function addTask() {
     description: description,
     dueDate: dueDate,
     priority: priority,
-    // assignedTo: assignedContactInfos,
     assignedTo: assignedContacts,
     category: category,
     subtasks: subtasks,
@@ -36,9 +36,12 @@ async function addTask() {
   };
 
   pushTask(task);
+  // allTasks = [];
   await storeAllTasks();
   console.log(allTasks);
   clearInputs();
+  clearContainers();
+  console.log("allTasks after button clicked:", allTasks);
 }
 
 function pushTask(task) {
@@ -46,6 +49,7 @@ function pushTask(task) {
 }
 
 async function storeAllTasks() {
+  // assignedContacts = [];
   await setItem("remoteTasks", allTasks);
 }
 
@@ -59,26 +63,56 @@ async function loadAllTasks() {
   allTasks = await JSON.parse(response);
 }
 
+// Prio Buttons
+
 function setPrioUrgent() {
   priority = "urgent";
-  console.log(priority);
+  document.getElementById("urgentButton").classList.add("urgent_button");
+  document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_white.svg";
+  removeMediumPrio();
+  removeLowPrio();
 }
+
 function setPrioMedium() {
   priority = "medium";
-  console.log(priority);
+  document.getElementById("mediumButton").classList.add("medium_button");
+  document.getElementById("mediumImage").src = "../assets/img/icons/prio_medium_white.svg";
+  removeLowPrio();
+  removeUrgentPrio();
 }
 function setPrioLow() {
   priority = "low";
-  console.log(priority);
+  document.getElementById("lowButton").classList.add("low_button");
+  document.getElementById("lowImage").src = "../assets/img/icons/prio_low_white.svg";
+  removeMediumPrio();
+  removeUrgentPrio();
+}
+
+function removeUrgentPrio() {
+  document.getElementById("urgentButton").classList.remove("urgent_button");
+  document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_red.svg";
+}
+
+function removeMediumPrio() {
+  document.getElementById("mediumButton").classList.remove("medium_button");
+  document.getElementById("mediumImage").src = "../assets/img/icons/prio_medium_orange.svg";
+}
+
+function removeLowPrio() {
+  document.getElementById("lowButton").classList.remove("low_button");
+  document.getElementById("lowImage").src = "../assets/img/icons/prio_kow_green.svg";
 }
 
 function clearInputs() {
   document.getElementById("taskForm").reset();
 }
 
-// wenn alles leer ist soll nichts getan werden am anfang
-// ich schreibe was rein und wenn alle felder voll sind soll der button enabled werden
-// ich lösche eine Sache - 1. Ifabrfage wird wieder true und
+function clearContainers() {
+  document.getElementById("assignedtoContactsContainer").innerHTML = "";
+  document.getElementById("subtasksRenderContainer").innerHTML = "";
+}
+
+// dis- or enable button if required inputs are filled
 
 function disOrEnableButton() {
   // If all those three have value...
@@ -101,7 +135,7 @@ function disOrEnableButton() {
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function myFunction() {
+function toggleDropdown() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
@@ -121,38 +155,6 @@ window.onclick = function (event) {
 
 // Contacts to assign
 
-// ***********************************************************Alte Version, die derzeit noch größtenteils eingebunden ist
-let contactsX = ["Sofia", "Anton Mayer", "Anja Schulz", "Benedikt Ziegler", "David Eisenberg"];
-// let contactInitials = [];
-// let contactColors = [];
-// ***********************************************************
-
-// ${contactInfos[i].contacts}
-
-// ********************** RIGHT STRUKTURE FOR LATER
-
-// let assignedContactsX = [];
-
-// function addassignedContactInfos() {
-//   let assignedContact = []; //Todo: Umbenennen
-//   let assignedContactInitial = [];
-//   let assignedContactColor = [];
-
-//   let assignedContactX = {
-//     assignedContact: assignedContact,
-//     assignedContactInitial: assignedContactInitial,
-//     assignedContactColor: assignedContactColor
-//   }
-
-//   pushAssignedContactInfo(assignedContactInfo);
-
-// }
-
-// function pushAssignedContactInfo(assignedContactInfo) {
-//   assignedContactInfos.push(assignedContactInfo);
-// }
-// ************************
-
 let assignedContacts = [];
 let assignedContactInitials = [];
 let assignedContactColors = [];
@@ -161,6 +163,7 @@ let colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", 
 
 function addCheckboxImage(j) {
   for (let i = 0; i < assignedContacts.length; i++) {
+    // muss hier nicht contacts rein??
     const assContact = assignedContacts[i];
     let contactsIndex = contacts.indexOf(assContact);
     // result is index in contacts OR -1
@@ -172,40 +175,12 @@ function addCheckboxImage(j) {
   }
 }
 
-// Trash:
-
-// function createAndPushInitials() {
-//   for (let i = 0; i < contactsX.length; i++) {
-//     let contact = contactsX[i];
-//     let contactAsString = contact.toString();
-//     let initials = contactAsString.match(/\b(\w)/g).join("");
-//     let firstTwoInitials = initials.slice(0, 2);
-//     contactInitials.push(firstTwoInitials);
-//     console.log("contactInitials:", contactInitials);
-//   }
-// }
-
-// function createAndPushColors() {
-//   for (let i = 0; i < contactsX.length; i++) {
-//     let color = colors[generateRandomNumber()];
-//     contactColors.push(color);
-//     // console.log("contactColors:", contactColors);
-//   }
-// }
-
-// function generateRandomNumber() {
-//   return Math.floor(Math.random() * 15);
-// }
-
-// Trash Ende
-
 // Render Dropdown mit contacts
 function renderContactsToAssign() {
-  let i = 0; // Todo: do I need that????
-  for (i = 0; i < contacts.length; i++) {
+  for (let i = 0; i < contacts.length; i++) {
     document.getElementById("myDropdown").innerHTML += generateContactToAssign(i);
+    addCheckboxImage(i);
   }
-  addCheckboxImage(i); // Todo: put somewhere else
 }
 
 function generateContactToAssign(i) {
@@ -231,7 +206,7 @@ async function selectAssignedContact(i) {
     changeCheckboxImage(i);
     pushAssignedContacts(i);
   }
-  await storeAssignedContacts();
+  // await storeAssignedContacts();
   showAssignedtoContacts();
   console.log("assignedContacts: ", assignedContacts);
 }
@@ -250,15 +225,15 @@ function stopPropagation() {
   event.stopPropagation(onclick);
 }
 
-async function storeAssignedContacts() {
-  // assignedContacts = [];
-  await setItem("remoteAssignedContacts", assignedContacts);
-}
+// async function storeAssignedContacts() {
+//   // assignedContacts = [];
+//   await setItem("remoteAssignedContacts", assignedContacts);
+// }
 
-async function loadAssignedContacts() {
-  let response = await getItem("remoteAssignedContacts");
-  assignedContacts = await JSON.parse(response);
-}
+// async function loadAssignedContacts() {
+//   let response = await getItem("remoteAssignedContacts");
+//   assignedContacts = await JSON.parse(response);
+// }
 
 function showAssignedtoContacts() {
   document.getElementById("assignedtoContactsContainer").innerHTML = "";
@@ -269,29 +244,32 @@ function showAssignedtoContacts() {
 }
 
 function generateInitialCircles(i) {
-  // Farbcode durch Variable ersetzen.
   return `
   <div id="initialCircle${i}" style="background-color:${contacts[i].contactColor}" class="initials_circle"><span class="initials_span">${contacts[i].contactInitials}</span></div>
   `;
 }
 
-// ******************************Subtasks
-
-// store and load contactInitials and contactColors
-// Make one array of objects instead of 3 arrays.
-
-// let subtasks [
-//   {
-// nameSubtask: nameSubtask,
-// stausSubtask:
-// },
-// {
-//   nameSubtask:
-//   stausSubtask:
-//   },
-// ]
+// Subtasks
 
 let subtasks = [];
+
+function addBorderColorBlue() {
+  document.getElementById("subtaskContainer").classList.add("subtask_container_blue_border");
+}
+
+function removeBorderColorBlue() {
+  document.getElementById("subtaskContainer").classList.remove("subtask_container_blue_border");
+}
+
+window.addEventListener("click", function (e) {
+  if (document.getElementById("subtaskContainer").contains(e.target)) {
+    // Clicked in box
+    addBorderColorBlue();
+  } else {
+    // Clicked outside the box
+    removeBorderColorBlue();
+  }
+});
 
 function showIconsSubtasks() {
   if (document.getElementById("taskSubtask").value !== "") {
@@ -304,6 +282,8 @@ function showIconsSubtasks() {
 function clearSubtask() {
   document.getElementById("taskSubtask").value = "";
   document.getElementById("iconsSubtasksContainer").classList.add("d_none");
+  removeBorderColorBlue();
+  event.stopPropagation();
 }
 
 function addSubtask() {
@@ -320,7 +300,8 @@ function addSubtask() {
     clearSubtask();
     renderSubtasks();
   }
-  // Todo: If Create Task is clicked, subtasks needs to  be stored
+  removeBorderColorBlue();
+  event.stopPropagation();
 }
 
 function renderSubtasks() {

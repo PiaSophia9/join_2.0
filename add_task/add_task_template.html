@@ -7,18 +7,19 @@
         <section class="left_section">
           <div>
             <label class="label_add_task">Title<span class="red">*</span></label>
-            <input onkeyup="disOrEnableButton()" required id="taskTitle" class="width_form_elements" type="text" placeholder="Enter a title" />
+            <input onkeyup="disOrEnableButton()" required id="taskTitle" class="form_elements" type="text" placeholder="Enter a title" />
           </div>
           <div>
             <label class="label_add_task">Description</label>
-            <textarea id="taskDescription" class="width_form_elements textarea_add_task" name="" id="" cols="30" rows="10" placeholder="Enter a Description"></textarea>
+            <textarea id="taskDescription" class="form_elements textarea_add_task" placeholder="Enter a Description"></textarea>
           </div>
           
           <div class="dropdown">
             <label class="label_add_task">Assigned to</label>
-            <button type="button" onclick="myFunction()" class="dropbtn">
-              Select contacts to assign <img class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
-            </button>
+            <button type="button" onclick="toggleDropdown()" class="dropbtn">
+              Select contacts to assign 
+              <img onclick="event.stopPropagation(); toggleDropdown()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
+          </button>
             <div id="myDropdown" class="dropdown-content">
           </div>
           <div id="assignedtoContactsContainer" class="assignedto_contacts_container"></div>
@@ -29,19 +30,19 @@
         <section class="right_section">
           <div>
             <label class="label_add_task">Due date<span class="red">*</span></label>
-            <input onchange="disOrEnableButton()" required id="taskDueDate" class="width_form_elements date" type="date" placeholder="dd/mm/yyyy" />
+            <input onchange="disOrEnableButton()" required id="taskDueDate" class="form_elements date" type="date" placeholder="dd/mm/yyyy" />
           </div>
           <div>
             <label class="label_add_task">Prio</label>
             <div class="prio_buttons_container">
-              <button onclick="setPrioUrgent()" type="button" class="prio_buttons">Urgent <img class="urgent_image" src="../assets/img/icons/prio_urgent_red.svg" alt="" /></button>
-              <button onclick="setPrioMedium()" type="button" class="prio_buttons">Medium <img class="medium_img" src="../assets/img/icons/prio_medium_orange.svg" alt="" /></button>
-              <button onclick="setPrioLow()" type="button" class="prio_buttons">Low <img class="low_image" src="../assets/img/icons/prio_kow_green.svg" alt="" /></button>
+              <button id="urgentButton" onclick="setPrioUrgent()" type="button" class="prio_buttons">Urgent <img id="urgentImage" class="urgent_image" src="../assets/img/icons/prio_urgent_red.svg" alt="" /></button>
+              <button id="mediumButton" onclick="setPrioMedium()" type="button" class="prio_buttons">Medium <img id="mediumImage" class="medium_img" src="../assets/img/icons/prio_medium_orange.svg" alt="" /></button>
+              <button id="lowButton" onclick="setPrioLow()" type="button" class="prio_buttons">Low <img id="lowImage" class="low_image" src="../assets/img/icons/prio_kow_green.svg" alt="" /></button>
             </div>
           </div>
           <div>
             <label required class="label_add_task">Category<span class="red">*</span></label>
-            <select onclick="disOrEnableButton()" id="taskCategory" class="width_form_elements" name="category">
+            <select onclick="disOrEnableButton()" id="taskCategory" class="form_elements" name="category">
               <option value="" disabled selected>Select task category</option>
               <option>Technical Task</option>
               <option>User Story</option>
@@ -49,9 +50,9 @@
           </div>
           <div>
             <label class="label_add_task">Subtasks</label>
-            <!-- <input id="taskSubtask" class="width_form_elements subtask_add_task" type="text" placeholder="Add new subtask" /> -->
-            <div class="width_form_elements subtask_container">
-              <input oninput="showIconsSubtasks()" id="taskSubtask" class="subtasks_input" type="text" placeholder="Add new subtask" />
+            <!-- <input id="taskSubtask" class="form_elements subtask_add_task" type="text" placeholder="Add new subtask" /> -->
+            <div id="subtaskContainer" onclick="addBorderColorBlue()" class="form_elements subtask_container">
+              <input oninput="showIconsSubtasks()" id="taskSubtask"  class="subtasks_input" type="text" placeholder="Add new subtask" />
               <div id="iconsSubtasksContainer" class="icons_subtasks_container d_none">
                 <img onclick="clearSubtask()" class="subtask_image" src="../assets/img/icons/subtask_x.png" alt="">
                 <img class="subtask_line" src="../assets/img/icons/subtask_line.png" alt="">
