@@ -39,7 +39,7 @@ function displayContacts() {
             let contactsAtLetterContainer = document.getElementById(`contacts-at-letter${startingLetter}`)
             if(contact.contactName[0] == startingLetter) {
                 contactsAtLetterContainer.innerHTML += /*html*/ `
-                    <div class="contact" id="contact${i}" onclick="displayFullContact(contact)">
+                    <div class="contact" id="contact${i}" onclick="displayFullContact(${i})">
                         <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
                         <div class="name-and-mail">
                             <span>${contact.contactName}</span>
@@ -54,13 +54,14 @@ function displayContacts() {
     } 
 }
 
-function displayFullContact(contact) {
+function displayFullContact(i) {
     let contactContainer = document.getElementById('contact-container');
+    let contact = contacts[i];
 
-    contactContainer.innerHTML += /*html*/ `
+    contactContainer.innerHTML = /*html*/ `
         <div style="background-color: ${contact.contactColor}" class="initials_circle"><span class="initials_span">${contact.contactInitials}</span></div>
             <div class="name_container">
-                <span class="contact_name">Anton Mayer</span>
+                <span class="contact_name">${contact.contactName}</span>
             </div>
             <div class="edit_delete_container">
                 <span>Edit</span>
