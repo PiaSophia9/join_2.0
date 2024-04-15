@@ -92,7 +92,7 @@
 }
 
 .form_elements:focus {
-  border: 2px solid #5ec0e9 !important;
+  border: 1px solid #5ec0e9 !important;
   outline: none !important;
 }
 
@@ -168,7 +168,7 @@ input:-internal-autofill-selected {
 }
 
 .subtask_container_blue_border {
-  border: 2px solid #5ec0e9;
+  border: 1px solid #5ec0e9;
 }
 
 .subtask_image {
@@ -199,7 +199,7 @@ input:-internal-autofill-selected {
 }
 
 .dropbtn:focus {
-  border: 2px solid #5ec0e9;
+  border: 1px solid #5ec0e9;
 }
 
 .dropdown_arrow {
@@ -316,6 +316,17 @@ input:focus {
 
 .span_container {
   display: flex;
+}
+
+.error_container {
+  display: block;
+  color: #ff8190;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.hide_error {
+  display: none;
 }
 
 @media (max-width: 1030px) {
