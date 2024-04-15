@@ -6,9 +6,11 @@
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="summary.css">
     <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
+    <script src="../login/login.js"></script>
+    <!-- <script src="../sign_up/sign_up.js"></script> -->
     <title>Summary</title>
   </head>
-  <body onload="includeHTML(), loadAllUsers()">
+  <body onload="includeHTML(); loadUserName()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
@@ -61,7 +63,6 @@
     <script src="summary.js"></script>
     <script src="../assets/templates/include_header_and_sidebar.js"></script>
     <script src="../storage.js"></script>
-    <script src="../login/login.js"></script>
-    <script src="../sign_up/sign_up.js"></script>
+    
   </body>
 </html>

@@ -1,17 +1,14 @@
 
 
 function loadUserName() {
-
+    let loggedUser = document.getElementById('logged_user');
+    loggedUser.innerHTML = '';
     if (loggedInUserId >= 0 && loggedInUserId < users.length) {
-        return users[loggedInUserId].userName;
+        loggedUser.innerHTML = users[loggedInUserId].userName;
     } else {
         return 'Benutzer nicht gefunden';
     }
 }
-
-const userName = loadUserName();
-console.log(userName); 
-document.getElementById('logged_user').textContent = userName;
      
 const date = new Date();
 
