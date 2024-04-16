@@ -4,17 +4,16 @@ let colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", 
 async function initUser() {
   resetSignUpForm();
   await loadAllUsers();
+  console.log(users);
   // signUpSuccessfullyInfo();
 }
 
 async function loadAllUsers() {
   let response = await getItem("remoteUsers");
   users = await JSON.parse(response);
-
-  console.log("Loaded Users: ", users);
 }
 
-async function addUser() {
+function addUser() {
   let userName = document.getElementById("username").value;
   let userEmail = document.getElementById("email").value;
   let userPassword = document.getElementById("password").value;
@@ -28,7 +27,7 @@ async function addUser() {
     userInitials: userInitials,
     userColor: userColor,
   };
-  await validatePassword(user);
+  validatePassword(user);
   
 }
 
@@ -72,7 +71,7 @@ function disOrEnableSignUpBtn() {
   }
 }
 // password validation // 
-async function validatePassword(user){
+ function validatePassword(user){
   let passwordInput = document.getElementById("password");
   let passwordConfirmInput = document.getElementById("password_confirm");
   let errorMessage = document.getElementById('passwordError');
@@ -85,17 +84,17 @@ async function validatePassword(user){
   } else {
     pushUsers(user);
     saveNameAInLocalStorage();
-  errorMessage.textContent = ''; // Fehlermeldung zurücksetzen
-  await storeAllUsers();
+    errorMessage.textContent = ''; // Fehlermeldung zurücksetzen
   // signUpSuccessfullyInfo();
-  redirectToLogin();
+    acceptPolicy();
+    policyError.textContent = '';
+    resetSignUpForm();
   }
 }
 
 async function storeAllUsers() {
   // users = [];
   await setItem("remoteUsers", users);
-  console.log(users);
 }
 
 function redirectToLogin() {
@@ -103,23 +102,28 @@ function redirectToLogin() {
   window.location.href = targetUrl;
 }
 
-// checkbox  - mit Sophia besprechen 
-// function acceptPolicy() {
-//   checkBox();
-// }
 
-// function checkBox() {
-//   if (document.getElementById("accept_policy").src.endsWith("/checkbox_filled.png")) {
+async function acceptPolicy() {
+  let policyError = document.getElementById("policyError");
+  if (document.getElementById("accept_policy").src.endsWith("/checkbox_filled.png")) {
+    await storeAllUsers();
+    redirectToLogin();
+  } else {
+    policyError.style.display = 'block';
+    policyError.style.color = '#ff7f8e';
+    policyError.textContent = 'Please accept the Privat Policy';
+  }
+}
 
-//   }
-//   let  policyCheckbox = document.getElementById("accept_policy");
-//   policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
-// }
-
-// function uncheckBox() {
-//   let policyCheckbox = document.getElementById("accept_policy");
-//   policyCheckbox.src = "../assets/img/icons/checkbox_empty.png";
-// }
+function checkBox() {
+  let  policyCheckbox = document.getElementById("accept_policy");
+  policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
+}
+// funktioniert noch nicht
+function uncheckBox() {
+  let policyCheckbox = document.getElementById("accept_policy");
+  policyCheckbox.src = "../assets/img/icons/checkbox_empty.png";
+}
 
 function resetSignUpForm() {
   document.getElementById("signUpForm").reset();

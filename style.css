@@ -42,12 +42,14 @@ button:hover {
 .btn_dark_disabled {
   background-color: #2a3647;
   color: white;
+  height: 48px;
 }
 
 .btn_bright {
   background-color: transparent;
   color: #2a3647;
   border: 1px solid #2a3647;
+  height: 48px;
 }
 
 .btn_bright:hover {

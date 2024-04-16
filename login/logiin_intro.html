@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link rel="stylesheet" href="../style.css" />
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="login_animation.css">
     <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
   </head>
-  <body onload="initLogIn()">
+  <body onload="initLogIn(); playIntro()">
+
+    <div id="whole" class="wholeSite">
+     
+        <img id="big" src="../assets/img/logoBig.svg" alt="logo_join" class="logoBig">
+ 
+    </div>
 
     <div class="container_main">
-      <div class="login_header">
-        <img src="../assets/img/logoBig.svg" alt="logo_join" class="logoBigStart" />
+    <div class="login_header">
+      <!-- <img src="../assets/img/logoBig.svg" alt="logo_join" class="logoBigStart" /> -->
       <div class="login_sign_up">
         <p class="font_size_20">Not a Join user?</p>
         <button class="btn_dark" onclick="window.location.href = '../sign_up/sign_up.html';">Sign up</button>
@@ -48,6 +54,7 @@
       <a href="../privacy_policy/privacy_policy.html">Privacy Policy</a>
       <a href="../legal_notice/legal_notice.html">Legal notice</a></div>
     </div>
+    <script src="login_intro.js"></script>
     <script src="../storage.js"></script>
     <script src="login.js"></script>
   </body>

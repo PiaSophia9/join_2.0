@@ -9,6 +9,7 @@ async function init() {
   // createAndPushInitials();
   // createAndPushColors();
   renderContactsToAssign();
+  renderCategories();
   showAssignedtoContacts();
   console.log("allTasks on load:", allTasks);
 }
@@ -40,7 +41,7 @@ async function addTask() {
   let title = document.getElementById("taskTitle").value;
   let description = document.getElementById("taskDescription").value;
   let dueDate = document.getElementById("taskDueDate").value;
-  let category = document.getElementById("taskCategory").value;
+  let category = document.getElementById("buttonName").textContent;
   let status = "toDo";
 
   let task = {
@@ -130,10 +131,21 @@ function clearForm() {
   document.getElementById("taskForm").reset();
   document.getElementById("assignedtoContactsContainer").innerHTML = "";
   document.getElementById("subtasksRenderContainer").innerHTML = "";
+  document.getElementById("buttonName").textContent = "Select task Category";
   removeUrgentPrio();
   removeMediumPrio();
   removeLowPrio();
   clearArrays();
+  renderContactsToAssignWithemptyCheckbox();
+  turnDateColorGrey();
+}
+
+function makeIconBright() {
+  document.getElementById("clearButtonImage").src = "../assets/img/icons/addTask_x_bright.png";
+}
+
+function makeIconDark() {
+  document.getElementById("clearButtonImage").src = "../assets/img/icons/addTask_x_dark.png";
 }
 
 // dis- or enable button if required inputs are filled
@@ -152,7 +164,18 @@ function borderRedIfTitleEmpty() {
   }
 }
 
+function turnDateColorBlack() {
+  document.getElementById("taskDueDate").classList.remove("date");
+  document.getElementById("taskDueDate").classList.add("date_after_change");
+}
+
+function turnDateColorGrey() {
+  document.getElementById("taskDueDate").classList.add("date");
+  document.getElementById("taskDueDate").classList.remove("date_after_change");
+}
+
 function borderRedIfDateEmpty() {
+  turnDateColorBlack();
   if (document.getElementById("taskDueDate").value == "") {
     document.getElementById("taskDueDate").style.borderColor = "#ff8190";
     document.getElementById("errorContainerDate").classList.remove("hide_error");
@@ -167,13 +190,13 @@ function borderRedIfDateEmpty() {
 }
 
 function borderRedIfCategoryEmpty() {
-  if (document.getElementById("taskCategory").value == "") {
-    document.getElementById("taskCategory").style.borderColor = "#ff8190";
+  if (document.getElementById("buttonName").textContent == "Select task Category") {
+    document.getElementById("categoryButton").style.borderColor = "#ff8190";
     document.getElementById("errorContainerCategory").classList.remove("hide_error");
     document.getElementById("errorContainerCategory").classList.add("error_container");
     disOrEnableButton();
   } else {
-    document.getElementById("taskCategory").style.borderColor = "#a8a8a8";
+    document.getElementById("categoryButton").style.borderColor = "#a8a8a8";
     document.getElementById("errorContainerCategory").classList.add("hide_error");
     document.getElementById("errorContainerCategory").classList.remove("error_container");
     disOrEnableButton();
@@ -181,7 +204,7 @@ function borderRedIfCategoryEmpty() {
 }
 
 function checkRequiredFields() {
-  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("taskCategory").value == "") {
+  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
     borderRedIfTitleEmpty();
     borderRedIfDateEmpty();
     borderRedIfCategoryEmpty();
@@ -195,7 +218,7 @@ function checkRequiredFields() {
 }
 
 function disOrEnableButton() {
-  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("taskCategory").value == "") {
+  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
     document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
     document.getElementById("submit_task_button").classList.remove("btn_dark");
   } else {
@@ -205,7 +228,7 @@ function disOrEnableButton() {
 }
 
 // function disOrEnableButton() {
-//   if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("taskCategory").value == "") {
+//   if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("categoryButton").value == "") {
 //     if (document.getElementById("submit_task_button").hasAttribute("disabled")) {
 //     } else {
 //       document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
@@ -228,18 +251,53 @@ function toggleDropdown() {
 }
 
 // Close the dropdown menu if the user clicks outside of it
+// window.onclick = function (event) {
+//   if (!event.target.matches(".dropbtnAssignedContact")) {
+//     document.getElementById("myDropdown").classList.remove("show");
+//   }
+// };
+
+// New Dropdown
+
+let categories = ["Technical Task", "User Story"];
+
+function toggleDropdownCategory() {
+  document.getElementById("categoryDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
 window.onclick = function (event) {
   if (!event.target.matches(".dropbtn")) {
-    let dropdowns = document.getElementsByClassName("dropdown-content");
-    let i;
-    for (i = 0; i < dropdowns.length; i++) {
-      let openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains("show")) {
-        openDropdown.classList.remove("show");
-      }
-    }
+    document.getElementById("categoryDropdown").classList.remove("show");
+  }
+  if (!event.target.matches(".dropbtnAssignedContact")) {
+    document.getElementById("myDropdown").classList.remove("show");
   }
 };
+
+// Render Dropdown mit contacts
+function renderCategories() {
+  for (let i = 0; i < categories.length; i++) {
+    document.getElementById("categoryDropdown").innerHTML += generateCategories(i);
+  }
+}
+
+function generateCategories(i) {
+  return `<div class="dropdown-content-div" onclick="selectCategory(${i})">
+  <div id='categoryName' class="dropdown_container">
+  ${categories[i]}</div></div>
+`;
+}
+
+function selectCategory(i) {
+  document.getElementById("categoryButton").innerHTML = `
+  <span id="buttonName">${categories[i]}</span>
+  
+  <img onclick="event.stopPropagation(); toggleDropdownCategory()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png"/>
+  `;
+  borderRedIfCategoryEmpty();
+  // stopPropagation();
+}
 
 // Contacts to assign
 
@@ -271,6 +329,14 @@ function renderContactsToAssign() {
   }
 }
 
+function renderContactsToAssignWithemptyCheckbox() {
+  document.getElementById("myDropdown").innerHTML = "";
+  for (let i = 0; i < contacts.length; i++) {
+    document.getElementById("myDropdown").innerHTML += generateContactToAssign(i);
+    emptyCheckboxImage(i);
+  }
+}
+
 function generateContactToAssign(i) {
   return `<div class="dropdown-content-div" onclick="stopPropagation()">
   <div class="dropdown_container">
@@ -291,7 +357,7 @@ async function selectAssignedContact(i) {
     console.log("indexInAssignedContact:", indexInAssignedContact);
     assignedContacts.splice(indexInAssignedContact, 1); // aus dem array löschen
   } else {
-    changeCheckboxImage(i);
+    fillCheckboxImage(i);
     pushAssignedContacts(i);
   }
   // await storeAssignedContacts();
@@ -299,8 +365,12 @@ async function selectAssignedContact(i) {
   console.log("assignedContacts: ", assignedContacts);
 }
 
-function changeCheckboxImage(i) {
+function fillCheckboxImage(i) {
   document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_filled.png";
+}
+
+function emptyCheckboxImage(i) {
+  document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
 }
 
 function pushAssignedContacts(i) {

@@ -49,7 +49,7 @@ function resetLogInForm() {
   document.getElementById('logInForm').reset();
 }
 
-// btn ist disabled - funktioniert noch nicht
+
 function checkBox() {
   if(document.getElementById("email").value == "" || document.getElementById("password").value == "") {
     if (document.getElementById("remember_me").hasAttribute("disabled")) {
