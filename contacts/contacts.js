@@ -141,8 +141,7 @@ async function addContact() {
     displayContacts();
     displayContactDetails(contacts.indexOf(contact));
     toggleActiveContact(contacts.indexOf(contact));
-    document.getElementById(`contact${contacts.indexOf(contact)}`).scrollIntoView();
-    // show toast message that contact was successfully created
+    document.getElementById(`contact${contacts.indexOf(contact)}`).scrollIntoView();    // scroll to actual selected contact
 }
 
 
