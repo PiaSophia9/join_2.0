@@ -23,6 +23,7 @@ async function loadContacts() {
 
 function displayContacts() {
     let contactsContainer = document.getElementById('all-contacts');
+    contactsContainer.innerHTML = "";
     sortContactsByName();
     createStartingLetters();
 
@@ -78,7 +79,7 @@ function displayContactDetails(i) {
                 <span class="contact_name">${contact.contactName}</span>
             </div>
             <div class="edit_delete_container">
-                <button class="edit-button" onclick="editContact(${i})">Edit</button>
+                <button class="edit-button" onclick="openEditContact(${i})">Edit</button>
                 <button class="edit-button" onclick="deleteContact(${i})">Delete</button>
             </div>
         </div>
@@ -110,9 +111,11 @@ function sortContactsByName() {
 function createStartingLetters() {
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
-        sortedStartingLetters.push(contacts[i].contactName[0]);
+        sortedStartingLetters.push(contact.contactName[0]);
     }
     uniqueStartingLetters = [...new Set(sortedStartingLetters)];
+    uniqueStartingLetters.sort();
+    sortedStartingLetters = [];
 }
 
 
@@ -130,21 +133,69 @@ async function addContact() {
         'contactInitials': contactInitials,
         'contactColor': contactColor
     }
+
     contacts.push(contact);
-    storeContacts();
-    // clear contact form
+    await storeContacts();
+    closeAddContact();
+    showSnackbar("Contact successfully created");
+    displayContacts();
+    displayContactDetails(contacts.indexOf(contact));
+    toggleActiveContact(contacts.indexOf(contact));
+    document.getElementById(`contact${contacts.indexOf(contact)}`).scrollIntoView();
     // show toast message that contact was successfully created
 }
 
 
 async function editContact(i) {
-
+    contacts[i].contactName = document.getElementById('name-input-edit').value;
+    contacts[i].contactMail = document.getElementById('mail-input-edit').value;
+    contacts[i].contactPhone = document.getElementById('phonenumber-input-edit').value;
+    await storeContacts();
+    closeEditContact();
+    showSnackbar("Contact infos successfully changed");
+    displayContactDetails(i);
+    displayContacts();
+    toggleActiveContact(i);
 }
 
 
 async function deleteContact(i) {
-
+    contacts.splice(i, 1);
+    document.getElementById('edit-contact-form').reset();
+    await storeContacts();
+    closeEditContact();
+    showSnackbar("Contact successfully deleted");
+    displayContactDetails(i-1);
+    displayContacts();
+    toggleActiveContact(i-1);
 }
+
+
+// function editContactCheckUnique() {
+//     let contactMail = document.getElementById('mail-input-edit').value;
+//     let contactPhone = document.getElementById('phonenumber-input-edit').value;
+    
+//     for (let i = 0; i < contacts.length; i++) {
+//         const contact = contacts[i];
+//         if(contact.contactMail == contactMail || contact.contactPhone == contactPhone) {
+//             console.log("A user with this email-address or phonenumber already exists.");
+//         }
+//     }
+// }
+
+
+// function addContactCheckUnique() {
+//     let contactMail = document.getElementById('mail-input').value;
+//     let contactPhone = document.getElementById('phonenumber-input').value;
+
+//     for (let i = 0; i < contacts.length; i++) {
+//         const contact = contacts[i];
+//         if(contact.contactMail == contactMail || contact.contactPhone == contactPhone) {
+//             console.log("A user with this email-address or phonenumber already exists.");
+//             return true;
+//         }
+//     }
+// }
 
 
 async function storeContacts() {
@@ -173,23 +224,71 @@ function generateRandomNumber() {
 
 // open add-contact modal
 function openAddContact() {
-    let modal = document.getElementById('modal-bg');
+    let modal = document.getElementById('modal-bg-add');
     modal.style.width = '100%';
     modal.style.left = 0;
+    document.getElementById('add-contact-form').reset();
 }
 
 
 function closeAddContact() {
-    let modal = document.getElementById('modal-bg');
+    let modal = document.getElementById('modal-bg-add');
     modal.style.width = 0;
     modal.style.left = '100%';
 }
 
 
 window.addEventListener("click", function(event) {
-    let modalBg = document.getElementById('modal-bg');
+    let modalBg = document.getElementById('modal-bg-add');
     if(event.target == modalBg) {
         modalBg.style.width = 0;
         modalBg.style.left = '100%';
     }   
 })
+
+
+// open edit-contact modal
+function openEditContact(i) {
+    let modal = document.getElementById('modal-bg-edit');
+    modal.style.width = '100%';
+    modal.style.left = 0;
+
+    let container = document.getElementById('form-and-image-edit');
+    container.innerHTML = /*html*/ `
+        <img src="../assets/img/icons/person.png" alt="">
+        <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
+            <input type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}">
+            <input type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
+            <input type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
+            <div class="cancel-and-create-buttons">
+                <button onclick="deleteContact(${i}); event.preventDefault()">Delete</button>   <!-- event.preventDefault() necessary because without it, the onsubmit-functions would be executed -->
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    `;
+}
+
+
+function closeEditContact() {
+    let modal = document.getElementById('modal-bg-edit');
+    modal.style.width = 0;
+    modal.style.left = '100%';
+}
+
+
+window.addEventListener("click", function(event) {
+    let modalBg = document.getElementById('modal-bg-edit');
+    if(event.target == modalBg) {
+        modalBg.style.width = 0;
+        modalBg.style.left = '100%';
+    }   
+})
+
+
+// Snackbar / Toastmessage
+function showSnackbar(message) {
+    let snackbar = document.getElementById("snackbar");
+    snackbar.className = "show";
+    snackbar.innerHTML = message;
+    setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+}

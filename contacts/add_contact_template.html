@@ -1,0 +1,28 @@
+<div class="modal-bg" id="modal-bg-add">
+    <div class="add-contact-modal" id="modal-content">
+      <div class="left-side-modal">
+        <img src="../assets/img/icons/logo_white.png" alt="">
+        <div class="slogan">
+          <h2>Add contact</h2>
+          <p>Tasks are better with a team</p>
+          <img src="../assets/img/line.png" alt="">
+        </div>
+      </div>
+      <div class="right-side-modal">
+        <span class="close-modal" onclick="closeAddContact()">&times;</span>
+        <div class="form-and-image">
+          <img src="../assets/img/icons/person.png" alt="">
+          <form action="" class="add-contact-form" id="add-contact-form" onsubmit="event.preventDefault(); addContact()">
+            <input type="text" name="name" id="name-input" placeholder="Name">
+            <input type="email" name="email" id="mail-input" placeholder="Email">
+            <input type="tel" name="phonenumber" id="phonenumber-input" placeholder="Phone">
+            <div class="cancel-and-create-buttons">
+              <button>Cancel</button>
+              <button type="submit">Create contact</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
