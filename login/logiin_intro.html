@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Start</title>
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="login_animation.css">
     <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
@@ -36,6 +36,8 @@
         <div class="login_input">
           <input onkeyup="disOrEnableLogInBtn()" required type="email" id="email" placeholder="Email" class="icon_mail" onclick="loadRememberMe()" />
           <input onkeyup="disOrEnableLogInBtn()" required type="password" minlength="3" id="password" placeholder="Password" class="icon_lock"/>
+          <div id="passwordError" style="display: none;"></div>
+          <div id="loginError" style="display: none;">Ups! please sign up!</div>
         </div>
 
         <div class="login_remember_me">

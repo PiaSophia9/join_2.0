@@ -1,80 +1,15 @@
 let allTasks = [];
 let priority;
+let categories = ["Technical Task", "User Story"];
 
 async function init() {
   includeHTML();
   await loadAllTasks();
   await loadContacts();
-  // await loadAssignedContacts();
-  // createAndPushInitials();
-  // createAndPushColors();
   renderContactsToAssign();
   renderCategories();
   showAssignedtoContacts();
   console.log("allTasks on load:", allTasks);
-}
-
-// async function validatePassword(user) {
-//   let passwordInput = document.getElementById("password");
-//   let passwordConfirmInput = document.getElementById("password_confirm");
-//   let errorMessage = document.getElementById("passwordError");
-//   if (passwordInput.value !== passwordConfirmInput.value) {
-//     errorMessage.style.display = "block";
-//     errorMessage.style.color = "#ff7f8e";
-//     passwordConfirmInput.style.borderColor = "#ff7f8e";
-//     errorMessage.textContent = "Passwords do not match";
-//     return false;
-//   } else {
-//     pushUsers(user);
-//     errorMessage.textContent = ""; // Fehlermeldung zurücksetzen
-//     await storeAllUsers();
-//     // signUpSuccessfullyInfo();
-//     redirectToLogin();
-//   }
-// }
-
-/**
- * This function gets the form elements values, pushes them into the array "allTasks" and saves them in the storage.
- *
- */
-async function addTask() {
-  let title = document.getElementById("taskTitle").value;
-  let description = document.getElementById("taskDescription").value;
-  let dueDate = document.getElementById("taskDueDate").value;
-  let category = document.getElementById("buttonName").textContent;
-  let status = "toDo";
-
-  let task = {
-    title: title,
-    description: description,
-    dueDate: dueDate,
-    priority: priority,
-    assignedTo: assignedContacts,
-    category: category,
-    subtasks: subtasks,
-    status: status,
-  };
-
-  pushTask(task);
-  // allTasks = [];
-  await storeAllTasks();
-  clearForm();
-  console.log("allTasks after button clicked:", allTasks);
-}
-
-function pushTask(task) {
-  allTasks.push(task);
-}
-
-async function storeAllTasks() {
-  // assignedContacts = [];
-  await setItem("remoteTasks", allTasks);
-}
-
-function clearArrays() {
-  assignedContacts = [];
-  priority = "";
-  subtasks = [];
 }
 
 /**
@@ -85,6 +20,69 @@ function clearArrays() {
 async function loadAllTasks() {
   let response = await getItem("remoteTasks");
   allTasks = await JSON.parse(response);
+}
+
+/**
+ * This function gets the form elements values, pushes them into the array "allTasks" and saves them in the storage. It also clears the form and redirects to board.html
+ *
+ */
+async function createTask() {
+  let title = document.getElementById("taskTitle").value;
+  let description = document.getElementById("taskDescription").value;
+  let dueDate = document.getElementById("taskDueDate").value;
+  let category = document.getElementById("buttonName").textContent;
+  let status = "toDo";
+  let task = {
+    title: title,
+    description: description,
+    dueDate: dueDate,
+    priority: priority,
+    assignedTo: assignedContacts,
+    category: category,
+    subtasks: subtasks,
+    status: status,
+  };
+  addTask(task);
+}
+
+async function addTask(task) {
+  pushTask(task);
+  // allTasks = [];
+  await storeAllTasks();
+  clearForm();
+  redirectToBoard();
+}
+
+function pushTask(task) {
+  allTasks.push(task);
+}
+
+async function storeAllTasks() {
+  await setItem("remoteTasks", allTasks);
+}
+
+function clearForm() {
+  document.getElementById("taskForm").reset();
+  document.getElementById("assignedtoContactsContainer").innerHTML = "";
+  document.getElementById("subtasksRenderContainer").innerHTML = "";
+  document.getElementById("buttonName").textContent = "Select task Category";
+  removeUrgentPrio();
+  removeMediumPrio();
+  removeLowPrio();
+  clearArrays();
+  renderContactsToAssignWithemptyCheckbox();
+  turnDateColorGrey();
+}
+
+function clearArrays() {
+  assignedContacts = [];
+  priority = "";
+  subtasks = [];
+}
+
+function redirectToBoard() {
+  const targetUrl = "../board/board.html";
+  window.location.href = targetUrl;
 }
 
 // Prio Buttons
@@ -127,28 +125,23 @@ function removeLowPrio() {
   document.getElementById("lowImage").src = "../assets/img/icons/prio_kow_green.svg";
 }
 
-function clearForm() {
-  document.getElementById("taskForm").reset();
-  document.getElementById("assignedtoContactsContainer").innerHTML = "";
-  document.getElementById("subtasksRenderContainer").innerHTML = "";
-  document.getElementById("buttonName").textContent = "Select task Category";
-  removeUrgentPrio();
-  removeMediumPrio();
-  removeLowPrio();
-  clearArrays();
-  renderContactsToAssignWithemptyCheckbox();
-  turnDateColorGrey();
-}
-
-function makeIconBright() {
+function makeIconClearButtonBright() {
   document.getElementById("clearButtonImage").src = "../assets/img/icons/addTask_x_bright.png";
 }
 
-function makeIconDark() {
+function makeIconClearButtonDark() {
   document.getElementById("clearButtonImage").src = "../assets/img/icons/addTask_x_dark.png";
 }
 
-// dis- or enable button if required inputs are filled
+function turnDateColorBlack() {
+  document.getElementById("taskDueDate").classList.remove("date");
+  document.getElementById("taskDueDate").classList.add("date_after_change");
+}
+
+function turnDateColorGrey() {
+  document.getElementById("taskDueDate").classList.add("date");
+  document.getElementById("taskDueDate").classList.remove("date_after_change");
+}
 
 function borderRedIfTitleEmpty() {
   if (document.getElementById("taskTitle").value == "") {
@@ -162,16 +155,6 @@ function borderRedIfTitleEmpty() {
     document.getElementById("errorContainerTitle").classList.remove("error_container");
     disOrEnableButton();
   }
-}
-
-function turnDateColorBlack() {
-  document.getElementById("taskDueDate").classList.remove("date");
-  document.getElementById("taskDueDate").classList.add("date_after_change");
-}
-
-function turnDateColorGrey() {
-  document.getElementById("taskDueDate").classList.add("date");
-  document.getElementById("taskDueDate").classList.remove("date_after_change");
 }
 
 function borderRedIfDateEmpty() {
@@ -211,7 +194,7 @@ function checkRequiredFields() {
   } else {
     document.getElementById("submit_task_button").classList.remove("btn_dark_disabled");
     document.getElementById("submit_task_button").classList.add("btn_dark");
-    addTask();
+    createTask();
     document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
     document.getElementById("submit_task_button").classList.remove("btn_dark");
   }
@@ -227,55 +210,50 @@ function disOrEnableButton() {
   }
 }
 
-// function disOrEnableButton() {
-//   if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("categoryButton").value == "") {
-//     if (document.getElementById("submit_task_button").hasAttribute("disabled")) {
-//     } else {
-//       document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
-//       document.getElementById("submit_task_button").classList.remove("btn_dark");
-//     }
-//   } else {
-//     // document.getElementById("submit_task_button").removeAttribute("disabled");
-//     document.getElementById("submit_task_button").classList.remove("btn_dark_disabled");
-//     document.getElementById("submit_task_button").classList.add("btn_dark");
-//     //add task
-//   }
-// }
+// Dropdowns
 
-// Dropdown
-
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function toggleDropdown() {
-  document.getElementById("myDropdown").classList.toggle("show");
+function toggleDropdownAssignedTo() {
+  document.getElementById("assignedToDropdown").classList.toggle("show");
 }
 
-// Close the dropdown menu if the user clicks outside of it
-// window.onclick = function (event) {
-//   if (!event.target.matches(".dropbtnAssignedContact")) {
-//     document.getElementById("myDropdown").classList.remove("show");
-//   }
-// };
-
-// New Dropdown
-
-let categories = ["Technical Task", "User Story"];
-
-function toggleDropdownCategory() {
-  document.getElementById("categoryDropdown").classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it
 window.onclick = function (event) {
   if (!event.target.matches(".dropbtn")) {
     document.getElementById("categoryDropdown").classList.remove("show");
   }
   if (!event.target.matches(".dropbtnAssignedContact")) {
-    document.getElementById("myDropdown").classList.remove("show");
+    document.getElementById("assignedToDropdown").classList.remove("show");
   }
 };
 
-// Render Dropdown mit contacts
+function renderContactsToAssign() {
+  for (let i = 0; i < contacts.length; i++) {
+    document.getElementById("assignedToDropdown").innerHTML += generateContactToAssign(i);
+    addCheckboxImage(i);
+  }
+}
+
+function renderContactsToAssignWithemptyCheckbox() {
+  document.getElementById("assignedToDropdown").innerHTML = "";
+  for (let i = 0; i < contacts.length; i++) {
+    document.getElementById("assignedToDropdown").innerHTML += generateContactToAssign(i);
+    emptyCheckboxImage(i);
+  }
+}
+
+function generateContactToAssign(i) {
+  return `<div class="dropdown-content-div" onclick="stopPropagation()">
+  <div class="dropdown_container">
+    <div  style="background-color:${contacts[i].contactColor}" class="initials_circle"><span class="initials_span">${contacts[i].contactInitials}</span></div>
+    <span id="contacts${i}">${contacts[i].contactName}</span>
+  </div>
+  <div id="checkboxContainer${i}"><img id="checkBoxImage${i}" src="../assets/img/icons/checkbox_empty.png" alt="" onclick='selectAssignedContact(${i})'/></div>
+</div>`;
+}
+
+function toggleDropdownCategory() {
+  document.getElementById("categoryDropdown").classList.toggle("show");
+}
+
 function renderCategories() {
   for (let i = 0; i < categories.length; i++) {
     document.getElementById("categoryDropdown").innerHTML += generateCategories(i);
@@ -296,23 +274,16 @@ function selectCategory(i) {
   <img onclick="event.stopPropagation(); toggleDropdownCategory()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png"/>
   `;
   borderRedIfCategoryEmpty();
-  // stopPropagation();
 }
 
 // Contacts to assign
 
 let assignedContacts = [];
-let assignedContactInitials = [];
-let assignedContactColors = [];
-
-let colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 
 function addCheckboxImage(j) {
   for (let i = 0; i < assignedContacts.length; i++) {
-    // muss hier nicht contacts rein??
     const assContact = assignedContacts[i];
     let contactsIndex = contacts.indexOf(assContact);
-    // result is index in contacts OR -1
     if (contactsIndex == -1) {
       document.getElementById(`checkBoxImage${j}`).src = "../assets/img/icons/checkbox_empty.png";
     } else {
@@ -321,46 +292,18 @@ function addCheckboxImage(j) {
   }
 }
 
-// Render Dropdown mit contacts
-function renderContactsToAssign() {
-  for (let i = 0; i < contacts.length; i++) {
-    document.getElementById("myDropdown").innerHTML += generateContactToAssign(i);
-    addCheckboxImage(i);
-  }
-}
-
-function renderContactsToAssignWithemptyCheckbox() {
-  document.getElementById("myDropdown").innerHTML = "";
-  for (let i = 0; i < contacts.length; i++) {
-    document.getElementById("myDropdown").innerHTML += generateContactToAssign(i);
-    emptyCheckboxImage(i);
-  }
-}
-
-function generateContactToAssign(i) {
-  return `<div class="dropdown-content-div" onclick="stopPropagation()">
-  <div class="dropdown_container">
-    <div  style="background-color:${contacts[i].contactColor}" class="initials_circle"><span class="initials_span">${contacts[i].contactInitials}</span></div>
-    <span id="contacts${i}">${contacts[i].contactName}</span>
-  </div>
-  <div id="checkboxContainer${i}"><img id="checkBoxImage${i}" src="../assets/img/icons/checkbox_empty.png" alt="" onclick='selectAssignedContact(${i})'/></div>
-</div>`;
-}
-
 async function selectAssignedContact(i) {
-  // function selectOrUnselectContact
   console.log("i: ", i);
   if (document.getElementById(`checkBoxImage${i}`).src.endsWith("/checkbox_filled.png")) {
     document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
     let currentContact = contacts[i];
     let indexInAssignedContact = assignedContacts.indexOf(currentContact);
     console.log("indexInAssignedContact:", indexInAssignedContact);
-    assignedContacts.splice(indexInAssignedContact, 1); // aus dem array löschen
+    assignedContacts.splice(indexInAssignedContact, 1);
   } else {
     fillCheckboxImage(i);
     pushAssignedContacts(i);
   }
-  // await storeAssignedContacts();
   showAssignedtoContacts();
   console.log("assignedContacts: ", assignedContacts);
 }
@@ -382,16 +325,6 @@ function pushAssignedContacts(i) {
 function stopPropagation() {
   event.stopPropagation(onclick);
 }
-
-// async function storeAssignedContacts() {
-//   // assignedContacts = [];
-//   await setItem("remoteAssignedContacts", assignedContacts);
-// }
-
-// async function loadAssignedContacts() {
-//   let response = await getItem("remoteAssignedContacts");
-//   assignedContacts = await JSON.parse(response);
-// }
 
 function showAssignedtoContacts() {
   document.getElementById("assignedtoContactsContainer").innerHTML = "";
@@ -421,10 +354,8 @@ function removeBorderColorBlue() {
 
 window.addEventListener("click", function (e) {
   if (document.getElementById("subtaskContainer").contains(e.target)) {
-    // Clicked in box
     addBorderColorBlue();
   } else {
-    // Clicked outside the box
     removeBorderColorBlue();
   }
 });
@@ -448,18 +379,21 @@ function addSubtask() {
   if (document.getElementById("taskSubtask").value) {
     let nameSubtask = document.getElementById("taskSubtask").value;
     let statusSubtask = "inProgress";
-
     let subtask = {
       nameSubtask: nameSubtask,
       statusSubtask: statusSubtask,
     };
     subtasks.push(subtask);
     console.log(subtasks);
-    clearSubtask();
-    renderSubtasks();
+    renewSubtasks();
   }
   removeBorderColorBlue();
   event.stopPropagation();
+}
+
+function renewSubtasks() {
+  clearSubtask();
+  renderSubtasks();
 }
 
 function renderSubtasks() {
@@ -499,7 +433,6 @@ function hidePenAndTrash(i) {
 
 function deleteSubtask(i) {
   subtasks.splice(i, 1);
-  // Todo: push array in storage if add task is pressed
   renderSubtasks();
 }
 
@@ -519,7 +452,6 @@ function deleteRenderedSubtask(i) {
 }
 
 function overwriteSubtask(i) {
-  // In dieser Funktion passiert der Fehler
   let newValueSubtaskName = document.getElementById(`subtasName${i}`).innerText;
   subtasks[i].nameSubtask = newValueSubtaskName;
   renderSubtasks();

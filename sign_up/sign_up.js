@@ -80,7 +80,8 @@ function disOrEnableSignUpBtn() {
     errorMessage.style.color = '#ff7f8e';
     passwordConfirmInput.style.borderColor = '#ff7f8e';
     errorMessage.textContent = 'Passwords do not match';
-    return false;
+    passwordInput.value = '';
+    passwordConfirmInput.value = '';
   } else {
     pushUsers(user);
     saveNameAInLocalStorage();
@@ -102,7 +103,7 @@ function redirectToLogin() {
   window.location.href = targetUrl;
 }
 
-
+// hier noch überlegen wie es bei else weiter geht
 async function acceptPolicy() {
   let policyError = document.getElementById("policyError");
   if (document.getElementById("accept_policy").src.endsWith("/checkbox_filled.png")) {

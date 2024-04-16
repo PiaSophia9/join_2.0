@@ -1,9 +1,7 @@
 <form id="taskForm" autocomplete="off" onsubmit="checkRequiredFields(); return false;">
-    <!-- upper part----------------------- -->
     <div>
       <h1>Add Task</h1>
       <div class="upper_part">
-        <!-- left section----------------------- -->
         <section class="left_section">
           <div>
             <label class="label_add_task">Title<span class="red">*</span></label>
@@ -16,16 +14,15 @@
           </div>
           <div class="dropdown">
             <label class="label_add_task">Assigned to</label>
-            <button type="button" onclick="toggleDropdown()" class="dropbtnAssignedContact">
+            <button type="button" onclick="toggleDropdownAssignedTo()" class="dropbtnAssignedContact">
               Select contacts to assign 
-              <img onclick="event.stopPropagation(); toggleDropdown()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
+              <img onclick="event.stopPropagation(); toggleDropdownAssignedTo()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
           </button>
-            <div id="myDropdown" class="dropdown-content assignedto_dropdown">
+            <div id="assignedToDropdown" class="dropdown-content assignedto_dropdown">
           </div>
           <div id="assignedtoContactsContainer" class="assignedto_contacts_container"></div>
         </section>
         <hr class="line" />
-        <!-- right section----------------------- -->
         <section class="right_section">
           <div>
             <label class="label_add_task">Due date<span class="red">*</span></label>
@@ -49,27 +46,7 @@
           </button>
             <div id="categoryDropdown" class="dropdown-content">
           </div>
-          <!-- <div id="assignedtoContactsContainer" class="assignedto_contacts_container"></div> -->
           <div class="hide_error" id="errorContainerCategory">This field is required</div>
-
-          <!-- <div>
-           <div class="category_container">
-            <label class="label_add_task">Category<span class="red">*</span></label>
-            <div class="dropdown">
-              <button type="button" onclick="toggleDropdown()" class="dropbtn_category">
-                Select task Category 
-                <img onclick="event.stopPropagation(); toggleDropdownCategory()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
-            </button>
-              <div id="categoryDropdown" class="dropdown-content-Category">
-               </div> 
-            </div> -->
-
-            <!-- <select onclick="borderRedIfCategoryEmpty()" id="taskCategory" class="form_elements" name="category">
-              <option hidden disabled selected>Select task category</option>
-              <option>Technical Task</option>
-              <option>User Story</option>
-            </select>
-            <div class="hide_error" id="errorContainerCategory">This field is required</div> -->
           </div>
           <div>
             <label class="label_add_task">Subtasks</label>
@@ -87,11 +64,10 @@
         </section>
       </div>
     </div>
-    <!-- lower part----------------------- -->
     <div class="lower_part">
       <p class="p_add_task"><span class="red">*</span>This field is required</p>
       <div class="buttons_container">
-        <button type="button" onmouseover="makeIconBright()" onmouseleave="makeIconDark()" onclick="clearForm()" class="btn_bright">Clear <img id="clearButtonImage" src="../assets/img/icons/black_x.svg" alt="" /></button>
+        <button type="button" onmouseover="makeIconClearButtonBright()" onmouseleave="makeIconClearButtonDark()" onclick="clearForm()" class="btn_bright">Clear <img id="clearButtonImage" src="../assets/img/icons/black_x.svg" alt="" /></button>
         <button id="submit_task_button" type="submit" class="btn_dark_disabled">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
       </div>
     </div>
