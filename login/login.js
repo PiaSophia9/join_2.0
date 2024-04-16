@@ -12,15 +12,6 @@ async function loadAllUsers() {
   console.log("Loaded Users: ", users);
 }
 
-// async function loadUsers() {
-//   try {
-//     users = JSON.parse(await getItem("users"));
-//   } catch (e) {
-//     console.error("Loading error:", e);
-//   }
-// }
-
-
 async function login() {
   findUser();
 }
@@ -103,21 +94,47 @@ function findUser() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
   let user = users.find( u => u.userEmail == email.value && u.userPassword == password.value);
-  console.log(user);
   if (user) {
-    console.log("user gefunden");
-    loggedInUserId = users.indexOf(user);
-    console.log(loggedInUserId);
     redirectToSummary();
   } else {
+    validatePassword();
     // Please sing up  / Passwort falsch / Email nicht vorhanden
-    console.log("user muss sich noch registrieren");
-    //redirect to SignUp.html
+    // console.log("user muss sich noch registrieren");
+    // loginError.style.display = 'block';
+    // loginError.style.color = '#ff7f8e';
+    // loginError.textContent = 'Ups! Please sign up first!';
+    // Funktion check if registered - if not redirect to sign up
+    // if yes redirect to summary
   }
+}
+
+function validatePassword() {
+  let passwordError = document.getElementById("passwordError");
+  let passwordInput = document.getElementById("password");
+  let storedPassword = users.find(u => u.userPassword);
+  if (passwordInput.value == storedPassword) {
+    passwordError.textContent = '';
+    return true;
+  } else {
+    passwordError.style.display = 'block';
+    passwordError.style.color = '#ff7f8e';
+    passwordError.textContent = 'Wrong password Ups! Try again.';
+    passwordInput.style.borderColor = '#ff7f8e';
+    passwordInput.value = '';
+  }
+}
+
+function validateRegistration() {
+
 }
 
 function redirectToSummary() {
   const targetUrl = '../summary/summary.html';
+  window.location.href = targetUrl;
+}
+
+function redirectToSignUp() {
+  const targetUrl = '../sign_up/sign_up.html';
   window.location.href = targetUrl;
 }
 

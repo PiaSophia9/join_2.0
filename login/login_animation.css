@@ -173,3 +173,7 @@ a {
       opacity: 1;
     }
   }
+.passwordError {
+    color: #fb3c53;
+    font-size: 16px;
+}
