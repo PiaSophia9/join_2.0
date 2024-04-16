@@ -1,5 +1,7 @@
-function initSummary() {
+async function initSummary() {
+    await includeHTML();
     loadUserName();
+    loadUserInitials();
 }
 
 function loadUserName() {
