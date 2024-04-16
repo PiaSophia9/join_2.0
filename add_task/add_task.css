@@ -1,19 +1,13 @@
-.header_and_main {
-  height: 100vh;
-}
-
 .add_task_main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  margin-bottom: 80px;
 }
 
 .upper_part {
   display: flex;
-  /* justify-content: space-evenly; */
   gap: 40px;
-  /* height: 80%; */
   font-size: 20px;
 }
 
@@ -21,7 +15,6 @@
   display: flex;
   justify-content: space-between;
   gap: 40px;
-  /* height: 20%; */
   align-items: flex-end;
   margin-top: 24px;
   font-size: 20px;
@@ -43,9 +36,8 @@
 
 .prio_buttons_container {
   display: flex;
-  gap: 4%;
+  gap: 16px;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 }
 
 .prio_buttons {
@@ -54,11 +46,28 @@
   white-space: nowrap;
   height: 48px;
   width: 30%;
-  min-width: 160px;
+  min-width: 120px;
+  max-width: 180px;
+  padding: 8px 8px 8px 8px;
 }
 
 .prio_buttons:hover {
   box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
+}
+
+.urgent_button {
+  color: white;
+  background-color: #ff3d00;
+}
+
+.medium_button {
+  color: white;
+  background-color: #ffa800;
+}
+
+.low_button {
+  color: white;
+  background-color: #7ae229;
 }
 
 .medium_img {
@@ -70,7 +79,7 @@
   height: 14px;
 }
 
-.width_form_elements {
+.form_elements {
   box-sizing: border-box;
   width: 100%;
   padding: 8px 16px 8px 16px;
@@ -82,8 +91,21 @@
   display: flex;
 }
 
+.form_elements:focus {
+  border: 1px solid #5ec0e9 !important;
+  outline: none !important;
+}
+
 .date {
   color: #a8a8a8;
+  display: block;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px white inset;
+}
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px white inset;
 }
 
 .line {
@@ -114,35 +136,28 @@
 
 .textarea_add_task {
   height: 150px;
+  width: 100%;
+  resize: none;
 }
 
 .red {
   color: red;
 }
 
-/* .subtask_add_task {
-  position: relative;
-  padding-right: 25px;
-
-  background-size: 14px;
-  background-position-x: calc(100% - 16px);
-}
-
-.x_in_subtask {
-  position: absolute;
-  background: url(../assets/img/icons/close.png) no-repeat right;
-}
-
-.check_mark_subtask {
-  position: absolute;
-} */
-
 .subtasks_input {
   flex: 1;
   padding: 0;
   border: none;
-  font-size: 16px;
+  font-size: 20px;
   font-family: "Inter", sans-serif;
+}
+
+input:-internal-autofill-selected {
+  background-color: white !important;
+}
+
+.subtasks_input:focus {
+  background-color: white;
 }
 
 .subtask_container {
@@ -150,6 +165,10 @@
   padding-right: 0;
   display: flex;
   align-items: center;
+}
+
+.subtask_container_blue_border {
+  border: 1px solid #5ec0e9;
 }
 
 .subtask_image {
@@ -161,21 +180,8 @@
   height: 24px;
 }
 
-/* .input {
-  display: flex;
-  gap: 1rem;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  padding: 0.5rem 0;
-} */
+/* Dropdown */
 
-/* input {
-  all: unset;
-} */
-
-/* dropdown */
-
-/* Dropdown Button */
 .dropbtn {
   box-sizing: border-box;
   width: 100%;
@@ -192,18 +198,15 @@
   align-items: center;
 }
 
+.dropbtn:focus {
+  border: 1px solid #5ec0e9;
+}
+
 .dropdown_arrow {
   height: 10px;
   width: 10px;
 }
 
-/* Dropdown button on hover & focus */
-/* .dropbtn:hover,
-.dropbtn:focus {
-  background-color: #2980b9;
-} */
-
-/* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -222,7 +225,6 @@
   border-radius: 8px;
 }
 
-/* Links inside the dropdown */
 .dropdown-content-div {
   color: black;
   padding: 12px 16px;
@@ -231,12 +233,10 @@
   justify-content: space-between;
 }
 
-/* Change color of dropdown links on hover */
 .dropdown-content-div:hover {
   background-color: #ddd;
 }
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {
   display: block;
 }
@@ -247,12 +247,13 @@
   gap: 24px;
 }
 
+/* End Dropdown */
+
 .initials_circle {
-  /* background-color: orange; */
   border-radius: 50%;
   border: 2px solid white;
-  height: 32px;
-  width: 32px;
+  height: 42px;
+  width: 42px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -298,10 +299,6 @@ input:focus {
   cursor: pointer;
 }
 
-/* .rendered_subtask:hover {
-  background-color: ;
-} */
-
 .rendered_subtask:focus {
   background-color: white;
   border: none;
@@ -312,10 +309,6 @@ input:focus {
   outline: 0px solid transparent;
 }
 
-/* .span_subtasks {
-  width: 100%;
-} */
-
 .rendered_subtasks_span {
   padding-left: 16px;
   padding-right: 8px;
@@ -325,10 +318,22 @@ input:focus {
   display: flex;
 }
 
+.error_container {
+  display: block;
+  color: #ff8190;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.hide_error {
+  display: none;
+}
+
 @media (max-width: 1030px) {
   .upper_part {
     flex-direction: column;
     width: 100%;
+    gap: 0;
   }
 
   .line {
@@ -340,7 +345,10 @@ input:focus {
   }
 
   .lower_part {
-    display: block;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    margin-top: 0;
   }
 
   .buttons_container {
@@ -358,5 +366,13 @@ input:focus {
   .btn_bright,
   .btn_dark {
     max-width: 200px;
+  }
+
+  #taskForm {
+    margin-bottom: 0;
+  }
+
+  .add_task_main {
+    margin: 100px 32px 0 32px !important;
   }
 }
