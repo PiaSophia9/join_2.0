@@ -7,6 +7,7 @@ let uniqueStartingLetters = [];
 async function initContacts() {
     includeHTML();
     await loadContacts();
+    loadUserInitials();
     displayContacts();
 }
 
@@ -88,7 +89,7 @@ function displayContactDetails(i) {
     contactInformation.innerHTML = /*html*/ `
         <p>Contact Information</p>
         <h4>Email</h4>
-        <a href="mailto: ${contact.contactMail}">${contact.contactMail}</a>
+        <a class="contact-email" href="mailto: ${contact.contactMail}">${contact.contactMail}</a>
         <h4>Phone</h4>
         <span>${contact.contactPhone}</span>
     `;
@@ -141,8 +142,7 @@ async function addContact() {
     displayContacts();
     displayContactDetails(contacts.indexOf(contact));
     toggleActiveContact(contacts.indexOf(contact));
-    document.getElementById(`contact${contacts.indexOf(contact)}`).scrollIntoView();
-    // show toast message that contact was successfully created
+    document.getElementById(`contact${contacts.indexOf(contact)}`).scrollIntoView();    // scroll to actual selected contact
 }
 
 

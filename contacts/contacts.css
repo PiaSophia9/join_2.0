@@ -15,11 +15,6 @@ body {
   height: 100%;
 }
 
-a {
-  text-decoration: underline;
-  color: blue;
-}
-
 main {
   margin: 96px 130px 0 28px !important;
 }
@@ -162,6 +157,11 @@ main {
   margin-top: 24px;
   margin-bottom: 32px;
   font-size: 20px;
+}
+
+.contact-email {
+  text-decoration: underline;
+  color: blue;
 }
 
 .edit-button {

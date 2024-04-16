@@ -9,6 +9,7 @@ let currentDraggedElement;
 
 async function initBoard() {
     await loadAllTasksBoard();
+    loadUserInitials()
     updateHTML();
 }
 
