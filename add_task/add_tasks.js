@@ -60,6 +60,12 @@ async function addTask() {
   await storeAllTasks();
   clearForm();
   console.log("allTasks after button clicked:", allTasks);
+  redirectToBoard();
+}
+
+function redirectToBoard() {
+  const targetUrl = "../board/board.html";
+  window.location.href = targetUrl;
 }
 
 function pushTask(task) {
