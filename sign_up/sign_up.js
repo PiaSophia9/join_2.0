@@ -36,6 +36,24 @@ function pushUsers(user) {
   users.push(user); 
 }
 
+function saveNameAInLocalStorage() {
+  let userName = document.getElementById("username").value;
+  localStorage.setItem('userName', JSON.stringify(userName));
+}
+
+function createInitials(userName) {
+  let userNameAsString = userName.toString();
+  let initials = userNameAsString.match(/\b(\w)/g).join("");
+  let firstTwoInitials = initials.slice(0, 2);
+  saveInitialsInLocalStorage(firstTwoInitials);
+  return firstTwoInitials;
+}
+
+// value in local storage = undefined
+function saveInitialsInLocalStorage(firstTwoInitials) {
+  localStorage.setItem('userInitials', JSON.stringify(firstTwoInitials));
+}
+
 function disOrEnableSignUpBtn() {
   // If all those three have value...
   if (document.getElementById("username").value == "" || document.getElementById("email").value == "" || document.getElementById("password").value == "" || document.getElementById("password_confirm").value == "") {
@@ -67,6 +85,8 @@ async function validatePassword(user){
     return false;
   } else {
     pushUsers(user);
+    saveNameAInLocalStorage();
+    saveInitialsInLocalStorage();
   errorMessage.textContent = ''; // Fehlermeldung zurücksetzen
   await storeAllUsers();
   // signUpSuccessfullyInfo();
@@ -120,12 +140,6 @@ function signUpSuccessfullyInfo() {
   }, 3000);
 }
 
-function createInitials(userName) {
-  let userNameAsString = userName.toString();
-  let initials = userNameAsString.match(/\b(\w)/g).join("");
-  let firstTwoInitials = initials.slice(0, 2);
-  return firstTwoInitials;
-}
 
 function createColors() {
   let color = colors[generateRandomNumber()];

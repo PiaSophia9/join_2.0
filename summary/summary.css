@@ -45,6 +45,10 @@ h2 {
     justify-content: center;
     align-items: center;
 }
+.tasks:hover {
+    cursor: pointer;
+
+}
 .urgent_task {
     display: flex;
     justify-content: space-around;
@@ -62,6 +66,14 @@ h2 {
     box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
     margin-bottom: 32px;
 }
+.deadline_container:hover {
+    cursor: pointer;
+    background: #2a3647;
+    color: white;
+    transform: scale(1.05);
+}
+
+
 .overview_container {
     display: flex;
     justify-content: space-between;
@@ -74,8 +86,24 @@ h2 {
     box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
     padding: 20px 40px 20px 40px;
 }
+.overview_img:hover {
+    cursor: pointer;
+    background: #2a3647;
+    color: white;
+    transform: scale(1.05);
+}
+
 #todaysDate {
     font-size: 21px;
     font-weight: 700;
     color: #2a3647;
+}
+#todaysDate:hover {
+    color: white;
+}
+
+#logged_user {
+    font-size: 64px;
+    font-weight: 700;
+    color: #29abe2;
 }

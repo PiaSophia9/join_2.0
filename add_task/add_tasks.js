@@ -13,6 +13,25 @@ async function init() {
   console.log("allTasks on load:", allTasks);
 }
 
+// async function validatePassword(user) {
+//   let passwordInput = document.getElementById("password");
+//   let passwordConfirmInput = document.getElementById("password_confirm");
+//   let errorMessage = document.getElementById("passwordError");
+//   if (passwordInput.value !== passwordConfirmInput.value) {
+//     errorMessage.style.display = "block";
+//     errorMessage.style.color = "#ff7f8e";
+//     passwordConfirmInput.style.borderColor = "#ff7f8e";
+//     errorMessage.textContent = "Passwords do not match";
+//     return false;
+//   } else {
+//     pushUsers(user);
+//     errorMessage.textContent = ""; // Fehlermeldung zurücksetzen
+//     await storeAllUsers();
+//     // signUpSuccessfullyInfo();
+//     redirectToLogin();
+//   }
+// }
+
 /**
  * This function gets the form elements values, pushes them into the array "allTasks" and saves them in the storage.
  *
@@ -38,9 +57,7 @@ async function addTask() {
   pushTask(task);
   // allTasks = [];
   await storeAllTasks();
-  console.log(allTasks);
-  clearInputs();
-  clearContainers();
+  clearForm();
   console.log("allTasks after button clicked:", allTasks);
 }
 
@@ -51,6 +68,12 @@ function pushTask(task) {
 async function storeAllTasks() {
   // assignedContacts = [];
   await setItem("remoteTasks", allTasks);
+}
+
+function clearArrays() {
+  assignedContacts = [];
+  priority = "";
+  subtasks = [];
 }
 
 /**
@@ -103,35 +126,100 @@ function removeLowPrio() {
   document.getElementById("lowImage").src = "../assets/img/icons/prio_kow_green.svg";
 }
 
-function clearInputs() {
+function clearForm() {
   document.getElementById("taskForm").reset();
-}
-
-function clearContainers() {
   document.getElementById("assignedtoContactsContainer").innerHTML = "";
   document.getElementById("subtasksRenderContainer").innerHTML = "";
+  removeUrgentPrio();
+  removeMediumPrio();
+  removeLowPrio();
+  clearArrays();
 }
 
 // dis- or enable button if required inputs are filled
 
-function disOrEnableButton() {
-  // If all those three have value...
-  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("taskCategory").value == "") {
-    // In the beginning the button is disabled and nothin has to be done
-    if (document.getElementById("submit_task_button").hasAttribute("disabled")) {
-      // This else-statement is used if the required inputs had values so that the button was enabled, but then one input was deleted. In this case the disabled attribute has to be set again and the button has to get back the css of the enabled button.
-    } else {
-      document.getElementById("submit_task_button").setAttribute("disabled", "disabled");
-      document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
-      document.getElementById("submit_task_button").classList.remove("btn_dark");
-    }
-    // If all inputs have values, the button is enabled.
+function borderRedIfTitleEmpty() {
+  if (document.getElementById("taskTitle").value == "") {
+    document.getElementById("taskTitle").style.borderColor = "#ff8190";
+    document.getElementById("errorContainerTitle").classList.remove("hide_error");
+    document.getElementById("errorContainerTitle").classList.add("error_container");
+    disOrEnableButton();
   } else {
-    document.getElementById("submit_task_button").removeAttribute("disabled");
+    document.getElementById("taskTitle").style.borderColor = "#a8a8a8";
+    document.getElementById("errorContainerTitle").classList.add("hide_error");
+    document.getElementById("errorContainerTitle").classList.remove("error_container");
+    disOrEnableButton();
+  }
+}
+
+function borderRedIfDateEmpty() {
+  if (document.getElementById("taskDueDate").value == "") {
+    document.getElementById("taskDueDate").style.borderColor = "#ff8190";
+    document.getElementById("errorContainerDate").classList.remove("hide_error");
+    document.getElementById("errorContainerDate").classList.add("error_container");
+    disOrEnableButton();
+  } else {
+    document.getElementById("taskDueDate").style.borderColor = "#a8a8a8";
+    document.getElementById("errorContainerDate").classList.add("hide_error");
+    document.getElementById("errorContainerDate").classList.remove("error_container");
+    disOrEnableButton();
+  }
+}
+
+function borderRedIfCategoryEmpty() {
+  if (document.getElementById("taskCategory").value == "") {
+    document.getElementById("taskCategory").style.borderColor = "#ff8190";
+    document.getElementById("errorContainerCategory").classList.remove("hide_error");
+    document.getElementById("errorContainerCategory").classList.add("error_container");
+    disOrEnableButton();
+  } else {
+    document.getElementById("taskCategory").style.borderColor = "#a8a8a8";
+    document.getElementById("errorContainerCategory").classList.add("hide_error");
+    document.getElementById("errorContainerCategory").classList.remove("error_container");
+    disOrEnableButton();
+  }
+}
+
+function checkRequiredFields() {
+  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("taskCategory").value == "") {
+    borderRedIfTitleEmpty();
+    borderRedIfDateEmpty();
+    borderRedIfCategoryEmpty();
+  } else {
+    document.getElementById("submit_task_button").classList.remove("btn_dark_disabled");
+    document.getElementById("submit_task_button").classList.add("btn_dark");
+    addTask();
+    document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
+    document.getElementById("submit_task_button").classList.remove("btn_dark");
+  }
+}
+
+function disOrEnableButton() {
+  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("taskCategory").value == "") {
+    document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
+    document.getElementById("submit_task_button").classList.remove("btn_dark");
+  } else {
     document.getElementById("submit_task_button").classList.remove("btn_dark_disabled");
     document.getElementById("submit_task_button").classList.add("btn_dark");
   }
 }
+
+// function disOrEnableButton() {
+//   if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("taskCategory").value == "") {
+//     if (document.getElementById("submit_task_button").hasAttribute("disabled")) {
+//     } else {
+//       document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
+//       document.getElementById("submit_task_button").classList.remove("btn_dark");
+//     }
+//   } else {
+//     // document.getElementById("submit_task_button").removeAttribute("disabled");
+//     document.getElementById("submit_task_button").classList.remove("btn_dark_disabled");
+//     document.getElementById("submit_task_button").classList.add("btn_dark");
+//     //add task
+//   }
+// }
+
+// Dropdown
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
@@ -370,28 +458,3 @@ function overwriteSubtask(i) {
   document.getElementById(`containerPenAndTrash${i}`).classList.add("d_none");
   event.stopPropagation();
 }
-
-// inputs required red
-
-function showRequiredInputs() {
-  document.getElementById("taskTitle").style.borderColor = "red";
-}
-
-// async function validatePassword(user) {
-//   let passwordInput = document.getElementById("password");
-//   let passwordConfirmInput = document.getElementById("password_confirm");
-//   let errorMessage = document.getElementById("passwordError");
-//   if (passwordInput.value !== passwordConfirmInput.value) {
-//     errorMessage.style.display = "block";
-//     errorMessage.style.color = "#ff7f8e";
-//     passwordConfirmInput.style.borderColor = "#ff7f8e";
-//     errorMessage.textContent = "Passwords do not match";
-//     return false;
-//   } else {
-//     pushUsers(user);
-//     errorMessage.textContent = ""; // Fehlermeldung zurücksetzen
-//     await storeAllUsers();
-//     // signUpSuccessfullyInfo();
-//     redirectToLogin();
-//   }
-// }
