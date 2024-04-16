@@ -187,8 +187,6 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .assigned-user {
   border-radius: 50%;
-  /* background-color should change dynamically in js-code */
-  background-color: #ff7a00 !important;
   height: 32px;
   width: 32px;
   display: flex;
