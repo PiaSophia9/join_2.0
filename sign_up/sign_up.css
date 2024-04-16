@@ -2,6 +2,11 @@ body {
     display: block;
 }
 
+a {
+    text-decoration: none;
+    color: #a8a8a8;
+  }
+
 .sign_up_container {
     background-color: white;
     border-radius: 30px;

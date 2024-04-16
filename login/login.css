@@ -2,6 +2,11 @@ body {
     display: block;
 }
 
+a {
+    text-decoration: none;
+    color: #a8a8a8;
+  }
+  
 .container_main {
     display: flex;
     flex-direction: column;
