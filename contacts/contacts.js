@@ -3,11 +3,13 @@ const contactColors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#
 let sortedStartingLetters = [];
 let uniqueStartingLetters = [];
 
+
 async function initContacts() {
     includeHTML();
     await loadContacts();
     displayContacts();
 }
+
 
 async function loadContacts() {
     try {
@@ -17,6 +19,7 @@ async function loadContacts() {
         console.log('No contacts stored in database');
     }
 }
+
 
 function displayContacts() {
     let contactsContainer = document.getElementById('all-contacts');
@@ -53,6 +56,7 @@ function displayContacts() {
     } 
 }
 
+
 function toggleActiveContact(i) {
     let selectedContact = document.getElementById(`contact${i}`);
     let allContacts = document.querySelectorAll('.contact');
@@ -60,6 +64,7 @@ function toggleActiveContact(i) {
     allContacts.forEach(e => {e.classList.remove('contact-selected')});
     selectedContact.classList.add('contact-selected');
 }
+
 
 function displayContactDetails(i) {
     let contactContainer = document.getElementById('contact-container');
@@ -88,6 +93,7 @@ function displayContactDetails(i) {
     `;
 }
 
+
 function sortContactsByName() {
     contacts.sort(function (a, b) {
         if (a.contactName < b.contactName) {
@@ -99,6 +105,7 @@ function sortContactsByName() {
         return 0;
     });
 }
+
 
 function createStartingLetters() {
     for (let i = 0; i < contacts.length; i++) {
@@ -129,17 +136,21 @@ async function addContact() {
     // show toast message that contact was successfully created
 }
 
+
 async function editContact(i) {
 
 }
+
 
 async function deleteContact(i) {
 
 }
 
+
 async function storeContacts() {
     setItem('remoteContacts', contacts);
 }
+
 
 function createContactInitials(contactName) {
     let contactAsString = contactName.toString();
@@ -148,14 +159,17 @@ function createContactInitials(contactName) {
     return firstTwoInitials;
 }
 
+
 function createContactColor() {
     let color = contactColors[generateRandomNumber()];
     return color;
 }
   
+
 function generateRandomNumber() {
     return Math.floor(Math.random() * 15);
 }
+
 
 // open add-contact modal
 function openAddContact() {
@@ -164,11 +178,13 @@ function openAddContact() {
     modal.style.left = 0;
 }
 
+
 function closeAddContact() {
     let modal = document.getElementById('modal-bg');
     modal.style.width = 0;
     modal.style.left = '100%';
 }
+
 
 window.addEventListener("click", function(event) {
     let modalBg = document.getElementById('modal-bg');
