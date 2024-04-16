@@ -1,11 +1,7 @@
 let users = [];
-let loggedInUserId = "";
-let emails = [];
-let passwords = [];
 
 async function initLogIn() {
   await loadAllUsers();
-  loadLogInLocalStorage();
   resetLogInForm();
 }
 
@@ -53,47 +49,43 @@ function resetLogInForm() {
   document.getElementById('logInForm').reset();
 }
 
+// btn ist disabled - funktioniert noch nicht
 function checkBox() {
-  let  policyCheckbox = document.getElementById("remember_me");
-  policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
-  saveLogInDataInArray();
-  saveLogInLocalStorage();
-}
+  if(document.getElementById("email").value == "" || document.getElementById("password").value == "") {
+    if (document.getElementById("remember_me").hasAttribute("disabled")) {
+    
+    } else {
+        document.getElementById("remember_me").setAttribute("disabled", "disabled");
+    } 
+    
+  } else {
+        document.getElementById("remember_me").removeAttribute("disabled");
+        policyCheckbox = document.getElementById("remember_me");
+        policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
+        saveLogInLocalStorage();
+      } 
+    }
 
-function saveLogInDataInArray() {
-  let email = document.getElementById("email");
-  let password = document.getElementById("password");
-  emails.push(email.value);
-  passwords.push(password.value);
-}
+
 
 function saveLogInLocalStorage() {
-  emailsAsText  = JSON.stringify(emails);
-  passwordsAsText = JSON.stringify(passwords);
-  localStorage.setItem("userEmail" , emailsAsText );
-  localStorage.setItem("userPassword" , passwordsAsText );
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  localStorage.setItem("userEmail", JSON.stringify(email));
+  localStorage.setItem("userPassword", JSON.stringify(password));
 }
 
-function loadLogInLocalStorage() {
-  let emailsAsText =  localStorage.getItem("userEmail") ;
-  let  passwordsAsText =  localStorage.getItem("userPassword") ;
-  if (!emailsAsText || !passwordsAsText){return;}
-  else{
-    emails = JSON.parse(emailsAsText);
-    passwords = JSON.parse(passwordsAsText);
-  }
-}
-
-
-//funktioniert noch nicht richtig // eckige klammern und "" müssen entfernt werden
 function loadRememberMe() {
   let email = document.getElementById("email");
-  let userEmail = localStorage.getItem("userEmail"); 
+  let response = localStorage.getItem("userEmail"); 
+  userEmail = JSON.parse(response);
   email.value = userEmail; 
 
   let password = document.getElementById("password");
   let userPassword = localStorage.getItem("userPassword"); 
+  userPassword = JSON.parse(userPassword);
   password.value = userPassword; 
+  disOrEnableLogInBtn();
 }
 
 
@@ -101,6 +93,9 @@ function loadRememberMe() {
 function uncheckBox() {
   let policyCheckbox = document.getElementById("remember_me");
   policyCheckbox.src = "../assets/img/icons/checkbox.png";
+  // remove local storage
+  localStorage.removeItem("userEmail");
+  localStorage.removeItem("userPassword");
 }
 
 function findUser() {
@@ -125,3 +120,5 @@ function redirectToSummary() {
   const targetUrl = '../summary/summary.html';
   window.location.href = targetUrl;
 }
+
+

@@ -9,9 +9,16 @@
     <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
   </head>
   <body onload="initLogIn()">
+
+    <!-- <div class="container_intro">
+      <div class="container_intro_start">
+        <img src="../assets/img/logoBig.svg" alt="logo_join" class="logoBig">
+      </div>
+    </div> -->
+
     <div class="container_main">
     <div class="login_header">
-      <img src="../assets/img/logo.png" alt="logo_join" />
+      <img src="../assets/img/logoBig.svg" alt="logo_join" class="logoBigStart" />
       <div class="login_sign_up">
         <p class="font_size_20">Not a Join user?</p>
         <button class="btn_dark" onclick="window.location.href = '../sign_up/sign_up.html';">Sign up</button>
@@ -31,7 +38,7 @@
         </div>
 
         <div class="login_remember_me">
-        <input required type="image" src="../assets/img/icons/check_box_empty.png" id="remember_me" onclick="checkBox();  return false;" />
+        <input disabled type="image" src="../assets/img/icons/check_box_empty.png" id="remember_me" onclick="checkBox();  return false;" />
         <label for="remember_me">Remember me</label>
         
         </div>
