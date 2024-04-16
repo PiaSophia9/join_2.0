@@ -16,11 +16,11 @@
           </div>
           <div class="dropdown">
             <label class="label_add_task">Assigned to</label>
-            <button type="button" onclick="toggleDropdown()" class="dropbtn">
+            <button type="button" onclick="toggleDropdown()" class="dropbtnAssignedContact">
               Select contacts to assign 
               <img onclick="event.stopPropagation(); toggleDropdown()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
           </button>
-            <div id="myDropdown" class="dropdown-content">
+            <div id="myDropdown" class="dropdown-content assignedto_dropdown">
           </div>
           <div id="assignedtoContactsContainer" class="assignedto_contacts_container"></div>
         </section>
@@ -40,14 +40,36 @@
               <button id="lowButton" onclick="setPrioLow()" type="button" class="prio_buttons">Low <img id="lowImage" class="low_image" src="../assets/img/icons/prio_kow_green.svg" alt="" /></button>
             </div>
           </div>
-          <div>
+
+          <div class="dropdown">
             <label class="label_add_task">Category<span class="red">*</span></label>
-            <select onclick="borderRedIfCategoryEmpty()" id="taskCategory" class="form_elements" name="category">
-              <option value="" disabled selected>Select task category</option>
+            <button id="categoryButton" type="button" onclick="toggleDropdownCategory()" class="dropbtn"> <span id="buttonName">Select task Category</span>
+               
+              <img onclick="event.stopPropagation(); toggleDropdownCategory()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png"/>
+          </button>
+            <div id="categoryDropdown" class="dropdown-content">
+          </div>
+          <!-- <div id="assignedtoContactsContainer" class="assignedto_contacts_container"></div> -->
+          <div class="hide_error" id="errorContainerCategory">This field is required</div>
+
+          <!-- <div>
+           <div class="category_container">
+            <label class="label_add_task">Category<span class="red">*</span></label>
+            <div class="dropdown">
+              <button type="button" onclick="toggleDropdown()" class="dropbtn_category">
+                Select task Category 
+                <img onclick="event.stopPropagation(); toggleDropdownCategory()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
+            </button>
+              <div id="categoryDropdown" class="dropdown-content-Category">
+               </div> 
+            </div> -->
+
+            <!-- <select onclick="borderRedIfCategoryEmpty()" id="taskCategory" class="form_elements" name="category">
+              <option hidden disabled selected>Select task category</option>
               <option>Technical Task</option>
               <option>User Story</option>
             </select>
-            <div class="hide_error" id="errorContainerCategory">This field is required</div>
+            <div class="hide_error" id="errorContainerCategory">This field is required</div> -->
           </div>
           <div>
             <label class="label_add_task">Subtasks</label>
@@ -69,7 +91,7 @@
     <div class="lower_part">
       <p class="p_add_task"><span class="red">*</span>This field is required</p>
       <div class="buttons_container">
-        <button type="button" onclick="clearInputs()" class="btn_bright">Clear <img src="../assets/img/icons/black_x.svg" alt="" /></button>
+        <button type="button" onmouseover="makeIconBright()" onmouseleave="makeIconDark()" onclick="clearForm()" class="btn_bright">Clear <img id="clearButtonImage" src="../assets/img/icons/black_x.svg" alt="" /></button>
         <button id="submit_task_button" type="submit" class="btn_dark_disabled">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
       </div>
     </div>
