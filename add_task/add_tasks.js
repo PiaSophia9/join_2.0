@@ -379,18 +379,21 @@ function addSubtask() {
   if (document.getElementById("taskSubtask").value) {
     let nameSubtask = document.getElementById("taskSubtask").value;
     let statusSubtask = "inProgress";
-
     let subtask = {
       nameSubtask: nameSubtask,
       statusSubtask: statusSubtask,
     };
     subtasks.push(subtask);
     console.log(subtasks);
-    clearSubtask();
-    renderSubtasks();
+    renewSubtasks();
   }
   removeBorderColorBlue();
   event.stopPropagation();
+}
+
+function renewSubtasks() {
+  clearSubtask();
+  renderSubtasks();
 }
 
 function renderSubtasks() {
