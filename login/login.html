@@ -30,6 +30,9 @@
         <div class="login_input">
           <input onkeyup="disOrEnableLogInBtn()" required type="email" id="email" placeholder="Email" class="icon_mail" onclick="loadRememberMe()" />
           <input onkeyup="disOrEnableLogInBtn()" required type="password" minlength="3" id="password" placeholder="Password" class="icon_lock"/>
+          <div id="passwordError" style="display: none;"></div>
+          <!-- <div id="emailError" style="display: none;">Ups! your email don't match</div> -->
+          <div id="loginError" style="display: none;">Ups! please sign up!</div>
         </div>
 
         <div class="login_remember_me">
