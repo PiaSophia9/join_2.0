@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="summary.css">
     <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
-    <script src="../login/login.js"></script>
+
     <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
     <title>Summary</title>
   </head>
-  <body onload="includeHTML(); initSummary()">
+  <body onload="initSummary()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
@@ -60,8 +60,9 @@
         </div>
       </main>
     </div>
-    <script src="summary.js"></script>
     <script src="../assets/templates/include_header_and_sidebar.js"></script>
+    <script src="summary.js"></script>
+    <script src="../assets/templates/header.js"></script>
     <script src="../storage.js"></script>
     
   </body>

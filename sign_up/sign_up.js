@@ -49,7 +49,6 @@ function createInitials(userName) {
   return firstTwoInitials;
 }
 
-// value in local storage = undefined
 function saveInitialsInLocalStorage(firstTwoInitials) {
   localStorage.setItem('userInitials', JSON.stringify(firstTwoInitials));
 }
@@ -86,7 +85,6 @@ async function validatePassword(user){
   } else {
     pushUsers(user);
     saveNameAInLocalStorage();
-    saveInitialsInLocalStorage();
   errorMessage.textContent = ''; // Fehlermeldung zurücksetzen
   await storeAllUsers();
   // signUpSuccessfullyInfo();
