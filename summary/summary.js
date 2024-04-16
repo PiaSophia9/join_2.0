@@ -1,13 +1,15 @@
-
+async function initSummary() {
+    await includeHTML();
+    loadUserName();
+    loadUserInitials();
+}
 
 function loadUserName() {
     let loggedUser = document.getElementById('logged_user');
-    loggedUser.innerHTML = '';
-    if (loggedInUserId >= 0 && loggedInUserId < users.length) {
-        loggedUser.innerHTML = users[loggedInUserId].userName;
-    } else {
-        return 'Benutzer nicht gefunden';
-    }
+    let storedName = localStorage.getItem('userName');
+    storedName = JSON.parse(storedName);
+    console.log(storedName);
+    loggedUser.innerHTML = storedName;
 }
      
 const date = new Date();
@@ -19,3 +21,8 @@ function formatDate(date) {
 
 const formattedDate = formatDate();
 document.getElementById('todaysDate').textContent = formattedDate;
+
+function redirectToBoard() {
+    const targetUrl = '../board/board.html';
+    window.location.href = targetUrl;
+  }
