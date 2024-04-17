@@ -1,7 +1,7 @@
 <div class="modal-bg" id="modal-bg-add">
     <div class="add-contact-modal" id="modal-content">
       <div class="left-side-modal">
-        <img src="../assets/img/icons/logo_white.png" alt="">
+        <img class="left-side-modal-img" src="../assets/img/icons/logo_white.png" alt="">
         <div class="slogan">
           <h2>Add contact</h2>
           <p>Tasks are better with a team</p>
@@ -10,17 +10,28 @@
       </div>
       <div class="right-side-modal">
         <span class="close-modal" onclick="closeAddContact()">&times;</span>
-        <div class="form-and-image">
-          <img src="../assets/img/icons/person.png" alt="">
-          <form action="" class="add-contact-form" id="add-contact-form" onsubmit="event.preventDefault(); addContact()">
-            <input type="text" name="name" id="name-input" placeholder="Name">
-            <input type="email" name="email" id="mail-input" placeholder="Email">
-            <input type="tel" name="phonenumber" id="phonenumber-input" placeholder="Phone">
-            <div class="cancel-and-create-buttons">
-              <button>Cancel</button>
-              <button type="submit">Create contact</button>
-            </div>
-          </form>
+        <div class="image_and_form">
+          <img class="contact_person_image" src="../assets/img/contacts_person.png" alt="">
+          <div class="form_container">
+            <form action="" class="add-contact-form" id="add-contact-form" onsubmit="event.preventDefault(); renderErrorOrAddContact()">
+              <div class="contact_input_container">
+                <input onkeyup="checkIfInputHasValue()" class="newContactName" type="text" name="name" id="name-input" placeholder="Name">
+                <input class="newContactEmail" type="email" name="email" id="mail-input" placeholder="Email">
+                <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input" placeholder="Phone">
+              </div>
+              <div class="cancel-and-create-buttons">
+              <button class="btn_bright">Cancel
+                <img src="../assets/img/icons/addTask_x_dark.png" alt="">
+              </button>
+              <button class="btn_dark_disabled" type="submit">Create contact
+                <img src="../assets/img/icons/white_check.svg" alt="">
+              </button>
+              </div>
+              <div id="errorContainerContacts">
+                <!-- Please add your name. Email and phone are optional. -->
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
