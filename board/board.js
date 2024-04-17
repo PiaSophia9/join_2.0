@@ -1,4 +1,8 @@
 let todos = [];
+let todo = [];
+let inProgress = [];
+let awaitFeedback = [];
+let done = [];
 const CATEGORY_COLORS = {'Technical Task': '#1FD7C1', 'User Story': '#0038FF'};
 const PRIO_IMAGE_URLS = {
     'low': '../assets/img/icons/prio_kow_green.svg', 
@@ -27,10 +31,10 @@ async function loadAllTasksBoard() {
  * Then, these arrays are passed into the function "updateArea"
  */
 function updateHTML() {
-    let todo = todos.filter((t) => t["status"] == "toDo");
-    let inProgress = todos.filter((t) => t["status"] == "in-progress");
-    let awaitFeedback = todos.filter((t) => t["status"] == "await-feedback");
-    let done = todos.filter((t) => t["status"] == "done");
+    todo = todos.filter((t) => t["status"] == "toDo");
+    inProgress = todos.filter((t) => t["status"] == "in-progress");
+    awaitFeedback = todos.filter((t) => t["status"] == "await-feedback");
+    done = todos.filter((t) => t["status"] == "done");
 
     updateArea("toDo", todo);
     updateArea("in-progress", inProgress);
@@ -54,6 +58,9 @@ function updateArea(areaName, areaArray) {
             document.getElementById(areaName).innerHTML += generateTodoHTML(element);
             document.getElementById(`prio-image${todos.indexOf(element)}`).innerHTML += generatePrioImage(element);
             createInitials(element);
+            if(element.subtasks.length != 0) {
+                document.getElementById(`subtask-progress${todos.indexOf(element)}`).style.display = "flex";
+            }
         }
     }
 }
@@ -65,13 +72,12 @@ function generateTodoHTML(element) {
             <span class="task-title">${element["title"]}</span>
             <span class="task-description">${element["description"]}</span>
             <!-- if there are no subtasks, the progress-bar should not be displayed -->
-            <div class="subtask-progress">
-                <progress class="progress-bar" value="${calculateSubtaskProgress(element)}" max="100"></progress>
-                <span>Subtasks</span>
+            <div class="subtask-progress" id="subtask-progress${todos.indexOf(element)}" style="display: none">
+                <progress class="progress-bar" style="width: ${calculateSubtaskProgress(element)}" value="${calculateSubtaskProgress(element)}" max="100"></progress>
+                <span>${checkSubtaskStatus(element)}/${element.subtasks.length} Subtasks</span>
             </div>
             <div class="user-and-prio">
                 <div class="assigned-to" id="assigned-to${todos.indexOf(element)}"></div>
-                <!-- image should change dynamically based on the priority -->
                 <div id="prio-image${todos.indexOf(element)}"></div>
             </div>
         </div>
@@ -87,14 +93,9 @@ function createInitials(element) {
     if(element["assignedTo"] == "") {
         return "";
     } else {
-        for (let i = 0; i < element["assignedTo"].length; i++) {
-            let currentName = element["assignedTo"][i];
-            let currentNameAsString = currentName.toString();
-            let initials = currentNameAsString.match(/\b(\w)/g).join("");
-            let firstTwoInitials = initials.slice(0, 2);
-            
+        for (let i = 0; i < element.assignedTo.length; i++) {
             document.getElementById(`assigned-to${todos.indexOf(element)}`).innerHTML += /*html*/ `
-                <span class="assigned-user">${firstTwoInitials}</span>
+                <span class="assigned-user" style="background-color: ${element.assignedTo[i].contactColor}">${element.assignedTo[i].contactInitials}</span>
             `;
         }
     }
@@ -111,9 +112,20 @@ function generatePrioImage(element) {
     }
 }
 
+function checkSubtaskStatus(element) {
+    if(element.subtasks.length != 0) {
+        let subtasksDone = 0;
+        element.subtasks.forEach(subtask => {
+            if(subtask.subtaskStatus == "done") {
+                subtasksDone++;
+            }
+        });
+        return subtasksDone;
+    } 
+}
+
 function calculateSubtaskProgress(element) {
-    let progress = (element["subtasks"].done / element["subtasks"].length) * 100;
-    return progress;
+    // calculate progress if one ore more subtasks are marked done
 }
 
 function generateEmptyHTML() {
@@ -169,9 +181,10 @@ async function openAddTask() {
     modalBg.style.width = '100%';
     modalBg.style.left = 0;
     await loadAllTasks();
-    createAndPushInitials();
-    createAndPushColors();
+    // get actual functions from add_task.js
+    await loadContacts();
     renderContactsToAssign();
+    renderCategories();
     showAssignedtoContacts();
 }
 
@@ -180,7 +193,6 @@ function closeModal() {
     modalBg.style.width = 0;
     modalBg.style.left = '100%';
 }
-
 
 // When the user clicks anywhere outside of the modal, close it
 window.addEventListener('click', function(event) {
