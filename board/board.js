@@ -63,7 +63,7 @@ function updateArea(areaName, areaArray) {
 
 function generateTodoHTML(element) {
     return /*html*/ `
-        <div draggable="true" ondragstart="startDragging(${todos.indexOf(element)}); highlightAreas()" ondragend="removeHighlightAreas()" class="task" id="task${todos.indexOf(element)}">
+        <div draggable="true" ondragstart="startDragging(${todos.indexOf(element)}); highlightAreas()" ondragend="removeHighlightAreas()" class="task" id="task${todos.indexOf(element)}" onclick="openTaskDetails(${todos.indexOf(element)})">
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[element.category]}">${element["category"]}</span>
             <span class="task-title">${element["title"]}</span>
             <span class="task-description">${element["description"]}</span>
@@ -200,3 +200,35 @@ window.addEventListener('click', function(event) {
 });
 
 // create fullscreen tasks
+function openTaskDetails(index) {
+    let modalBg = document.getElementById('modal-bg-details');
+    modalBg.style.width = '100%';
+    modalBg.style.left = 0;
+    let taskDetailsContainer = document.getElementById('task-details');
+    taskDetailsContainer.innerHTML = "";
+    taskDetailsContainer.innerHTML += createTaskDetailsHtml(index);
+}
+
+function createTaskDetailsHtml(index) {
+    return /*html*/ `
+        <div class="details-top">
+            <span>${todos[index].category}</span>
+            <span id="close-modal" class="close-modal" onclick="closeModal()">&times;</span>
+        </div>
+    `;
+}
+
+function closeModal() {
+    let modalBg = document.getElementById('modal-bg-details');
+    modalBg.style.width = 0;
+    modalBg.style.left = '100%';
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener('click', function(event) {
+    let modalBg = document.getElementById('modal-bg-details');
+    if (event.target == modalBg) {
+        modalBg.style.width = 0;
+        modalBg.style.left = '100%';
+    }
+});
