@@ -1,5 +1,9 @@
+let todos = [];
+
+
 async function initSummary() {
     await includeHTML();
+    await loadAllTasksSummary();
     loadUserName();
     loadUserInitials();
 }
@@ -11,7 +15,20 @@ function loadUserName() {
     console.log(storedName);
     loggedUser.innerHTML = storedName;
 }
+
+async function loadAllTasksSummary() {
+    let response = await getItem('remoteTasks');
+    todos = JSON.parse(response);
+    console.log(todos);
+}
      
+function showToDo() {
+    let todoAmount = document.getElementById('todo');
+    let todoBoard = todos.filter((t) => t["status"] == "toDo");
+    console.log(todoBoard);
+    todoAmount.innerHTML = todoBoard.length;
+}
+
 const date = new Date();
 
 function formatDate(date) {
