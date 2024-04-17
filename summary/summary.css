@@ -36,7 +36,7 @@ h2 {
     margin-bottom: 32px;
 }
 .tasks {
-    width: 264px;
+    min-width: 264px;
     height: 168px;
     background-color: white;
     border-radius: 30px;
@@ -44,16 +44,44 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 16px;
+}
+.tasks:hover * {
+    color: #f6f7f8;
 }
 .tasks:hover {
     cursor: pointer;
-
+    background: #2a3647;
+    transform: scale(1.05);
+}
+.status_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.size_64 {
+    font-size: 64px;
+    font-weight: 600;
+    color: black;
+}
+.size_20 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #454f5e;
+    text-align: center;
 }
 .urgent_task {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    
+    gap: 16px;
+}
+.urgent_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 }
 .deadline_container {
     display: flex;
@@ -69,27 +97,36 @@ h2 {
 .deadline_container:hover {
     cursor: pointer;
     background: #2a3647;
-    color: white;
     transform: scale(1.05);
 }
-
-
+.deadline_container:hover * {
+    color: #f6f7f8;
+}
 .overview_container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 560px;
 }
-.overview_img {
+.overview {
+    width: 108px;
+    height: 148px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
     background-color: white;
     border-radius: 30px;
     box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
-    padding: 20px 40px 20px 40px;
+    padding: 10px 30px 10px 30px;
 }
-.overview_img:hover {
+.overview:hover * {
+    color: #f6f7f8;
+}
+
+.overview:hover {
     cursor: pointer;
     background: #2a3647;
-    color: white;
     transform: scale(1.05);
 }
 
