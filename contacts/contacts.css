@@ -26,7 +26,7 @@ main {
 
 .left_section {
   background-color: white;
-  height: 720px;
+  max-height: 77vh;
   display: flex;
   flex-direction: column;
   padding: 32px 24px 32px 24px;
@@ -57,7 +57,6 @@ main {
 }
 
 .initials_circle {
-  /* background-color: orange; */
   border-radius: 50%;
   border: 2px solid white;
   height: 120px;
@@ -67,6 +66,10 @@ main {
   align-items: center;
   color: white;
   font-size: 47px;
+}
+
+.initials_circle_big {
+  min-width: 120px;
 }
 
 .initials_circle_small {
