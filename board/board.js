@@ -1,4 +1,8 @@
 let todos = [];
+let todo = [];
+let inProgress = [];
+let awaitFeedback = [];
+let done = [];
 const CATEGORY_COLORS = {'Technical Task': '#1FD7C1', 'User Story': '#0038FF'};
 const PRIO_IMAGE_URLS = {
     'low': '../assets/img/icons/prio_kow_green.svg', 
@@ -27,10 +31,10 @@ async function loadAllTasksBoard() {
  * Then, these arrays are passed into the function "updateArea"
  */
 function updateHTML() {
-    let todo = todos.filter((t) => t["status"] == "toDo");
-    let inProgress = todos.filter((t) => t["status"] == "in-progress");
-    let awaitFeedback = todos.filter((t) => t["status"] == "await-feedback");
-    let done = todos.filter((t) => t["status"] == "done");
+    todo = todos.filter((t) => t["status"] == "toDo");
+    inProgress = todos.filter((t) => t["status"] == "in-progress");
+    awaitFeedback = todos.filter((t) => t["status"] == "await-feedback");
+    done = todos.filter((t) => t["status"] == "done");
 
     updateArea("toDo", todo);
     updateArea("in-progress", inProgress);
