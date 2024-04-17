@@ -362,6 +362,19 @@ input:focus {
   display: none;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a8a8a8;
+  border-radius: 8px;
+}
+
 @media (max-width: 1030px) {
   .upper_part {
     flex-direction: column;

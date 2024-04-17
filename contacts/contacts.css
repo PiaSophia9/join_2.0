@@ -16,7 +16,8 @@ body {
 }
 
 main {
-  margin: 96px 130px 0 28px !important;
+  margin: 96px 130px 0 0 !important;
+  overflow-y: hidden;
 }
 
 .contacts_main {
@@ -26,23 +27,47 @@ main {
 
 .left_section {
   background-color: white;
-  max-height: 77vh;
   display: flex;
   flex-direction: column;
   padding: 32px 24px 32px 24px;
-  width: 30%;
-  min-width: 300px;
-  overflow-y: auto;
+  /* width: 30%; */
+  width: 300px;
+  overflow-y: scroll;
+}
+
+.contact_button_container {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 300px;
+}
+
+.all-contacts {
+  margin-top: 80px;
 }
 
 .right_section {
   margin: 64px 130px 0 64px;
 }
 
+.image_and_form {
+  display: flex;
+  width: 85%;
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .contacts_button {
   display: flex;
   align-items: center;
   margin-top: 16px;
+  margin-bottom: 16px;
   gap: 16px;
   &:hover {
     background-color: #29abe2;
@@ -93,7 +118,7 @@ main {
   display: flex;
   gap: 16px;
   font-size: 16px;
-  color: #2A3647;
+  color: #2a3647;
 }
 
 .contact_name {
@@ -119,10 +144,10 @@ main {
   font-family: "Inter", sans-serif;
 }
 
-  .contact:hover {
-    cursor: pointer;
-    background-color: lightgray;
-  }
+.contact:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
 
 .contact-selected {
   display: flex;
@@ -135,16 +160,15 @@ main {
   border-radius: 8px;
   border: 0;
   font-family: "Inter", sans-serif;
-  background-color: #2A3647;
+  background-color: #2a3647;
   color: white;
   &:hover {
-    background-color: #2A3647;
+    background-color: #2a3647;
   }
 }
 
 .contact-mail {
-  color: #007CEE;
-  text-decoration: underline;
+  color: #007cee;
 }
 
 .name-and-mail {
@@ -169,7 +193,7 @@ main {
 
 .edit-button {
   font-size: 16px;
-  color: #2A3647;
+  color: #2a3647;
   background-color: unset;
   &:hover {
     color: #29abe2;
@@ -179,15 +203,15 @@ main {
 /* Modal (background) */
 .modal-bg {
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   position: fixed;
   bottom: 0;
   left: 100%;
   right: 0;
   width: 0;
   height: 100%;
-  transition: .5s ease;
+  transition: 0.5s ease;
   z-index: 1;
 }
 
@@ -197,7 +221,7 @@ main {
   background-color: #fefefe;
   /* padding: 20px; */
   border: 1px solid #888;
-  width: 70%;
+  width: 80%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -206,14 +230,18 @@ main {
   transform: translate(-50%, -50%);
   white-space: nowrap;
   min-height: 400px;
+  border-radius: 40px;
 }
 
 /* The Close Button */
 .close-modal {
   color: #aaa;
-  float: right;
+  /* float: right; */
   font-size: 28px;
   font-weight: bold;
+  position: absolute;
+  top: 40px;
+  right: 48px;
 }
 
 .close-modal:hover,
@@ -226,19 +254,75 @@ main {
 /* add contact popup */
 .left-side-modal {
   width: 30%;
-  background-color: #2A3647;
+  background-color: #2a3647;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 56px 160px 56px;
+  border-radius: 40px;
+}
+
+.left-side-modal-img {
+  width: 56px;
+  height: 64px;
 }
 
 .right-side-modal {
   width: 70%;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact_input_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.contact_person_image {
+  margin-right: 32px;
+  width: 120px;
+  height: 120px;
+}
+
+.cancel-and-create-buttons {
+  display: flex;
+  gap: 24px;
+}
+
+.newContactName {
+  background-image: url("../assets/img/icons/person.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-position-x: calc(100% - 16px);
+  font-size: 20px;
+}
+
+.newContactEmail {
+  background-image: url("../assets/img/icons/mail.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-position-x: calc(100% - 16px);
+  font-size: 20px;
+}
+
+.newContactPhone {
+  background-image: url("../assets/img/icons/phone.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-position-x: calc(100% - 16px);
+  font-size: 20px;
 }
 
 .form-and-image {
   display: flex;
   align-items: center;
+  margin-bottom: 40px;
 }
 
 .add-contact-form {
@@ -268,30 +352,77 @@ main {
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+#errorContainerContacts {
+  height: 24px;
+  color: #ff8190;
+  margin-top: 24px;
+  font-size: 16px;
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a8a8a8;
+  border-radius: 8px;
+}
+
 @-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;} 
-  to {bottom: 30px; opacity: 1;}
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 @keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }
 
 @keyframes fadeout {
-  from {bottom: 30px; opacity: 1;}
-  to {bottom: 0; opacity: 0;}
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }
 
 @keyframes slide-in {
   from {
     display: none;
-  } to {
+  }
+  to {
     display: flex;
   }
 }
