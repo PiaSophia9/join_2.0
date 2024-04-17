@@ -182,6 +182,10 @@ async function openAddTask() {
     modalBg.style.left = 0;
     await loadAllTasks();
     // get actual functions from add_task.js
+    await loadContacts();
+    renderContactsToAssign();
+    renderCategories();
+    showAssignedtoContacts();
 }
 
 function closeModal() {
@@ -189,7 +193,6 @@ function closeModal() {
     modalBg.style.width = 0;
     modalBg.style.left = '100%';
 }
-
 
 // When the user clicks anywhere outside of the modal, close it
 window.addEventListener('click', function(event) {
