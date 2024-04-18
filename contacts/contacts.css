@@ -89,7 +89,6 @@ input:focus {
   display: flex;
   align-items: center;
   gap: 16px;
-  flex-wrap: wrap;
 }
 
 .initials_circle {
@@ -229,7 +228,7 @@ input:focus {
   right: 0;
   width: 0;
   height: 100%;
-  transition: 0.5s ease;
+  transition: 0.2s ease;
   z-index: 1;
 }
 
@@ -289,7 +288,7 @@ input:focus {
 
 .right-side-modal {
   width: 70%;
-  max-width: ;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;

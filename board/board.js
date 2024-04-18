@@ -178,6 +178,7 @@ async function storeAllTasksBoard() {
 
 // open addTask popup
 async function openAddTask() {
+    document.getElementById('body').style.overflow = 'hidden';
     let modalBg = document.getElementById('modal-bg');
     modalBg.style.width = '100%';
     modalBg.style.left = 0;
@@ -193,6 +194,7 @@ function closeModal() {
     let modalBg = document.getElementById('modal-bg');
     modalBg.style.width = 0;
     modalBg.style.left = '100%';
+    document.getElementById('body').style.overflow = 'auto';
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -201,11 +203,13 @@ window.addEventListener('click', function(event) {
     if (event.target == modalBg) {
         modalBg.style.width = 0;
         modalBg.style.left = '100%';
+        document.getElementById('body').style.overflow = 'auto';
     }
 });
 
 // create fullscreen tasks
 function openTaskDetails(index) {
+    document.getElementById('body').style.overflow = 'hidden';
     let modalBg = document.getElementById('modal-bg-details');
     modalBg.style.width = '100%';
     modalBg.style.left = 0;
@@ -310,6 +314,7 @@ function closeModalDetails() {
     let modalBg = document.getElementById('modal-bg-details');
     modalBg.style.width = 0;
     modalBg.style.left = '100%';
+    document.getElementById('body').style.overflow = 'auto';
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -318,6 +323,7 @@ window.addEventListener('click', function(event) {
     if (event.target == modalBg) {
         modalBg.style.width = 0;
         modalBg.style.left = '100%';
+        document.getElementById('body').style.overflow = 'auto';
     }
 });
 
