@@ -6,13 +6,27 @@ function loadUserInitials() {
     return storedInitials;
 }
 
-function showDropdown() {
-    let headerDropdown = document.getElementById('header_dropdown');
-    headerDropdown.innerHTML = /*html*/`
-    <div class="header_dropdown_content">
-        <p onclick="redirectToLegalNotice()">Legal Notice</p>
-        <p onclick="redirectToPrivatPolicy()">Privacy Policy</p>
-        <p onclick="LogOut()">Log out</p>
-    </div>
-    `;
+function showNavHeader() {
+    document.getElementById("myDropdown").classList.toggle("show_menu_header");
+  }
+
+//   window.onclick = function(event) {
+//     if (!event.target.matches('.user_circle')) {
+//       let dropdowns = document.getElementsByClassName("header_dropdown_content");
+//       let i;
+//       for (i = 0; i < dropdowns.length; i++) {
+//         var openDropdown = dropdowns[i];
+//         if (openDropdown.classList.contains('show')) {
+//           openDropdown.classList.remove('show');
+//         }
+//       }
+//     }
+//   }
+
+function logOut() {
+    localStorage.removeItem("userPassword");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userInitials");
+    window.location.href = "../../login/login.html";
 }
