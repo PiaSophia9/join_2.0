@@ -24,7 +24,6 @@
 .search-and-add {
   display: flex;
   width: 500px;
-  align-items: center;
   gap: 32px;
   justify-content: flex-end;
 }
@@ -258,13 +257,14 @@ input[type="search"]::-webkit-search-cancel-button {
   border-radius: 30px;
   width: 50%;
   max-width: 700px;
-  min-height: 70vh;
+  height: 85vh;
   position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  overflow: inherit;
 }
 
 .details-top {
@@ -294,6 +294,11 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .subtask {
   align-items: center;
+}
+
+.subtask-text {
+  margin-block-start: 0.4em;
+  margin-block-end: 0.4em;
 }
 
 .edit-and-delete-buttons {
