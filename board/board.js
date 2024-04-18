@@ -329,14 +329,14 @@ async function pushMatchingTodos(search) {
 
 function renderErrorOrMatchingDodos() {
   if (matchingTodos.length == 0) {
-    renderError();
+    renderErrorBoard();
     updateHTML(matchingTodos);
   } else {
    updateHTML(matchingTodos); // ToDo
   }
 }
 
-function renderError() {
+function renderErrorBoard() {
   let errorContent = document.getElementById("errorContainer");
   errorContent.innerHTML += `
   Keine Ergebnisse gefunden.
