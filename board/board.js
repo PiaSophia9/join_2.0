@@ -182,6 +182,7 @@ async function storeAllTasksBoard() {
 
 // open addTask popup
 async function openAddTask() {
+  document.getElementById("body").style.overflow = "hidden";
   let modalBg = document.getElementById("modal-bg");
   modalBg.style.width = "100%";
   modalBg.style.left = 0;
@@ -197,6 +198,7 @@ function closeModal() {
   let modalBg = document.getElementById("modal-bg");
   modalBg.style.width = 0;
   modalBg.style.left = "100%";
+  document.getElementById("body").style.overflow = "auto";
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -205,11 +207,13 @@ window.addEventListener("click", function (event) {
   if (event.target == modalBg) {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
+    document.getElementById("body").style.overflow = "auto";
   }
 });
 
 // create fullscreen tasks
 function openTaskDetails(index) {
+  document.getElementById("body").style.overflow = "hidden";
   let modalBg = document.getElementById("modal-bg-details");
   modalBg.style.width = "100%";
   modalBg.style.left = 0;
@@ -227,45 +231,69 @@ function createTaskDetailsHtml(index) {
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[task.category]}">${task.category}</span>
             <span id="close-modal" class="close-modal" onclick="closeModalDetails()">&times;</span>
         </div>
-        <h1>${task.title}</h1>
-        <p>${task.description}</p>
-        <div class="due-date">
-            <p>Due date:</p>
-            <p>${task.dueDate}</p>
-        </div>
-        <div class="priority-container">
-            <p>Priority:</p>
-            <div class="priority">
-                <p>${task.priority}</p>
-                <p>${generatePrioImage(task, todos)}</p>
+        <div class="details-bottom">
+            <h1>${task.title}</h1>
+            <p>${task.description}</p>
+            <div class="due-date">
+                <p>Due date:</p>
+                <p>${task.dueDate}</p>
             </div>
-        </div>
-        <div class="assigned-to-container">
-            <p>Assigned to:</p>
-            <div class="assigned-to-contacts" id="assigned-to-contacts"></div>
-        </div>
-        <div class="subtasks-container">
-            <p>Subtasks:</p>
-            <div class="subtasks" id="subtasks"></div>
-        </div>
-        <div class="edit-and-delete-buttons">
-            <button>Delete</button>
-            <button>Edit</button>
+            <div class="priority-container">
+                <p>Priority:</p>
+                <div class="priority">
+                    <p>${task.priority}</p>
+                    <p>${generatePrioImage(task, todos)}</p>
+                </div>
+            </div>
+            <div class="assigned-to-container">
+                <p>Assigned to:</p>
+                <div class="assigned-to-contacts" id="assigned-to-contacts"></div>
+            </div>
+            <div class="subtasks-container">
+                <p>Subtasks:</p>
+                <div class="subtasks" id="subtasks"></div>
+            </div>
+            <div class="edit-and-delete-buttons">
+                <button>Delete</button>
+                <button>Edit</button>
+            </div>
         </div>
     `;
 }
 
 function displaySubstasks(task) {
   let subtasksContainer = document.getElementById("subtasks");
+  subtasksContainer.innerHTML = "";
   for (let i = 0; i < task["subtasks"].length; i++) {
     const subtask = task["subtasks"][i];
+    // wenn Status == done, gefüllte Checkbox rendern, anonsten leere
+    if (subtask.statusSubtask == "inProgress") {
+      subtasksContainer.innerHTML += /*html*/ `
+                <div class="subtask">
+                    <img src="../assets/img/icons/check_box_empty.png" alt="" onclick="toggleCheckbox(${i}, ${todos.indexOf(task)})" id="subtask-checkbox${i}">
+                    <p class="subtask-text">${subtask.nameSubtask}</p>
+                </div>
+            `;
+    } else {
+      subtasksContainer.innerHTML += /*html*/ `
+                <div class="subtask">
+                    <img src="../assets/img/icons/checkbox_filled.png" alt="" id="checkbox-filled${i}" onclick="toggleCheckbox(${i}, ${todos.indexOf(task)})">
+                    <p class="subtask-text">${subtask.nameSubtask}</p>
+                </div>
+            `;
+    }
+  }
+}
 
-    subtasksContainer.innerHTML += /*html*/ `
-            <div class="subtask">
-                <img src="../assets/img/icons/check_box_empty.png" alt="">
-                <p class="subtask-text">${subtask.nameSubtask}</p>
-            </div>
-        `;
+function toggleCheckbox(i, taskIndex) {
+  if (todos[taskIndex].subtasks[i].statusSubtask == "inProgress") {
+    todos[taskIndex].subtasks[i].statusSubtask = "done";
+    storeAllTasksBoard();
+    displaySubstasks(todos[taskIndex]);
+  } else {
+    todos[taskIndex].subtasks[i].statusSubtask = "inProgress";
+    storeAllTasksBoard();
+    displaySubstasks(todos[taskIndex]);
   }
 }
 
@@ -288,6 +316,7 @@ function closeModalDetails() {
   let modalBg = document.getElementById("modal-bg-details");
   modalBg.style.width = 0;
   modalBg.style.left = "100%";
+  document.getElementById("body").style.overflow = "auto";
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -296,6 +325,7 @@ window.addEventListener("click", function (event) {
   if (event.target == modalBg) {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
+    document.getElementById("body").style.overflow = "auto";
   }
 });
 

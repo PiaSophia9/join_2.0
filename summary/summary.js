@@ -32,18 +32,33 @@ function showUrgentTasks() {
   let urgentAmount = document.getElementById("urgent");
   let urgentBoard = todos.filter((t) => t["priority"] == "urgent");
   urgentAmount.innerHTML = urgentBoard.length;
+  showUrgentTaskDate(urgentBoard);
+}
+function showUrgentTaskDate(urgentBoard) {
+  let urgentDateElement = document.getElementById("urgentDate");
+  let urgentDates = urgentBoard.map((t) => t["dueDate"]);
+  let earliestDate = findEarliestDate(urgentDates);
+  let formattedDate = formatDate(earliestDate);
+  urgentDateElement.innerHTML = formattedDate;
 }
 
-//morgen debuggen
-function showUrgentTaskDate() {
-  let urgentDate = document.getElementById("urgentDate");
-  let dueDate = todos.filter((t) => t["dueDate"] == "");
-  let urgentDates = dueDate.map((t) => t["date"]);
-  console.log(urgentDates);
-  let urgentDatesSorted = urgentDates.sort();
-  console.log(urgentDatesSorted);
-  urgentDate.innerHTML = urgentDatesSorted[0];
+function findEarliestDate(dates) {
+  return dates.reduce((earliest, current) => {
+    return current < earliest ? current : earliest;
+  });
 }
+
+function formatDate(dateString) {
+  const options = {month: "long", day: "numeric", year: "numeric"};
+  const formattedDate = new Date(dateString).toLocaleDateString("en-US", options);
+  return formattedDate;
+}
+// function showUrgentTaskDate(urgentBoard) {
+//     let urgentDate = document.getElementById('urgentDate');
+//     let urgentDates = urgentBoard.map((t) => t["dueDate"]);
+//     let urgentDatesSorted = urgentDates.sort();
+//     urgentDate.innerHTML = urgentDatesSorted[0];
+// }
 
 function showToDo() {
   let todoAmount = document.getElementById("todo");
@@ -73,16 +88,6 @@ function showAwaitFeedback() {
   let awaitingBoard = todos.filter((t) => t["status"] == "await-feedback");
   awaitingAmount.innerHTML = awaitingBoard.length;
 }
-
-const date = new Date();
-
-function formatDate(date) {
-  const options = {month: "long", day: "numeric", year: "numeric"};
-  return new Date().toLocaleDateString("en-US", options);
-}
-
-const formattedDate = formatDate();
-document.getElementById("todaysDate").textContent = formattedDate;
 
 function redirectToBoard() {
   const targetUrl = "../board/board.html";

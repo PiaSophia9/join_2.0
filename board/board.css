@@ -24,7 +24,6 @@
 .search-and-add {
   display: flex;
   width: 500px;
-  align-items: center;
   gap: 32px;
   justify-content: flex-end;
 }
@@ -206,7 +205,7 @@ input[type="search"]::-webkit-search-cancel-button {
 /* modal */
 /* The Modal (background) */
 .modal-bg {
-  overflow: auto; /* Enable scroll if needed */
+  overflow: hidden;
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   position: fixed;
@@ -216,7 +215,7 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 0;
   height: 100%;
   transition: 0.1s ease-in-out;
-  z-index: 1;
+  z-index: 3;
 }
 
 /* Modal Content/Box */
@@ -258,7 +257,7 @@ input[type="search"]::-webkit-search-cancel-button {
   border-radius: 30px;
   width: 50%;
   max-width: 700px;
-  min-height: 70vh;
+  height: 85vh;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -271,6 +270,11 @@ input[type="search"]::-webkit-search-cancel-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.details-bottom {
+  height: 100%;
+  overflow-y: auto;
 }
 
 .due-date, .priority-container {
@@ -294,6 +298,11 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .subtask {
   align-items: center;
+}
+
+.subtask-text {
+  margin-block-start: 0.4em;
+  margin-block-end: 0.4em;
 }
 
 .edit-and-delete-buttons {
