@@ -54,6 +54,7 @@ input:focus {
 
 .all-contacts {
   margin-top: 80px;
+  width: 300px;
 }
 
 .right_section {
@@ -77,6 +78,7 @@ input:focus {
   margin-top: 32px;
   margin-bottom: 16px;
   gap: 16px;
+  width: 100%;
   &:hover {
     background-color: #29abe2;
     box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
@@ -376,6 +378,11 @@ input:focus {
   color: #ff8190;
   margin-top: 24px;
   font-size: 16px;
+}
+
+.contacts-at-letter {
+  width: 100%;
+  display: flex;
 }
 
 /* scrollbar */

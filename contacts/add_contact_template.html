@@ -13,10 +13,10 @@
         <div class="image_and_form">
           <img class="contact_person_image" src="../assets/img/contacts_person.png" alt="">
           <div class="form_container">
-            <form action="" class="add-contact-form" id="add-contact-form" onsubmit="event.preventDefault(); renderErrorOrAddContact()">
+            <form autocomplete="off" class="add-contact-form" id="add-contact-form" onsubmit="event.preventDefault(); renderErrorOrAddContact()">
               <div class="contact_input_container">
                 <input onkeyup="checkIfInputHasValue()" class="newContactName" type="text" name="name" id="name-input" placeholder="Name">
-                <input class="newContactEmail" type="email" name="email" id="mail-input" placeholder="Email">
+                <input class="newContactEmail" type="text" name="email" id="mail-input" placeholder="Email">
                 <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input" placeholder="Phone">
               </div>
               <div class="cancel-and-create-buttons">
