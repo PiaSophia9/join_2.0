@@ -11,6 +11,7 @@ header {
   box-sizing: border-box;
   width: calc(100% - 232px);
   position: fixed;
+  z-index: 2;
 }
 
 .header_container {
@@ -138,6 +139,7 @@ header {
 .header_and_main {
   display: flex;
   flex-direction: column;
-  width: calc(100% - 232px);
+  /* width: calc(100% - 232px); */
+  width: 100%;
   margin-left: 232px;
 }

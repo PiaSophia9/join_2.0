@@ -77,12 +77,13 @@ function displayContactDetails(i) {
                 <span class="contact_name">${contact.contactName}</span>
             </div>
             <div class="edit_delete_container">
-                <button class="edit-button" onclick="openEditContact(${i})">
-                  <img src="../assets/img/icons/subtasks_pen.png" alt="">
+
+                <button class="edit-button" onclick="openEditContact(${i})" onmouseover="turnBlue('penContacts', 'edit_blue.svg')" onmouseleave="turnBlack('penContacts', 'edit.svg')">
+                  <img id="penContacts" class="penContacts" src="../assets/img/icons/edit.svg" alt="">
                   Edit
                 </button>
-                <button class="edit-button" onclick="deleteContactInOverview(${i})">
-                  <img src="../assets/img/icons/subtask_trash.png" alt="">
+                <button class="edit-button" onclick="deleteContactInOverview(${i})" onmouseover="turnBlue('trashContacts', 'delete_blue.svg')" onmouseleave="turnBlack('trashContacts', 'delete.svg')">
+                  <img id="trashContacts" src="../assets/img/icons/delete.svg" alt="">
                   Delete
                 </button>
             </div>
@@ -96,6 +97,14 @@ function displayContactDetails(i) {
         <h4>Phone</h4>
         <span>${contact.contactPhone}</span>
     `;
+}
+
+function turnBlue(imageID, sourceSnippet) {
+  document.getElementById(`${imageID}`).src = `../assets/img/icons/${sourceSnippet}`;
+}
+
+function turnBlack(imageID, sourceSnippet) {
+  document.getElementById(`${imageID}`).src = `../assets/img/icons/${sourceSnippet}`;
 }
 
 function sortContactsByName() {
@@ -172,9 +181,15 @@ async function deleteContactInOverview(i) {
   contacts.splice(i, 1);
   await storeContacts();
   showSnackbar("Contact successfully deleted");
-  displayContactDetails(i - 1);
-  displayContacts();
-  toggleActiveContact(i - 1);
+  if (i == 0) {
+    displayContactDetails(i);
+    displayContacts();
+    toggleActiveContact(i);
+  } else {
+    displayContactDetails(i - 1);
+    displayContacts();
+    toggleActiveContact(i - 1);
+  }
 }
 
 // function editContactCheckUnique() {
