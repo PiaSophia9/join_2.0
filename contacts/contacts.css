@@ -20,6 +20,15 @@ main {
   overflow-y: hidden;
 }
 
+.margin_right {
+  margin-right: 32px;
+}
+
+input:focus {
+  border: 1px solid #5ec0e9 !important;
+  outline: none !important;
+}
+
 .contacts_main {
   display: flex;
   height: 100%;
@@ -119,6 +128,7 @@ main {
   gap: 16px;
   font-size: 16px;
   color: #2a3647;
+  margin-top: 8px;
 }
 
 .contact_name {
@@ -187,14 +197,17 @@ main {
 }
 
 .contact-email {
-  text-decoration: underline;
-  color: blue;
+  color: #007cee;
 }
 
 .edit-button {
   font-size: 16px;
   color: #2a3647;
   background-color: unset;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
   &:hover {
     color: #29abe2;
   }
@@ -222,6 +235,7 @@ main {
   /* padding: 20px; */
   border: 1px solid #888;
   width: 80%;
+  max-width: 1200px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -270,10 +284,12 @@ main {
 
 .right-side-modal {
   width: 70%;
+  max-width: ;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 48px;
 }
 
 .contact_input_container {
@@ -321,8 +337,8 @@ main {
 
 .form-and-image {
   display: flex;
-  align-items: center;
-  margin-bottom: 40px;
+  display: flex;
+  width: 85%;
 }
 
 .add-contact-form {

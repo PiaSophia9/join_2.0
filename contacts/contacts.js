@@ -29,7 +29,7 @@ function displayContacts() {
   for (let i = 0; i < uniqueStartingLetters.length; i++) {
     let letter = uniqueStartingLetters[i];
     contactsContainer.innerHTML += /*html*/ `
-            <h3 class="starting-letter">${letter}</h3>
+            <h3 class="starting-letter">${letter.toUpperCase()}</h3>
             <div class="contacts-at-letter" id="contacts-at-letter${letter}"></div>
         `;
   }
@@ -77,8 +77,14 @@ function displayContactDetails(i) {
                 <span class="contact_name">${contact.contactName}</span>
             </div>
             <div class="edit_delete_container">
-                <button class="edit-button" onclick="openEditContact(${i})">Edit</button>
-                <button class="edit-button" onclick="deleteContact(${i})">Delete</button>
+                <button class="edit-button" onclick="openEditContact(${i})">
+                  <img src="../assets/img/icons/subtasks_pen.png" alt="">
+                  Edit
+                </button>
+                <button class="edit-button" onclick="deleteContactInOverview(${i})">
+                  <img src="../assets/img/icons/subtask_trash.png" alt="">
+                  Delete
+                </button>
             </div>
         </div>
     `;
@@ -162,6 +168,15 @@ async function deleteContact(i) {
   toggleActiveContact(i - 1);
 }
 
+async function deleteContactInOverview(i) {
+  contacts.splice(i, 1);
+  await storeContacts();
+  showSnackbar("Contact successfully deleted");
+  displayContactDetails(i - 1);
+  displayContacts();
+  toggleActiveContact(i - 1);
+}
+
 // function editContactCheckUnique() {
 //     let contactMail = document.getElementById('mail-input-edit').value;
 //     let contactPhone = document.getElementById('phonenumber-input-edit').value;
@@ -237,16 +252,31 @@ function openEditContact(i) {
 
   let container = document.getElementById("form-and-image-edit");
   container.innerHTML = /*html*/ `
-        <img src="../assets/img/icons/person.png" alt="">
-        <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
-            <input type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}">
-            <input type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
-            <input type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
-            <div class="cancel-and-create-buttons">
-                <button onclick="deleteContact(${i}); event.preventDefault()">Delete</button>   <!-- event.preventDefault() necessary because without it, the onsubmit-functions would be executed -->
-                <button type="submit">Save</button>
-            </div>
-        </form>
+
+       
+          <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right"><span class="initials_span">${contacts[i].contactInitials}</span></div>
+          <div class="form_container">
+            <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
+              <div class="contact_input_container">
+
+                <input  class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
+                <input class="newContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
+                <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
+
+              </div>
+              <div class="cancel-and-create-buttons">
+                <button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete
+                </button>
+                <button class="btn_dark" type="submit">Save
+                  <img src="../assets/img/icons/white_check.svg" alt="">
+                </button>
+              </div>
+              <div id="errorContainerContacts">
+                <!-- Please add your name. Email and phone are optional. -->
+              </div>
+            </form>
+          </div>
+        
     `;
 }
 
