@@ -10,6 +10,8 @@ async function init() {
   renderCategories();
   showAssignedtoContacts();
   console.log("allTasks on load:", allTasks);
+  unlogAllSidebarLinks();
+  logSidebarLink("addTaskSidebar");
 }
 
 /**

@@ -8,6 +8,8 @@ async function initContacts() {
   await loadContacts();
   loadUserInitials();
   displayContacts();
+  unlogAllSidebarLinks();
+  logSidebarLink("contactSidebar");
 }
 
 async function loadContacts() {

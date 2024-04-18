@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo.png" />
+    <script src="../assets/templates/include_header_and_sidebar.js"></script>
+    <script src="../assets/templates/header.js"></script>
     <title>Privacy Policy</title>
   </head>
-  <body onload="includeHTML()">
+  <body onload="initPrivacyPolicy()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
@@ -15,6 +18,12 @@
         <h1>Privacy Policy</h1>
       </main>
     </div>
-    <script src="../assets/templates/include_header_and_sidebar.js"></script>
+    <script>
+      async function initPrivacyPolicy() {
+        await includeHTML();
+        unlogAllSidebarLinks();
+        logSidebarLink("policySidebar");
+      }
+    </script>
   </body>
 </html>
