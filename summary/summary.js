@@ -9,6 +9,8 @@ async function initSummary() {
     showAllTasks();
     showInProgress();
     showAwaitFeedback();
+    unlogAllSidebarLinks();
+    logSidebarLink("summarySidebar");
 }
 
 function loadUserName() {
