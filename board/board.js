@@ -13,9 +13,11 @@ const PRIO_IMAGE_URLS = {
 let currentDraggedElement;
 
 async function initBoard() {
-    await loadAllTasksBoard();
-    loadUserInitials()
-    updateHTML(todos);
+  await loadAllTasksBoard();
+  loadUserInitials();
+  updateHTML(todos);
+  unlogAllSidebarLinks();
+  logSidebarLink("boardSidebar");
 }
 
 /**
@@ -27,48 +29,50 @@ async function loadAllTasksBoard() {
 }
 
 /**
- * This function updates the task areas. 
+ * This function updates the task areas.
  * The todo-Array is filtered for each status and a new array for the tasks at this specific status is given back.
  * Then, these arrays are passed into the function "updateArea"
  */
 function updateHTML(arrayName) {
-    todo = arrayName.filter((t) => t["status"] == "toDo");
-    inProgress = arrayName.filter((t) => t["status"] == "in-progress");
-    awaitFeedback = arrayName.filter((t) => t["status"] == "await-feedback");
-    done = arrayName.filter((t) => t["status"] == "done");
+  todo = arrayName.filter((t) => t["status"] == "toDo");
+  inProgress = arrayName.filter((t) => t["status"] == "in-progress");
+  awaitFeedback = arrayName.filter((t) => t["status"] == "await-feedback");
+  done = arrayName.filter((t) => t["status"] == "done");
 
-    updateArea("toDo", todo, arrayName);
-    updateArea("in-progress", inProgress, arrayName);
-    updateArea("await-feedback", awaitFeedback, arrayName);
-    updateArea("done", done, arrayName);
+  updateArea("toDo", todo, arrayName);
+  updateArea("in-progress", inProgress, arrayName);
+  updateArea("await-feedback", awaitFeedback, arrayName);
+  updateArea("done", done, arrayName);
 }
 
 /**
  * In this function, the task-area first gets cleared. After that, if the areaArray is empty, the function "generateEmptyHTML" is called. This function just return a div with the text "no tasks here".
  * If the array isn't empty, the task-element for every task in the array is created by calling the function "generateTodoHTML"
- * @param {string} areaName 
- * @param {Array} areaArray 
+ * @param {string} areaName
+ * @param {Array} areaArray
  */
 function updateArea(areaName, areaArray, arrayName) {
-    document.getElementById(areaName).innerHTML = "";
-    if (areaArray.length == 0) {
-        document.getElementById(areaName).innerHTML += generateEmptyHTML();
-    } else {
-        for (let index = 0; index < areaArray.length; index++) {
-            const element = areaArray[index];
-            document.getElementById(areaName).innerHTML += generateTodoHTML(element, arrayName);
-            document.getElementById(`prio-image${arrayName.indexOf(element)}`).innerHTML += generatePrioImage(element, arrayName);
-            createInitials(element, arrayName);
-            if (element.subtasks.length != 0) {
-                document.getElementById(`subtask-progress${arrayName.indexOf(element)}`).style.display = "flex";
-            }
-        }
+  document.getElementById(areaName).innerHTML = "";
+  if (areaArray.length == 0) {
+    document.getElementById(areaName).innerHTML += generateEmptyHTML();
+  } else {
+    for (let index = 0; index < areaArray.length; index++) {
+      const element = areaArray[index];
+      document.getElementById(areaName).innerHTML += generateTodoHTML(element, arrayName);
+      document.getElementById(`prio-image${arrayName.indexOf(element)}`).innerHTML += generatePrioImage(element, arrayName);
+      createInitials(element, arrayName);
+      if (element.subtasks.length != 0) {
+        document.getElementById(`subtask-progress${arrayName.indexOf(element)}`).style.display = "flex";
+      }
     }
+  }
 }
 
 function generateTodoHTML(element, arrayName) {
-    return /*html*/ `
-        <div draggable="true" ondragstart="startDragging(${arrayName.indexOf(element)}); highlightAreas()" ondragend="removeHighlightAreas()" class="task" id="task${arrayName.indexOf(element)}" onclick="openTaskDetails(${arrayName.indexOf(element)})">
+  return /*html*/ `
+        <div draggable="true" ondragstart="startDragging(${arrayName.indexOf(element)}); highlightAreas()" ondragend="removeHighlightAreas()" class="task" id="task${arrayName.indexOf(
+    element
+  )}" onclick="openTaskDetails(${arrayName.indexOf(element)})">
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[element.category]}">${element["category"]}</span>
             <span class="task-title">${element["title"]}</span>
             <span class="task-description">${element["description"]}</span>
@@ -86,8 +90,8 @@ function generateTodoHTML(element, arrayName) {
 }
 
 function startDragging(id) {
-    currentDraggedElement = id;
-    dragCardHighlight(currentDraggedElement);
+  currentDraggedElement = id;
+  dragCardHighlight(currentDraggedElement);
 }
 
 function createInitials(element, arrayName) {
@@ -98,8 +102,8 @@ function createInitials(element, arrayName) {
             document.getElementById(`assigned-to${arrayName.indexOf(element)}`).innerHTML += /*html*/ `
                 <span class="assigned-user" style="background-color: ${element.assignedTo[i].contactColor}">${element.assignedTo[i].contactInitials}</span>
             `;
-        }
     }
+  }
 }
 
 function generatePrioImage(element, arrayName) {
@@ -126,54 +130,54 @@ function checkSubtaskStatus(element) {
 }
 
 function calculateSubtaskProgress(element) {
-    // calculate progress if one ore more subtasks are marked done
+  // calculate progress if one ore more subtasks are marked done
 }
 
 function generateEmptyHTML() {
-    return `<div class="task no-task">No tasks here</div>`
+  return `<div class="task no-task">No tasks here</div>`;
 }
 
 function allowDrop(event) {
-    event.preventDefault();
+  event.preventDefault();
 }
 
 async function moveTo(status) {
-    todos[currentDraggedElement]["status"] = status;
-    // update status in database
-    await storeAllTasksBoard();
-    // load tasks from database
-    await loadAllTasksBoard();
-    updateHTML(todos);
+  todos[currentDraggedElement]["status"] = status;
+  // update status in database
+  await storeAllTasksBoard();
+  // load tasks from database
+  await loadAllTasksBoard();
+  updateHTML(todos);
 }
 
 function highlight(id) {
-    document.getElementById(id).classList.add("drag-area-highlight");
+  document.getElementById(id).classList.add("drag-area-highlight");
 }
 
 function highlightAreas() {
-    let dragAreas = document.getElementsByClassName('drag-area');
-    for (let i = 0; i < dragAreas.length; i++) {
-        dragAreas[i].classList.add("drag-area-highlight");
-    }
+  let dragAreas = document.getElementsByClassName("drag-area");
+  for (let i = 0; i < dragAreas.length; i++) {
+    dragAreas[i].classList.add("drag-area-highlight");
+  }
 }
 
 function removeHighlightAreas() {
-    let dragAreas = document.getElementsByClassName('drag-area');
-    for (let i = 0; i < dragAreas.length; i++) {
-        dragAreas[i].classList.remove("drag-area-highlight");
-    }
+  let dragAreas = document.getElementsByClassName("drag-area");
+  for (let i = 0; i < dragAreas.length; i++) {
+    dragAreas[i].classList.remove("drag-area-highlight");
+  }
 }
 
 function removeHighlight(id) {
-    document.getElementById(id).classList.remove("drag-area-highlight");
+  document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
 function dragCardHighlight(currentDraggedElement) {
-    document.getElementById(`task${currentDraggedElement}`).classList.add("on-drag-highlight");
+  document.getElementById(`task${currentDraggedElement}`).classList.add("on-drag-highlight");
 }
 
 async function storeAllTasksBoard() {
-    await setItem("remoteTasks", todos);
+  await setItem("remoteTasks", todos);
 }
 
 // open addTask popup
@@ -190,10 +194,10 @@ async function openAddTask() {
 }
 
 function closeModal() {
-    let modalBg = document.getElementById('modal-bg');
-    modalBg.style.width = 0;
-    modalBg.style.left = '100%';
-    document.getElementById('body').style.overflow = 'auto';
+  let modalBg = document.getElementById("modal-bg");
+  modalBg.style.width = 0;
+  modalBg.style.left = "100%";
+  document.getElementById("body").style.overflow = "auto";
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -208,20 +212,20 @@ window.addEventListener('click', function (event) {
 
 // create fullscreen tasks
 function openTaskDetails(index) {
-    document.getElementById('body').style.overflow = 'hidden';
-    let modalBg = document.getElementById('modal-bg-details');
-    modalBg.style.width = '100%';
-    modalBg.style.left = 0;
-    let taskDetailsContainer = document.getElementById('task-details');
-    taskDetailsContainer.innerHTML = "";
-    taskDetailsContainer.innerHTML += createTaskDetailsHtml(index);
-    displayAssignedContacts(todos[index]);
-    displaySubstasks(todos[index]);
+  document.getElementById("body").style.overflow = "hidden";
+  let modalBg = document.getElementById("modal-bg-details");
+  modalBg.style.width = "100%";
+  modalBg.style.left = 0;
+  let taskDetailsContainer = document.getElementById("task-details");
+  taskDetailsContainer.innerHTML = "";
+  taskDetailsContainer.innerHTML += createTaskDetailsHtml(index);
+  displayAssignedContacts(todos[index]);
+  displaySubstasks(todos[index]);
 }
 
 function createTaskDetailsHtml(index) {
-    let task = todos[index];
-    return /*html*/ `
+  let task = todos[index];
+  return /*html*/ `
         <div class="details-top">
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[task.category]}">${task.category}</span>
             <span id="close-modal" class="close-modal" onclick="closeModalDetails()">&times;</span>
@@ -270,8 +274,8 @@ function displaySubstasks(task) {
                     <p class="subtask-text">${subtask.nameSubtask}</p>
                 </div>
             `;
-        } else {
-            subtasksContainer.innerHTML += /*html*/ `
+    } else {
+      subtasksContainer.innerHTML += /*html*/ `
                 <div class="subtask">
                     <img src="../assets/img/icons/checkbox_filled.png" alt="" id="checkbox-filled${i}" onclick="toggleCheckbox(${i}, ${todos.indexOf(task)})">
                     <p class="subtask-text">${subtask.nameSubtask}</p>
@@ -281,6 +285,7 @@ function displaySubstasks(task) {
 
     }
 }
+
 
 function toggleCheckbox(i, taskIndex) {
     if (todos[taskIndex].subtasks[i].statusSubtask == 'inProgress') {
@@ -295,7 +300,7 @@ function toggleCheckbox(i, taskIndex) {
 }
 
 function displayAssignedContacts(task) {
-    let assignedContactContainer = document.getElementById('assigned-to-contacts');
+  let assignedContactContainer = document.getElementById("assigned-to-contacts");
 
     for (let i = 0; i < task['assignedTo'].length; i++) {
         const assignedContact = task['assignedTo'][i];
@@ -419,10 +424,10 @@ function createEditTaskHtml(index) {
 }
 
 function closeModalDetails() {
-    let modalBg = document.getElementById('modal-bg-details');
-    modalBg.style.width = 0;
-    modalBg.style.left = '100%';
-    document.getElementById('body').style.overflow = 'auto';
+  let modalBg = document.getElementById("modal-bg-details");
+  modalBg.style.width = 0;
+  modalBg.style.left = "100%";
+  document.getElementById("body").style.overflow = "auto";
 }
 
 // When the user clicks anywhere outside of the modal, close it
