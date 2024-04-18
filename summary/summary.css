@@ -48,6 +48,10 @@ h2 {
 }
 .tasks:hover * {
     color: #f6f7f8;
+    
+}
+.icon_summary:hover {
+    fill: #f6f7f8;
 }
 .tasks:hover {
     cursor: pointer;
@@ -130,13 +134,14 @@ h2 {
     transform: scale(1.05);
 }
 
-#todaysDate {
+#urgentDate {
     font-size: 21px;
     font-weight: 700;
     color: #2a3647;
+    padding-bottom: 7px;
 }
-#todaysDate:hover {
-    color: white;
+#urgentDate:hover {
+    color: #f6f7f8;
 }
 
 #logged_user {
