@@ -38,9 +38,8 @@ input:focus {
   background-color: white;
   display: flex;
   flex-direction: column;
-  padding: 32px 24px 32px 24px;
-  /* width: 30%; */
-  width: 300px;
+  padding: 0 24px 32px 24px;
+  min-width: 300px;
   overflow-y: scroll;
 }
 
@@ -55,10 +54,11 @@ input:focus {
 
 .all-contacts {
   margin-top: 80px;
+  width: 300px;
 }
 
 .right_section {
-  margin: 64px 130px 0 64px;
+  margin: 64px 0 0 64px;
 }
 
 .image_and_form {
@@ -75,9 +75,10 @@ input:focus {
 .contacts_button {
   display: flex;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 32px;
   margin-bottom: 16px;
   gap: 16px;
+  width: 100%;
   &:hover {
     background-color: #29abe2;
     box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
@@ -88,6 +89,7 @@ input:focus {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .initials_circle {
@@ -212,6 +214,9 @@ input:focus {
     color: #29abe2;
   }
 }
+
+/* .penContacts:hover {
+} */
 
 /* Modal (background) */
 .modal-bg {
@@ -373,6 +378,11 @@ input:focus {
   color: #ff8190;
   margin-top: 24px;
   font-size: 16px;
+}
+
+.contacts-at-letter {
+  width: 100%;
+  display: flex;
 }
 
 /* scrollbar */

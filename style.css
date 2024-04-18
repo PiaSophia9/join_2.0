@@ -82,3 +82,18 @@ main {
   margin: 160px 130px 0 88px !important;
   max-width: 1440px;
 }
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a8a8a8;
+  border-radius: 8px;
+}
