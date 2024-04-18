@@ -1,14 +1,14 @@
 function loadUserInitials() {
-    let loggedUserInitials = document.getElementById("user_initials");
-    let storedInitials = localStorage.getItem("userInitials");
-    storedInitials = JSON.parse(storedInitials);
-    loggedUserInitials.innerHTML = storedInitials;
-    return storedInitials;
+  let loggedUserInitials = document.getElementById("user_initials");
+  let storedInitials = localStorage.getItem("userInitials");
+  storedInitials = JSON.parse(storedInitials);
+  loggedUserInitials.innerHTML = storedInitials;
+  return storedInitials;
 }
 
 function showNavHeader() {
-    document.getElementById("myDropdown").classList.toggle("show_menu_header");
-  }
+  document.getElementById("myDropdown").classList.toggle("show_menu_header");
+}
 
 //   window.onclick = function(event) {
 //     if (!event.target.matches('.user_circle')) {

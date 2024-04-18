@@ -44,6 +44,7 @@ header {
 
 .sidebar {
   height: 100%;
+  min-height: 700px;
   width: 232px;
   background-color: #2a3647;
   display: flex;
@@ -71,10 +72,21 @@ header {
   background-color: #2a3d59;
 }
 
-.link_sidebar:active {
+.link_sidebar_active {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0 8px 56px;
+  color: #cdcdcd;
+  cursor: pointer;
+  text-decoration: none;
   background-color: #091931;
   filter: brightness(1.5);
 }
+
+/* .link_sidebar {
+  background-color: #091931;
+  filter: brightness(1.5);
+} */
 
 .container_logo_sidebar {
   width: 100%;
@@ -90,11 +102,10 @@ header {
   font-size: 16px;
   margin-bottom: 80px;
   color: #cdcdcd;
-  gap: 16px;
 }
 
 .legal_link {
-  padding: 0 0 0 56px;
+  padding: 8px 0 8px 56px;
   cursor: pointer;
   color: #cdcdcd;
   text-decoration: none;
@@ -104,6 +115,14 @@ header {
   color: #00bee8;
   transform: scale(1.05);
   font-weight: bold;
+}
+
+.legal_link_active {
+  padding: 8px 0 8px 56px;
+  cursor: pointer;
+  color: #cdcdcd;
+  text-decoration: none;
+  background-color: #091931;
 }
 
 .help_icon:hover {
