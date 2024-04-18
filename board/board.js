@@ -4,10 +4,10 @@ let inProgress = [];
 let awaitFeedback = [];
 let done = [];
 let matchingTodos = [];
-const CATEGORY_COLORS = {'Technical Task': '#1FD7C1', 'User Story': '#0038FF'};
+const CATEGORY_COLORS = { 'Technical Task': '#1FD7C1', 'User Story': '#0038FF' };
 const PRIO_IMAGE_URLS = {
-    'low': '../assets/img/icons/prio_kow_green.svg', 
-    'medium': '../assets/img/icons/prio_medium_orange.svg', 
+    'low': '../assets/img/icons/prio_kow_green.svg',
+    'medium': '../assets/img/icons/prio_medium_orange.svg',
     'urgent': '../assets/img/icons/prio_urgent_red.svg'
 }
 let currentDraggedElement;
@@ -23,7 +23,7 @@ async function initBoard() {
  */
 async function loadAllTasksBoard() {
     let response = await getItem('remoteTasks');
-    todos = JSON.parse(response);
+    todos = await JSON.parse(response);
 }
 
 /**
@@ -51,7 +51,7 @@ function updateHTML(arrayName) {
  */
 function updateArea(areaName, areaArray, arrayName) {
     document.getElementById(areaName).innerHTML = "";
-    if(areaArray.length == 0) {
+    if (areaArray.length == 0) {
         document.getElementById(areaName).innerHTML += generateEmptyHTML();
     } else {
         for (let index = 0; index < areaArray.length; index++) {
@@ -59,7 +59,7 @@ function updateArea(areaName, areaArray, arrayName) {
             document.getElementById(areaName).innerHTML += generateTodoHTML(element, arrayName);
             document.getElementById(`prio-image${arrayName.indexOf(element)}`).innerHTML += generatePrioImage(element, arrayName);
             createInitials(element, arrayName);
-            if(element.subtasks.length != 0) {
+            if (element.subtasks.length != 0) {
                 document.getElementById(`subtask-progress${arrayName.indexOf(element)}`).style.display = "flex";
             }
         }
@@ -91,7 +91,7 @@ function startDragging(id) {
 }
 
 function createInitials(element, arrayName) {
-    if(element["assignedTo"] == "") {
+    if (element["assignedTo"] == "") {
         return "";
     } else {
         for (let i = 0; i < element.assignedTo.length; i++) {
@@ -104,25 +104,25 @@ function createInitials(element, arrayName) {
 
 function generatePrioImage(element, arrayName) {
     let imageContainer = document.getElementById(`prio-image${arrayName.indexOf(element)}`);
-    if(element["priority"] == undefined) {
+    if (element["priority"] == undefined) {
         imageContainer.style.display = "none";
     } else {
         return /*html*/ `
             <img src="${PRIO_IMAGE_URLS[element.priority]}" alt="">
-        `; 
+        `;
     }
 }
 
 function checkSubtaskStatus(element) {
-    if(element.subtasks.length != 0) {
+    if (element.subtasks.length != 0) {
         let subtasksDone = 0;
         element.subtasks.forEach(subtask => {
-            if(subtask.subtaskStatus == "done") {
+            if (subtask.subtaskStatus == "done") {
                 subtasksDone++;
             }
         });
         return subtasksDone;
-    } 
+    }
 }
 
 function calculateSubtaskProgress(element) {
@@ -183,7 +183,6 @@ async function openAddTask() {
     modalBg.style.width = '100%';
     modalBg.style.left = 0;
     await loadAllTasks();
-    // get actual functions from add_task.js
     await loadContacts();
     renderContactsToAssign();
     renderCategories();
@@ -198,7 +197,7 @@ function closeModal() {
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.addEventListener('click', function(event) {
+window.addEventListener('click', function (event) {
     let modalBg = document.getElementById('modal-bg');
     if (event.target == modalBg) {
         modalBg.style.width = 0;
@@ -246,12 +245,13 @@ function createTaskDetailsHtml(index) {
                 <div class="assigned-to-contacts" id="assigned-to-contacts"></div>
             </div>
             <div class="subtasks-container">
-                <p>Subtasks:</p>
+                <p style="margin-block-end: 0.2em;">Subtasks:</p>
                 <div class="subtasks" id="subtasks"></div>
             </div>
             <div class="edit-and-delete-buttons">
-                <button>Delete</button>
-                <button>Edit</button>
+                <button onclick="deleteTask(${index})" onmouseover="turnBlue('delete-image', 'delete_blue.svg')" onmouseleave="turnBlack('delete-image', 'delete.svg')"><img src="../assets/img/icons/delete.svg" alt="" id="delete-image">Delete</button>
+                <img src="../assets/img/icons/tiny_line.png" alt="" style="height: fit-content;">
+                <button onclick="openEditTask(${index})" onmouseover="turnBlue('edit-image', 'edit_blue.svg')" onmouseleave="turnBlack('edit-image', 'edit.svg')"><img src="../assets/img/icons/edit.svg" alt="" id="edit-image">Edit</button>
             </div>
         </div>
     `;
@@ -263,7 +263,7 @@ function displaySubstasks(task) {
     for (let i = 0; i < task['subtasks'].length; i++) {
         const subtask = task['subtasks'][i];
         // wenn Status == done, gefüllte Checkbox rendern, anonsten leere
-        if(subtask.statusSubtask == 'inProgress') {
+        if (subtask.statusSubtask == 'inProgress') {
             subtasksContainer.innerHTML += /*html*/ `
                 <div class="subtask">
                     <img src="../assets/img/icons/check_box_empty.png" alt="" onclick="toggleCheckbox(${i}, ${todos.indexOf(task)})" id="subtask-checkbox${i}">
@@ -278,12 +278,12 @@ function displaySubstasks(task) {
                 </div>
             `;
         }
-        
+
     }
 }
 
 function toggleCheckbox(i, taskIndex) {
-    if(todos[taskIndex].subtasks[i].statusSubtask == 'inProgress') {
+    if (todos[taskIndex].subtasks[i].statusSubtask == 'inProgress') {
         todos[taskIndex].subtasks[i].statusSubtask = 'done';
         storeAllTasksBoard();
         displaySubstasks(todos[taskIndex]);
@@ -299,7 +299,7 @@ function displayAssignedContacts(task) {
 
     for (let i = 0; i < task['assignedTo'].length; i++) {
         const assignedContact = task['assignedTo'][i];
-        
+
         assignedContactContainer.innerHTML += /*html*/ `
         <div class="assigned-to-contact">
             <p class="initials_circle" style="background-color: ${assignedContact.contactColor}">${assignedContact.contactInitials}</p>
@@ -307,7 +307,115 @@ function displayAssignedContacts(task) {
         </div>
     `;
     }
-    
+
+}
+
+async function deleteTask(index) {
+    todos.splice(index, 1);
+    await storeAllTasksBoard();
+    closeModalDetails();
+    initBoard();
+    // show toast-message that task was deleted
+}
+
+async function openEditTask(index) {
+    await loadAllTasks();
+    await loadContacts();
+    let taskDetailsContainer = document.getElementById('task-details');
+    taskDetailsContainer.innerHTML = createEditTaskHtml(index);
+    renderContactsToAssign();
+    renderCategories();
+    showAssignedtoContacts();
+}
+
+function createEditTaskHtml(index) {
+    return /*html*/ `
+    <form id="taskForm" autocomplete="off" onsubmit="checkRequiredFields(); return false;">
+        <div>
+            <div class="upper_part">
+            <section class="left_section">
+                <div>
+                    <label class="label_add_task">Title<span class="red">*</span></label>
+                    <input onkeyup="borderRedIfTitleEmpty()" id="taskTitle" class="form_elements" type="text" value="${todos[index].title}"
+                        placeholder="Enter a title" />
+                    <div class="hide_error" id="errorContainerTitle">This field is required</div>
+                </div>
+                <div>
+                    <label class="label_add_task">Description</label>
+                    <textarea id="taskDescription" class="form_elements textarea_add_task">${todos[index].description}</textarea>
+                </div>
+                <div class="dropdown">
+                    <label class="label_add_task">Assigned to</label>
+                    <button type="button" onclick="toggleDropdownAssignedTo()" class="dropbtnAssignedContact">
+                        Select contacts to assign
+                        <img onclick="event.stopPropagation(); toggleDropdownAssignedTo()" class="dropdown_arrow"
+                        src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
+                    </button>
+                    <div id="assignedToDropdown" class="dropdown-content assignedto_dropdown"></div>
+                    <div id="assignedtoContactsContainer" class="assignedto_contacts_container"></div>
+                </div>
+            </section>
+            <hr class="line" />
+            <section class="right_section">
+                <div>
+                <label class="label_add_task">Due date<span class="red">*</span></label>
+                <input onchange="borderRedIfDateEmpty()" id="taskDueDate" class="form_elements date" type="date"
+                    placeholder="dd/mm/yyyy" />
+                <div class="hide_error" id="errorContainerDate">This field is required</div>
+                </div>
+                <div>
+                <label class="label_add_task">Prio</label>
+                <div class="prio_buttons_container">
+                    <button id="urgentButton" onclick="setPrioUrgent()" type="button" class="prio_buttons">Urgent <img
+                        id="urgentImage" class="urgent_image" src="../assets/img/icons/prio_urgent_red.svg" alt="" /></button>
+                    <button id="mediumButton" onclick="setPrioMedium()" type="button" class="prio_buttons">Medium <img
+                        id="mediumImage" class="medium_img" src="../assets/img/icons/prio_medium_orange.svg" alt="" /></button>
+                    <button id="lowButton" onclick="setPrioLow()" type="button" class="prio_buttons">Low <img id="lowImage"
+                        class="low_image" src="../assets/img/icons/prio_kow_green.svg" alt="" /></button>
+                </div>
+                </div>
+
+                <div class="dropdown">
+                <label class="label_add_task">Category<span class="red">*</span></label>
+                <button id="categoryButton" type="button" onclick="toggleDropdownCategory()" class="dropbtn"> <span
+                    id="buttonName">Select task Category</span>
+
+                    <img onclick="event.stopPropagation(); toggleDropdownCategory()" class="dropdown_arrow"
+                    src="../assets/img/icons/arrow_down_dropdown.png" />
+                </button>
+                <div id="categoryDropdown" class="dropdown-content">
+                </div>
+                <div class="hide_error" id="errorContainerCategory">This field is required</div>
+                </div>
+                <div>
+                <label class="label_add_task">Subtasks</label>
+                <div id="subtaskContainer" onclick="addBorderColorBlue()" class="form_elements subtask_container">
+                    <input oninput="showIconsSubtasks()" id="taskSubtask" class="subtasks_input" type="text"
+                    placeholder="Add new subtask" />
+                    <div id="iconsSubtasksContainer" class="icons_subtasks_container d_none">
+                    <img onclick="clearSubtask()" class="subtask_image" src="../assets/img/icons/subtask_x.png" alt="">
+                    <img class="subtask_line" src="../assets/img/icons/subtask_line.png" alt="">
+                    <img onclick="addSubtask()" class="subtask_image" src="../assets/img/icons/subtask_check.png" alt="">
+                    </div>
+                </div>
+                <div id="subtasksRenderContainer">
+                </div>
+                </div>
+            </section>
+            </div>
+        </div>
+        <div class="lower_part">
+            <p class="p_add_task"><span class="red">*</span>This field is required</p>
+            <div class="buttons_container">
+            <button type="button" onmouseover="makeIconClearButtonBright()" onmouseleave="makeIconClearButtonDark()"
+                onclick="clearForm()" class="btn_bright">Clear <img id="clearButtonImage" src="../assets/img/icons/black_x.svg"
+                alt="" /></button>
+            <button id="submit_task_button" type="submit" class="btn_dark_disabled">Save<img
+                src="../assets/img/icons/white_check.svg" alt="" /></button>
+            </div>
+        </div>
+    </form>
+    `;
 }
 
 function closeModalDetails() {
@@ -318,7 +426,7 @@ function closeModalDetails() {
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.addEventListener('click', function(event) {
+window.addEventListener('click', function (event) {
     let modalBg = document.getElementById('modal-bg-details');
     if (event.target == modalBg) {
         modalBg.style.width = 0;
@@ -331,45 +439,45 @@ window.addEventListener('click', function(event) {
 function renderAllOrMatchingTodos() {
     findMatchingTitles();
     document.getElementById("errorContainer").innerHTML = "";
-  if (saveInputValue() == ''){
-    updateHTML(todos); // Todo
-  } else {
-    renderErrorOrMatchingDodos();
-  };
+    if (saveInputValue() == '') {
+        updateHTML(todos); // Todo
+    } else {
+        renderErrorOrMatchingDodos();
+    };
 }
 
 async function findMatchingTitles() {
-  await pushMatchingTodos(saveInputValue());
+    await pushMatchingTodos(saveInputValue());
 }
 
 function saveInputValue() {
-  let search = document.getElementById("searchfield").value;
-  return search.toLowerCase();
+    let search = document.getElementById("searchfield").value;
+    return search.toLowerCase();
 }
 
 async function pushMatchingTodos(search) {
-  matchingTodos = [];
-  for (let index = 0; index < todos.length; index++) {
-    let title = todos[index].title;
-    let description = todos[index].description;
-    if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
-      matchingTodos.push(todos[index]);
+    matchingTodos = [];
+    for (let index = 0; index < todos.length; index++) {
+        let title = todos[index].title;
+        let description = todos[index].description;
+        if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
+            matchingTodos.push(todos[index]);
+        }
     }
-  }
 }
 
 function renderErrorOrMatchingDodos() {
-  if (matchingTodos.length == 0) {
-    renderErrorBoard();
-    updateHTML(matchingTodos);
-  } else {
-   updateHTML(matchingTodos); // ToDo
-  }
+    if (matchingTodos.length == 0) {
+        renderErrorBoard();
+        updateHTML(matchingTodos);
+    } else {
+        updateHTML(matchingTodos); // ToDo
+    }
 }
 
 function renderErrorBoard() {
-  let errorContent = document.getElementById("errorContainer");
-  errorContent.innerHTML += `
+    let errorContent = document.getElementById("errorContainer");
+    errorContent.innerHTML += `
   Keine Ergebnisse gefunden.
   `;
 }
