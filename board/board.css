@@ -294,22 +294,45 @@ input[type="search"]::-webkit-search-cancel-button {
 .assigned-to-contact, .subtask {
   display: flex;
   gap: 16px;
+  padding: 8px 16px 8px 16px;
+  align-items: center;
+}
+
+.assigned-to-contact p {
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .subtask {
-  align-items: center;
+  &:hover {
+    background-color: #dbdbdb;
+    border-radius: 8px;
+  }
 }
 
 .subtask-text {
   margin-block-start: 0.4em;
   margin-block-end: 0.4em;
+  font-size: 16px;
 }
 
 .edit-and-delete-buttons {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  margin-top: 8px;
 }
 
+.edit-and-delete-buttons button {
+  font-size: 16px;
+  color: #2A3647;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  &:hover {
+    color: #00BEE8;
+  }
+}
 
 /* Class by Sophia */
 #errorContainer {
