@@ -16,7 +16,7 @@
   justify-content: space-between;
   gap: 40px;
   align-items: flex-end;
-  margin-top: 24px;
+  margin-top: 160px;
   font-size: 20px;
 }
 
@@ -131,7 +131,7 @@ input:-webkit-autofill:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 80px;
+  /* margin-bottom: 80px; */
 }
 
 .p_add_task {
@@ -414,11 +414,13 @@ input:focus {
     max-width: 200px;
   }
 
-  #taskForm {
-    margin-bottom: 0;
+  .add_task_main {
+    margin: 100px 32px 100px 32px !important;
   }
 
-  .add_task_main {
-    margin: 100px 32px 0 32px !important;
+  .subtasks_input {
+    box-sizing: border-box;
+    padding-right: 0;
+    width: 90%;
   }
 }
