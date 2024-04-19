@@ -1,5 +1,3 @@
-let users = [];
-
 async function initLogIn() {
   await loadAllUsers();
   resetLogInForm();
@@ -8,56 +6,59 @@ async function initLogIn() {
 async function loadAllUsers() {
   let response = await getItem("remoteUsers");
   users = await JSON.parse(response);
-
-  console.log("Loaded Users: ", users);
 }
 
 async function login() {
   findUser();
 }
-
-
 function disOrEnableLogInBtn() {
   // If all those two have value...
-  if (document.getElementById("email").value == "" || document.getElementById("password").value == "") {
+  if (
+    document.getElementById("email").value == "" ||
+    document.getElementById("password").value == ""
+  ) {
     // In the beginning the button is disabled and nothin has to be done
     if (document.getElementById("registerBtn").hasAttribute("disabled")) {
       // This else-statement is used if the required inputs had values so that the button was enabled, but then one input was deleted. In this case the disabled attribute has to be set again and the button has to get back the css of the enabled button.
     } else {
-      document.getElementById("registerBtn").setAttribute("disabled", "disabled");
+      document
+        .getElementById("registerBtn")
+        .setAttribute("disabled", "disabled");
       document.getElementById("registerBtn").classList.add("btn_dark_disabled");
       document.getElementById("registerBtn").classList.remove("btn_dark");
     }
     // If all inputs have values, the button is enabled.
   } else {
     document.getElementById("registerBtn").removeAttribute("disabled");
-    document.getElementById("registerBtn").classList.remove("btn_dark_disabled");
+    document
+      .getElementById("registerBtn")
+      .classList.remove("btn_dark_disabled");
     document.getElementById("registerBtn").classList.add("btn_dark");
   }
 }
 
 function resetLogInForm() {
-  document.getElementById('logInForm').reset();
+  document.getElementById("logInForm").reset();
 }
 
-
 function checkBox() {
-  if(document.getElementById("email").value == "" || document.getElementById("password").value == "") {
+  if (
+    document.getElementById("email").value == "" ||
+    document.getElementById("password").value == ""
+  ) {
     if (document.getElementById("remember_me").hasAttribute("disabled")) {
-    
     } else {
-        document.getElementById("remember_me").setAttribute("disabled", "disabled");
-    } 
-    
-  } else {
-        document.getElementById("remember_me").removeAttribute("disabled");
-        policyCheckbox = document.getElementById("remember_me");
-        policyCheckbox.src = "../assets/img/icons/checkbox_filled.png"
-        saveLogInLocalStorage();
-      } 
+      document
+        .getElementById("remember_me")
+        .setAttribute("disabled", "disabled");
     }
-
-
+  } else {
+    document.getElementById("remember_me").removeAttribute("disabled");
+    policyCheckbox = document.getElementById("remember_me");
+    policyCheckbox.src = "../assets/img/icons/checkbox_filled.png";
+    saveLogInLocalStorage();
+  }
+}
 
 function saveLogInLocalStorage() {
   let email = document.getElementById("email").value;
@@ -68,19 +69,18 @@ function saveLogInLocalStorage() {
 
 function loadRememberMe() {
   let email = document.getElementById("email");
-  let response = localStorage.getItem("userEmail"); 
+  let response = localStorage.getItem("userEmail");
   userEmail = JSON.parse(response);
-  email.value = userEmail; 
+  email.value = userEmail;
 
   let password = document.getElementById("password");
-  let userPassword = localStorage.getItem("userPassword"); 
+  let userPassword = localStorage.getItem("userPassword");
   userPassword = JSON.parse(userPassword);
-  password.value = userPassword; 
+  password.value = userPassword;
   disOrEnableLogInBtn();
 }
 
-
-// funktion wird noch nicht benutzt 
+// funktion wird noch nicht benutzt
 function uncheckBox() {
   let policyCheckbox = document.getElementById("remember_me");
   policyCheckbox.src = "../assets/img/icons/checkbox.png";
@@ -90,11 +90,14 @@ function uncheckBox() {
 }
 
 function findUser() {
- 
   let email = document.getElementById("email");
   let password = document.getElementById("password");
-  let user = users.find( u => u.userEmail == email.value && u.userPassword == password.value);
+  let user = users.find(
+    (u) => u.userEmail == email.value && u.userPassword == password.value
+  );
   if (user) {
+    saveInitialsInLocalStorageLogIn(user);
+    saveNameAInLocalStorageLogIn(user);
     redirectToSummary();
   } else {
     validatePassword();
@@ -108,34 +111,40 @@ function findUser() {
   }
 }
 
+function saveInitialsInLocalStorageLogIn(user) {
+  let userInitials = user['userInitials'];
+  localStorage.setItem("userInitials", JSON.stringify(userInitials));
+}
+
+function saveNameAInLocalStorageLogIn(user) {
+  let userName = user['userName'];
+  localStorage.setItem("userName", JSON.stringify(userName));
+}
+
 function validatePassword() {
   let passwordError = document.getElementById("passwordError");
   let passwordInput = document.getElementById("password");
-  let storedPassword = users.find(u => u.userPassword);
+  let storedPassword = users.find((u) => u.userPassword);
   if (passwordInput.value == storedPassword) {
-    passwordError.textContent = '';
+    passwordError.textContent = "";
     return true;
   } else {
-    passwordError.style.display = 'block';
-    passwordError.style.color = '#ff7f8e';
-    passwordError.textContent = 'Wrong password Ups! Try again.';
-    passwordInput.style.borderColor = '#ff7f8e';
-    passwordInput.value = '';
+    passwordError.style.display = "block";
+    passwordError.style.color = "#ff7f8e";
+    passwordError.textContent = "Wrong password Ups! Try again.";
+    passwordInput.style.borderColor = "#ff7f8e";
+    passwordInput.value = "";
   }
 }
 
-function validateRegistration() {
-
-}
+function validateRegistration() {}
 
 function redirectToSummary() {
-  const targetUrl = '../summary/summary.html';
+  const targetUrl = "../summary/summary.html";
   window.location.href = targetUrl;
 }
 
 function redirectToSignUp() {
-  const targetUrl = '../sign_up/sign_up.html';
+  const targetUrl = "../sign_up/sign_up.html";
   window.location.href = targetUrl;
 }
-
-
