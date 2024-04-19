@@ -173,12 +173,11 @@ header {
   right: 0;
   z-index: 1;
   background: #2a3647;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   min-width: 160px;
   border-radius: 20px;
   padding-top: 15px;
   padding-bottom: 15px;
-  
 }
 .header_dropdown_content a {
   color: #e2e6ec;
@@ -189,4 +188,8 @@ header {
 }
 .show_menu_header {
   display: block;
+}
+
+.logo_mobile {
+  display: none;
 }

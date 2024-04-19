@@ -1,0 +1,10 @@
+.header_mobile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo_mobile {
+  width: 32px;
+  height: 40px;
+}
