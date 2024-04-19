@@ -286,7 +286,6 @@ function displaySubstasks(task) {
     }
 }
 
-
 function toggleCheckbox(i, taskIndex) {
     if (todos[taskIndex].subtasks[i].statusSubtask == 'inProgress') {
         todos[taskIndex].subtasks[i].statusSubtask = 'done';
@@ -300,8 +299,8 @@ function toggleCheckbox(i, taskIndex) {
 }
 
 function displayAssignedContacts(task) {
-  let assignedContactContainer = document.getElementById("assigned-to-contacts");
-
+    let assignedContactContainer = document.getElementById("assigned-to-contacts");
+    assignedContactContainer.innerHTML = "";
     for (let i = 0; i < task['assignedTo'].length; i++) {
         const assignedContact = task['assignedTo'][i];
 
@@ -312,7 +311,6 @@ function displayAssignedContacts(task) {
         </div>
     `;
     }
-
 }
 
 async function deleteTask(index) {
@@ -323,14 +321,38 @@ async function deleteTask(index) {
     // show toast-message that task was deleted
 }
 
+function closeModalDetails() {
+    let modalBg = document.getElementById("modal-bg-details");
+    modalBg.style.width = 0;
+    modalBg.style.left = "100%";
+    document.getElementById("body").style.overflow = "auto";
+}
+  
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener('click', function (event) {
+    let modalBg = document.getElementById('modal-bg-details');
+    if (event.target == modalBg) {
+        modalBg.style.width = 0;
+        modalBg.style.left = '100%';
+        document.getElementById('body').style.overflow = 'auto';
+    }
+});
+
 async function openEditTask(index) {
     await loadAllTasks();
     await loadContacts();
-    let taskDetailsContainer = document.getElementById('task-details');
-    taskDetailsContainer.innerHTML = createEditTaskHtml(index);
-    renderContactsToAssign();
+    document.getElementById("body").style.overflow = "hidden";
+    let modalBg = document.getElementById("modal-bg-edit");
+    modalBg.style.width = "100%";
+    modalBg.style.left = 0;
+    let editTaskContainer = document.getElementById("edit-task-content");
+    editTaskContainer.innerHTML = "";
+    editTaskContainer.innerHTML += createEditTaskHtml(index);
+    renderContactsToAssign('assignedToDropdownEdit');
     renderCategories();
-    showAssignedtoContacts();
+    showAssignedtoContacts('assignedtoContactsContainerEdit');
+    displayAssignedContacts(todos[index]);
+    displaySubstasks(todos[index]);
 }
 
 function createEditTaskHtml(index) {
@@ -351,13 +373,13 @@ function createEditTaskHtml(index) {
                 </div>
                 <div class="dropdown">
                     <label class="label_add_task">Assigned to</label>
-                    <button type="button" onclick="toggleDropdownAssignedTo()" class="dropbtnAssignedContact">
+                    <button type="button" onclick="toggleDropdownAssignedTo('assignedToDropdownEdit')" class="dropbtnAssignedContact">
                         Select contacts to assign
-                        <img onclick="event.stopPropagation(); toggleDropdownAssignedTo()" class="dropdown_arrow"
+                        <img onclick="event.stopPropagation(); toggleDropdownAssignedTo('assignedToDropdownEdit')" class="dropdown_arrow"
                         src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
                     </button>
-                    <div id="assignedToDropdown" class="dropdown-content assignedto_dropdown"></div>
-                    <div id="assignedtoContactsContainer" class="assignedto_contacts_container"></div>
+                    <div id="assignedToDropdownEdit" class="dropdown-content assignedto_dropdown"></div>
+                    <div id="assignedtoContactsContainerEdit" class="assignedto_contacts_container"></div>
                 </div>
             </section>
             <hr class="line" />
@@ -422,23 +444,6 @@ function createEditTaskHtml(index) {
     </form>
     `;
 }
-
-function closeModalDetails() {
-  let modalBg = document.getElementById("modal-bg-details");
-  modalBg.style.width = 0;
-  modalBg.style.left = "100%";
-  document.getElementById("body").style.overflow = "auto";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.addEventListener('click', function (event) {
-    let modalBg = document.getElementById('modal-bg-details');
-    if (event.target == modalBg) {
-        modalBg.style.width = 0;
-        modalBg.style.left = '100%';
-        document.getElementById('body').style.overflow = 'auto';
-    }
-});
 
 // search function
 function renderAllOrMatchingTodos() {

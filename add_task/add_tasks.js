@@ -6,9 +6,9 @@ async function init() {
   includeHTML();
   await loadAllTasks();
   await loadContacts();
-  renderContactsToAssign();
+  renderContactsToAssign('assignedToDropdown');
   renderCategories();
-  showAssignedtoContacts();
+  showAssignedtoContacts('assignedtoContactsContainer');
   console.log("allTasks on load:", allTasks);
   unlogAllSidebarLinks();
   logSidebarLink("addTaskSidebar");
@@ -227,9 +227,9 @@ window.onclick = function (event) {
   }
 };
 
-function renderContactsToAssign() {
+function renderContactsToAssign(id) {
   for (let i = 0; i < contacts.length; i++) {
-    document.getElementById("assignedToDropdown").innerHTML += generateContactToAssign(i);
+    document.getElementById(id).innerHTML += generateContactToAssign(i);
     addCheckboxImage(i);
   }
 }
@@ -252,8 +252,8 @@ function generateContactToAssign(i) {
 </div>`;
 }
 
-function toggleDropdownCategory(id) {
-  document.getElementById(id).classList.toggle("show");
+function toggleDropdownCategory() {
+  document.getElementById("categoryDropdown").classList.toggle("show");
 }
 
 function renderCategories() {
@@ -306,7 +306,7 @@ async function selectAssignedContact(i) {
     fillCheckboxImage(i);
     pushAssignedContacts(i);
   }
-  showAssignedtoContacts();
+  showAssignedtoContacts('assignedtoContactsContainer');
   console.log("assignedContacts: ", assignedContacts);
 }
 
@@ -328,11 +328,11 @@ function stopPropagation() {
   event.stopPropagation(onclick);
 }
 
-function showAssignedtoContacts() {
-  document.getElementById("assignedtoContactsContainer").innerHTML = "";
+function showAssignedtoContacts(containerID) {
+  document.getElementById(containerID).innerHTML = "";
   for (let i = 0; i < assignedContacts.length; i++) {
     let j = contacts.indexOf(assignedContacts[i]);
-    document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(j);
+    document.getElementById(containerID).innerHTML += generateInitialCircles(j);
   }
 }
 
