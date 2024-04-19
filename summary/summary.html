@@ -24,16 +24,16 @@
           <section class="right">
 
             <div class="task_container">
-              <div class="tasks" onclick="redirectToBoard()">
+              <div class="tasks" onclick="redirectToBoard()" onmouseover="changeIconTodoWhite()" onmouseleave="changeIconTodoBack()">
                 
-                <img src="../assets/img/icons/todo_task.svg" alt="To-do">
+                <img src="../assets/img/icons/todo_task.svg" alt="To-do" id="todoImg">
                 <div class="status_content">
                   <div id="todo" class="size_64"></div>
                   <span class="size_20">To-do</span>
                 </div>
               </div>
-              <div class="tasks" onclick="redirectToBoard()">
-                  <img src="../assets/img/icons/done_task.svg" alt="Done" class="icon_summary">
+              <div class="tasks" onclick="redirectToBoard()" onmouseover="changeIconDoneWhite()" onmouseleave="changeIconTDoneBack()">
+                  <img src="../assets/img/icons/done_task.svg" alt="Done" class="icon_summary" id="doneImg">
                 <div class="status_content">
                   <div id="done" class="size_64"></div>
                   <span class="size_20">Done</span>
