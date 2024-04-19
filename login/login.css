@@ -127,3 +127,19 @@ a {
     color: #fb3c53;
     font-size: 16px;
 }
+@media (max-width: 710px) {
+    .login_sign_up {
+        display: none;
+    }
+    .logoBigStart {
+        width: 64px;
+    }
+}
+@media screen and (max-width: 500px),
+    screen and (max-height: 845px) {
+       
+        .login_btns {
+            margin-top: 15px;
+            margin-inline: 15px 15px;
+        }
+}

@@ -108,3 +108,24 @@ a {
         transform: translateY(0);
     }
 }
+
+@media (max-width: 710px) {
+    .sign_up_containert {
+        width: 500px;
+    }
+    .logo_join {
+        width: 64px;
+    }
+}
+@media screen and (max-width: 412px),
+    screen and (max-height: 845px) {
+        .login_header {
+            margin: 37px;
+        }
+        .sign_up_container {
+            margin-bottom: 50px;
+        }
+        .login_btns {
+            margin-top: 15px;
+        }
+}

@@ -12,27 +12,16 @@ async function login() {
   findUser();
 }
 function disOrEnableLogInBtn() {
-  // If all those two have value...
-  if (
-    document.getElementById("email").value == "" ||
-    document.getElementById("password").value == ""
-  ) {
-    // In the beginning the button is disabled and nothin has to be done
+  if (document.getElementById("email").value == "" ||document.getElementById("password").value == "") {
     if (document.getElementById("registerBtn").hasAttribute("disabled")) {
-      // This else-statement is used if the required inputs had values so that the button was enabled, but then one input was deleted. In this case the disabled attribute has to be set again and the button has to get back the css of the enabled button.
     } else {
-      document
-        .getElementById("registerBtn")
-        .setAttribute("disabled", "disabled");
+      document.getElementById("registerBtn").setAttribute("disabled", "disabled");
       document.getElementById("registerBtn").classList.add("btn_dark_disabled");
       document.getElementById("registerBtn").classList.remove("btn_dark");
     }
-    // If all inputs have values, the button is enabled.
   } else {
     document.getElementById("registerBtn").removeAttribute("disabled");
-    document
-      .getElementById("registerBtn")
-      .classList.remove("btn_dark_disabled");
+    document.getElementById("registerBtn").classList.remove("btn_dark_disabled");
     document.getElementById("registerBtn").classList.add("btn_dark");
   }
 }
@@ -42,15 +31,10 @@ function resetLogInForm() {
 }
 
 function checkBox() {
-  if (
-    document.getElementById("email").value == "" ||
-    document.getElementById("password").value == ""
-  ) {
+  if (document.getElementById("email").value == "" ||document.getElementById("password").value == "") {
     if (document.getElementById("remember_me").hasAttribute("disabled")) {
     } else {
-      document
-        .getElementById("remember_me")
-        .setAttribute("disabled", "disabled");
+      document.getElementById("remember_me").setAttribute("disabled", "disabled");
     }
   } else {
     document.getElementById("remember_me").removeAttribute("disabled");
@@ -92,9 +76,7 @@ function uncheckBox() {
 function findUser() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
-  let user = users.find(
-    (u) => u.userEmail == email.value && u.userPassword == password.value
-  );
+  let user = users.find((u) => u.userEmail == email.value && u.userPassword == password.value);
   if (user) {
     saveInitialsInLocalStorageLogIn(user);
     saveNameAInLocalStorageLogIn(user);
@@ -112,12 +94,12 @@ function findUser() {
 }
 
 function saveInitialsInLocalStorageLogIn(user) {
-  let userInitials = user['userInitials'];
+  let userInitials = user["userInitials"];
   localStorage.setItem("userInitials", JSON.stringify(userInitials));
 }
 
 function saveNameAInLocalStorageLogIn(user) {
-  let userName = user['userName'];
+  let userName = user["userName"];
   localStorage.setItem("userName", JSON.stringify(userName));
 }
 
@@ -136,8 +118,6 @@ function validatePassword() {
     passwordInput.value = "";
   }
 }
-
-function validateRegistration() {}
 
 function redirectToSummary() {
   const targetUrl = "../summary/summary.html";

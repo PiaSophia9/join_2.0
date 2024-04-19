@@ -103,7 +103,7 @@ main {
     margin-block-start: 0;
     margin-block-end: 0;
     margin-bottom: 24px;
-    font-size: 48;
+    font-size: 48px;
   }
 
   /* .header_and_main {
@@ -113,3 +113,4 @@ main {
     margin: 0;
   } */
 }
+
