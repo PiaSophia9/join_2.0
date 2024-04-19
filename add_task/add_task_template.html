@@ -14,9 +14,9 @@
           </div>
           <div class="dropdown">
             <label class="label_add_task">Assigned to</label>
-            <button type="button" onclick="toggleDropdownAssignedTo('assignedToDropdown')" class="dropbtnAssignedContact">
+            <button type="button" onclick="toggleDropdownAssignedTo()" class="dropbtnAssignedContact">
               Select contacts to assign 
-              <img onclick="event.stopPropagation(); toggleDropdownAssignedTo('assignedToDropdown')" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
+              <img onclick="event.stopPropagation(); toggleDropdownAssignedTo()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
           </button>
             <div id="assignedToDropdown" class="dropdown-content assignedto_dropdown">
           </div>
@@ -32,9 +32,9 @@
           <div>
             <label class="label_add_task">Prio</label>
             <div class="prio_buttons_container">
-              <button id="urgentButton" onclick="setPrioUrgent('urgentButton', 'urgentImage')" type="button" class="prio_buttons">Urgent <img id="urgentImage" class="urgent_image" src="../assets/img/icons/prio_urgent_red.svg" alt="" /></button>
-              <button id="mediumButton" onclick="setPrioMedium('mediumButton', 'mediumImage')" type="button" class="prio_buttons">Medium <img id="mediumImage" class="medium_img" src="../assets/img/icons/prio_medium_orange.svg" alt="" /></button>
-              <button id="lowButton" onclick="setPrioLow('lowButton', 'low_image')" type="button" class="prio_buttons">Low <img id="lowImage" class="low_image" src="../assets/img/icons/prio_kow_green.svg" alt="" /></button>
+              <button id="urgentButton" onclick="setPrioUrgent()" type="button" class="prio_buttons">Urgent <img id="urgentImage" class="urgent_image" src="../assets/img/icons/prio_urgent_red.svg" alt="" /></button>
+              <button id="mediumButton" onclick="setPrioMedium()" type="button" class="prio_buttons">Medium <img id="mediumImage" class="medium_img" src="../assets/img/icons/prio_medium_orange.svg" alt="" /></button>
+              <button id="lowButton" onclick="setPrioLow()" type="button" class="prio_buttons">Low <img id="lowImage" class="low_image" src="../assets/img/icons/prio_kow_green.svg" alt="" /></button>
             </div>
           </div>
 
@@ -51,7 +51,7 @@
           <div>
             <label class="label_add_task">Subtasks</label>
             <div id="subtaskContainer" onclick="addBorderColorBlue()" class="form_elements subtask_container">
-              <input oninput="showIconsSubtasks('taskSubtask', 'iconsSubtasksContainer')" id="taskSubtask"  class="subtasks_input" type="text" placeholder="Add new subtask" />
+              <input oninput="showIconsSubtasks()" id="taskSubtask"  class="subtasks_input" type="text" placeholder="Add new subtask" />
               <div id="iconsSubtasksContainer" class="icons_subtasks_container d_none">
                 <img onclick="clearSubtask()" class="subtask_image" src="../assets/img/icons/subtask_x.png" alt="">
                 <img class="subtask_line" src="../assets/img/icons/subtask_line.png" alt="">

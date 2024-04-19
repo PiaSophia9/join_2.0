@@ -351,8 +351,8 @@ async function openEditTask(index) {
     renderContactsToAssign('assignedToDropdownEdit');
     renderCategories();
     showAssignedtoContacts('assignedtoContactsContainerEdit');
-    displayAssignedContacts(todos[index]);
-    displaySubstasks(todos[index]);
+    // displayAssignedContacts(todos[index]);
+    // displaySubstasks(todos[index]);
 }
 
 function createEditTaskHtml(index) {

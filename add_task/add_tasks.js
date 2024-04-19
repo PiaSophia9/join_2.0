@@ -6,9 +6,9 @@ async function init() {
   includeHTML();
   await loadAllTasks();
   await loadContacts();
-  renderContactsToAssign('assignedToDropdown');
+  renderContactsToAssign();
   renderCategories();
-  showAssignedtoContacts('assignedtoContactsContainer');
+  showAssignedtoContacts();
   console.log("allTasks on load:", allTasks);
   unlogAllSidebarLinks();
   logSidebarLink("addTaskSidebar");
@@ -89,22 +89,22 @@ function redirectToBoard() {
 
 // Prio Buttons
 
-function setPrioUrgent(buttonID, imageID) {
+function setPrioUrgent() {
   priority = "urgent";
-  document.getElementById(buttonID).classList.add("urgent_button");
-  document.getElementById(imageID).src = "../assets/img/icons/prio_urgent_white.svg";
+  document.getElementById("urgentButton").classList.add("urgent_button");
+  document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_white.svg";
   removeMediumPrio();
   removeLowPrio();
 }
 
-function setPrioMedium(buttonID, imageID) {
+function setPrioMedium() {
   priority = "medium";
   document.getElementById("mediumButton").classList.add("medium_button");
   document.getElementById("mediumImage").src = "../assets/img/icons/prio_medium_white.svg";
   removeLowPrio();
   removeUrgentPrio();
 }
-function setPrioLow(buttonID, imageID) {
+function setPrioLow() {
   priority = "low";
   document.getElementById("lowButton").classList.add("low_button");
   document.getElementById("lowImage").src = "../assets/img/icons/prio_low_white.svg";
@@ -214,8 +214,8 @@ function disOrEnableButton() {
 
 // Dropdowns
 
-function toggleDropdownAssignedTo(id) {
-  document.getElementById(id).classList.toggle("show");
+function toggleDropdownAssignedTo() {
+  document.getElementById("assignedToDropdown").classList.toggle("show");
 }
 
 window.onclick = function (event) {
@@ -227,9 +227,9 @@ window.onclick = function (event) {
   }
 };
 
-function renderContactsToAssign(id) {
+function renderContactsToAssign() {
   for (let i = 0; i < contacts.length; i++) {
-    document.getElementById(id).innerHTML += generateContactToAssign(i);
+    document.getElementById("assignedToDropdown").innerHTML += generateContactToAssign(i);
     addCheckboxImage(i);
   }
 }
@@ -306,7 +306,7 @@ async function selectAssignedContact(i) {
     fillCheckboxImage(i);
     pushAssignedContacts(i);
   }
-  showAssignedtoContacts('assignedtoContactsContainer');
+  showAssignedtoContacts();
   console.log("assignedContacts: ", assignedContacts);
 }
 
@@ -328,11 +328,11 @@ function stopPropagation() {
   event.stopPropagation(onclick);
 }
 
-function showAssignedtoContacts(containerID) {
-  document.getElementById(containerID).innerHTML = "";
+function showAssignedtoContacts() {
+  document.getElementById("assignedtoContactsContainer").innerHTML = "";
   for (let i = 0; i < assignedContacts.length; i++) {
     let j = contacts.indexOf(assignedContacts[i]);
-    document.getElementById(containerID).innerHTML += generateInitialCircles(j);
+    document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(j);
   }
 }
 
@@ -362,11 +362,11 @@ window.addEventListener("click", function (e) {
   }
 });
 
-function showIconsSubtasks(subtaskID, containerID) {
-  if (document.getElementById(subtaskID).value !== "") {
-    document.getElementById(containerID).classList.remove("d_none");
+function showIconsSubtasks() {
+  if (document.getElementById("taskSubtask").value !== "") {
+    document.getElementById("iconsSubtasksContainer").classList.remove("d_none");
   } else {
-    document.getElementById(containerID).classList.add("d_none");
+    document.getElementById("iconsSubtasksContainer").classList.add("d_none");
   }
 }
 
@@ -436,7 +436,6 @@ function hidePenAndTrash(i) {
 function deleteSubtask(i) {
   subtasks.splice(i, 1);
   renderSubtasks();
-  event.stopPropagation();
 }
 
 function makeRenderedSubtasksEditable(i) {
@@ -450,9 +449,8 @@ function showTrashAndCheck(i) {
   document.getElementById(`containerTrashAndCheck${i}`).classList.remove("d_none");
 }
 
-function deleteRenderedSubtask(i, event) {
+function deleteRenderedSubtask(i) {
   deleteSubtask(i);
-  event.stopPropagation();
 }
 
 function overwriteSubtask(i) {
