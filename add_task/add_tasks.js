@@ -89,22 +89,22 @@ function redirectToBoard() {
 
 // Prio Buttons
 
-function setPrioUrgent() {
+function setPrioUrgent(buttonID, imageID) {
   priority = "urgent";
-  document.getElementById("urgentButton").classList.add("urgent_button");
-  document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_white.svg";
+  document.getElementById(buttonID).classList.add("urgent_button");
+  document.getElementById(imageID).src = "../assets/img/icons/prio_urgent_white.svg";
   removeMediumPrio();
   removeLowPrio();
 }
 
-function setPrioMedium() {
+function setPrioMedium(buttonID, imageID) {
   priority = "medium";
   document.getElementById("mediumButton").classList.add("medium_button");
   document.getElementById("mediumImage").src = "../assets/img/icons/prio_medium_white.svg";
   removeLowPrio();
   removeUrgentPrio();
 }
-function setPrioLow() {
+function setPrioLow(buttonID, imageID) {
   priority = "low";
   document.getElementById("lowButton").classList.add("low_button");
   document.getElementById("lowImage").src = "../assets/img/icons/prio_low_white.svg";
@@ -214,8 +214,8 @@ function disOrEnableButton() {
 
 // Dropdowns
 
-function toggleDropdownAssignedTo() {
-  document.getElementById("assignedToDropdown").classList.toggle("show");
+function toggleDropdownAssignedTo(id) {
+  document.getElementById(id).classList.toggle("show");
 }
 
 window.onclick = function (event) {
@@ -252,8 +252,8 @@ function generateContactToAssign(i) {
 </div>`;
 }
 
-function toggleDropdownCategory() {
-  document.getElementById("categoryDropdown").classList.toggle("show");
+function toggleDropdownCategory(id) {
+  document.getElementById(id).classList.toggle("show");
 }
 
 function renderCategories() {
@@ -362,11 +362,11 @@ window.addEventListener("click", function (e) {
   }
 });
 
-function showIconsSubtasks() {
-  if (document.getElementById("taskSubtask").value !== "") {
-    document.getElementById("iconsSubtasksContainer").classList.remove("d_none");
+function showIconsSubtasks(subtaskID, containerID) {
+  if (document.getElementById(subtaskID).value !== "") {
+    document.getElementById(containerID).classList.remove("d_none");
   } else {
-    document.getElementById("iconsSubtasksContainer").classList.add("d_none");
+    document.getElementById(containerID).classList.add("d_none");
   }
 }
 
@@ -436,6 +436,7 @@ function hidePenAndTrash(i) {
 function deleteSubtask(i) {
   subtasks.splice(i, 1);
   renderSubtasks();
+  event.stopPropagation();
 }
 
 function makeRenderedSubtasksEditable(i) {
@@ -449,8 +450,9 @@ function showTrashAndCheck(i) {
   document.getElementById(`containerTrashAndCheck${i}`).classList.remove("d_none");
 }
 
-function deleteRenderedSubtask(i) {
+function deleteRenderedSubtask(i, event) {
   deleteSubtask(i);
+  event.stopPropagation();
 }
 
 function overwriteSubtask(i) {

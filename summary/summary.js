@@ -52,12 +52,6 @@ function formatDate(dateString) {
   const formattedDate = new Date(dateString).toLocaleDateString("en-US", options);
   return formattedDate;
 }
-// function showUrgentTaskDate(urgentBoard) {
-//     let urgentDate = document.getElementById('urgentDate');
-//     let urgentDates = urgentBoard.map((t) => t["dueDate"]);
-//     let urgentDatesSorted = urgentDates.sort();
-//     urgentDate.innerHTML = urgentDatesSorted[0];
-// }
 
 function showToDo() {
   let todoAmount = document.getElementById("todo");
@@ -91,4 +85,20 @@ function showAwaitFeedback() {
 function redirectToBoard() {
   const targetUrl = "../board/board.html";
   window.location.href = targetUrl;
+}
+
+function changeIconTodoWhite() {
+  document.getElementById('todoImg').src = "../../assets/img/icons/todo_white.svg";
+}
+
+function changeIconTodoBack() {
+  document.getElementById('todoImg').src = "../../assets/img/icons/todo_task.svg";
+}
+
+function changeIconDoneWhite() {
+  document.getElementById('doneImg').src = "../../assets/img/icons/done_white.svg";
+}
+
+function changeIconTDoneBack() {
+  document.getElementById('doneImg').src = "../../assets/img/icons/done_task.svg";
 }
