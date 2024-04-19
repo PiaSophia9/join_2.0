@@ -6,22 +6,23 @@ function loadUserInitials() {
   return storedInitials;
 }
 
-function showNavHeader() {
+function showNavHeader(event) {
   document.getElementById("myDropdown").classList.toggle("show_menu_header");
+  event.stopPropagation();
 }
 
-//   window.onclick = function(event) {
-//     if (!event.target.matches('.user_circle')) {
-//       let dropdowns = document.getElementsByClassName("header_dropdown_content");
-//       let i;
-//       for (i = 0; i < dropdowns.length; i++) {
-//         var openDropdown = dropdowns[i];
-//         if (openDropdown.classList.contains('show')) {
-//           openDropdown.classList.remove('show');
-//         }
-//       },
-//     }
-//   }
+  window.onclick = function(event) {
+    if (!event.target.matches('.user_circle')) {
+      let dropdowns = document.getElementsByClassName("header_dropdown_content");
+      let i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show_menu_header')) {
+          openDropdown.classList.remove('show_menu_header');
+        }
+      }
+    }
+  }
 
 function logOut() {
     localStorage.removeItem("userPassword");
