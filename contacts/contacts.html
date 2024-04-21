@@ -19,23 +19,32 @@
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
       <main>
+        <button id="backButtonContacts" onclick="showLeftSection()" class="floating_button_mobile_back d_none"></button>
         <div class="contacts_main">
-          <section class="left_section">
+          <section id="leftSection" class="left_section">
             <div class="contact_button_container">
               <button class="btn_dark_disabled contacts_button" onclick="openAddContact()">Add new contact <img src="../assets/img/icons/person_add.png" alt="" /></button>
             </div>
             <div class="all-contacts" id="all-contacts"></div>
           </section>
-          <section class="right_section">
+          <section id="rightSection" class="right_section">
             <div class="headline_container">
               <h1>Contacts</h1>
-              <img src="../assets/img/contacts_blue_line.png" alt="" />
-              <span>Better with a team</span>
+              <div class="line_and_span_container"><img class="vertical_blue_line" src="../assets/img/contacts_blue_line.png" alt="" />
+              <hr class="horizontal_blue_line">
+              <span>Better with a team</span></div>
+              
             </div>
             <div class="initials_and_name_container" id="contact-container"></div>
             <div class="contact-information" id="contact-information"></div>
           </section>
         </div>
+        <button id="personButtonContacts" class="floating_button_mobile_contacts" type="button" onclick="openAddContact()"></button>
+        <button id="threeDotsButtonContacts" class="floating_button_three_dots d_none" type="button" onclick="openEditDeleteMenu()"></button>
+        <!-- <div id="editDeleteButtonContainer" class="edit_delete_button_container d_none">
+          <button type="button" onclick="">Edit</button>
+          <button type="button">Delete</button>
+        </div> -->
       </main>
       <div w3-include-html="add_contact_template.html"></div>
       <div w3-include-html="edit_contact_template.html"></div>

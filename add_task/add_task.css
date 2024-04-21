@@ -8,7 +8,7 @@
 .upper_part {
   display: flex;
   gap: 40px;
-  font-size: 20px;
+  /* font-size: 20px; */
 }
 
 .lower_part {
@@ -17,7 +17,7 @@
   gap: 40px;
   align-items: flex-end;
   margin-top: 160px;
-  font-size: 20px;
+  /* font-size: 20px; */
 }
 
 .left_section,
@@ -375,6 +375,12 @@ input:focus {
   border-radius: 8px;
 }
 
+@media (max-width: 1300px) {
+  .add_task_main {
+    margin: 120px 40px 40px 40px !important;
+  }
+}
+
 @media (max-width: 1030px) {
   .upper_part {
     flex-direction: column;
@@ -386,32 +392,46 @@ input:focus {
     display: none;
   }
 
+  .left_section,
   .right_section {
-    margin-top: 24px;
+    width: auto;
   }
 
   .lower_part {
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-start;
-    margin-top: 0;
-  }
-
-  .buttons_container {
-    display: flex;
-    flex-direction: column;
     margin-top: 24px;
     gap: 24px;
   }
 
-  .left_section,
   .right_section {
-    width: auto;
+    margin-top: 24px;
   }
 
-  .btn_bright,
-  .btn_dark {
+  .buttons_container {
+    display: flex;
+    margin-top: 24px;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .btn_dark,
+  .btn_dark_disabled {
     max-width: 200px;
+    font-size: 21px;
+    min-width: 125px;
+  }
+
+  .btn_bright {
+    display: none;
+  }
+
+  .btn_dark {
+    min-width: 200px;
   }
 
   .add_task_main {
@@ -422,5 +442,45 @@ input:focus {
     box-sizing: border-box;
     padding-right: 0;
     width: 90%;
+  }
+
+  .form_elements,
+  .dropbtnAssignedContact,
+  .subtasks_input {
+    font-size: 16px;
+  }
+
+  #buttonName {
+    font-size: 16px;
+  }
+
+  .form_elements,
+  .dropbtnAssignedContact {
+    min-height: 40px;
+  }
+
+  .textarea_add_task {
+    height: 80px;
+  }
+
+  .prio_buttons {
+    height: 40px;
+    min-width: 100px;
+  }
+
+  .lower_part {
+    position: fixed;
+    bottom: 80px;
+    background-color: #f6f7f8;
+    width: calc(100% - 62px);
+    border-top: 1px solid#2a3647;
+  }
+
+  .p_add_task {
+    margin-bottom: 24px;
+  }
+
+  .include_html_container {
+    margin-bottom: 240px !important;
   }
 }
