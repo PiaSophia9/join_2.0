@@ -11,6 +11,8 @@ async function init() {
   showAssignedtoContacts();
   unlogAllSidebarLinks();
   logSidebarLink("addTaskSidebar");
+  setPrioMedium();
+  loadUserInitials();
 }
 
 /**
@@ -91,6 +93,7 @@ function redirectToBoard() {
 function setPrioUrgent() {
   priority = "urgent";
   document.getElementById("urgentButton").classList.add("urgent_button");
+  // add no shadow
   document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_white.svg";
   removeMediumPrio();
   removeLowPrio();
@@ -146,82 +149,82 @@ function turnDateColorGrey() {
 }
 
 // New shorter functions
-function borderRedIfEmpty(elementId, errorContainerId, borderColor, errorClass) {
-  let element = document.getElementById(elementId);
-  let errorContainer = document.getElementById(errorContainerId);
+// function borderRedIfEmpty(elementId, errorContainerId, borderColor, errorClass) {
+//   let element = document.getElementById(elementId);
+//   let errorContainer = document.getElementById(errorContainerId);
 
-  if (element.value === "") {
-    element.style.borderColor = borderColor;
-    errorContainer.classList.remove("hide_error");
-    errorContainer.classList.add(errorClass);
-  } else {
-    element.style.borderColor = "#a8a8a8";
-    errorContainer.classList.add("hide_error");
-    errorContainer.classList.remove(errorClass);
-  }
-
-  disOrEnableButton();
-}
-
-function borderRedIfTitleEmpty() {
-  borderRedIfEmpty("taskTitle", "errorContainerTitle", "#ff8190", "error_container");
-}
-
-function borderRedIfDateEmpty() {
-  turnDateColorBlack();
-  borderRedIfEmpty("taskDueDate", "errorContainerDate", "#ff8190", "error_container");
-}
-
-function borderRedIfCategoryEmpty() {
-  let buttonText = document.getElementById("buttonName").textContent;
-  let borderColor = buttonText === "Select task Category" ? "#ff8190" : "#a8a8a8";
-  borderRedIfEmpty("categoryButton", "errorContainerCategory", borderColor, "error_container");
-}
-// New shorter functions end
-
-// Old longer functions
-// function borderRedIfTitleEmpty() {
-//   if (document.getElementById("taskTitle").value == "") {
-//     document.getElementById("taskTitle").style.borderColor = "#ff8190";
-//     document.getElementById("errorContainerTitle").classList.remove("hide_error");
-//     document.getElementById("errorContainerTitle").classList.add("error_container");
-//     disOrEnableButton();
+//   if (element.value === "") {
+//     element.style.borderColor = borderColor;
+//     errorContainer.classList.remove("hide_error");
+//     errorContainer.classList.add(errorClass);
 //   } else {
-//     document.getElementById("taskTitle").style.borderColor = "#a8a8a8";
-//     document.getElementById("errorContainerTitle").classList.add("hide_error");
-//     document.getElementById("errorContainerTitle").classList.remove("error_container");
-//     disOrEnableButton();
+//     element.style.borderColor = "#a8a8a8";
+//     errorContainer.classList.add("hide_error");
+//     errorContainer.classList.remove(errorClass);
 //   }
+
+//   disOrEnableButton();
+// }
+
+// function borderRedIfTitleEmpty() {
+//   borderRedIfEmpty("taskTitle", "errorContainerTitle", "#ff8190", "error_container");
 // }
 
 // function borderRedIfDateEmpty() {
 //   turnDateColorBlack();
-//   if (document.getElementById("taskDueDate").value == "") {
-//     document.getElementById("taskDueDate").style.borderColor = "#ff8190";
-//     document.getElementById("errorContainerDate").classList.remove("hide_error");
-//     document.getElementById("errorContainerDate").classList.add("error_container");
-//     disOrEnableButton();
-//   } else {
-//     document.getElementById("taskDueDate").style.borderColor = "#a8a8a8";
-//     document.getElementById("errorContainerDate").classList.add("hide_error");
-//     document.getElementById("errorContainerDate").classList.remove("error_container");
-//     disOrEnableButton();
-//   }
+//   borderRedIfEmpty("taskDueDate", "errorContainerDate", "#ff8190", "error_container");
 // }
 
 // function borderRedIfCategoryEmpty() {
-//   if (document.getElementById("buttonName").textContent == "Select task Category") {
-//     document.getElementById("categoryButton").style.borderColor = "#ff8190";
-//     document.getElementById("errorContainerCategory").classList.remove("hide_error");
-//     document.getElementById("errorContainerCategory").classList.add("error_container");
-//     disOrEnableButton();
-//   } else {
-//     document.getElementById("categoryButton").style.borderColor = "#a8a8a8";
-//     document.getElementById("errorContainerCategory").classList.add("hide_error");
-//     document.getElementById("errorContainerCategory").classList.remove("error_container");
-//     disOrEnableButton();
-//   }
+//   let buttonText = document.getElementById("buttonName").textContent;
+//   let borderColor = buttonText === "Select task Category" ? "#ff8190" : "#a8a8a8";
+//   borderRedIfEmpty("categoryButton", "errorContainerCategory", borderColor, "error_container");
 // }
+// New shorter functions end
+
+// Old longer functions
+function borderRedIfTitleEmpty() {
+  if (document.getElementById("taskTitle").value == "") {
+    document.getElementById("taskTitle").style.borderColor = "#ff8190";
+    document.getElementById("errorContainerTitle").classList.remove("hide_error");
+    document.getElementById("errorContainerTitle").classList.add("error_container");
+    disOrEnableButton();
+  } else {
+    document.getElementById("taskTitle").style.borderColor = "#a8a8a8";
+    document.getElementById("errorContainerTitle").classList.add("hide_error");
+    document.getElementById("errorContainerTitle").classList.remove("error_container");
+    disOrEnableButton();
+  }
+}
+
+function borderRedIfDateEmpty() {
+  turnDateColorBlack();
+  if (document.getElementById("taskDueDate").value == "") {
+    document.getElementById("taskDueDate").style.borderColor = "#ff8190";
+    document.getElementById("errorContainerDate").classList.remove("hide_error");
+    document.getElementById("errorContainerDate").classList.add("error_container");
+    disOrEnableButton();
+  } else {
+    document.getElementById("taskDueDate").style.borderColor = "#a8a8a8";
+    document.getElementById("errorContainerDate").classList.add("hide_error");
+    document.getElementById("errorContainerDate").classList.remove("error_container");
+    disOrEnableButton();
+  }
+}
+
+function borderRedIfCategoryEmpty() {
+  if (document.getElementById("buttonName").textContent == "Select task Category") {
+    document.getElementById("categoryButton").style.borderColor = "#ff8190";
+    document.getElementById("errorContainerCategory").classList.remove("hide_error");
+    document.getElementById("errorContainerCategory").classList.add("error_container");
+    disOrEnableButton();
+  } else {
+    document.getElementById("categoryButton").style.borderColor = "#a8a8a8";
+    document.getElementById("errorContainerCategory").classList.add("hide_error");
+    document.getElementById("errorContainerCategory").classList.remove("error_container");
+    disOrEnableButton();
+  }
+}
 // Old longer functions End
 
 function checkRequiredFields() {
@@ -254,14 +257,14 @@ function toggleDropdownAssignedTo() {
   document.getElementById("assignedToDropdown").classList.toggle("show");
 }
 
-window.onclick = function (event) {
-  if (!event.target.matches(".dropbtn")) {
-    document.getElementById("categoryDropdown").classList.remove("show");
-  }
-  if (!event.target.matches(".dropbtnAssignedContact")) {
-    document.getElementById("assignedToDropdown").classList.remove("show");
-  }
-};
+// window.onclick = function (event) {
+//   if (!event.target.matches(".dropbtn")) {
+//     document.getElementById("categoryDropdown").classList.remove("show");
+//   }
+//   if (!event.target.matches(".dropbtnAssignedContact")) {
+//     document.getElementById("assignedToDropdown").classList.remove("show");
+//   }
+// };
 
 function renderContactsToAssign() {
   for (let i = 0; i < contacts.length; i++) {
@@ -467,6 +470,7 @@ function hidePenAndTrash(i) {
 function deleteSubtask(i) {
   subtasks.splice(i, 1);
   renderSubtasks();
+  event.stopPropagation();
 }
 
 function makeRenderedSubtasksEditable(i) {
@@ -482,6 +486,7 @@ function showTrashAndCheck(i) {
 
 function deleteRenderedSubtask(i) {
   deleteSubtask(i);
+  event.stopPropagation();
 }
 
 function overwriteSubtask(i) {
