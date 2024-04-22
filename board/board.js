@@ -146,7 +146,7 @@ async function moveTo(status) {
   // update status in database
   await storeAllTasksBoard();
   // load tasks from database
-  await loadAllTasksBoard();
+  await loadAllTasks();
   updateHTML(allTasks);
 }
 
