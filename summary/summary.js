@@ -17,7 +17,6 @@ function loadUserName() {
   let loggedUser = document.getElementById("logged_user");
   let storedName = localStorage.getItem("userName");
   storedName = JSON.parse(storedName);
-  console.log(storedName);
   loggedUser.innerHTML = storedName;
 }
 

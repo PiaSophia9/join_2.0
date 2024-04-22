@@ -99,12 +99,12 @@ main {
 }
 
 @media (max-width: 1060px) {
-  /* h1 {
+  h1 {
     margin-block-start: 0;
     margin-block-end: 0;
     margin-bottom: 24px;
     font-size: 48px;
-  } */
+  }
 
   main {
     margin: 120px 40px 40px 40px !important;

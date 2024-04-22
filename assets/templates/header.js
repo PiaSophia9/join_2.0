@@ -22,6 +22,12 @@ window.onclick = function (event) {
       }
     }
   }
+  if (!event.target.matches(".dropbtn")) {
+    document.getElementById("categoryDropdown").classList.remove("show");
+  }
+  if (!event.target.matches(".dropbtnAssignedContact")) {
+    document.getElementById("assignedToDropdown").classList.remove("show");
+  }
 };
 
 function logOut() {
