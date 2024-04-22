@@ -49,6 +49,7 @@ async function createTask() {
 }
 
 async function addTask(task) {
+  document.getElementById("submit_task_button").setAttribute("disabled", true);
   await loadAllTasks();
   await loadContacts();
   pushTask(task);
