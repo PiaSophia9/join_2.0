@@ -108,7 +108,8 @@ function redirectToBoard() {
 function setPrioUrgent() {
   priority = "urgent";
   document.getElementById("urgentButton").classList.add("urgent_button");
-  // add no shadow
+  document.getElementById("urgentButton").classList.remove("prio_buttons");
+  document.getElementById("urgentButton").classList.add("prio_buttons_without_hover");
   document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_white.svg";
   removeMediumPrio();
   removeLowPrio();
@@ -117,6 +118,8 @@ function setPrioUrgent() {
 function setPrioMedium() {
   priority = "medium";
   document.getElementById("mediumButton").classList.add("medium_button");
+  document.getElementById("mediumButton").classList.remove("prio_buttons");
+  document.getElementById("mediumButton").classList.add("prio_buttons_without_hover");
   document.getElementById("mediumImage").src = "../assets/img/icons/prio_medium_white.svg";
   removeLowPrio();
   removeUrgentPrio();
@@ -125,6 +128,10 @@ function setPrioMedium() {
 function setPrioLow() {
   priority = "low";
   document.getElementById("lowButton").classList.add("low_button");
+  document.getElementById("lowButton").classList.remove("prio_buttons");
+  document.getElementById("lowButton").classList.add("prio_buttons_without_hover");
+
+  // document.getElementById("lowButton").style.boxShadow = "0 0 0 0 rgb(246, 247, 248)";
   document.getElementById("lowImage").src = "../assets/img/icons/prio_low_white.svg";
   removeMediumPrio();
   removeUrgentPrio();
@@ -132,16 +139,22 @@ function setPrioLow() {
 
 function removeUrgentPrio() {
   document.getElementById("urgentButton").classList.remove("urgent_button");
+  document.getElementById("urgentButton").classList.add("prio_buttons");
+  document.getElementById("urgentButton").classList.remove("prio_buttons_without_hover");
   document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_red.svg";
 }
 
 function removeMediumPrio() {
   document.getElementById("mediumButton").classList.remove("medium_button");
+  document.getElementById("mediumButton").classList.add("prio_buttons");
+  document.getElementById("mediumButton").classList.remove("prio_buttons_without_hover");
   document.getElementById("mediumImage").src = "../assets/img/icons/prio_medium_orange.svg";
 }
 
 function removeLowPrio() {
   document.getElementById("lowButton").classList.remove("low_button");
+  document.getElementById("lowButton").classList.add("prio_buttons");
+  document.getElementById("lowButton").classList.remove("prio_buttons_without_hover");
   document.getElementById("lowImage").src = "../assets/img/icons/prio_kow_green.svg";
 }
 
@@ -298,7 +311,7 @@ function renderContactsToAssignWithemptyCheckbox() {
 }
 
 function generateContactToAssign(i) {
-  return `<div class="dropdown-content-div" onclick="stopPropagation()">
+  return `<div id="dropdownContactToAssign${i}" class="dropdown-content-div" onclick="stopPropagation(); selectAssignedContact(${i})">
   <div class="dropdown_container">
     <div  style="background-color:${contacts[i].contactColor}" class="initials_circle"><span class="initials_span">${contacts[i].contactInitials}</span></div>
     <span id="contacts${i}">${contacts[i].contactName}</span>
@@ -345,18 +358,20 @@ function addCheckboxImage(j) {
     if (contactsIndex == -1) {
       document.getElementById(`checkBoxImage${j}`).src = "../assets/img/icons/checkbox_empty.png";
     } else {
-      document.getElementById(`checkBoxImage${contactsIndex}`).src = "../assets/img/icons/checkbox_filled.png";
+      document.getElementById(`checkBoxImage${contactsIndex}`).src = "../assets/img/icons/checkbox_checked_white.svg";
     }
   }
 }
 
 async function selectAssignedContact(i) {
-  if (document.getElementById(`checkBoxImage${i}`).src.endsWith("/checkbox_filled.png")) {
+  if (document.getElementById(`checkBoxImage${i}`).src.endsWith("/checkbox_checked_white.svg")) {
     document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
+    document.getElementById(`dropdownContactToAssign${i}`).classList.remove("assigned_contacts_selected");
     let currentContact = contacts[i];
     let indexInAssignedContact = assignedContacts.indexOf(currentContact);
     assignedContacts.splice(indexInAssignedContact, 1);
   } else {
+    document.getElementById(`dropdownContactToAssign${i}`).classList.add("assigned_contacts_selected");
     fillCheckboxImage(i);
     pushAssignedContacts(i);
   }
@@ -364,7 +379,7 @@ async function selectAssignedContact(i) {
 }
 
 function fillCheckboxImage(i) {
-  document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_filled.png";
+  document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_checked_white.svg";
 }
 
 function emptyCheckboxImage(i) {
