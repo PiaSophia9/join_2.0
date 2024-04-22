@@ -1,4 +1,4 @@
-let todos = [];
+// let allTasks = [];
 let todo = [];
 let inProgress = [];
 let awaitFeedback = [];
@@ -13,8 +13,8 @@ const PRIO_IMAGE_URLS = {
 let currentDraggedElement;
 
 async function initBoard() {
-  await loadAllTasksBoard();
-  updateHTML(todos);
+  await loadAllTasks();
+  updateHTML(allTasks);
   unlogAllSidebarLinks();
   logSidebarLink("boardSidebar");
   loadUserInitials();
@@ -23,10 +23,10 @@ async function initBoard() {
 /**
  * This function loads the array "allTasks" from the server and assign it to the array "todos"
  */
-async function loadAllTasksBoard() {
-    let response = await getItem('remoteTasks');
-    todos = await JSON.parse(response);
-}
+// async function loadAllTasksBoard() {
+//     let response = await getItem('remoteTasks');
+//     todos = await JSON.parse(response);
+// }
 
 /**
  * This function updates the task areas.
@@ -142,12 +142,12 @@ function allowDrop(event) {
 }
 
 async function moveTo(status) {
-  todos[currentDraggedElement]["status"] = status;
+  allTasks[currentDraggedElement]["status"] = status;
   // update status in database
   await storeAllTasksBoard();
   // load tasks from database
   await loadAllTasksBoard();
-  updateHTML(todos);
+  updateHTML(allTasks);
 }
 
 function highlight(id) {
@@ -177,7 +177,7 @@ function dragCardHighlight(currentDraggedElement) {
 }
 
 async function storeAllTasksBoard() {
-  await setItem("remoteTasks", todos);
+  await setItem("remoteTasks", allTasks);
 }
 
 // open addTask popup
@@ -186,6 +186,7 @@ async function openAddTask() {
     let modalBg = document.getElementById('modal-bg');
     modalBg.style.width = '100%';
     modalBg.style.left = 0;
+    clearForm();
     await loadAllTasks();
     await loadContacts();
     renderContactsToAssign();
@@ -219,12 +220,12 @@ function openTaskDetails(index) {
   let taskDetailsContainer = document.getElementById("task-details");
   taskDetailsContainer.innerHTML = "";
   taskDetailsContainer.innerHTML += createTaskDetailsHtml(index);
-  displayAssignedContacts(todos[index]);
-  displaySubstasks(todos[index]);
+  displayAssignedContacts(allTasks[index]);
+  displaySubstasks(allTasks[index]);
 }
 
 function createTaskDetailsHtml(index) {
-  let task = todos[index];
+  let task = allTasks[index];
   return /*html*/ `
         <div class="details-top">
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[task.category]}">${task.category}</span>
@@ -241,7 +242,7 @@ function createTaskDetailsHtml(index) {
                 <p>Priority:</p>
                 <div class="priority">
                     <p>${task.priority}</p>
-                    <p>${generatePrioImage(task, todos)}</p>
+                    <p>${generatePrioImage(task, allTasks)}</p>
                 </div>
             </div>
             <div class="assigned-to-container">
@@ -270,14 +271,14 @@ function displaySubstasks(task) {
         if (subtask.statusSubtask == 'inProgress') {
             subtasksContainer.innerHTML += /*html*/ `
                 <div class="subtask">
-                    <img src="../assets/img/icons/check_box_empty.png" alt="" onclick="toggleCheckbox(${i}, ${todos.indexOf(task)})" id="subtask-checkbox${i}">
+                    <img src="../assets/img/icons/check_box_empty.png" alt="" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})" id="subtask-checkbox${i}">
                     <p class="subtask-text">${subtask.nameSubtask}</p>
                 </div>
             `;
     } else {
       subtasksContainer.innerHTML += /*html*/ `
                 <div class="subtask">
-                    <img src="../assets/img/icons/checkbox_filled.png" alt="" id="checkbox-filled${i}" onclick="toggleCheckbox(${i}, ${todos.indexOf(task)})">
+                    <img src="../assets/img/icons/checkbox_filled.png" alt="" id="checkbox-filled${i}" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})">
                     <p class="subtask-text">${subtask.nameSubtask}</p>
                 </div>
             `;
@@ -287,14 +288,14 @@ function displaySubstasks(task) {
 }
 
 function toggleCheckbox(i, taskIndex) {
-    if (todos[taskIndex].subtasks[i].statusSubtask == 'inProgress') {
-        todos[taskIndex].subtasks[i].statusSubtask = 'done';
+    if (allTasks[taskIndex].subtasks[i].statusSubtask == 'inProgress') {
+        allTasks[taskIndex].subtasks[i].statusSubtask = 'done';
         storeAllTasksBoard();
-        displaySubstasks(todos[taskIndex]);
+        displaySubstasks(allTasks[taskIndex]);
     } else {
-        todos[taskIndex].subtasks[i].statusSubtask = 'inProgress';
+        allTasks[taskIndex].subtasks[i].statusSubtask = 'inProgress';
         storeAllTasksBoard();
-        displaySubstasks(todos[taskIndex]);
+        displaySubstasks(allTasks[taskIndex]);
     }
 }
 
@@ -314,7 +315,7 @@ function displayAssignedContacts(task) {
 }
 
 async function deleteTask(index) {
-    todos.splice(index, 1);
+    allTasks.splice(index, 1);
     await storeAllTasksBoard();
     closeModalDetails();
     initBoard();
@@ -341,10 +342,10 @@ window.addEventListener('click', function (event) {
 async function openEditTask(index) {
     closeModalDetails();
     openAddTask();
-    document.getElementById('taskTitle').value = todos[index].title;
-    document.getElementById('taskDescription').value = todos[index].description;
+    document.getElementById('taskTitle').value = allTasks[index].title;
+    document.getElementById('taskDescription').value = allTasks[index].description;
     await loadContacts();
-    todos[index].assignedTo.forEach(contact => assignedContacts.push(contact));
+    allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
     showAssignedtoContacts();
 }
 
@@ -353,7 +354,7 @@ function renderAllOrMatchingTodos() {
     findMatchingTitles();
     document.getElementById("errorContainer").innerHTML = "";
     if (saveInputValue() == '') {
-        updateHTML(todos); // Todo
+        updateHTML(allTasks); // Todo
     } else {
         renderErrorOrMatchingDodos();
     };
@@ -370,11 +371,11 @@ function saveInputValue() {
 
 async function pushMatchingTodos(search) {
     matchingTodos = [];
-    for (let index = 0; index < todos.length; index++) {
-        let title = todos[index].title;
-        let description = todos[index].description;
+    for (let index = 0; index < allTasks.length; index++) {
+        let title = allTasks[index].title;
+        let description = allTasks[index].description;
         if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
-            matchingTodos.push(todos[index]);
+            matchingTodos.push(allTasks[index]);
         }
     }
 }
