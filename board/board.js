@@ -346,7 +346,7 @@ async function openEditTask(index) {
     document.getElementById('taskDescription').value = allTasks[index].description;
     await loadContacts();
     allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
-    showAssignedtoContacts();
+    // showAssignedtoContacts();
 }
 
 // search function

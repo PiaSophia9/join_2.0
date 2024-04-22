@@ -282,7 +282,7 @@ function toggleDropdownAssignedTo() {
 // };
 
 function renderContactsToAssign() {
-  document.getElementById("assignedToDropdown").innerHTML = "";
+  // document.getElementById("assignedToDropdown").innerHTML = "";
   for (let i = 0; i < contacts.length; i++) {
     document.getElementById("assignedToDropdown").innerHTML += generateContactToAssign(i);
     addCheckboxImage(i);
