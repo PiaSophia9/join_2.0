@@ -177,3 +177,51 @@ a {
     color: #fb3c53;
     font-size: 16px;
 }
+
+@media (max-width: 710px) {
+    .login_sign_up {
+    position: absolute;
+    bottom: 72px;
+    width: 100%;
+    min-height: 80px;
+    height: 80px;
+    top: auto;
+    left: -24px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    }
+    .logoBigStart {
+        width: 64px;
+    }
+    .login_container {
+        min-width: 500px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+@media (max-width: 560px) {
+    .login_container {
+        min-width: 400px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+@media screen and (max-width: 500px),
+    screen and (max-height: 845px) {
+
+        .login_btns {
+            flex-direction: column;
+            margin-top: 15px;
+            margin-inline: 15px 15px;
+        }
+
+        .login_form {
+            margin-bottom: 64px;
+        }
+
+        .login_sign_up {
+            gap: 8px;
+        }
+    
+}
