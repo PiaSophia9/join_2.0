@@ -53,7 +53,7 @@ function displayContacts() {
                     <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
                         <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
                         <div class="name-and-mail">
-                            <span id="contact-name${i}">${contact.contactName}</span>
+                            <span class="contact_name_left_section" id="contact-name${i}">${contact.contactName}</span>
                             <span class="contact-mail">${contact.contactMail}</span>
                         </div>
                     </div>
@@ -97,6 +97,10 @@ function displayContactDetails(i) {
                 </button>
             </div>
         </div>
+        <div id="editDeleteButtonContainer" class="edit_delete_button_container d_none">
+          <button class="edit_mobile_button" type="button" onclick="openEditContact(${i})">Edit</button>
+          <button class="delete_mobile_button" type="button" onclick="deleteContactInOverview(${i})">Delete</button>
+        </div>
     `;
 
   contactInformation.innerHTML = /*html*/ `
@@ -106,6 +110,29 @@ function displayContactDetails(i) {
         <h4>Phone</h4>
         <span>${contact.contactPhone}</span>
     `;
+  if (window.innerWidth < 900) {
+    document.getElementById("leftSection").classList.add("d_none");
+    document.getElementById("rightSection").classList.add("d_block");
+    document.getElementById("backButtonContacts").classList.remove("d_none");
+    document.getElementById("personButtonContacts").classList.add("d_none");
+    document.getElementById("threeDotsButtonContacts").classList.remove("d_none");
+
+    // Button ändern - image und auch die Funktion
+  }
+}
+
+function showLeftSection() {
+  document.getElementById("leftSection").classList.remove("d_none");
+  document.getElementById("rightSection").classList.remove("d_block");
+  document.getElementById("backButtonContacts").classList.add("d_none");
+  document.getElementById("personButtonContacts").classList.remove("d_none");
+  document.getElementById("threeDotsButtonContacts").classList.add("d_none");
+  // Button zurück ändern - image und auch die Funktion
+}
+
+function openEditDeleteMenu() {
+  document.getElementById("editDeleteButtonContainer").classList.remove("d_none");
+  event.stopPropagation();
 }
 
 function turnBlue(imageID, sourceSnippet) {
@@ -294,37 +321,130 @@ window.addEventListener("click", function (event) {
 });
 
 // open edit-contact modal
+
 function openEditContact(i) {
+  setModalSizeAndPosition();
+  generateModalContent(i);
+}
+
+function setModalSizeAndPosition() {
   let modal = document.getElementById("modal-bg-edit");
   modal.style.width = "100%";
   modal.style.left = 0;
+}
 
+function generateModalContent(i) {
   let container = document.getElementById("form-and-image-edit");
   container.innerHTML = /*html*/ `
-      <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right"><span class="initials_span">${contacts[i].contactInitials}</span></div>
-      <div class="form_container">
-        <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
-          <div class="contact_input_container">
+          <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right inicials_circle_edit_contact_mobile"><span class="initials_span">${contacts[i].contactInitials}</span></div>
+          <div class="form_container">
+            <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
+              <div class="contact_input_container">
 
-            <input  class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
-            <input class="newContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
-            <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
+                <input  class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
+                <input class="newContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
+                <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
+              </div>
+              <div class="cancel-and-create-buttons">
+                <button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete
+                </button>
+                <button class="btn_dark" type="submit">Save
+                  <img src="../assets/img/icons/white_check.svg" alt="">
+                </button>
+              </div>
+              <div id="errorContainerContacts">
+                <!-- Please add your name. Email and phone are optional. -->
+              </div>
+            </form>
+          </div>
 
-          </div>
-          <div class="cancel-and-create-buttons">
-            <button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete
-            </button>
-            <button class="btn_dark" type="submit">Save
-              <img src="../assets/img/icons/white_check.svg" alt="">
-            </button>
-          </div>
-          <div id="errorContainerContacts">
-            <!-- Please add your name. Email and phone are optional. -->
-          </div>
-        </form>
-      </div>
-  `;
+    `;
 }
+
+// Alte funktionsfägige Funktion:
+
+// function openEditContact(i) {
+//   let modal = document.getElementById("modal-bg-edit");
+//   modal.style.width = "100%";
+//   modal.style.left = 0;
+
+//   let container = document.getElementById("form-and-image-edit");
+//   container.innerHTML = /*html*/ `
+
+//           <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right inicials_circle_edit_contact_mobile"><span class="initials_span">${contacts[i].contactInitials}</span></div>
+//           <div class="form_container">
+//             <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
+//               <div class="contact_input_container">
+
+//                 <input  class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
+//                 <input class="newContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
+//                 <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
+
+//               </div>
+//               <div class="cancel-and-create-buttons">
+//                 <button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete
+//                 </button>
+//                 <button class="btn_dark" type="submit">Save
+//                   <img src="../assets/img/icons/white_check.svg" alt="">
+//                 </button>
+//               </div>
+//               <div id="errorContainerContacts">
+//                 <!-- Please add your name. Email and phone are optional. -->
+//               </div>
+//             </form>
+//           </div>
+
+//     `;
+// }
+
+// Alte funktionsfägige Funktion Ende
+
+// Funktion neu von ChatGTP:
+
+// function openEditContact(i) {
+//   // Aufruf von Hilfsfunktionen, um die Modalgröße und -position festzulegen
+//   setModalSizeAndPosition();
+//   // Aufruf von Hilfsfunktionen, um den Inhalt des Modalbehälters festzulegen
+//   setModalContent(i);
+// }
+
+// function setModalSizeAndPosition() {
+//   let modal = document.getElementById("modal-bg-edit");
+//   modal.style.width = "100%";
+//   modal.style.left = 0;
+// }
+
+// function setModalContent(i) {
+//   let container = document.getElementById("form-and-image-edit");
+//   container.innerHTML = `
+//     <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right inicials_circle_edit_contact_mobile">
+//       <span class="initials_span">${contacts[i].contactInitials}</span>
+//     </div>
+//     <div class="form_container">
+//       <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
+//         <div class="contact_input_container">
+//           <input class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
+//           <input class="new
+// ContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
+// <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
+// </div>
+// <div class="cancel-and-create-buttons">
+// <!-- Aufruf einer Hilfsfunktion, um die Löschen- und Speichern-Schaltflächen zu setzen -->
+// ${getDeleteAndSaveButtons(i)}
+// </div>
+// <div id="errorContainerContacts">
+// <!-- Please add your name. Email and phone are optional. -->
+// </div>
+// </form>
+// </div>
+// `;
+// }
+
+// function getDeleteAndSaveButtons(i) {
+//   return `<button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete</button> <button class="btn_dark" type="submit">Save <img src="../assets/img/icons/white_check.svg" alt=""></button> `;
+// }
+
+// Neue Funktion von ChatGTP Ende
 
 function closeEditContact() {
   let modal = document.getElementById("modal-bg-edit");
