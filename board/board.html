@@ -35,18 +35,37 @@
                         <button onclick="openAddTask()" class="btn_dark add-button"><span>Add Task</span><img src="../assets/img/icons/add.png" alt=""></button>
                     </div>
                 </div>
-                <div class="area-titles">
-                    <div class="area-title"><h3>To do</h3><button onclick="openAddTask()" class="add-task-button"></button></div>
+                <!-- <div class="area-titles">
+                    
                     <div class="area-title"><h3>In Progress</h3><button onclick="openAddTask()" class="add-task-button"></div>
                     <div class="area-title"><h3>Await Feedback</h3><button onclick="openAddTask()" class="add-task-button"></div>
                     <div class="area-title"><h3>Done</h3></div>
-                </div>
+                </div> -->
             </div>
             <div class="drag-areas">
-                <div class="drag-area" id="toDo" ondrop="moveTo('toDo'); removeHighlight('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')"></div>
-                <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress'); removeHighlight('in-progress')" ondragleave="removeHighlight('in-progress')" ondragover="allowDrop(event); highlight('in-progress')"></div>
-                <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback'); removeHighlight('await-feedback')" ondragleave="removeHighlight('await-feedback')" ondragover="allowDrop(event); highlight('await-feedback')"></div>
-                <div class="drag-area" id="done" ondrop="moveTo('done'); removeHighlight('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')"></div>
+                
+                <div>
+                    <div class="area-title"><h3>To do</h3><button onclick="openAddTask()" class="add-task-button"></button></div>
+                    <div class="drag-area" id="toDo" ondrop="moveTo('toDo'); removeHighlight('toDo')" ondragleave="removeHighlight('toDo')" ondragover="allowDrop(event); highlight('toDo')"></div>
+                </div>
+
+                <div>
+                    <div class="area-title"><h3>In Progress</h3><button onclick="openAddTask()" class="add-task-button"></div>
+                    <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress'); removeHighlight('in-progress')" ondragleave="removeHighlight('in-progress')" ondragover="allowDrop(event); highlight('in-progress')"></div>
+                </div>
+
+                <div>
+                    <div class="area-title"><h3>Await Feedback</h3><button onclick="openAddTask()" class="add-task-button"></div>
+                        <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback'); removeHighlight('await-feedback')" ondragleave="removeHighlight('await-feedback')" ondragover="allowDrop(event); highlight('await-feedback')"></div>
+                </div>
+
+                <div>
+                    <div class="area-title"><h3>Done</h3></div>
+                    <div class="drag-area" id="done" ondrop="moveTo('done'); removeHighlight('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')"></div>
+                </div>
+                
+                <!-- <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback'); removeHighlight('await-feedback')" ondragleave="removeHighlight('await-feedback')" ondragover="allowDrop(event); highlight('await-feedback')"></div> -->
+                
             </div>
         </div>
         <!-- Add Task Modal -->

@@ -138,5 +138,10 @@
 
 @media (max-width: 950px) {
   .drag-areas {
+    flex-direction: column;
+  }
+
+  .drag-area {
+    flex-direction: row;
   }
 }
