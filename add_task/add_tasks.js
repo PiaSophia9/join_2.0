@@ -49,11 +49,24 @@ async function createTask() {
 }
 
 async function addTask(task) {
+  await loadAllTasks();
+  await loadContacts();
+
   pushTask(task);
   // allTasks = [];
   await storeAllTasks();
+  showSnackbarAddTasks("Task added to board");
   clearForm();
   redirectToBoard();
+}
+
+function showSnackbarAddTasks(message) {
+  let snackbarAddTask = document.getElementById("snackbarAddTask");
+  snackbarAddTask.className = "show";
+  snackbarAddTask.innerHTML = message;
+  setTimeout(function () {
+    snackbarAddTask.className = snackbarAddTask.className.replace("show", "");
+  }, 3000);
 }
 
 function pushTask(task) {

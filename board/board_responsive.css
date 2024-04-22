@@ -1,0 +1,136 @@
+@media (max-width: 1540px) {
+  main {
+    margin: 120px 40px 40px 40px !important;
+  }
+
+  .drag-area {
+    width: 200px;
+    min-width: 200px;
+  }
+
+  .area-title {
+    width: 200px;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .drag-areas {
+    margin-right: 40px;
+    /* Todo: make margin-right work! */
+  }
+
+  /* START resonsive footer and header - earlier than in any other page */
+  /* header */
+  .join_description {
+    display: none;
+  }
+
+  .help_icon {
+    display: none;
+  }
+
+  .header_and_main {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    width: 100%;
+    height: 80px;
+  }
+
+  body {
+    flex-direction: column;
+  }
+
+  .mobile_footer_container {
+    height: 80px;
+  }
+
+  .logo_mobile {
+    display: block;
+    width: 32px;
+    height: 40px;
+  }
+
+  /* footer/sidebar */
+  .sidebar {
+    bottom: 0;
+    width: 100%;
+    min-height: 80px;
+    height: 80px;
+    flex-direction: row;
+    top: auto;
+    left: auto;
+    align-items: center;
+  }
+
+  .include_html_container {
+    margin-bottom: 96px;
+  }
+
+  main {
+    height: auto;
+  }
+
+  .menu_sidebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .logo_and_menu_container {
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+  }
+
+  .container_logo_sidebar {
+    display: none;
+  }
+
+  .legal_sidebar_container {
+    display: none;
+  }
+
+  .link_sidebar {
+    flex-direction: column;
+  }
+
+  .sidebar_menu_img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .link_sidebar {
+    gap: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    width: 76px;
+    height: 76px;
+    border-radius: 16px;
+  }
+
+  .p_sidebar {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
+  /* END resonsive footer and header - earlier than in any other page */
+}
