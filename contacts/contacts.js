@@ -1,4 +1,5 @@
 let contacts = [];
+let tasks = [];
 const contactColors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 let sortedStartingLetters = [];
 let uniqueStartingLetters = [];
@@ -6,6 +7,7 @@ let uniqueStartingLetters = [];
 async function initContacts() {
   includeHTML();
   await loadContacts();
+  await loadAllTasksContacts();
   loadUserInitials();
   displayContacts();
   unlogAllSidebarLinks();
@@ -19,6 +21,11 @@ async function loadContacts() {
   } catch (error) {
     console.log("No contacts stored in database");
   }
+}
+
+async function loadAllTasksContacts() {
+  let response = await getItem('remoteTasks');
+  tasks = await JSON.parse(response);
 }
 
 function displayContacts() {
@@ -196,6 +203,7 @@ async function editContact(i) {
 }
 
 async function deleteContact(i) {
+  await deleteContactFromTasks(i);
   contacts.splice(i, 1);
   document.getElementById("edit-contact-form").reset();
   await storeContacts();
@@ -204,6 +212,30 @@ async function deleteContact(i) {
   displayContactDetails(i - 1);
   displayContacts();
   toggleActiveContact(i - 1);
+}
+
+async function deleteContactFromTasks(i) {
+  for (let index = 0; index < tasks.length; index++) {
+    const task = tasks[index];
+    if(task.assignedTo.length != 0) {
+      await checkIfContactAssigned(task, i);
+    }
+  }
+}
+
+async function checkIfContactAssigned(task, i) {
+  for (let j = 0; j < task.assignedTo.length; j++) {
+    const assignedContact = task.assignedTo[j];
+    if(assignedContact.contactName == contacts[i].contactName) {
+      let contactIndex = task.assignedTo.indexOf(assignedContact);
+      task.assignedTo.splice(contactIndex, 1);
+      storeAllTasksContacts();
+    }
+  }
+}
+
+async function storeAllTasksContacts() {
+  await setItem("remoteTasks", tasks);
 }
 
 async function deleteContactInOverview(i) {

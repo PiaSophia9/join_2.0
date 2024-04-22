@@ -14,10 +14,10 @@ let currentDraggedElement;
 
 async function initBoard() {
   await loadAllTasksBoard();
-  loadUserInitials();
   updateHTML(todos);
   unlogAllSidebarLinks();
   logSidebarLink("boardSidebar");
+  loadUserInitials();
 }
 
 /**
@@ -339,110 +339,13 @@ window.addEventListener('click', function (event) {
 });
 
 async function openEditTask(index) {
-    await loadAllTasks();
+    closeModalDetails();
+    openAddTask();
+    document.getElementById('taskTitle').value = todos[index].title;
+    document.getElementById('taskDescription').value = todos[index].description;
     await loadContacts();
-    document.getElementById("body").style.overflow = "hidden";
-    let modalBg = document.getElementById("modal-bg-edit");
-    modalBg.style.width = "100%";
-    modalBg.style.left = 0;
-    let editTaskContainer = document.getElementById("edit-task-content");
-    editTaskContainer.innerHTML = "";
-    editTaskContainer.innerHTML += createEditTaskHtml(index);
-    renderContactsToAssign('assignedToDropdownEdit');
-    renderCategories();
-    showAssignedtoContacts('assignedtoContactsContainerEdit');
-    // displayAssignedContacts(todos[index]);
-    // displaySubstasks(todos[index]);
-}
-
-function createEditTaskHtml(index) {
-    return /*html*/ `
-    <form id="taskForm" autocomplete="off" onsubmit="checkRequiredFields(); return false;">
-        <div>
-            <div class="upper_part">
-            <section class="left_section">
-                <div>
-                    <label class="label_add_task">Title<span class="red">*</span></label>
-                    <input onkeyup="borderRedIfTitleEmpty()" id="taskTitle" class="form_elements" type="text" value="${todos[index].title}"
-                        placeholder="Enter a title" />
-                    <div class="hide_error" id="errorContainerTitle">This field is required</div>
-                </div>
-                <div>
-                    <label class="label_add_task">Description</label>
-                    <textarea id="taskDescription" class="form_elements textarea_add_task">${todos[index].description}</textarea>
-                </div>
-                <div class="dropdown">
-                    <label class="label_add_task">Assigned to</label>
-                    <button type="button" onclick="toggleDropdownAssignedTo('assignedToDropdownEdit')" class="dropbtnAssignedContact">
-                        Select contacts to assign
-                        <img onclick="event.stopPropagation(); toggleDropdownAssignedTo('assignedToDropdownEdit')" class="dropdown_arrow"
-                        src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
-                    </button>
-                    <div id="assignedToDropdownEdit" class="dropdown-content assignedto_dropdown"></div>
-                    <div id="assignedtoContactsContainerEdit" class="assignedto_contacts_container"></div>
-                </div>
-            </section>
-            <hr class="line" />
-            <section class="right_section">
-                <div>
-                <label class="label_add_task">Due date<span class="red">*</span></label>
-                <input onchange="borderRedIfDateEmpty()" id="taskDueDate" class="form_elements date" type="date"
-                    placeholder="dd/mm/yyyy" />
-                <div class="hide_error" id="errorContainerDate">This field is required</div>
-                </div>
-                <div>
-                <label class="label_add_task">Prio</label>
-                <div class="prio_buttons_container">
-                    <button id="urgentButton" onclick="setPrioUrgent()" type="button" class="prio_buttons">Urgent <img
-                        id="urgentImage" class="urgent_image" src="../assets/img/icons/prio_urgent_red.svg" alt="" /></button>
-                    <button id="mediumButton" onclick="setPrioMedium()" type="button" class="prio_buttons">Medium <img
-                        id="mediumImage" class="medium_img" src="../assets/img/icons/prio_medium_orange.svg" alt="" /></button>
-                    <button id="lowButton" onclick="setPrioLow()" type="button" class="prio_buttons">Low <img id="lowImage"
-                        class="low_image" src="../assets/img/icons/prio_kow_green.svg" alt="" /></button>
-                </div>
-                </div>
-
-                <div class="dropdown">
-                <label class="label_add_task">Category<span class="red">*</span></label>
-                <button id="categoryButton" type="button" onclick="toggleDropdownCategory()" class="dropbtn"> <span
-                    id="buttonName">Select task Category</span>
-
-                    <img onclick="event.stopPropagation(); toggleDropdownCategory()" class="dropdown_arrow"
-                    src="../assets/img/icons/arrow_down_dropdown.png" />
-                </button>
-                <div id="categoryDropdown" class="dropdown-content">
-                </div>
-                <div class="hide_error" id="errorContainerCategory">This field is required</div>
-                </div>
-                <div>
-                <label class="label_add_task">Subtasks</label>
-                <div id="subtaskContainer" onclick="addBorderColorBlue()" class="form_elements subtask_container">
-                    <input oninput="showIconsSubtasks()" id="taskSubtask" class="subtasks_input" type="text"
-                    placeholder="Add new subtask" />
-                    <div id="iconsSubtasksContainer" class="icons_subtasks_container d_none">
-                    <img onclick="clearSubtask()" class="subtask_image" src="../assets/img/icons/subtask_x.png" alt="">
-                    <img class="subtask_line" src="../assets/img/icons/subtask_line.png" alt="">
-                    <img onclick="addSubtask()" class="subtask_image" src="../assets/img/icons/subtask_check.png" alt="">
-                    </div>
-                </div>
-                <div id="subtasksRenderContainer">
-                </div>
-                </div>
-            </section>
-            </div>
-        </div>
-        <div class="lower_part">
-            <p class="p_add_task"><span class="red">*</span>This field is required</p>
-            <div class="buttons_container">
-            <button type="button" onmouseover="makeIconClearButtonBright()" onmouseleave="makeIconClearButtonDark()"
-                onclick="clearForm()" class="btn_bright">Clear <img id="clearButtonImage" src="../assets/img/icons/black_x.svg"
-                alt="" /></button>
-            <button id="submit_task_button" type="submit" class="btn_dark_disabled">Save<img
-                src="../assets/img/icons/white_check.svg" alt="" /></button>
-            </div>
-        </div>
-    </form>
-    `;
+    todos[index].assignedTo.forEach(contact => assignedContacts.push(contact));
+    showAssignedtoContacts();
 }
 
 // search function
