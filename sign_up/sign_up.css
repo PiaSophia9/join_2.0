@@ -56,58 +56,77 @@ a {
     height: 28px; 
   }
 
-  .modal-bg {
-	display: none;
-	position: fixed;
-	/* Stay in place */
-	z-index: 1;
-	/* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%;
-	/* Full width */
-	height: 100%;
-	/* Full height */
-	background-color: rgba(0, 0, 0, 0.2);
-}
-
-/* Modal Content/Box */
-.modal-content {
-	margin: 30%;
-	/* 10% from the top and centered */
-	/* width: 400px;
-	height: 150px; */
-    /* text-align: center; */
-    position: relative;
-}
-
-#msg {
-    width: 312px;
+.signUp_successfully {
+    visibility: hidden;
+    min-width: 250px;
     height: 74px;
-    text-align: center;
-    padding: 4px 25px 4px 25px;
-    font-weight: 100;
-    font-size: 21px;
-    border-radius: 20px;
-    /* font-family: "Inter", sans-serif; */
+    margin-left: -125px;
     background-color: #2a3647;
-    color: white;
-    position: absolute;
-    bottom: 0;
-    left: 30%;
-    /* das Element um 50% seiner eigenen Breite nach links verschoben wird. Das Minuszeichen gibt an, dass die Verschiebung nach links erfolgt. */
-    transform: translateX(-50%); 
-    animation: slide-up 2s ease forwards;
+    color: #f5f5f5;
+    text-align: center;
+    border-radius: 30px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 20px;
+    font-weight: 400;
 }
 
-@keyframes slide-up {
-    0% {
-        transform: translateY(100%);
-    }
-    100% {
-        transform: translateY(0);
-    }
+.signUp_successfully.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
+
+@-webkit-keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+    to {
+      bottom: 30px;
+      opacity: 1;
+    }
+  }
+  
+  
+  @keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+    to {
+      bottom: 30px;
+      opacity: 1;
+    }
+  }
+  
+  
+  @-webkit-keyframes fadeout {
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+  
+  
+  @keyframes fadeout {
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+  
 
 @media (max-width: 710px) {
     .sign_up_containert {
@@ -127,5 +146,8 @@ a {
         }
         .login_btns {
             margin-top: 15px;
+        }
+        .arrow {
+            left: 34px;
         }
 }
