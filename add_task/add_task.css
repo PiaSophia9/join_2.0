@@ -465,7 +465,17 @@ input:focus {
 
   .prio_buttons {
     height: 40px;
-    min-width: 100px;
+    min-width: 104px;
+    max-width: 104px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .medium_img {
+    margin-bottom: 0;
   }
 
   .lower_part {
