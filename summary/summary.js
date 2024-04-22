@@ -16,8 +16,12 @@ async function initSummary() {
 function loadUserName() {
   let loggedUser = document.getElementById("logged_user");
   let storedName = localStorage.getItem("userName");
-  storedName = JSON.parse(storedName);
-  loggedUser.innerHTML = storedName;
+
+  if (storedName) {
+    loggedUser.innerHTML = storedName;
+  } else {
+    loggedUser.innerHTML = "";
+  }
 }
 
 async function loadAllTasksSummary() {

@@ -229,7 +229,7 @@ async function checkIfContactAssigned(task, i) {
     if(assignedContact.contactName == contacts[i].contactName) {
       let contactIndex = task.assignedTo.indexOf(assignedContact);
       task.assignedTo.splice(contactIndex, 1);
-      storeAllTasksContacts();
+      await storeAllTasksContacts();
       initContacts();
     }
   }
