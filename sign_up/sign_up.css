@@ -56,7 +56,7 @@ a {
     height: 28px; 
   }
 
-.signUp_successfully {
+#snackbarSignUp {
     visibility: hidden;
     min-width: 250px;
     height: 74px;
@@ -72,9 +72,10 @@ a {
     bottom: 30px;
     font-size: 20px;
     font-weight: 400;
+    margin-top: 27px;
 }
 
-.signUp_successfully.show {
+#snackbarSignUp.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;

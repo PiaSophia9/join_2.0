@@ -151,11 +151,11 @@ function resetSignUpForm() {
 }
 
 function signUpSuccessfullyInfo(message) {
-  let signUpSuccess = document.getElementById("signUp_successfully_content");
-  signUpSuccess.className = "show";
-  signUpSuccess.innerHTML = message;
+  let snackbarSignUp = document.getElementById("snackbarSignUp");
+  snackbarSignUp.className = "show";
+  snackbarSignUp.innerHTML = message;
   setTimeout(function () {
-    signUpSuccess.className = signUpSuccess.className.replace("show", "");
+    snackbarSignUp.className = snackbarSignUp.className.replace("show", "");
   }, 3000);
 }
 
