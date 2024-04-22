@@ -2,7 +2,9 @@
   main {
     margin: 120px 40px 40px 40px !important;
   }
+}
 
+@media (max-width: 1400px) {
   .drag-area {
     width: 200px;
     min-width: 200px;
@@ -16,7 +18,6 @@
 
 @media (max-width: 1200px) {
   .drag-areas {
-    margin-right: 40px;
     /* Todo: make margin-right work! */
   }
 
@@ -133,4 +134,9 @@
   }
 
   /* END resonsive footer and header - earlier than in any other page */
+}
+
+@media (max-width: 950px) {
+  .drag-areas {
+  }
 }
