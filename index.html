@@ -6,13 +6,13 @@
     <title>Start</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="../../login/login_animation.css">
-    <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
   </head>
   <body onload="initLogIn(); playIntro()">
 
     <div id="whole" class="wholeSite">
      
-        <img id="big" src="../assets/img/logoBig.svg" alt="logo_join" class="logoBig">
+        <img id="big" src="assets/img/logoBig.svg" alt="logo_join" class="logoBig">
  
     </div>
 
@@ -21,7 +21,7 @@
       <!-- <img src="../assets/img/logoBig.svg" alt="logo_join" class="logoBigStart" /> -->
       <div class="login_sign_up">
         <p class="font_size_20">Not a Join user?</p>
-        <button class="btn_dark" onclick="window.location.href = '../sign_up/sign_up.html';">Sign up</button>
+        <button class="btn_dark" onclick="window.location.href = 'sign_up/sign_up.html';">Sign up</button>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
       <form id="logInForm" class="login_form"  onsubmit="login(); return false;">
         <div class="login_form_head">
           <h1>Log in</h1>
-          <img src="../assets/img/line.png" alt="line">
+          <img src="assets/img/line.png" alt="line">
         </div>
 
         <div class="login_input">
@@ -41,20 +41,20 @@
         </div>
 
         <div class="login_remember_me">
-        <input type="image" src="../assets/img/icons/check_box_empty.png" id="remember_me" onclick="checkBox();  return false;" />
+        <input type="image" src="assets/img/icons/check_box_empty.png" id="remember_me" onclick="checkBox();  return false;" />
         <label for="remember_me">Remember me</label>
         
         </div>
         <div class="login_btns">
           <button disabled class="btn_dark_disabled" id="registerBtn" type="submit">Log in</button>
-          <button class="btn_bright" onclick="window.location.href = '../summary/summary.html';">Guest Log in</button>
+          <button class="btn_bright" onclick="window.location.href = 'summary/summary.html';">Guest Log in</button>
         </div>
       </form>
     </div>
   </section>
     <div class="login_footer">
-      <a href="../privacy_policy/privacy_policy.html">Privacy Policy</a>
-      <a href="../legal_notice/legal_notice.html">Legal notice</a></div>
+      <a href="privacy_policy/privacy_policy.html">Privacy Policy</a>
+      <a href="legal_notice/legal_notice.html">Legal notice</a></div>
     </div>
     <script src="../../login/login_intro.js"></script>
     <script src="storage.js"></script>
