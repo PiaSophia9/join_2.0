@@ -1,4 +1,5 @@
 let contacts = [];
+let tasks = [];
 const contactColors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 let sortedStartingLetters = [];
 let uniqueStartingLetters = [];
@@ -6,6 +7,7 @@ let uniqueStartingLetters = [];
 async function initContacts() {
   includeHTML();
   await loadContacts();
+  await loadAllTasksContacts();
   loadUserInitials();
   displayContacts();
   unlogAllSidebarLinks();
@@ -19,6 +21,11 @@ async function loadContacts() {
   } catch (error) {
     console.log("No contacts stored in database");
   }
+}
+
+async function loadAllTasksContacts() {
+  let response = await getItem('remoteTasks');
+  tasks = await JSON.parse(response);
 }
 
 function displayContacts() {
@@ -169,6 +176,7 @@ async function editContact(i) {
 }
 
 async function deleteContact(i) {
+  await deleteContactFromTasks(i);
   contacts.splice(i, 1);
   document.getElementById("edit-contact-form").reset();
   await storeContacts();
@@ -177,6 +185,30 @@ async function deleteContact(i) {
   displayContactDetails(i - 1);
   displayContacts();
   toggleActiveContact(i - 1);
+}
+
+async function deleteContactFromTasks(i) {
+  for (let index = 0; index < tasks.length; index++) {
+    const task = tasks[index];
+    if(task.assignedTo.length != 0) {
+      await checkIfContactAssigned(task, i);
+    }
+  }
+}
+
+async function checkIfContactAssigned(task, i) {
+  for (let j = 0; j < task.assignedTo.length; j++) {
+    const assignedContact = task.assignedTo[j];
+    if(assignedContact.contactName == contacts[i].contactName) {
+      let contactIndex = task.assignedTo.indexOf(assignedContact);
+      task.assignedTo.splice(contactIndex, 1);
+      storeAllTasksContacts();
+    }
+  }
+}
+
+async function storeAllTasksContacts() {
+  await setItem("remoteTasks", tasks);
 }
 
 async function deleteContactInOverview(i) {
@@ -269,32 +301,29 @@ function openEditContact(i) {
 
   let container = document.getElementById("form-and-image-edit");
   container.innerHTML = /*html*/ `
+      <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right"><span class="initials_span">${contacts[i].contactInitials}</span></div>
+      <div class="form_container">
+        <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
+          <div class="contact_input_container">
 
-       
-          <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right"><span class="initials_span">${contacts[i].contactInitials}</span></div>
-          <div class="form_container">
-            <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
-              <div class="contact_input_container">
+            <input  class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
+            <input class="newContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
+            <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
 
-                <input  class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
-                <input class="newContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
-                <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
-
-              </div>
-              <div class="cancel-and-create-buttons">
-                <button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete
-                </button>
-                <button class="btn_dark" type="submit">Save
-                  <img src="../assets/img/icons/white_check.svg" alt="">
-                </button>
-              </div>
-              <div id="errorContainerContacts">
-                <!-- Please add your name. Email and phone are optional. -->
-              </div>
-            </form>
           </div>
-        
-    `;
+          <div class="cancel-and-create-buttons">
+            <button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete
+            </button>
+            <button class="btn_dark" type="submit">Save
+              <img src="../assets/img/icons/white_check.svg" alt="">
+            </button>
+          </div>
+          <div id="errorContainerContacts">
+            <!-- Please add your name. Email and phone are optional. -->
+          </div>
+        </form>
+      </div>
+  `;
 }
 
 function closeEditContact() {
