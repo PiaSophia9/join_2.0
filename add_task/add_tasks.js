@@ -51,7 +51,6 @@ async function createTask() {
 async function addTask(task) {
   await loadAllTasks();
   await loadContacts();
-
   pushTask(task);
   // allTasks = [];
   await storeAllTasks();
@@ -98,7 +97,9 @@ function clearArrays() {
 
 function redirectToBoard() {
   const targetUrl = "../board/board.html";
-  window.location.href = targetUrl;
+  setTimeout(function () {
+    window.location.href = targetUrl;
+  }, 3000);
 }
 
 // Prio Buttons
