@@ -19,24 +19,25 @@ h2 {
 }
 .summary_container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     gap: 20px;
+    min-width: 800px;
 }
 .right {
-    width: 560px;
-    margin-right: 88px;
+    min-width: 300px;
 }
 .left {
-    width: 385px;
+    min-width: 250px;
 }
 .task_container {
     display: flex;
     justify-content: space-between;
     margin-bottom: 32px;
+    width: 560px;
 }
 .tasks {
-    min-width: 264px;
+    width: 264px;
     height: 168px;
     background-color: white;
     border-radius: 30px;
@@ -147,3 +148,56 @@ h2 {
     font-weight: 700;
     color: #29abe2;
 }
+
+@media (max-width: 1345px) {
+   h2 {
+    font-size: 32px;
+   }
+
+   .left {
+    width: 150px;
+   }
+
+   .right {
+    min-width: 200px;
+   }
+
+  }
+  @media (max-width: 1290px) {
+    h1 {
+        font-size: 47px;
+    }
+
+    .font_27 {
+        font-size: 18px;
+    }
+
+    .left {
+        display: none;
+    }
+
+    .summary_container {
+        display: block;
+        min-width: 300px;
+    }
+  }
+  @media (max-width: 880px) {
+    .task_container {
+        width: 420px;
+        gap: 8px;
+    }
+
+    .deadline_container {
+        width: 420px;
+    }
+
+    .overview_container {
+        width: 420px;
+        gap: 8px;
+    }
+
+    .headline_container {
+        width: 420px;
+    }
+  }
+  
