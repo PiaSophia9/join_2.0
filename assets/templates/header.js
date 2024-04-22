@@ -1,9 +1,15 @@
 function loadUserInitials() {
   let loggedUserInitials = document.getElementById("user_initials");
   let storedInitials = localStorage.getItem("userInitials");
-  storedInitials = JSON.parse(storedInitials);
-  loggedUserInitials.innerHTML = storedInitials;
-  return storedInitials;
+
+  if (storedInitials) {
+    storedInitials = JSON.parse(storedInitials);
+    loggedUserInitials.innerHTML = storedInitials;
+    return storedInitials;
+  } else {
+    document.getElementById("user_initials").innerHTML = "G";
+    return "G";
+  }
 }
 
 function showNavHeader(event) {

@@ -19,11 +19,12 @@ a {
     margin: 49px;
 }
 
-.login_header img {
-    width: 100px;
+.logoBigStart {
+    height: 100px;
+    width: auto;
     margin-top: 31px;
     margin-left: 28px;
-}
+  }
 
 .login_sign_up {
     display: flex;
@@ -48,7 +49,7 @@ a {
     border-radius: 30px;
     box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
     height: 100%;
-    width: 652px;
+    min-width: 652px;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -71,7 +72,6 @@ a {
 .login_form_head h1 {
     margin-block-start: 0;
     margin-block-end: 0;
-    /* font-size: 64px; */
 }
 
 .login_input {
@@ -129,18 +129,48 @@ a {
 }
 @media (max-width: 710px) {
     .login_sign_up {
-        display: none;
+    position: absolute;
+    bottom: 72px;
+    width: 100%;
+    min-height: 80px;
+    height: 80px;
+    top: auto;
+    left: -24px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
     }
     .logoBigStart {
         width: 64px;
     }
+    .login_container {
+        min-width: 500px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+@media (max-width: 560px) {
+    .login_container {
+        min-width: 400px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
 }
 @media screen and (max-width: 500px),
     screen and (max-height: 845px) {
-       
+
         .login_btns {
+            flex-direction: column;
             margin-top: 15px;
             margin-inline: 15px 15px;
         }
-     
+
+        .login_form {
+            margin-bottom: 64px;
+        }
+
+        .login_sign_up {
+            gap: 8px;
+        }
+    
 }

@@ -102,10 +102,10 @@ function validatePassword(user) {
     pushUsers(user);
     saveNameAInLocalStorage();
     errorMessage.textContent = ""; // Fehlermeldung zurücksetzen
-    // signUpSuccessfullyInfo();
+    
     acceptPolicy();
     policyError.textContent = "";
-    resetSignUpForm();
+    // resetSignUpForm();
   }
 }
 
@@ -116,7 +116,9 @@ async function storeAllUsers() {
 
 function redirectToLogin() {
   const targetUrl = "../login/login.html";
-  window.location.href = targetUrl;
+  setTimeout(() => {
+    window.location.href = targetUrl;
+  }, 3000);
 }
 
 async function acceptPolicy() {
@@ -125,6 +127,7 @@ async function acceptPolicy() {
     document.getElementById("accept_policy").src.endsWith("/checkbox_filled.png")
   ) {
     await storeAllUsers();
+    signUpSuccessfullyInfo("You Signed Up successfully");
     redirectToLogin();
   } else {
     policyError.style.display = "block";
@@ -147,16 +150,12 @@ function resetSignUpForm() {
   document.getElementById("signUpForm").reset();
 }
 
-function signUpSuccessfullyInfo() {
-  let modalBg = document.getElementById("modal-bg");
-  let modalContent = document.getElementById("modal-content");
-  modalContent.innerHTML = "";
-  modalBg.style.display = "block";
-  modalContent.innerHTML = `
-  <span id="msg">You Signed Up successfully</span>`;
-  setTimeout(() => {
-    modalContent.innerHTML = "";
-    modalBg.style.display = "none";
+function signUpSuccessfullyInfo(message) {
+  let snackbarSignUp = document.getElementById("snackbarSignUp");
+  snackbarSignUp.className = "show";
+  snackbarSignUp.innerHTML = message;
+  setTimeout(function () {
+    snackbarSignUp.className = snackbarSignUp.className.replace("show", "");
   }, 3000);
 }
 
