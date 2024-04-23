@@ -24,7 +24,7 @@ async function loadContacts() {
 }
 
 async function loadAllTasksContacts() {
-  let response = await getItem('remoteTasks');
+  let response = await getItem("remoteTasks");
   tasks = await JSON.parse(response);
 }
 
@@ -33,8 +33,11 @@ function displayContacts() {
   contactsContainer.innerHTML = "";
   sortContactsByName();
   createStartingLetters();
+  displayStartingLetters(contactsContainer);
+  renderContactUnderStartingLetter();
+}
 
-  // display starting letters
+function displayStartingLetters(contactsContainer) {
   for (let i = 0; i < uniqueStartingLetters.length; i++) {
     let letter = uniqueStartingLetters[i];
     contactsContainer.innerHTML += /*html*/ `
@@ -42,7 +45,9 @@ function displayContacts() {
             <div class="contacts-at-letter" id="contacts-at-letter${letter}"></div>
         `;
   }
-  // put each contact under the correct starting letter
+}
+
+function renderContactUnderStartingLetter() {
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
     for (let j = 0; j < uniqueStartingLetters.length; j++) {
@@ -217,7 +222,7 @@ async function deleteContact(i) {
 async function deleteContactFromTasks(i) {
   for (let index = 0; index < tasks.length; index++) {
     const task = tasks[index];
-    if(task.assignedTo.length != 0) {
+    if (task.assignedTo.length != 0) {
       await checkIfContactAssigned(task, i);
     }
   }
@@ -226,7 +231,7 @@ async function deleteContactFromTasks(i) {
 async function checkIfContactAssigned(task, i) {
   for (let j = 0; j < task.assignedTo.length; j++) {
     const assignedContact = task.assignedTo[j];
-    if(assignedContact.contactName == contacts[i].contactName) {
+    if (assignedContact.contactName == contacts[i].contactName) {
       let contactIndex = task.assignedTo.indexOf(assignedContact);
       task.assignedTo.splice(contactIndex, 1);
       await storeAllTasksContacts();
