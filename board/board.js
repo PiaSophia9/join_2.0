@@ -13,11 +13,11 @@ const PRIO_IMAGE_URLS = {
 let currentDraggedElement;
 
 async function initBoard() {
-  await loadAllTasks();
-  updateHTML(allTasks);
-  unlogAllSidebarLinks();
-  logSidebarLink("boardSidebar");
-  loadUserInitials();
+    await loadAllTasks();
+    updateHTML(allTasks);
+    unlogAllSidebarLinks();
+    logSidebarLink("boardSidebar");
+    loadUserInitials();
 }
 
 /**
@@ -34,15 +34,15 @@ async function initBoard() {
  * Then, these arrays are passed into the function "updateArea"
  */
 function updateHTML(arrayName) {
-  todo = arrayName.filter((t) => t["status"] == "toDo");
-  inProgress = arrayName.filter((t) => t["status"] == "in-progress");
-  awaitFeedback = arrayName.filter((t) => t["status"] == "await-feedback");
-  done = arrayName.filter((t) => t["status"] == "done");
+    todo = arrayName.filter((t) => t["status"] == "toDo");
+    inProgress = arrayName.filter((t) => t["status"] == "in-progress");
+    awaitFeedback = arrayName.filter((t) => t["status"] == "await-feedback");
+    done = arrayName.filter((t) => t["status"] == "done");
 
-  updateArea("toDo", todo, arrayName);
-  updateArea("in-progress", inProgress, arrayName);
-  updateArea("await-feedback", awaitFeedback, arrayName);
-  updateArea("done", done, arrayName);
+    updateArea("toDo", todo, arrayName);
+    updateArea("in-progress", inProgress, arrayName);
+    updateArea("await-feedback", awaitFeedback, arrayName);
+    updateArea("done", done, arrayName);
 }
 
 /**
@@ -52,27 +52,27 @@ function updateHTML(arrayName) {
  * @param {Array} areaArray
  */
 function updateArea(areaName, areaArray, arrayName) {
-  document.getElementById(areaName).innerHTML = "";
-  if (areaArray.length == 0) {
-    document.getElementById(areaName).innerHTML += generateEmptyHTML();
-  } else {
-    for (let index = 0; index < areaArray.length; index++) {
-      const element = areaArray[index];
-      document.getElementById(areaName).innerHTML += generateTodoHTML(element, arrayName);
-      document.getElementById(`prio-image${arrayName.indexOf(element)}`).innerHTML += generatePrioImage(element, arrayName);
-      createInitials(element, arrayName);
-      if (element.subtasks.length != 0) {
-        document.getElementById(`subtask-progress${arrayName.indexOf(element)}`).style.display = "flex";
-      }
+    document.getElementById(areaName).innerHTML = "";
+    if (areaArray.length == 0) {
+        document.getElementById(areaName).innerHTML += generateEmptyHTML();
+    } else {
+        for (let index = 0; index < areaArray.length; index++) {
+            const element = areaArray[index];
+            document.getElementById(areaName).innerHTML += generateTodoHTML(element, arrayName);
+            document.getElementById(`prio-image${arrayName.indexOf(element)}`).innerHTML += generatePrioImage(element, arrayName);
+            createInitials(element, arrayName);
+            if (element.subtasks.length != 0) {
+                document.getElementById(`subtask-progress${arrayName.indexOf(element)}`).style.display = "flex";
+            }
+        }
     }
-  }
 }
 
 function generateTodoHTML(element, arrayName) {
-  return /*html*/ `
+    return /*html*/ `
         <div draggable="true" ondragstart="startDragging(${arrayName.indexOf(element)}); highlightAreas()" ondragend="removeHighlightAreas()" class="task" id="task${arrayName.indexOf(
-    element
-  )}" onclick="openTaskDetails(${arrayName.indexOf(element)})">
+        element
+    )}" onclick="openTaskDetails(${arrayName.indexOf(element)})">
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[element.category]}">${element["category"]}</span>
             <span class="task-title">${element["title"]}</span>
             <span class="task-description">${element["description"]}</span>
@@ -90,8 +90,8 @@ function generateTodoHTML(element, arrayName) {
 }
 
 function startDragging(id) {
-  currentDraggedElement = id;
-  dragCardHighlight(currentDraggedElement);
+    currentDraggedElement = id;
+    dragCardHighlight(currentDraggedElement);
 }
 
 function createInitials(element, arrayName) {
@@ -102,8 +102,8 @@ function createInitials(element, arrayName) {
             document.getElementById(`assigned-to${arrayName.indexOf(element)}`).innerHTML += /*html*/ `
                 <span class="assigned-user" style="background-color: ${element.assignedTo[i].contactColor}">${element.assignedTo[i].contactInitials}</span>
             `;
+        }
     }
-  }
 }
 
 function generatePrioImage(element, arrayName) {
@@ -130,54 +130,54 @@ function checkSubtaskStatus(element) {
 }
 
 function calculateSubtaskProgress(element) {
-  // calculate progress if one ore more subtasks are marked done
+    // calculate progress if one ore more subtasks are marked done
 }
 
 function generateEmptyHTML() {
-  return `<div class="task no-task">No tasks here</div>`;
+    return `<div class="task no-task">No tasks here</div>`;
 }
 
 function allowDrop(event) {
-  event.preventDefault();
+    event.preventDefault();
 }
 
 async function moveTo(status) {
-  allTasks[currentDraggedElement]["status"] = status;
-  // update status in database
-  await storeAllTasksBoard();
-  // load tasks from database
-  await loadAllTasks();
-  updateHTML(allTasks);
+    allTasks[currentDraggedElement]["status"] = status;
+    // update status in database
+    await storeAllTasksBoard();
+    // load tasks from database
+    await loadAllTasks();
+    updateHTML(allTasks);
 }
 
 function highlight(id) {
-  document.getElementById(id).classList.add("drag-area-highlight");
+    document.getElementById(id).classList.add("drag-area-highlight");
 }
 
 function highlightAreas() {
-  let dragAreas = document.getElementsByClassName("drag-area");
-  for (let i = 0; i < dragAreas.length; i++) {
-    dragAreas[i].classList.add("drag-area-highlight");
-  }
+    let dragAreas = document.getElementsByClassName("drag-area");
+    for (let i = 0; i < dragAreas.length; i++) {
+        dragAreas[i].classList.add("drag-area-highlight");
+    }
 }
 
 function removeHighlightAreas() {
-  let dragAreas = document.getElementsByClassName("drag-area");
-  for (let i = 0; i < dragAreas.length; i++) {
-    dragAreas[i].classList.remove("drag-area-highlight");
-  }
+    let dragAreas = document.getElementsByClassName("drag-area");
+    for (let i = 0; i < dragAreas.length; i++) {
+        dragAreas[i].classList.remove("drag-area-highlight");
+    }
 }
 
 function removeHighlight(id) {
-  document.getElementById(id).classList.remove("drag-area-highlight");
+    document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
 function dragCardHighlight(currentDraggedElement) {
-  document.getElementById(`task${currentDraggedElement}`).classList.add("on-drag-highlight");
+    document.getElementById(`task${currentDraggedElement}`).classList.add("on-drag-highlight");
 }
 
 async function storeAllTasksBoard() {
-  await setItem("remoteTasks", allTasks);
+    await setItem("remoteTasks", allTasks);
 }
 
 // open addTask popup
@@ -189,16 +189,17 @@ async function openAddTask() {
     clearForm();
     await loadAllTasks();
     await loadContacts();
+    renderContactsToAssignWithemptyCheckbox();
     renderContactsToAssign();
     renderCategories();
     showAssignedtoContacts();
 }
 
 function closeModal() {
-  let modalBg = document.getElementById("modal-bg");
-  modalBg.style.width = 0;
-  modalBg.style.left = "100%";
-  document.getElementById("body").style.overflow = "auto";
+    let modalBg = document.getElementById("modal-bg");
+    modalBg.style.width = 0;
+    modalBg.style.left = "100%";
+    document.getElementById("body").style.overflow = "auto";
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -213,20 +214,20 @@ window.addEventListener('click', function (event) {
 
 // create fullscreen tasks
 function openTaskDetails(index) {
-  document.getElementById("body").style.overflow = "hidden";
-  let modalBg = document.getElementById("modal-bg-details");
-  modalBg.style.width = "100%";
-  modalBg.style.left = 0;
-  let taskDetailsContainer = document.getElementById("task-details");
-  taskDetailsContainer.innerHTML = "";
-  taskDetailsContainer.innerHTML += createTaskDetailsHtml(index);
-  displayAssignedContacts(allTasks[index]);
-  displaySubstasks(allTasks[index]);
+    document.getElementById("body").style.overflow = "hidden";
+    let modalBg = document.getElementById("modal-bg-details");
+    modalBg.style.width = "100%";
+    modalBg.style.left = 0;
+    let taskDetailsContainer = document.getElementById("task-details");
+    taskDetailsContainer.innerHTML = "";
+    taskDetailsContainer.innerHTML += createTaskDetailsHtml(index);
+    displayAssignedContacts(allTasks[index]);
+    displaySubstasks(allTasks[index]);
 }
 
 function createTaskDetailsHtml(index) {
-  let task = allTasks[index];
-  return /*html*/ `
+    let task = allTasks[index];
+    return /*html*/ `
         <div class="details-top">
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[task.category]}">${task.category}</span>
             <span id="close-modal" class="close-modal" onclick="closeModalDetails()">&times;</span>
@@ -275,8 +276,8 @@ function displaySubstasks(task) {
                     <p class="subtask-text">${subtask.nameSubtask}</p>
                 </div>
             `;
-    } else {
-      subtasksContainer.innerHTML += /*html*/ `
+        } else {
+            subtasksContainer.innerHTML += /*html*/ `
                 <div class="subtask">
                     <img src="../assets/img/icons/checkbox_filled.png" alt="" id="checkbox-filled${i}" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})">
                     <p class="subtask-text">${subtask.nameSubtask}</p>
@@ -328,7 +329,7 @@ function closeModalDetails() {
     modalBg.style.left = "100%";
     document.getElementById("body").style.overflow = "auto";
 }
-  
+
 // When the user clicks anywhere outside of the modal, close it
 window.addEventListener('click', function (event) {
     let modalBg = document.getElementById('modal-bg-details');
@@ -344,10 +345,28 @@ async function openEditTask(index) {
     openAddTask();
     document.getElementById('taskTitle').value = allTasks[index].title;
     document.getElementById('taskDescription').value = allTasks[index].description;
-    await loadContacts();
+    // await loadContacts();
     allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
     // showAssignedtoContacts();
 }
+
+async function renderAssignedContactsDropdown() {
+    document.getElementById("checkBoxImage${j}").innerHTML = "";
+    for (let i = 0; i < assignedContacts.length; i++) {
+        let assignedContact = assignedContacts[i];
+        let foundIndex = -1;
+        for (let j = 0; j < contacts.length; j++) {
+            if (contacts[j].contactName === assignedContact.contactName) {
+                foundIndex = j;
+                break;
+            }
+        }
+        if (foundIndex !== -1) {
+            document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(foundIndex);
+        }
+    }
+}
+
 
 // search function
 function renderAllOrMatchingTodos() {
