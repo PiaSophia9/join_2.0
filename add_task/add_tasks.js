@@ -378,11 +378,30 @@ function stopPropagation() {
   event.stopPropagation(onclick);
 }
 
+// alte Funktion. Nicht löschen!
+
+// function showAssignedtoContacts() {
+//   document.getElementById("assignedtoContactsContainer").innerHTML = "";
+//   for (let i = 0; i < assignedContacts.length; i++) {
+//     let j = contacts.indexOf(assignedContacts[i]);
+//     document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(j);
+//   }
+// }
+
 function showAssignedtoContacts() {
   document.getElementById("assignedtoContactsContainer").innerHTML = "";
   for (let i = 0; i < assignedContacts.length; i++) {
-    let j = contacts.indexOf(assignedContacts[i]);
-    document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(j);
+    let assignedContact = assignedContacts[i];
+    let foundIndex = -1;
+    for (let j = 0; j < contacts.length; j++) {
+      if (contacts[j].contactName === assignedContact.contactName) {
+        foundIndex = j;
+        break;
+      }
+    }
+    if (foundIndex !== -1) {
+      document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(foundIndex);
+    }
   }
 }
 

@@ -341,13 +341,12 @@ window.addEventListener("click", function (event) {
 
 async function openEditTask(index) {
     closeModalDetails();
-    allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
     openAddTask();
     document.getElementById('taskTitle').value = allTasks[index].title;
     document.getElementById('taskDescription').value = allTasks[index].description;
     // await loadContacts();
-    
-    // showAssignedtoContacts();
+    allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
+    showAssignedtoContacts();
 }
 
 // async function renderAssignedContactsDropdown() {
