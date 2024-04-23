@@ -26,6 +26,10 @@ main {
     width: 200px;
     min-width: 200px;
   }
+
+  .subtask-progress {
+    flex-wrap: wrap;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -148,10 +152,6 @@ main {
   .drag-areas {
     flex-direction: column;
     margin-bottom: 96px;
-  }
-
-  .subtask-progress {
-    flex-wrap: wrap;
   }
 
   .drag-area {

@@ -24,7 +24,7 @@ async function loadContacts() {
 }
 
 async function loadAllTasksContacts() {
-  let response = await getItem('remoteTasks');
+  let response = await getItem("remoteTasks");
   tasks = await JSON.parse(response);
 }
 
@@ -33,8 +33,11 @@ function displayContacts() {
   contactsContainer.innerHTML = "";
   sortContactsByName();
   createStartingLetters();
+  displayStartingLetters(contactsContainer);
+  renderContactUnderStartingLetter();
+}
 
-  // display starting letters
+function displayStartingLetters(contactsContainer) {
   for (let i = 0; i < uniqueStartingLetters.length; i++) {
     let letter = uniqueStartingLetters[i];
     contactsContainer.innerHTML += /*html*/ `
@@ -42,26 +45,32 @@ function displayContacts() {
             <div class="contacts-at-letter" id="contacts-at-letter${letter}"></div>
         `;
   }
-  // put each contact under the correct starting letter
+}
+
+function renderContactUnderStartingLetter() {
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
     for (let j = 0; j < uniqueStartingLetters.length; j++) {
       let startingLetter = uniqueStartingLetters[j];
       let contactsAtLetterContainer = document.getElementById(`contacts-at-letter${startingLetter}`);
       if (contact.contactName[0] == startingLetter) {
-        contactsAtLetterContainer.innerHTML += /*html*/ `
-                    <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
-                        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
-                        <div class="name-and-mail">
-                            <span class="contact_name_left_section" id="contact-name${i}">${contact.contactName}</span>
-                            <span class="contact-mail">${contact.contactMail}</span>
-                        </div>
-                    </div>
-                `;
+        contactsAtLetterContainer.innerHTML += generateContactUnderStartingLetter(contact, i);
         break; // if contact matches the starting letter, jump back to first for-loop
       }
     }
   }
+}
+
+function generateContactUnderStartingLetter(contact, i) {
+  return `
+    <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
+        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
+        <div class="name-and-mail">
+            <span class="contact_name_left_section" id="contact-name${i}">${contact.contactName}</span>
+            <span class="contact-mail">${contact.contactMail}</span>
+        </div>
+    </div>
+ `;
 }
 
 function toggleActiveContact(i) {
@@ -217,7 +226,7 @@ async function deleteContact(i) {
 async function deleteContactFromTasks(i) {
   for (let index = 0; index < tasks.length; index++) {
     const task = tasks[index];
-    if(task.assignedTo.length != 0) {
+    if (task.assignedTo.length != 0) {
       await checkIfContactAssigned(task, i);
     }
   }
@@ -226,7 +235,7 @@ async function deleteContactFromTasks(i) {
 async function checkIfContactAssigned(task, i) {
   for (let j = 0; j < task.assignedTo.length; j++) {
     const assignedContact = task.assignedTo[j];
-    if(assignedContact.contactName == contacts[i].contactName) {
+    if (assignedContact.contactName == contacts[i].contactName) {
       let contactIndex = task.assignedTo.indexOf(assignedContact);
       task.assignedTo.splice(contactIndex, 1);
       await storeAllTasksContacts();
@@ -280,6 +289,7 @@ async function deleteContactInOverview(i) {
 // }
 
 async function storeContacts() {
+  // contacts.splice(-1);
   setItem("remoteContacts", contacts);
 }
 
@@ -301,6 +311,7 @@ function generateRandomNumber() {
 
 // open add-contact modal
 function openAddContact() {
+  // storeContacts();
   let modal = document.getElementById("modal-bg-add");
   modal.style.width = "100%";
   modal.style.left = 0;
@@ -475,7 +486,7 @@ function renderErrorOrAddContact() {
   if (document.getElementById("name-input").value == "") {
     renderError();
   } else {
-    addContact();
+    createAndAddContact();
   }
 }
 

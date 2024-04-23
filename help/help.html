@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="help.css" />
     <title>Help</title>
   </head>
-  <body onload="includeHTML()">
+  <body onload="initHelp()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
@@ -67,11 +67,17 @@
             project.
           </p>
           <p>Have more questions about <a class="link_in_legals" href="">Join</a>? Feel free to contact us at [Your Contact Email]. We're here to help you!</p>
-          <h2>Enjoy using Join!</h2>
+          <h2 class="margin_bottom">Enjoy using Join!</h2>
         </div>
       </main>
     </div>
     <script src="../assets/templates/include_header_and_sidebar.js"></script>
     <script src="../assets/templates/header.js"></script>
+    <script>
+      async function initHelp() {
+        await includeHTML();
+        loadUserInitials();
+      }
+    </script>
   </body>
 </html>
