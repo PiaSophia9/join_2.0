@@ -54,19 +54,23 @@ function renderContactUnderStartingLetter() {
       let startingLetter = uniqueStartingLetters[j];
       let contactsAtLetterContainer = document.getElementById(`contacts-at-letter${startingLetter}`);
       if (contact.contactName[0] == startingLetter) {
-        contactsAtLetterContainer.innerHTML += /*html*/ `
-                    <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
+        contactsAtLetterContainer.innerHTML += generateContactUnderStartingLetter(contact, i);
+        break; // if contact matches the starting letter, jump back to first for-loop
+      }
+    }
+  }
+}
+
+function generateContactUnderStartingLetter(contact, i) {
+  return `
+ <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
                         <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
                         <div class="name-and-mail">
                             <span class="contact_name_left_section" id="contact-name${i}">${contact.contactName}</span>
                             <span class="contact-mail">${contact.contactMail}</span>
                         </div>
                     </div>
-                `;
-        break; // if contact matches the starting letter, jump back to first for-loop
-      }
-    }
-  }
+ `;
 }
 
 function toggleActiveContact(i) {
