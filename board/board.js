@@ -78,7 +78,7 @@ function generateTodoHTML(element, arrayName) {
             <span class="task-description">${element["description"]}</span>
             <!-- if there are no subtasks, the progress-bar should not be displayed -->
             <div class="subtask-progress" id="subtask-progress${arrayName.indexOf(element)}" style="display: none">
-                <progress class="progress-bar" style="width: ${calculateSubtaskProgress(element)}" value="${calculateSubtaskProgress(element)}" max="100"></progress>
+                <progress class="progress-bar" value="${calculateSubtaskProgress(element)}" max="100"></progress>
                 <span>${checkSubtaskStatus(element)}/${element.subtasks.length} Subtasks</span>
             </div>
             <div class="user-and-prio">
@@ -121,7 +121,7 @@ function checkSubtaskStatus(element) {
   if (element.subtasks.length != 0) {
     let subtasksDone = 0;
     element.subtasks.forEach((subtask) => {
-      if (subtask.subtaskStatus == "done") {
+      if (subtask.statusSubtask == "done") {
         subtasksDone++;
       }
     });
@@ -131,6 +131,9 @@ function checkSubtaskStatus(element) {
 
 function calculateSubtaskProgress(element) {
     // calculate progress if one ore more subtasks are marked done
+    let substasksDone = checkSubtaskStatus(element);
+    let progress = (substasksDone / element.subtasks.length) * 100;
+    return progress;
 }
 
 function generateEmptyHTML() {
@@ -198,6 +201,7 @@ function closeModal() {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
     document.getElementById("body").style.overflow = "auto";
+    initBoard();
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -207,6 +211,7 @@ window.addEventListener("click", function (event) {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
     document.getElementById("body").style.overflow = "auto";
+    initBoard();
   }
 });
 
@@ -325,6 +330,7 @@ function closeModalDetails() {
   modalBg.style.width = 0;
   modalBg.style.left = "100%";
   document.getElementById("body").style.overflow = "auto";
+  initBoard();
 }
 
 
@@ -335,6 +341,7 @@ window.addEventListener("click", function (event) {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
     document.getElementById("body").style.overflow = "auto";
+    initBoard();
   }
 });
 
@@ -345,6 +352,8 @@ async function openEditTask(index) {
     let modalBg = document.getElementById('modal-bg');
     modalBg.style.width = '100%';
     modalBg.style.left = 0;
+    document.getElementById('add-task-heading').style.display = 'none';
+    changeButtonsInTaskform(index);
     await loadAllTasks();
     await loadContacts();
     await fillTaskFields(index);
@@ -364,6 +373,25 @@ async function fillTaskFields(index) {
     showAssignedtoContacts();
     renderCategories();
     renderSubtasks();
+}
+
+function changeButtonsInTaskform(index) {
+    document.getElementById('buttons_container').innerHTML = /*html*/ `
+        <button onclick="saveTaskChanges(${index})" id="save_changes_button" type="button" class="btn_dark_disabled">Ok <img src="../assets/img/icons/white_check.svg" alt="" /></button>
+    `;
+}
+
+async function saveTaskChanges(index) {
+    allTasks[index].title = document.getElementById('taskTitle').value;
+    allTasks[index].description = document.getElementById('taskDescription').value;
+    allTasks[index].dueDate = document.getElementById('taskDueDate').value;
+    allTasks[index].assignedTo = assignedContacts;
+    // ausgewählte priority speichern
+    allTasks[index].category = document.getElementById('buttonName').innerHTML;
+    allTasks[index].subtasks = subtasks;
+    await storeAllTasksBoard();
+    closeModal();
+    initBoard();
 }
 
 function setPrioButton(index) {

@@ -1,6 +1,6 @@
 <form id="taskForm" autocomplete="off" onsubmit="checkRequiredFields(); return false;">
     <div>
-      <h1>Add Task</h1>
+      <h1 id="add-task-heading">Add Task</h1>
       <div class="upper_part">
         <section class="left_section">
           <div>
@@ -66,8 +66,8 @@
     </div>
     <div class="lower_part">
       <p class="p_add_task"><span class="red">*</span>This field is required</p>
-      <div class="buttons_container">
-        <button type="button" onmouseover="makeIconClearButtonBright()" onmouseleave="makeIconClearButtonDark()" onclick="clearForm()" class="btn_bright">Clear <img id="clearButtonImage" src="../assets/img/icons/black_x.svg" alt="" /></button>
+      <div id="buttons_container" class="buttons_container">
+        <button id="clear-task-form-button" type="button" onmouseover="makeIconClearButtonBright()" onmouseleave="makeIconClearButtonDark()" onclick="clearForm()" class="btn_bright">Clear <img id="clearButtonImage" src="../assets/img/icons/black_x.svg" alt="" /></button>
         <button id="submit_task_button" type="submit" class="btn_dark_disabled">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
       </div>
     </div>

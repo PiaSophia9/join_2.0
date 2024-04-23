@@ -332,6 +332,8 @@ input:focus {
 
 #subtasksRenderContainer {
   width: 100%;
+  /* added by Dominik */
+  text-wrap: initial;
 }
 
 .rendered_subtask {
