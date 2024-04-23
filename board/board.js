@@ -189,7 +189,6 @@ async function openAddTask() {
     clearForm();
     await loadAllTasks();
     await loadContacts();
-    renderContactsToAssignWithemptyCheckbox();
     renderContactsToAssign();
     renderCategories();
     showAssignedtoContacts();
@@ -342,30 +341,31 @@ window.addEventListener("click", function (event) {
 
 async function openEditTask(index) {
     closeModalDetails();
+    allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
     openAddTask();
     document.getElementById('taskTitle').value = allTasks[index].title;
     document.getElementById('taskDescription').value = allTasks[index].description;
     // await loadContacts();
-    allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
+    
     // showAssignedtoContacts();
 }
 
-async function renderAssignedContactsDropdown() {
-    document.getElementById("checkBoxImage${j}").innerHTML = "";
-    for (let i = 0; i < assignedContacts.length; i++) {
-        let assignedContact = assignedContacts[i];
-        let foundIndex = -1;
-        for (let j = 0; j < contacts.length; j++) {
-            if (contacts[j].contactName === assignedContact.contactName) {
-                foundIndex = j;
-                break;
-            }
-        }
-        if (foundIndex !== -1) {
-            document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(foundIndex);
-        }
-    }
-}
+// async function renderAssignedContactsDropdown() {
+//     document.getElementById("checkBoxImage${j}").innerHTML = "";
+//     for (let i = 0; i < assignedContacts.length; i++) {
+//         let assignedContact = assignedContacts[i];
+//         let foundIndex = -1;
+//         for (let j = 0; j < contacts.length; j++) {
+//             if (contacts[j].contactName === assignedContact.contactName) {
+//                 foundIndex = j;
+//                 break;
+//             }
+//         }
+//         if (foundIndex !== -1) {
+//             document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(foundIndex);
+//         }
+//     }
+// }
 
 
 // search function
