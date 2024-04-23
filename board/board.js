@@ -191,7 +191,6 @@ async function openAddTask() {
     await loadContacts();
     renderContactsToAssign();
     renderCategories();
-    showAssignedtoContacts();
 }
 
 function closeModal() {
@@ -340,32 +339,42 @@ window.addEventListener("click", function (event) {
 });
 
 async function openEditTask(index) {
+    clearArrays();
     closeModalDetails();
-    openAddTask();
-    document.getElementById('taskTitle').value = allTasks[index].title;
-    document.getElementById('taskDescription').value = allTasks[index].description;
-    // await loadContacts();
-    allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
-    showAssignedtoContacts();
+    document.getElementById('body').style.overflow = 'hidden';
+    let modalBg = document.getElementById('modal-bg');
+    modalBg.style.width = '100%';
+    modalBg.style.left = 0;
+    await loadAllTasks();
+    await loadContacts();
+    await fillTaskFields(index);
 }
 
-// async function renderAssignedContactsDropdown() {
-//     document.getElementById("checkBoxImage${j}").innerHTML = "";
-//     for (let i = 0; i < assignedContacts.length; i++) {
-//         let assignedContact = assignedContacts[i];
-//         let foundIndex = -1;
-//         for (let j = 0; j < contacts.length; j++) {
-//             if (contacts[j].contactName === assignedContact.contactName) {
-//                 foundIndex = j;
-//                 break;
-//             }
-//         }
-//         if (foundIndex !== -1) {
-//             document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(foundIndex);
-//         }
-//     }
-// }
+async function fillTaskFields(index) {
+    document.getElementById('taskTitle').value = allTasks[index].title;
+    document.getElementById('taskDescription').value = allTasks[index].description;
+    document.getElementById('taskDueDate').value = allTasks[index].dueDate;
+    document.getElementById('assignedToDropdown').innerHTML = "";
+    document.getElementById('categoryDropdown').innerHTML = "";
+    document.getElementById('buttonName').innerHTML = allTasks[index].category;
+    setPrioButton(index);
+    allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
+    allTasks[index].subtask.forEach(subtask => subtasks.push(subtask));
+    renderContactsToAssign();
+    showAssignedtoContacts();
+    renderCategories();
+    renderSubtasks();
+}
 
+function setPrioButton(index) {
+    if(allTasks[index].priority == 'urgent') {
+        setPrioUrgent();
+    } else if(allTasks[index].priority == 'medium') {
+        setPrioMedium();
+    } else {
+        setPrioLow();
+    }
+}
 
 // search function
 function renderAllOrMatchingTodos() {

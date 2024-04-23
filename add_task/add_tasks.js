@@ -339,11 +339,10 @@ let assignedContacts = [];
 function addCheckboxImage(j) {
   for (let i = 0; i < assignedContacts.length; i++) {
     const assContact = assignedContacts[i];
-    let contactsIndex = contacts.indexOf(assContact);
-    if (contactsIndex == -1) {
-      document.getElementById(`checkBoxImage${j}`).src = "../assets/img/icons/checkbox_empty.png";
-    } else {
-      document.getElementById(`checkBoxImage${contactsIndex}`).src = "../assets/img/icons/checkbox_filled.png";
+    const contact = contacts[j];
+    
+    if(assContact.contactMail == contact.contactMail) {
+      document.getElementById(`checkBoxImage${j}`).src = "../assets/img/icons/checkbox_filled.png";
     }
   }
 }
@@ -352,8 +351,13 @@ async function selectAssignedContact(i) {
   if (document.getElementById(`checkBoxImage${i}`).src.endsWith("/checkbox_filled.png")) {
     document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
     let currentContact = contacts[i];
-    let indexInAssignedContact = assignedContacts.indexOf(currentContact);
-    assignedContacts.splice(indexInAssignedContact, 1);
+    // let indexInAssignedContact = assignedContacts.indexOf(currentContact);
+    for (let j = 0; j < assignedContacts.length; j++) {
+      let assignedContact = assignedContacts[j];
+      if(assignedContact.contactMail == currentContact.contactMail) {
+        assignedContacts.splice(j, 1);
+      }
+    }
   } else {
     fillCheckboxImage(i);
     pushAssignedContacts(i);
