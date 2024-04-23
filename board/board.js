@@ -4,12 +4,12 @@ let inProgress = [];
 let awaitFeedback = [];
 let done = [];
 let matchingTodos = [];
-const CATEGORY_COLORS = { 'Technical Task': '#1FD7C1', 'User Story': '#0038FF' };
+const CATEGORY_COLORS = {"Technical Task": "#1FD7C1", "User Story": "#0038FF"};
 const PRIO_IMAGE_URLS = {
-    'low': '../assets/img/icons/prio_kow_green.svg',
-    'medium': '../assets/img/icons/prio_medium_orange.svg',
-    'urgent': '../assets/img/icons/prio_urgent_red.svg'
-}
+  low: "../assets/img/icons/prio_kow_green.svg",
+  medium: "../assets/img/icons/prio_medium_orange.svg",
+  urgent: "../assets/img/icons/prio_urgent_red.svg",
+};
 let currentDraggedElement;
 
 async function initBoard() {
@@ -95,11 +95,11 @@ function startDragging(id) {
 }
 
 function createInitials(element, arrayName) {
-    if (element["assignedTo"] == "") {
-        return "";
-    } else {
-        for (let i = 0; i < element.assignedTo.length; i++) {
-            document.getElementById(`assigned-to${arrayName.indexOf(element)}`).innerHTML += /*html*/ `
+  if (element["assignedTo"] == "") {
+    return "";
+  } else {
+    for (let i = 0; i < element.assignedTo.length; i++) {
+      document.getElementById(`assigned-to${arrayName.indexOf(element)}`).innerHTML += /*html*/ `
                 <span class="assigned-user" style="background-color: ${element.assignedTo[i].contactColor}">${element.assignedTo[i].contactInitials}</span>
             `;
         }
@@ -107,26 +107,26 @@ function createInitials(element, arrayName) {
 }
 
 function generatePrioImage(element, arrayName) {
-    let imageContainer = document.getElementById(`prio-image${arrayName.indexOf(element)}`);
-    if (element["priority"] == undefined) {
-        imageContainer.style.display = "none";
-    } else {
-        return /*html*/ `
+  let imageContainer = document.getElementById(`prio-image${arrayName.indexOf(element)}`);
+  if (element["priority"] == undefined) {
+    imageContainer.style.display = "none";
+  } else {
+    return /*html*/ `
             <img src="${PRIO_IMAGE_URLS[element.priority]}" alt="">
         `;
-    }
+  }
 }
 
 function checkSubtaskStatus(element) {
-    if (element.subtasks.length != 0) {
-        let subtasksDone = 0;
-        element.subtasks.forEach(subtask => {
-            if (subtask.subtaskStatus == "done") {
-                subtasksDone++;
-            }
-        });
-        return subtasksDone;
-    }
+  if (element.subtasks.length != 0) {
+    let subtasksDone = 0;
+    element.subtasks.forEach((subtask) => {
+      if (subtask.subtaskStatus == "done") {
+        subtasksDone++;
+      }
+    });
+    return subtasksDone;
+  }
 }
 
 function calculateSubtaskProgress(element) {
@@ -203,13 +203,13 @@ function closeModal() {
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.addEventListener('click', function (event) {
-    let modalBg = document.getElementById('modal-bg');
-    if (event.target == modalBg) {
-        modalBg.style.width = 0;
-        modalBg.style.left = '100%';
-        document.getElementById('body').style.overflow = 'auto';
-    }
+window.addEventListener("click", function (event) {
+  let modalBg = document.getElementById("modal-bg");
+  if (event.target == modalBg) {
+    modalBg.style.width = 0;
+    modalBg.style.left = "100%";
+    document.getElementById("body").style.overflow = "auto";
+  }
 });
 
 // create fullscreen tasks
@@ -264,13 +264,13 @@ function createTaskDetailsHtml(index) {
 }
 
 function displaySubstasks(task) {
-    let subtasksContainer = document.getElementById('subtasks');
-    subtasksContainer.innerHTML = "";
-    for (let i = 0; i < task['subtasks'].length; i++) {
-        const subtask = task['subtasks'][i];
-        // wenn Status == done, gefüllte Checkbox rendern, anonsten leere
-        if (subtask.statusSubtask == 'inProgress') {
-            subtasksContainer.innerHTML += /*html*/ `
+  let subtasksContainer = document.getElementById("subtasks");
+  subtasksContainer.innerHTML = "";
+  for (let i = 0; i < task["subtasks"].length; i++) {
+    const subtask = task["subtasks"][i];
+    // wenn Status == done, gefüllte Checkbox rendern, anonsten leere
+    if (subtask.statusSubtask == "inProgress") {
+      subtasksContainer.innerHTML += /*html*/ `
                 <div class="subtask">
                     <img src="../assets/img/icons/check_box_empty.png" alt="" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})" id="subtask-checkbox${i}">
                     <p class="subtask-text">${subtask.nameSubtask}</p>
@@ -283,61 +283,61 @@ function displaySubstasks(task) {
                     <p class="subtask-text">${subtask.nameSubtask}</p>
                 </div>
             `;
-        }
-
     }
+  }
 }
 
 function toggleCheckbox(i, taskIndex) {
-    if (allTasks[taskIndex].subtasks[i].statusSubtask == 'inProgress') {
-        allTasks[taskIndex].subtasks[i].statusSubtask = 'done';
-        storeAllTasksBoard();
-        displaySubstasks(allTasks[taskIndex]);
-    } else {
-        allTasks[taskIndex].subtasks[i].statusSubtask = 'inProgress';
-        storeAllTasksBoard();
-        displaySubstasks(allTasks[taskIndex]);
-    }
+  if (allTasks[taskIndex].subtasks[i].statusSubtask == "inProgress") {
+    allTasks[taskIndex].subtasks[i].statusSubtask = "done";
+    storeAllTasksBoard();
+    displaySubstasks(allTasks[taskIndex]);
+  } else {
+    allTasks[taskIndex].subtasks[i].statusSubtask = "inProgress";
+    storeAllTasksBoard();
+    displaySubstasks(allTasks[taskIndex]);
+  }
 }
 
 function displayAssignedContacts(task) {
-    let assignedContactContainer = document.getElementById("assigned-to-contacts");
-    assignedContactContainer.innerHTML = "";
-    for (let i = 0; i < task['assignedTo'].length; i++) {
-        const assignedContact = task['assignedTo'][i];
+  let assignedContactContainer = document.getElementById("assigned-to-contacts");
+  assignedContactContainer.innerHTML = "";
+  for (let i = 0; i < task["assignedTo"].length; i++) {
+    const assignedContact = task["assignedTo"][i];
 
-        assignedContactContainer.innerHTML += /*html*/ `
+    assignedContactContainer.innerHTML += /*html*/ `
         <div class="assigned-to-contact">
             <p class="initials_circle" style="background-color: ${assignedContact.contactColor}">${assignedContact.contactInitials}</p>
             <p>${assignedContact.contactName}</p>
         </div>
     `;
-    }
+  }
 }
 
 async function deleteTask(index) {
-    allTasks.splice(index, 1);
-    await storeAllTasksBoard();
-    closeModalDetails();
-    initBoard();
-    // show toast-message that task was deleted
+  allTasks.splice(index, 1);
+  await storeAllTasksBoard();
+  closeModalDetails();
+  initBoard();
+  // show toast-message that task was deleted
 }
 
 function closeModalDetails() {
-    let modalBg = document.getElementById("modal-bg-details");
+  let modalBg = document.getElementById("modal-bg-details");
+  modalBg.style.width = 0;
+  modalBg.style.left = "100%";
+  document.getElementById("body").style.overflow = "auto";
+}
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener("click", function (event) {
+  let modalBg = document.getElementById("modal-bg-details");
+  if (event.target == modalBg) {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
     document.getElementById("body").style.overflow = "auto";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.addEventListener('click', function (event) {
-    let modalBg = document.getElementById('modal-bg-details');
-    if (event.target == modalBg) {
-        modalBg.style.width = 0;
-        modalBg.style.left = '100%';
-        document.getElementById('body').style.overflow = 'auto';
-    }
+  }
 });
 
 async function openEditTask(index) {
@@ -370,47 +370,47 @@ async function renderAssignedContactsDropdown() {
 
 // search function
 function renderAllOrMatchingTodos() {
-    findMatchingTitles();
-    document.getElementById("errorContainer").innerHTML = "";
-    if (saveInputValue() == '') {
-        updateHTML(allTasks); // Todo
-    } else {
-        renderErrorOrMatchingDodos();
-    };
+  findMatchingTitles();
+  document.getElementById("errorContainer").innerHTML = "";
+  if (saveInputValue() == "") {
+    updateHTML(allTasks); // Todo
+  } else {
+    renderErrorOrMatchingDodos();
+  }
 }
 
 async function findMatchingTitles() {
-    await pushMatchingTodos(saveInputValue());
+  await pushMatchingTodos(saveInputValue());
 }
 
 function saveInputValue() {
-    let search = document.getElementById("searchfield").value;
-    return search.toLowerCase();
+  let search = document.getElementById("searchfield").value;
+  return search.toLowerCase();
 }
 
 async function pushMatchingTodos(search) {
-    matchingTodos = [];
-    for (let index = 0; index < allTasks.length; index++) {
-        let title = allTasks[index].title;
-        let description = allTasks[index].description;
-        if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
-            matchingTodos.push(allTasks[index]);
-        }
+  matchingTodos = [];
+  for (let index = 0; index < allTasks.length; index++) {
+    let title = allTasks[index].title;
+    let description = allTasks[index].description;
+    if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
+      matchingTodos.push(allTasks[index]);
     }
+  }
 }
 
 function renderErrorOrMatchingDodos() {
-    if (matchingTodos.length == 0) {
-        renderErrorBoard();
-        updateHTML(matchingTodos);
-    } else {
-        updateHTML(matchingTodos); // ToDo
-    }
+  if (matchingTodos.length == 0) {
+    renderErrorBoard();
+    updateHTML(matchingTodos);
+  } else {
+    updateHTML(matchingTodos); // ToDo
+  }
 }
 
 function renderErrorBoard() {
-    let errorContent = document.getElementById("errorContainer");
-    errorContent.innerHTML += `
+  let errorContent = document.getElementById("errorContainer");
+  errorContent.innerHTML += `
   Keine Ergebnisse gefunden.
   `;
 }
