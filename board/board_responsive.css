@@ -6,9 +6,9 @@
   border-radius: 32px;
 }
 
-/* .title-and-searchfield {
-  width: 1078px;
-} */
+main {
+  max-width: 1080px;
+}
 
 @media (max-width: 1540px) {
   main {
