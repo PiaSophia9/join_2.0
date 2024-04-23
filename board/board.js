@@ -359,7 +359,7 @@ async function fillTaskFields(index) {
     document.getElementById('buttonName').innerHTML = allTasks[index].category;
     setPrioButton(index);
     allTasks[index].assignedTo.forEach(contact => assignedContacts.push(contact));
-    allTasks[index].subtask.forEach(subtask => subtasks.push(subtask));
+    allTasks[index].subtasks.forEach(subtask => subtasks.push(subtask));
     renderContactsToAssign();
     showAssignedtoContacts();
     renderCategories();
