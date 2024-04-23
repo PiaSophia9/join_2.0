@@ -2,6 +2,15 @@
   margin-bottom: 24px;
 }
 
+.modal-content {
+  border-radius: 32px;
+}
+
+.task-details {
+  height: fit-content;
+  width: fit-content;
+}
+
 @media (max-width: 1540px) {
   main {
     margin: 120px 40px 40px 40px !important;
@@ -9,10 +18,9 @@
 }
 
 @media (max-width: 1400px) {
-  .drag-area {
+  /* .drag-area {
     width: 200px;
-    min-width: 200px;
-  }
+    min-width: 200px; */
 
   .area-title {
     width: 200px;
@@ -143,11 +151,20 @@
 @media (max-width: 940px) {
   .drag-areas {
     flex-direction: column;
+    margin-bottom: 96px;
+  }
+
+  .subtask-progress {
+    flex-wrap: wrap;
   }
 
   .drag-area {
     flex-direction: row;
-    margin-bottom: 96px;
+    margin-bottom: 24px;
+    width: 100%;
+    overflow-y: auto;
+    align-items: flex-start;
+    padding-bottom: 0;
   }
 
   .title-and-searchfield {
@@ -176,7 +193,7 @@
     display: block;
     z-index: 2;
     position: absolute;
-    top: 140px;
+    top: 122px;
     right: 40px;
     border-radius: 10px;
     width: 40px;
@@ -204,15 +221,13 @@
     margin-bottom: 24px;
   }
 
-  .drag-area {
-    width: 100%;
-    overflow-y: auto;
-    align-items: flex-start;
-    padding-bottom: 0;
-  }
-
   .task {
-    width: 100%;
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 200px;
+    max-height: 300px;
+    box-shadow: 0 0 0 0 white;
+    border: 1px solid rgb(236, 233, 233);
   }
 
   ::-webkit-scrollbar {
@@ -228,14 +243,12 @@
     border-radius: 8px;
   }
 
-  .task {
-    max-height: 260px;
-    max-width: 200px;
-    min-width: 200px;
-  }
-
   .add-button {
     z-index: 1;
+  }
+
+  body {
+    font-size: 16px;
   }
 }
 
