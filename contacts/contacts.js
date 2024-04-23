@@ -63,13 +63,13 @@ function renderContactUnderStartingLetter() {
 
 function generateContactUnderStartingLetter(contact, i) {
   return `
- <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
-                        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
-                        <div class="name-and-mail">
-                            <span class="contact_name_left_section" id="contact-name${i}">${contact.contactName}</span>
-                            <span class="contact-mail">${contact.contactMail}</span>
-                        </div>
-                    </div>
+    <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
+        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
+        <div class="name-and-mail">
+            <span class="contact_name_left_section" id="contact-name${i}">${contact.contactName}</span>
+            <span class="contact-mail">${contact.contactMail}</span>
+        </div>
+    </div>
  `;
 }
 
@@ -289,6 +289,7 @@ async function deleteContactInOverview(i) {
 // }
 
 async function storeContacts() {
+  // contacts.splice(-1);
   setItem("remoteContacts", contacts);
 }
 
@@ -310,6 +311,7 @@ function generateRandomNumber() {
 
 // open add-contact modal
 function openAddContact() {
+  // storeContacts();
   let modal = document.getElementById("modal-bg-add");
   modal.style.width = "100%";
   modal.style.left = 0;
@@ -484,7 +486,7 @@ function renderErrorOrAddContact() {
   if (document.getElementById("name-input").value == "") {
     renderError();
   } else {
-    addContact();
+    createAndAddContact();
   }
 }
 

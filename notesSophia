@@ -1,77 +1,105 @@
-async function selectAssignedContact(i) {
-  // function selectOrUnselectContact
-  if (document.getElementById(`checkBoxImage${i}`).src == "../assets/img/icons/checkbox_filled.png") {
-    document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
-    assignedContacts.splice(i, 1); // aus dem array löschen
-  } else {
-    changeCheckboxImage(i);
-    pushAssignedContacts(i);
-  }
-  await storeAssignedContacts();
-}
+// async function selectAssignedContact(i) {
+//   // function selectOrUnselectContact
+//   if (document.getElementById(`checkBoxImage${i}`).src == "../assets/img/icons/checkbox_filled.png") {
+//     document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
+//     assignedContacts.splice(i, 1); // aus dem array löschen
+//   } else {
+//     changeCheckboxImage(i);
+//     pushAssignedContacts(i);
+//   }
+//   await storeAssignedContacts();
+// }
 
-contactInfos.push(contact);
+// contactInfos.push(contact);
 
-let contactInfos = [
-  {
-    contacts: contacts,
-    contactInitials: contactInitials,
-    contactColors: contactColors,
-  },
-  {
-    contacts: contacts,
-    contactInitials: contactInitials,
-    contactColors: contactColors,
-  },
-];
+// let contactInfos = [
+//   {
+//     contacts: contacts,
+//     contactInitials: contactInitials,
+//     contactColors: contactColors,
+//   },
+//   {
+//     contacts: contacts,
+//     contactInitials: contactInitials,
+//     contactColors: contactColors,
+//   },
+// ];
 
-let contact = {
-  contacts: contacts,
-  contactInitials: contactInitials,
-  contactColors: contactColors,
-};
+// let contact = {
+//   contacts: contacts,
+//   contactInitials: contactInitials,
+//   contactColors: contactColors,
+// };
 
-let contacts = [
-  {
-    contactName: contactName,
-    contactInitials: contactInitials,
-    contactColors: contactColors,
-  },
-  {
-    contacts: contacts,
-    contactInitials: contactInitials,
-    contactColors: contactColors,
-  },
-];
+// let contacts = [
+//   {
+//     contactName: contactName,
+//     contactInitials: contactInitials,
+//     contactColors: contactColors,
+//   },
+//   {
+//     contacts: contacts,
+//     contactInitials: contactInitials,
+//     contactColors: contactColors,
+//   },
+// ];
 
-function displayStartingLetters(contactsContainer) {
-  for (let i = 0; i < uniqueStartingLetters.length; i++) {
-    let letter = uniqueStartingLetters[i];
-    contactsContainer.innerHTML += /*html*/ `
-            <h3 class="starting-letter">${letter.toUpperCase()}</h3>
-            <div class="contacts-at-letter" id="contacts-at-letter${letter}"></div>
-        `;
-  }
-}
+// function displayStartingLetters(contactsContainer) {
+//   for (let i = 0; i < uniqueStartingLetters.length; i++) {
+//     let letter = uniqueStartingLetters[i];
+//     contactsContainer.innerHTML += /*html*/ `
+//             <h3 class="starting-letter">${letter.toUpperCase()}</h3>
+//             <div class="contacts-at-letter" id="contacts-at-letter${letter}"></div>
+//         `;
+//   }
+// }
 
-function renderContactUnderStartingLetter() {
-  for (let i = 0; i < contacts.length; i++) {
-    let contact = contacts[i];
-    for (let j = 0; j < uniqueStartingLetters.length; j++) {
-      let startingLetter = uniqueStartingLetters[j];
-      let contactsAtLetterContainer = document.getElementById(`contacts-at-letter${startingLetter}`);
-      if (contact.contactName[0] == startingLetter) {
-        contactsAtLetterContainer.innerHTML += /*html*/ `
-                    <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
-                        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
-                        <div class="name-and-mail">
-                            <span class="contact_name_left_section" id="contact-name${i}">${contact.contactName}</span>
-                            <span class="contact-mail">${contact.contactMail}</span>
-                        </div>
-                    </div>
-                `;
-        break; // if contact matches the starting letter, jump back to first for-loop
-      }
-    }
-  }
-}
+// function renderContactUnderStartingLetter() {
+//   for (let i = 0; i < contacts.length; i++) {
+//     let contact = contacts[i];
+//     for (let j = 0; j < uniqueStartingLetters.length; j++) {
+//       let startingLetter = uniqueStartingLetters[j];
+//       let contactsAtLetterContainer = document.getElementById(`contacts-at-letter${startingLetter}`);
+//       if (contact.contactName[0] == startingLetter) {
+//         contactsAtLetterContainer.innerHTML += /*html*/ `
+//                     <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
+//                         <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_small"><span class="initials_span">${contact.contactInitials}</span></div>
+//                         <div class="name-and-mail">
+//                             <span class="contact_name_left_section" id="contact-name${i}">${contact.contactName}</span>
+//                             <span class="contact-mail">${contact.contactMail}</span>
+//                         </div>
+//                     </div>
+//                 `;
+//         break; // if contact matches the starting letter, jump back to first for-loop
+//       }
+//     }
+//   }
+// }
+
+// async function createAndAddContact() {
+//   let contactName = document.getElementById("name-input");
+//   let contactMail = document.getElementById("mail-input");
+//   let contactPhone = document.getElementById("phonenumber-input");
+//   let contactInitials = createContactInitials(contactName.value);
+//   let contactColor = createContactColor();
+
+//   let contact = {
+//     contactName: contactName.value,
+//     contactMail: contactMail.value,
+//     contactPhone: contactPhone.value,
+//     contactInitials: contactInitials,
+//     contactColor: contactColor,
+//   };
+//   await addContact(contact);
+// }
+
+// async function addContact(contact) {
+//   contacts.push(contact);
+//   await storeContacts();
+//   closeAddContact();
+//   showSnackbar("Contact successfully created");
+//   displayContacts();
+//   displayContactDetails(contacts.indexOf(contact));
+//   toggleActiveContact(contacts.indexOf(contact));
+//   document.getElementById(`contact${contacts.indexOf(contact)}`).scrollIntoView(); // scroll to actual selected contact
+// }
