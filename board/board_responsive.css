@@ -6,9 +6,8 @@
   border-radius: 32px;
 }
 
-.task-details {
-  height: fit-content;
-  width: fit-content;
+main {
+  max-width: 1080px;
 }
 
 @media (max-width: 1540px) {
@@ -18,9 +17,10 @@
 }
 
 @media (max-width: 1400px) {
-  /* .drag-area {
+  .drag-area {
     width: 200px;
-    min-width: 200px; */
+    min-width: 200px;
+  }
 
   .area-title {
     width: 200px;
@@ -29,10 +29,6 @@
 }
 
 @media (max-width: 1200px) {
-  .drag-areas {
-    /* Todo: make margin-right work! */
-  }
-
   /* START resonsive footer and header - earlier than in any other page */
   /* header */
   .join_description {
