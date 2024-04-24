@@ -13,7 +13,6 @@
     <script src="../assets/templates/header.js"></script>
     <title>Contacts</title>
   </head>
-  <!-- Relevant for including header and sidebar: -->
   <body onload="initContacts()">
     <div cl w3-include-html="../assets/templates/sidebar.html"></div>
     <div class="header_and_main">
@@ -41,10 +40,6 @@
         </div>
         <button id="personButtonContacts" class="floating_button_mobile_contacts" type="button" onclick="openAddContact()"></button>
         <button id="threeDotsButtonContacts" class="floating_button_three_dots d_none" type="button" onclick="openEditDeleteMenu()"></button>
-        <!-- <div id="editDeleteButtonContainer" class="edit_delete_button_container d_none">
-          <button type="button" onclick="">Edit</button>
-          <button type="button">Delete</button>
-        </div> -->
       </main>
       <div w3-include-html="add_contact_template.html"></div>
       <div w3-include-html="edit_contact_template.html"></div>
