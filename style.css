@@ -83,6 +83,25 @@ main {
   max-width: 1440px;
 }
 
+.arrow_redirect {
+  position: absolute;
+  top: 215px;
+  right: 40px;;
+  cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.6s ease-in-out; 
+  border-radius: 50%; 
+  width: 24px; 
+  height: 24px; 
+  padding: 8px;
+}
+
+.arrow_redirect:hover {
+  background-color: #e2e6ec; 
+  width: 28px; 
+  height: 28px; 
+}
+
 /* scrollbar */
 
 ::-webkit-scrollbar {
