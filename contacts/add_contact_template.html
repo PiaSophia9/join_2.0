@@ -13,7 +13,7 @@
         <div class="image_and_form">
           <img class="contact_person_image" src="../assets/img/contacts_person.png" alt="">
           <div class="form_container">
-            <form autocomplete="off" class="add-contact-form" id="add-contact-form" onsubmit="event.preventDefault(); renderErrorOrAddContact()">
+            <form autocomplete="off" class="add-contact-form" id="add-contact-form" onsubmit="event.preventDefault(); renderErrorOrAddContact('errorContainerContacts')">
               <div class="contact_input_container">
                 <input onkeyup="checkIfInputHasValue()" class="newContactName" type="text" name="name" id="name-input" placeholder="Name">
                 <input class="newContactEmail" type="text" name="email" id="mail-input" placeholder="Email">

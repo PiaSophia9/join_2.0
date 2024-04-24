@@ -1,3 +1,18 @@
+// START Needs to got to board.js:
+async function openAddTaskAndSetStatus(status) {
+  document.getElementById('body').style.overflow = 'hidden';
+  let modalBg = document.getElementById('modal-bg');
+  modalBg.style.width = '100%';
+  modalBg.style.left = 0;
+  clearForm();
+  await loadAllTasks();
+  await loadContacts();
+  renderContactsToAssign();
+  renderCategories();
+  let status = status;
+}
+// END Needs to got to board.js:
+
 let matchingTodos = [];
 
 function renderAllOrMatchingTodos() {

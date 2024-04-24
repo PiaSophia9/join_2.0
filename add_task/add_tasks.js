@@ -13,6 +13,7 @@ async function init() {
   logSidebarLink("addTaskSidebar");
   setPrioMedium();
   loadUserInitials();
+  console.log("allTasks", allTasks);
 }
 
 /**
@@ -34,7 +35,15 @@ async function createTask() {
   let description = document.getElementById("taskDescription").value;
   let dueDate = document.getElementById("taskDueDate").value;
   let category = document.getElementById("buttonName").textContent;
-  let status = "toDo";
+  let status;
+  if (localStorage.getItem("status")) {
+    status = localStorage.getItem("status");
+  } else {
+    status = "toDo";
+  }
+  // if (status == "") {
+  //   let status = "toDo";
+  // }
   let task = {
     title: title,
     description: description,
@@ -340,8 +349,8 @@ function addCheckboxImage(j) {
   for (let i = 0; i < assignedContacts.length; i++) {
     const assContact = assignedContacts[i];
     const contact = contacts[j];
-    
-    if(assContact.contactMail == contact.contactMail) {
+
+    if (assContact.contactMail == contact.contactMail) {
       document.getElementById(`checkBoxImage${j}`).src = "../assets/img/icons/checkbox_filled.png";
     }
   }
@@ -354,7 +363,7 @@ async function selectAssignedContact(i) {
     // let indexInAssignedContact = assignedContacts.indexOf(currentContact);
     for (let j = 0; j < assignedContacts.length; j++) {
       let assignedContact = assignedContacts[j];
-      if(assignedContact.contactMail == currentContact.contactMail) {
+      if (assignedContact.contactMail == currentContact.contactMail) {
         assignedContacts.splice(j, 1);
       }
     }
