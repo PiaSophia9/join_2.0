@@ -388,7 +388,7 @@ input:focus {
   position: fixed;
   z-index: 1;
   left: 50%;
-  bottom: 30px;
+  bottom: 100px;
   font-size: 17px;
 }
 
@@ -406,7 +406,7 @@ input:focus {
   }
 }
 
-@-webkit-keyframes fadein {
+/* @-webkit-keyframes fadein {
   from {
     bottom: 0;
     opacity: 0;
@@ -457,7 +457,7 @@ input:focus {
   to {
     display: flex;
   }
-}
+} */
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -532,7 +532,7 @@ input:focus {
   }
 
   .add_task_main {
-    margin: 100px 32px 100px 32px !important;
+    margin: 100px 16px 56px 16px !important;
   }
 
   .subtasks_input {
@@ -586,19 +586,15 @@ input:focus {
     margin-bottom: 0;
   }
 
-  .lower_part {
+  /* .lower_part {
     position: fixed;
     bottom: 80px;
     background-color: #f6f7f8;
     width: calc(100% - 62px);
     border-top: 1px solid#2a3647;
-  }
+  } */
 
   .p_add_task {
     margin-bottom: 24px;
-  }
-
-  .include_html_container {
-    margin-bottom: 240px !important;
   }
 }

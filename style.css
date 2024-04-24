@@ -91,20 +91,73 @@ main {
 .arrow_redirect {
   position: absolute;
   top: 215px;
-  right: 50px;;
+  right: 50px;
   cursor: pointer;
   background-color: transparent;
-  transition: background-color 0.6s ease-in-out; 
-  border-radius: 50%; 
-  width: 24px; 
-  height: 24px; 
+  transition: background-color 0.6s ease-in-out;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   padding: 2px;
 }
 
 .arrow_redirect:hover {
-  background-color: #e2e6ec; 
-  width: 28px; 
-  height: 28px; 
+  background-color: #e2e6ec;
+  width: 28px;
+  height: 28px;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 100px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 100px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 100px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 100px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    display: none;
+  }
+  to {
+    display: flex;
+  }
 }
 
 /* scrollbar */
@@ -154,6 +207,7 @@ main {
     margin-bottom: 96px;
   }
 }
+
 @media (max-width: 460px) {
   h1 {
     font-size: 40px;
@@ -162,4 +216,8 @@ main {
   .arrow_redirect {
     top: 120px;
   }
+}
+
+::-webkit-scrollbar {
+  width: 0px !important;
 }

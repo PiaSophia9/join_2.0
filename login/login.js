@@ -25,7 +25,7 @@ async function login() {
  *
  */
 function disOrEnableLogInBtn() {
-  if (document.getElementById("email").value == "" ||document.getElementById("password").value == "") {
+  if (document.getElementById("email").value == "" || document.getElementById("password").value == "") {
     if (document.getElementById("registerBtn").hasAttribute("disabled")) {
     } else {
       document.getElementById("registerBtn").setAttribute("disabled", "disabled");

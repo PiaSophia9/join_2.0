@@ -89,7 +89,7 @@ function displayContactDetails(i) {
   let contactInformation = document.getElementById("contact-information");
 
   contactContainer.innerHTML = /*html*/ `
-        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_big"><span class="initials_span">${contact.contactInitials}</span></div>
+        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_overview"><span class="initials_span">${contact.contactInitials}</span></div>
         <div class="name-and-edit">
             <div class="name_container">
                 <span class="contact_name">${contact.contactName}</span>
@@ -222,9 +222,15 @@ async function deleteContact(i) {
   await storeContacts();
   closeEditContact();
   showSnackbar("Contact successfully deleted");
-  displayContactDetails(i - 1);
-  displayContacts();
-  toggleActiveContact(i - 1);
+  if (i == 0) {
+    displayContactDetails(i);
+    displayContacts();
+    toggleActiveContact(i);
+  } else {
+    displayContactDetails(i - 1);
+    displayContacts();
+    toggleActiveContact(i - 1);
+  }
 }
 
 async function deleteContactFromTasks(i) {
@@ -253,6 +259,7 @@ async function storeAllTasksContacts() {
 }
 
 async function deleteContactInOverview(i) {
+  await deleteContactFromTasks(i);
   contacts.splice(i, 1);
   await storeContacts();
   showSnackbar("Contact successfully deleted");
@@ -490,7 +497,7 @@ function renderErrorOrAddContact(id) {
   if (document.getElementById("name-input").value == "") {
     renderError(id);
   } else {
-    createAndAddContact();
+    addContact();
   }
 }
 function renderError(id) {
