@@ -34,7 +34,7 @@ async function initBoard() {
  * Then, these arrays are passed into the function "updateArea"
  */
 function updateHTML(arrayName) {
-  todo = arrayName.filter((t) => t["status"] == "toDo");
+  todo = arrayName.filter((t) => t["status"] == "todo");
   inProgress = arrayName.filter((t) => t["status"] == "in-progress");
   awaitFeedback = arrayName.filter((t) => t["status"] == "await-feedback");
   done = arrayName.filter((t) => t["status"] == "done");

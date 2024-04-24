@@ -151,7 +151,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .task-title {
   font-weight: 700;
   color: #2a3647;
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .task-description {
