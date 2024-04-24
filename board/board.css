@@ -284,7 +284,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .due-date,
-.priority-container {
+.priority-container,
+.description-container {
   display: flex;
   gap: 24px;
 }
@@ -292,7 +293,8 @@ input[type="search"]::-webkit-search-cancel-button {
 .due-date > p,
 .priority-container > p,
 .assigned-to-container > p,
-.subtasks-container > p {
+.subtasks-container > p,
+.description-container > p {
   color: #2a3647;
 }
 

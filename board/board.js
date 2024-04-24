@@ -242,7 +242,10 @@ function createTaskDetailsHtml(index) {
         </div>
         <div class="details-bottom">
             <h1 class="details-h1">${task.title}</h1>
-            <p>${task.description}</p>
+            <div class="description-container">
+              <p>Description: </p>
+              <p>${task.description}</p>
+            </div>
             <div class="due-date">
                 <p>Due date:</p>
                 <p>${task.dueDate}</p>
