@@ -5,8 +5,10 @@
  * and logging the "summarySidebar" link.
  */
 async function initSummary() {
-  await includeHTML();
+  includeHTML();
   await loadAllTasksSummary();
+  unlogAllSidebarLinks();
+  logSidebarLink("summarySidebar");
   loadUserName();
   loadUserInitials();
   showToDo();
@@ -15,8 +17,6 @@ async function initSummary() {
   showAllTasks();
   showInProgress();
   showAwaitFeedback();
-  unlogAllSidebarLinks();
-  logSidebarLink("summarySidebar");
 }
 
 /**
@@ -42,7 +42,7 @@ async function loadAllTasksSummary() {
 }
 
 /**
- * Displays the number of urgent tasks and updates the UI with the count.
+ * Displays the number of urgent tasks and updates the user interface with the count.
  *
  * @param {Array} todos - The array of tasks to filter urgent tasks from.
  */
@@ -54,7 +54,7 @@ function showUrgentTasks() {
 }
 
 /**
- * Displays the earliest due date of urgent tasks in the UI.
+ * Displays the earliest due date of urgent tasks in the user interface.
  *
  * @param {Array} urgentBoard - The array of urgent tasks.
  */

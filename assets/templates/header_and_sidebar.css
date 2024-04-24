@@ -315,4 +315,8 @@ header {
     margin-block-start: 0;
     margin-block-end: 0;
   }
+
+  #help_link {
+    display: block!important;
+  }
 }

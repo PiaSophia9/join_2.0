@@ -235,8 +235,8 @@ input[type="search"]::-webkit-search-cancel-button {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   white-space: nowrap;
-  overflow: scroll;
-  height: 100vh;
+  height: 90vh;
+  overflow-y: auto;
 }
 
 /* The Close Button */
