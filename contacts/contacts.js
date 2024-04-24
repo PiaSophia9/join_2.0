@@ -222,9 +222,15 @@ async function deleteContact(i) {
   await storeContacts();
   closeEditContact();
   showSnackbar("Contact successfully deleted");
-  displayContactDetails(i - 1);
-  displayContacts();
-  toggleActiveContact(i - 1);
+  if (i == 0) {
+    displayContactDetails(i);
+    displayContacts();
+    toggleActiveContact(i);
+  } else {
+    displayContactDetails(i - 1);
+    displayContacts();
+    toggleActiveContact(i - 1);
+  }
 }
 
 async function deleteContactFromTasks(i) {
@@ -253,6 +259,7 @@ async function storeAllTasksContacts() {
 }
 
 async function deleteContactInOverview(i) {
+  await deleteContactFromTasks(i);
   contacts.splice(i, 1);
   await storeContacts();
   showSnackbar("Contact successfully deleted");
@@ -490,7 +497,7 @@ function renderErrorOrAddContact(id) {
   if (document.getElementById("name-input").value == "") {
     renderError(id);
   } else {
-    createAndAddContact();
+    addContact();
   }
 }
 function renderError(id) {
