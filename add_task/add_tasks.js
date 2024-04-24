@@ -16,6 +16,12 @@ async function init() {
   console.log("allTasks", allTasks);
 }
 
+// input.addEventListener("keypress", function (event) {
+//   if (event.keyCode == 13) {
+//     addSubtask();
+//   }
+// });
+
 /**
  * This function loads an array from the storage and parses it.
  *
