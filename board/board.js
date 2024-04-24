@@ -238,7 +238,7 @@ function createTaskDetailsHtml(index) {
             <span id="close-modal" class="close-modal" onclick="closeModalDetails()">&times;</span>
         </div>
         <div class="details-bottom">
-            <h1>${task.title}</h1>
+            <h1 class="details-h1">${task.title}</h1>
             <p>${task.description}</p>
             <div class="due-date">
                 <p>Due date:</p>
@@ -256,12 +256,12 @@ function createTaskDetailsHtml(index) {
                 <div class="assigned-to-contacts" id="assigned-to-contacts"></div>
             </div>
             <div class="subtasks-container">
-                <p style="margin-block-end: 0.2em;">Subtasks:</p>
+                <p class="subtasks-p" style="margin-block-end: 0.2em;">Subtasks:</p>
                 <div class="subtasks" id="subtasks"></div>
             </div>
             <div class="edit-and-delete-buttons">
                 <button onclick="deleteTask(${index})" onmouseover="turnBlue('delete-image', 'delete_blue.svg')" onmouseleave="turnBlack('delete-image', 'delete.svg')"><img src="../assets/img/icons/delete.svg" alt="" id="delete-image">Delete</button>
-                <img src="../assets/img/icons/tiny_line.png" alt="" style="height: fit-content;">
+                <img class="tiny_line_board" src="../assets/img/icons/tiny_line.png" alt="" style="height: fit-content;">
                 <button onclick="openEditTask(${index})" onmouseover="turnBlue('edit-image', 'edit_blue.svg')" onmouseleave="turnBlack('edit-image', 'edit.svg')"><img src="../assets/img/icons/edit.svg" alt="" id="edit-image">Edit</button>
             </div>
         </div>
@@ -355,7 +355,7 @@ async function openEditTask(index) {
   modalBg.style.left = 0;
   document.getElementById("add-task-heading").style.display = "none";
   changeButtonsInTaskform(index);
-  document.getElementById('taskTitle').onkeyup = "borderRedIfTitleEmptyEdit()";
+  document.getElementById("taskTitle").onkeyup = "borderRedIfTitleEmptyEdit()";
   await loadAllTasks();
   await loadContacts();
   await fillTaskFields(index);

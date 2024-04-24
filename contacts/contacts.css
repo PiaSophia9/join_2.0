@@ -808,6 +808,36 @@ input:focus {
     text-decoration: none;
     cursor: pointer;
   }
+
+  .initials_circle_overview {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    font-size: 32px;
+  }
+
+  .right_section {
+    margin: 16px 0 0 16px;
+  }
+
+  .headline_container {
+    margin-bottom: 16px;
+  }
+
+  .contact_name {
+    font-size: 24px;
+  }
+
+  .contact-information h4 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-bottom: 4px;
+    margin-top: 8px;
+  }
+
+  .contact-information p {
+    margin-block-end: 16px;
+  }
 }
 
 @media (max-width: 500px) {

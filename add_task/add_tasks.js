@@ -16,6 +16,8 @@ async function init() {
   console.log("allTasks", allTasks);
 }
 
+// Bitte nicht löschen! Kann später noch verwendet werden.
+
 // input.addEventListener("keypress", function (event) {
 //   if (event.keyCode == 13) {
 //     addSubtask();

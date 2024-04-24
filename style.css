@@ -86,20 +86,20 @@ main {
 .arrow_redirect {
   position: absolute;
   top: 215px;
-  right: 50px;;
+  right: 50px;
   cursor: pointer;
   background-color: transparent;
-  transition: background-color 0.6s ease-in-out; 
-  border-radius: 50%; 
-  width: 24px; 
-  height: 24px; 
+  transition: background-color 0.6s ease-in-out;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
   padding: 2px;
 }
 
 .arrow_redirect:hover {
-  background-color: #e2e6ec; 
-  width: 28px; 
-  height: 28px; 
+  background-color: #e2e6ec;
+  width: 28px;
+  height: 28px;
 }
 
 /* scrollbar */
@@ -149,6 +149,7 @@ main {
     margin-bottom: 96px;
   }
 }
+
 @media (max-width: 460px) {
   h1 {
     font-size: 40px;
@@ -157,4 +158,8 @@ main {
   .arrow_redirect {
     top: 120px;
   }
+}
+
+::-webkit-scrollbar {
+  width: 0px !important;
 }

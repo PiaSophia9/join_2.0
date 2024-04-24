@@ -89,7 +89,7 @@ function displayContactDetails(i) {
   let contactInformation = document.getElementById("contact-information");
 
   contactContainer.innerHTML = /*html*/ `
-        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_big"><span class="initials_span">${contact.contactInitials}</span></div>
+        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_overview"><span class="initials_span">${contact.contactInitials}</span></div>
         <div class="name-and-edit">
             <div class="name_container">
                 <span class="contact_name">${contact.contactName}</span>
