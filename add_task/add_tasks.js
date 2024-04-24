@@ -13,31 +13,20 @@ async function init() {
   logSidebarLink("addTaskSidebar");
   setPrioMedium();
   loadUserInitials();
-  console.log("allTasks", allTasks);
 }
 
 // Bitte nicht löschen! Kann später noch verwendet werden.
-
 // input.addEventListener("keypress", function (event) {
 //   if (event.keyCode == 13) {
 //     addSubtask();
 //   }
 // });
 
-/**
- * This function loads an array from the storage and parses it.
- *
- *
- */
 async function loadAllTasks() {
   let response = await getItem("remoteTasks");
   allTasks = await JSON.parse(response);
 }
 
-/**
- * This function gets the form elements values, pushes them into the array "allTasks" and saves them in the storage. It also clears the form and redirects to board.html
- *
- */
 async function createTask() {
   let title = document.getElementById("taskTitle").value;
   let description = document.getElementById("taskDescription").value;
@@ -47,9 +36,7 @@ async function createTask() {
   if (localStorage.getItem("status")) {
     status = localStorage.getItem("status");
   }
-  // if (status == "") {
-  //   let status = "toDo";
-  // }
+
   let task = {
     title: title,
     description: description,
@@ -126,7 +113,6 @@ function redirectToBoard() {
 function setPrioUrgent() {
   priority = "urgent";
   document.getElementById("urgentButton").classList.add("urgent_button");
-  // add no shadow
   document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_white.svg";
   removeMediumPrio();
   removeLowPrio();
@@ -181,41 +167,6 @@ function turnDateColorGrey() {
   document.getElementById("taskDueDate").classList.remove("date_after_change");
 }
 
-// New shorter functions
-// function borderRedIfEmpty(elementId, errorContainerId, borderColor, errorClass) {
-//   let element = document.getElementById(elementId);
-//   let errorContainer = document.getElementById(errorContainerId);
-
-//   if (element.value === "") {
-//     element.style.borderColor = borderColor;
-//     errorContainer.classList.remove("hide_error");
-//     errorContainer.classList.add(errorClass);
-//   } else {
-//     element.style.borderColor = "#a8a8a8";
-//     errorContainer.classList.add("hide_error");
-//     errorContainer.classList.remove(errorClass);
-//   }
-
-//   disOrEnableButton();
-// }
-
-// function borderRedIfTitleEmpty() {
-//   borderRedIfEmpty("taskTitle", "errorContainerTitle", "#ff8190", "error_container");
-// }
-
-// function borderRedIfDateEmpty() {
-//   turnDateColorBlack();
-//   borderRedIfEmpty("taskDueDate", "errorContainerDate", "#ff8190", "error_container");
-// }
-
-// function borderRedIfCategoryEmpty() {
-//   let buttonText = document.getElementById("buttonName").textContent;
-//   let borderColor = buttonText === "Select task Category" ? "#ff8190" : "#a8a8a8";
-//   borderRedIfEmpty("categoryButton", "errorContainerCategory", borderColor, "error_container");
-// }
-// New shorter functions end
-
-// Old longer functions
 function borderRedIfTitleEmpty() {
   if (document.getElementById("taskTitle").value == "") {
     document.getElementById("taskTitle").style.borderColor = "#ff8190";
@@ -258,7 +209,6 @@ function borderRedIfCategoryEmpty() {
     disOrEnableButton();
   }
 }
-// Old longer functions End
 
 function checkRequiredFields() {
   if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
@@ -284,20 +234,9 @@ function disOrEnableButton() {
   }
 }
 
-// Dropdowns
-
 function toggleDropdownAssignedTo() {
   document.getElementById("assignedToDropdown").classList.toggle("show");
 }
-
-// window.onclick = function (event) {
-//   if (!event.target.matches(".dropbtn")) {
-//     document.getElementById("categoryDropdown").classList.remove("show");
-//   }
-//   if (!event.target.matches(".dropbtnAssignedContact")) {
-//     document.getElementById("assignedToDropdown").classList.remove("show");
-//   }
-// };
 
 function renderContactsToAssign() {
   document.getElementById("assignedToDropdown").innerHTML = "";
@@ -352,8 +291,6 @@ function selectCategory(i) {
   borderRedIfCategoryEmpty();
 }
 
-// Contacts to assign
-
 let assignedContacts = [];
 
 function addCheckboxImage(j) {
@@ -371,7 +308,6 @@ async function selectAssignedContact(i) {
   if (document.getElementById(`checkBoxImage${i}`).src.endsWith("/checkbox_filled.png")) {
     document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
     let currentContact = contacts[i];
-    // let indexInAssignedContact = assignedContacts.indexOf(currentContact);
     for (let j = 0; j < assignedContacts.length; j++) {
       let assignedContact = assignedContacts[j];
       if (assignedContact.contactMail == currentContact.contactMail) {
@@ -402,16 +338,6 @@ function stopPropagation() {
   event.stopPropagation(onclick);
 }
 
-// alte Funktion. Nicht löschen!
-
-// function showAssignedtoContacts() {
-//   document.getElementById("assignedtoContactsContainer").innerHTML = "";
-//   for (let i = 0; i < assignedContacts.length; i++) {
-//     let j = contacts.indexOf(assignedContacts[i]);
-//     document.getElementById("assignedtoContactsContainer").innerHTML += generateInitialCircles(j);
-//   }
-// }
-
 function showAssignedtoContacts() {
   document.getElementById("assignedtoContactsContainer").innerHTML = "";
   for (let i = 0; i < assignedContacts.length; i++) {
@@ -434,8 +360,6 @@ function generateInitialCircles(i) {
   <div id="initialCircle${i}" style="background-color:${contacts[i].contactColor}" class="initials_circle"><span class="initials_span">${contacts[i].contactInitials}</span></div>
   `;
 }
-
-// Subtasks
 
 let subtasks = [];
 

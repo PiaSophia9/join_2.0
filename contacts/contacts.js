@@ -55,7 +55,7 @@ function renderContactUnderStartingLetter() {
       let contactsAtLetterContainer = document.getElementById(`contacts-at-letter${startingLetter}`);
       if (contact.contactName[0] == startingLetter) {
         contactsAtLetterContainer.innerHTML += generateContactUnderStartingLetter(contact, i);
-        break; // if contact matches the starting letter, jump back to first for-loop
+        break;
       }
     }
   }
@@ -125,8 +125,6 @@ function displayContactDetails(i) {
     document.getElementById("backButtonContacts").classList.remove("d_none");
     document.getElementById("personButtonContacts").classList.add("d_none");
     document.getElementById("threeDotsButtonContacts").classList.remove("d_none");
-
-    // Button ändern - image und auch die Funktion
   }
 }
 
@@ -136,7 +134,6 @@ function showLeftSection() {
   document.getElementById("backButtonContacts").classList.add("d_none");
   document.getElementById("personButtonContacts").classList.remove("d_none");
   document.getElementById("threeDotsButtonContacts").classList.add("d_none");
-  // Button zurück ändern - image und auch die Funktion
 }
 
 function openEditDeleteMenu() {
@@ -196,7 +193,7 @@ async function addContact() {
   displayContacts();
   displayContactDetails(contacts.indexOf(contact));
   toggleActiveContact(contacts.indexOf(contact));
-  document.getElementById(`contact${contacts.indexOf(contact)}`).scrollIntoView(); // scroll to actual selected contact
+  document.getElementById(`contact${contacts.indexOf(contact)}`).scrollIntoView();
 }
 
 async function editContact(i) {
@@ -274,33 +271,7 @@ async function deleteContactInOverview(i) {
   }
 }
 
-// function editContactCheckUnique() {
-//     let contactMail = document.getElementById('mail-input-edit').value;
-//     let contactPhone = document.getElementById('phonenumber-input-edit').value;
-
-//     for (let i = 0; i < contacts.length; i++) {
-//         const contact = contacts[i];
-//         if(contact.contactMail == contactMail || contact.contactPhone == contactPhone) {
-//             console.log("A user with this email-address or phonenumber already exists.");
-//         }
-//     }
-// }
-
-// function addContactCheckUnique() {
-//     let contactMail = document.getElementById('mail-input').value;
-//     let contactPhone = document.getElementById('phonenumber-input').value;
-
-//     for (let i = 0; i < contacts.length; i++) {
-//         const contact = contacts[i];
-//         if(contact.contactMail == contactMail || contact.contactPhone == contactPhone) {
-//             console.log("A user with this email-address or phonenumber already exists.");
-//             return true;
-//         }
-//     }
-// }
-
 async function storeContacts() {
-  // contacts.splice(0, 1);
   setItem("remoteContacts", contacts);
 }
 
@@ -320,9 +291,7 @@ function generateRandomNumber() {
   return Math.floor(Math.random() * 15);
 }
 
-// open add-contact modal
 function openAddContact() {
-  // storeContacts();
   let modal = document.getElementById("modal-bg-add");
   modal.style.width = "100%";
   modal.style.left = 0;
@@ -342,8 +311,6 @@ window.addEventListener("click", function (event) {
     modalBg.style.left = "100%";
   }
 });
-
-// open edit-contact modal
 
 function openEditContact(i) {
   setModalSizeAndPosition();
@@ -376,98 +343,12 @@ function generateModalContent(i) {
                 </button>
               </div>
               <div id="errorContainerEditContacts">
-                <!-- Please add your name. Email and phone are optional. -->
               </div>
             </form>
           </div>
 
     `;
 }
-
-// Alte funktionsfägige Funktion:
-
-// function openEditContact(i) {
-//   let modal = document.getElementById("modal-bg-edit");
-//   modal.style.width = "100%";
-//   modal.style.left = 0;
-
-//   let container = document.getElementById("form-and-image-edit");
-//   container.innerHTML = /*html*/ `
-
-//           <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right inicials_circle_edit_contact_mobile"><span class="initials_span">${contacts[i].contactInitials}</span></div>
-//           <div class="form_container">
-//             <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
-//               <div class="contact_input_container">
-
-//                 <input  class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
-//                 <input class="newContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
-//                 <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
-
-//               </div>
-//               <div class="cancel-and-create-buttons">
-//                 <button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete
-//                 </button>
-//                 <button class="btn_dark" type="submit">Save
-//                   <img src="../assets/img/icons/white_check.svg" alt="">
-//                 </button>
-//               </div>
-//               <div id="errorContainerContacts">
-//                 <!-- Please add your name. Email and phone are optional. -->
-//               </div>
-//             </form>
-//           </div>
-
-//     `;
-// }
-
-// Alte funktionsfägige Funktion Ende
-
-// Funktion neu von ChatGTP:
-
-// function openEditContact(i) {
-//   // Aufruf von Hilfsfunktionen, um die Modalgröße und -position festzulegen
-//   setModalSizeAndPosition();
-//   // Aufruf von Hilfsfunktionen, um den Inhalt des Modalbehälters festzulegen
-//   setModalContent(i);
-// }
-
-// function setModalSizeAndPosition() {
-//   let modal = document.getElementById("modal-bg-edit");
-//   modal.style.width = "100%";
-//   modal.style.left = 0;
-// }
-
-// function setModalContent(i) {
-//   let container = document.getElementById("form-and-image-edit");
-//   container.innerHTML = `
-//     <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right inicials_circle_edit_contact_mobile">
-//       <span class="initials_span">${contacts[i].contactInitials}</span>
-//     </div>
-//     <div class="form_container">
-//       <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
-//         <div class="contact_input_container">
-//           <input class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
-//           <input class="new
-// ContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
-// <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
-// </div>
-// <div class="cancel-and-create-buttons">
-// <!-- Aufruf einer Hilfsfunktion, um die Löschen- und Speichern-Schaltflächen zu setzen -->
-// ${getDeleteAndSaveButtons(i)}
-// </div>
-// <div id="errorContainerContacts">
-// <!-- Please add your name. Email and phone are optional. -->
-// </div>
-// </form>
-// </div>
-// `;
-// }
-
-// function getDeleteAndSaveButtons(i) {
-//   return `<button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete</button> <button class="btn_dark" type="submit">Save <img src="../assets/img/icons/white_check.svg" alt=""></button> `;
-// }
-
-// Neue Funktion von ChatGTP Ende
 
 function closeEditContact() {
   let modal = document.getElementById("modal-bg-edit");
@@ -483,7 +364,6 @@ window.addEventListener("click", function (event) {
   }
 });
 
-// Snackbar / Toastmessage
 function showSnackbar(message) {
   let snackbar = document.getElementById("snackbar");
   snackbar.className = "show";

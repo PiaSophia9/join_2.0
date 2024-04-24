@@ -8,7 +8,6 @@
 .upper_part {
   display: flex;
   gap: 40px;
-  /* font-size: 20px; */
 }
 
 .lower_part {
@@ -18,7 +17,6 @@
   align-items: flex-end;
   margin-top: 24px;
   margin-bottom: 24px;
-  /* font-size: 20px; */
 }
 
 .left_section,
@@ -104,7 +102,6 @@
 }
 
 .form_elements:focus {
-  /* border: 1px solid #5ec0e9 !important; */
   border: 1px solid #5ec0e9;
   outline: none !important;
 }
@@ -144,7 +141,6 @@ input:-webkit-autofill:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* margin-bottom: 80px; */
 }
 
 .p_add_task {
@@ -407,59 +403,6 @@ input:focus {
   }
 }
 
-/* @-webkit-keyframes fadein {
-  from {
-    bottom: 0;
-    opacity: 0;
-  }
-  to {
-    bottom: 30px;
-    opacity: 1;
-  }
-}
-
-@keyframes fadein {
-  from {
-    bottom: 0;
-    opacity: 0;
-  }
-  to {
-    bottom: 30px;
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadeout {
-  from {
-    bottom: 30px;
-    opacity: 1;
-  }
-  to {
-    bottom: 0;
-    opacity: 0;
-  }
-}
-
-@keyframes fadeout {
-  from {
-    bottom: 30px;
-    opacity: 1;
-  }
-  to {
-    bottom: 0;
-    opacity: 0;
-  }
-}
-
-@keyframes slide-in {
-  from {
-    display: none;
-  }
-  to {
-    display: flex;
-  }
-} */
-
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -586,14 +529,6 @@ input:focus {
   .medium_img {
     margin-bottom: 0;
   }
-
-  /* .lower_part {
-    position: fixed;
-    bottom: 80px;
-    background-color: #f6f7f8;
-    width: calc(100% - 62px);
-    border-top: 1px solid#2a3647;
-  } */
 
   .p_add_task {
     margin-bottom: 24px;
