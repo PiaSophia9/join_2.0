@@ -243,7 +243,7 @@ h2 {
     height: 100%;
     z-index: 100;
     opacity: 1;
-    animation: fade-out 1s ease 1s forwards;
+    animation: slide-in-out 1s ease 1s forwards;
   }
   .headline_container {
     opacity: 0;
@@ -254,6 +254,22 @@ h2 {
     animation: fade-in 1s ease 1s forwards;
   }
 }
+
+@keyframes slide-in-out {
+  0% {
+      left: -100%;
+      opacity: 0;
+  }
+  50% {
+      left: 0;
+      opacity: 0;
+  }
+  100% {
+      left: -100%;
+      opacity: 0;
+  }
+}
+
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -262,6 +278,7 @@ h2 {
     opacity: 1;
   }
 }
+
 @keyframes fade-out {
   from {
     opacity: 1;

@@ -9,6 +9,7 @@ async function initSummary() {
   await loadAllTasksSummary();
   unlogAllSidebarLinks();
   logSidebarLink("summarySidebar");
+  displayGreeting();
   loadUserName();
   loadUserInitials();
   showToDo();
@@ -183,4 +184,23 @@ function changeIconDoneWhite() {
  */
 function changeIconTDoneBack() {
   document.getElementById('doneImg').src = "../../assets/img/icons/done_task.svg";
+}
+
+/**
+ * Displays a greeting message based on the time of the day.
+ */
+function displayGreeting() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  let greeting;
+  if (hour >= 5 && hour < 12) {
+      greeting = "Good morning";
+  } else if (hour >= 12 && hour < 18) {
+      greeting = "Good afternoon";
+  } else {
+      greeting = "Good evening";
+  }
+
+  document.getElementById("greetings").textContent = greeting;
 }
