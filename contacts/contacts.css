@@ -392,11 +392,13 @@ input:focus {
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-#errorContainerContacts {
+#errorContainerContacts,
+#errorContainerEditContacts {
   height: 24px;
   color: #ff8190;
   margin-top: 24px;
   font-size: 16px;
+  margin-bottom: 24px;
 }
 
 .contacts-at-letter {

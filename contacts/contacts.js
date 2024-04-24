@@ -200,15 +200,19 @@ async function addContact() {
 }
 
 async function editContact(i) {
-  contacts[i].contactName = document.getElementById("name-input-edit").value;
-  contacts[i].contactMail = document.getElementById("mail-input-edit").value;
-  contacts[i].contactPhone = document.getElementById("phonenumber-input-edit").value;
-  await storeContacts();
-  closeEditContact();
-  showSnackbar("Contact infos successfully changed");
-  displayContactDetails(i);
-  displayContacts();
-  toggleActiveContact(i);
+  if (document.getElementById("name-input-edit").value == "") {
+    renderError("errorContainerEditContacts");
+  } else {
+    contacts[i].contactName = document.getElementById("name-input-edit").value;
+    contacts[i].contactMail = document.getElementById("mail-input-edit").value;
+    contacts[i].contactPhone = document.getElementById("phonenumber-input-edit").value;
+    await storeContacts();
+    closeEditContact();
+    showSnackbar("Contact infos successfully changed");
+    displayContactDetails(i);
+    displayContacts();
+    toggleActiveContact(i);
+  }
 }
 
 async function deleteContact(i) {
@@ -289,7 +293,7 @@ async function deleteContactInOverview(i) {
 // }
 
 async function storeContacts() {
-  // contacts.splice(-1);
+  // contacts.splice(0, 1);
   setItem("remoteContacts", contacts);
 }
 
@@ -364,7 +368,7 @@ function generateModalContent(i) {
                   <img src="../assets/img/icons/white_check.svg" alt="">
                 </button>
               </div>
-              <div id="errorContainerContacts">
+              <div id="errorContainerEditContacts">
                 <!-- Please add your name. Email and phone are optional. -->
               </div>
             </form>
@@ -482,16 +486,15 @@ function showSnackbar(message) {
   }, 3000);
 }
 
-function renderErrorOrAddContact() {
+function renderErrorOrAddContact(id) {
   if (document.getElementById("name-input").value == "") {
-    renderError();
+    renderError(id);
   } else {
     createAndAddContact();
   }
 }
-
-function renderError() {
-  document.getElementById("errorContainerContacts").innerHTML = `
+function renderError(id) {
+  document.getElementById(id).innerHTML = `
     Please add your name. Email and phone are optional.
     `;
 }
