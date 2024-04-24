@@ -201,6 +201,7 @@ async function closeModal() {
   modalBg.style.width = 0;
   modalBg.style.left = "100%";
   document.getElementById("body").style.overflow = "auto";
+  clearForm();
   await redoChangesToTaskForm();
   await initBoard();
   // setTimeout(initBoard(), 5000);

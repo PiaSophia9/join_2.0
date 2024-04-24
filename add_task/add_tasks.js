@@ -300,6 +300,7 @@ function toggleDropdownAssignedTo() {
 // };
 
 function renderContactsToAssign() {
+  document.getElementById("assignedToDropdown").innerHTML = "";
   for (let i = 0; i < contacts.length; i++) {
     document.getElementById("assignedToDropdown").innerHTML += generateContactToAssign(i);
     addCheckboxImage(i);
@@ -329,6 +330,7 @@ function toggleDropdownCategory() {
 }
 
 function renderCategories() {
+  document.getElementById("categoryDropdown").innerHTML = "";
   for (let i = 0; i < categories.length; i++) {
     document.getElementById("categoryDropdown").innerHTML += generateCategories(i);
   }
