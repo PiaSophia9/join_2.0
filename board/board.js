@@ -39,7 +39,7 @@ function updateHTML(arrayName) {
   awaitFeedback = arrayName.filter((t) => t["status"] == "await-feedback");
   done = arrayName.filter((t) => t["status"] == "done");
 
-  updateArea("toDo", todo, arrayName);
+  updateArea("todo", todo, arrayName);
   updateArea("in-progress", inProgress, arrayName);
   updateArea("await-feedback", awaitFeedback, arrayName);
   updateArea("done", done, arrayName);
@@ -203,8 +203,6 @@ async function closeModal() {
   document.getElementById("body").style.overflow = "auto";
   await redoChangesToTaskForm();
   await initBoard();
-  // setTimeout(initBoard(), 5000);
-  // setTimeout(location.reload(), 5000);
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -216,7 +214,6 @@ window.addEventListener("click", async function (event) {
     document.getElementById("body").style.overflow = "auto";
     await redoChangesToTaskForm();
     await initBoard();
-    // location.reload();
   }
 });
 
@@ -279,7 +276,6 @@ function displaySubstasks(task) {
   subtasksContainer.innerHTML = "";
   for (let i = 0; i < task["subtasks"].length; i++) {
     const subtask = task["subtasks"][i];
-    // wenn Status == done, gefüllte Checkbox rendern, anonsten leere
     if (subtask.statusSubtask == "inProgress") {
       subtasksContainer.innerHTML += /*html*/ `
                 <div class="subtask">
@@ -526,7 +522,6 @@ async function openAddTaskAndSetStatus(status) {
   let modalBg = document.getElementById("modal-bg");
   modalBg.style.width = "100%";
   modalBg.style.left = 0;
-  // clearForm();
   await loadAllTasks();
   await loadContacts();
   renderContactsToAssign();

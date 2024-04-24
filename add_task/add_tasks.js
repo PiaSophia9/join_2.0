@@ -43,7 +43,7 @@ async function createTask() {
   let description = document.getElementById("taskDescription").value;
   let dueDate = document.getElementById("taskDueDate").value;
   let category = document.getElementById("buttonName").textContent;
-  let status = "toDo";
+  let status = "todo";
   if (localStorage.getItem("status")) {
     status = localStorage.getItem("status");
   }
