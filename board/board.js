@@ -196,24 +196,27 @@ async function openAddTask() {
   renderCategories();
 }
 
-function closeModal() {
+async function closeModal() {
   let modalBg = document.getElementById("modal-bg");
   modalBg.style.width = 0;
   modalBg.style.left = "100%";
   document.getElementById("body").style.overflow = "auto";
-  // initBoard();
-  location.reload();
+  await redoChangesToTaskForm();
+  await initBoard();
+  // setTimeout(initBoard(), 5000);
+  // setTimeout(location.reload(), 5000);
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.addEventListener("click", function (event) {
+window.addEventListener("click", async function (event) {
   let modalBg = document.getElementById("modal-bg");
   if (event.target == modalBg) {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
     document.getElementById("body").style.overflow = "auto";
-    // initBoard();
-    location.reload();
+    await redoChangesToTaskForm();
+    await initBoard();
+    // location.reload();
   }
 });
 
@@ -322,21 +325,21 @@ function displayAssignedContacts(task) {
 async function deleteTask(index) {
   allTasks.splice(index, 1);
   await storeAllTasksBoard();
+  showSnackbarBoard('Task succesfully deleted');
   closeModalDetails();
-  initBoard();
-  // show toast-message that task was deleted
+  await initBoard();
 }
 
-function closeModalDetails() {
+async function closeModalDetails() {
   let modalBg = document.getElementById("modal-bg-details");
   modalBg.style.width = 0;
   modalBg.style.left = "100%";
   document.getElementById("body").style.overflow = "auto";
-  initBoard();
+  await initBoard();
 }
 
 // When the user clicks anywhere outside of the modal, close it
-window.addEventListener("click", function (event) {
+window.addEventListener("click", async function (event) {
   let modalBg = document.getElementById("modal-bg-details");
   if (event.target == modalBg) {
     modalBg.style.width = 0;
@@ -355,7 +358,8 @@ async function openEditTask(index) {
   modalBg.style.left = 0;
   document.getElementById("add-task-heading").style.display = "none";
   changeButtonsInTaskform(index);
-  document.getElementById("taskTitle").onkeyup = "borderRedIfTitleEmptyEdit()";
+  document.getElementById('taskTitle').onkeyup = "borderRedIfTitleEmptyEdit()";
+  document.getElementById('categoryButton').setAttribute('disabled', 'true');
   await loadAllTasks();
   await loadContacts();
   await fillTaskFields(index);
@@ -379,21 +383,31 @@ async function fillTaskFields(index) {
 
 function changeButtonsInTaskform(index) {
   document.getElementById("buttons_container").innerHTML = /*html*/ `
-        <button onclick="checkRequiredFieldsEdit(${index})" id="save_changes_button" type="button" class="btn_dark_disabled">Ok <img src="../assets/img/icons/white_check.svg" alt="" /></button>
+        <button onclick="checkRequiredFieldsEdit(${index})" id="save_changes_button" type="button" class="btn_dark">Ok <img src="../assets/img/icons/white_check.svg" alt="" /></button>
     `;
 }
 
 async function saveTaskChanges(index) {
+  showSnackbarBoard('Changes saved');
   allTasks[index].title = document.getElementById("taskTitle").value;
   allTasks[index].description = document.getElementById("taskDescription").value;
   allTasks[index].dueDate = document.getElementById("taskDueDate").value;
   allTasks[index].assignedTo = assignedContacts;
-  // ausgewählte priority speichern
   allTasks[index].category = document.getElementById("buttonName").innerHTML;
   allTasks[index].subtasks = subtasks;
+  allTasks[index].priority = priority;
   await storeAllTasksBoard();
   closeModal();
-  initBoard();
+}
+
+async function redoChangesToTaskForm() {
+  document.getElementById("add-task-heading").style.display = "block";
+  document.getElementById('buttons_container').innerHTML = /*html*/ `
+    <button id="clear-task-form-button" type="button" onmouseover="makeIconClearButtonBright()" onmouseleave="makeIconClearButtonDark()" onclick="clearForm()" class="btn_bright">Clear <img id="clearButtonImage" src="../assets/img/icons/black_x.svg" alt="" /></button>
+    <button id="submit_task_button" type="submit" class="btn_dark_disabled">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
+  `;
+  document.getElementById('taskTitle').onkeyup = "borderRedIfTitleEmpty()";
+  document.getElementById('categoryButton').removeAttribute('disabled');
 }
 
 function checkRequiredFieldsEdit(index) {
@@ -415,12 +429,10 @@ function borderRedIfTitleEmptyEdit() {
     document.getElementById("taskTitle").style.borderColor = "#ff8190";
     document.getElementById("errorContainerTitle").classList.remove("hide_error");
     document.getElementById("errorContainerTitle").classList.add("error_container");
-    disOrEnableButtonEdit();
   } else {
     document.getElementById("taskTitle").style.borderColor = "#a8a8a8";
     document.getElementById("errorContainerTitle").classList.add("hide_error");
     document.getElementById("errorContainerTitle").classList.remove("error_container");
-    disOrEnableButtonEdit();
   }
 }
 
@@ -430,12 +442,10 @@ function borderRedIfDateEmptyEdit() {
     document.getElementById("taskDueDate").style.borderColor = "#ff8190";
     document.getElementById("errorContainerDate").classList.remove("hide_error");
     document.getElementById("errorContainerDate").classList.add("error_container");
-    disOrEnableButtonEdit();
   } else {
     document.getElementById("taskDueDate").style.borderColor = "#a8a8a8";
     document.getElementById("errorContainerDate").classList.add("hide_error");
     document.getElementById("errorContainerDate").classList.remove("error_container");
-    disOrEnableButtonEdit();
   }
 }
 
@@ -444,22 +454,10 @@ function borderRedIfCategoryEmptyEdit() {
     document.getElementById("categoryButton").style.borderColor = "#ff8190";
     document.getElementById("errorContainerCategory").classList.remove("hide_error");
     document.getElementById("errorContainerCategory").classList.add("error_container");
-    disOrEnableButtonEdit();
   } else {
     document.getElementById("categoryButton").style.borderColor = "#a8a8a8";
     document.getElementById("errorContainerCategory").classList.add("hide_error");
     document.getElementById("errorContainerCategory").classList.remove("error_container");
-    disOrEnableButtonEdit();
-  }
-}
-
-function disOrEnableButtonEdit() {
-  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
-    document.getElementById("save_changes_button").classList.add("btn_dark_disabled");
-    document.getElementById("save_changes_button").classList.remove("btn_dark");
-  } else {
-    document.getElementById("save_changes_button").classList.remove("btn_dark_disabled");
-    document.getElementById("save_changes_button").classList.add("btn_dark");
   }
 }
 
@@ -531,4 +529,13 @@ async function openAddTaskAndSetStatus(status) {
   renderContactsToAssign();
   renderCategories();
   localStorage.setItem("status", status);
+}
+
+async function showSnackbarBoard(message) {
+  let snackbarBoard = document.getElementById("snackbar-board");
+  snackbarBoard.className = "show";
+  snackbarBoard.innerHTML = message;
+  setTimeout(function () {
+    snackbarBoard.className = snackbarBoard.className.replace("show", "");
+  }, 2500);
 }

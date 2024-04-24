@@ -349,5 +349,6 @@ h2 {
           }
         .summary_container {
             min-width: 200px;
+            margin-bottom: 80px;
         }
 }
