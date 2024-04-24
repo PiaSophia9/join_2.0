@@ -201,26 +201,7 @@ a {
       margin-left: 5px;
       margin-right: 5px;
     }
-    .wholeSite {
-        background: #2a3647;
-        animation: fade-in 1s ease 1s forwards;
-    }
-    .logoBig {
-        content:url("../assets/img/join_logo_white.png");
-        height: 200px;
-        width: auto;
-    }
   }
-
-  /* @keyframes fade-in {
-    from {
-        opacity: 1;
-      }
-      to {
-        opacity: 0;
-      }
-} */
-
   
   @media (max-width: 560px) {
     .login_container {

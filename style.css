@@ -81,6 +81,11 @@ main {
   height: 100%;
   margin: 160px 130px 0 88px !important;
   max-width: 1440px;
+  
+}
+
+.your_rights {
+  word-break: break-all; 
 }
 
 .arrow_redirect {
