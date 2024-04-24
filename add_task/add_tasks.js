@@ -35,11 +35,9 @@ async function createTask() {
   let description = document.getElementById("taskDescription").value;
   let dueDate = document.getElementById("taskDueDate").value;
   let category = document.getElementById("buttonName").textContent;
-  let status;
+  let status = "toDo";
   if (localStorage.getItem("status")) {
     status = localStorage.getItem("status");
-  } else {
-    status = "toDo";
   }
   // if (status == "") {
   //   let status = "toDo";
@@ -55,6 +53,9 @@ async function createTask() {
     status: status,
   };
   addTask(task);
+  if (localStorage.getItem("status")) {
+    localStorage.removeItem("status");
+  }
 }
 
 async function addTask(task) {

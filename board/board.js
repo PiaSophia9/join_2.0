@@ -201,7 +201,8 @@ function closeModal() {
   modalBg.style.width = 0;
   modalBg.style.left = "100%";
   document.getElementById("body").style.overflow = "auto";
-  initBoard();
+  // initBoard();
+  location.reload();
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -211,7 +212,8 @@ window.addEventListener("click", function (event) {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
     document.getElementById("body").style.overflow = "auto";
-    initBoard();
+    // initBoard();
+    location.reload();
   }
 });
 
@@ -353,6 +355,7 @@ async function openEditTask(index) {
   modalBg.style.left = 0;
   document.getElementById("add-task-heading").style.display = "none";
   changeButtonsInTaskform(index);
+  document.getElementById('taskTitle').onkeyup = "borderRedIfTitleEmptyEdit()";
   await loadAllTasks();
   await loadContacts();
   await fillTaskFields(index);
@@ -376,7 +379,7 @@ async function fillTaskFields(index) {
 
 function changeButtonsInTaskform(index) {
   document.getElementById("buttons_container").innerHTML = /*html*/ `
-        <button onclick="saveTaskChanges(${index})" id="save_changes_button" type="button" class="btn_dark_disabled">Ok <img src="../assets/img/icons/white_check.svg" alt="" /></button>
+        <button onclick="checkRequiredFieldsEdit(${index})" id="save_changes_button" type="button" class="btn_dark_disabled">Ok <img src="../assets/img/icons/white_check.svg" alt="" /></button>
     `;
 }
 
@@ -391,6 +394,73 @@ async function saveTaskChanges(index) {
   await storeAllTasksBoard();
   closeModal();
   initBoard();
+}
+
+function checkRequiredFieldsEdit(index) {
+  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
+    borderRedIfTitleEmptyEdit();
+    borderRedIfDateEmptyEdit();
+    borderRedIfCategoryEmptyEdit();
+  } else {
+    document.getElementById("save_changes_button").classList.remove("btn_dark_disabled");
+    document.getElementById("save_changes_button").classList.add("btn_dark");
+    saveTaskChanges(index);
+    document.getElementById("save_changes_button").classList.add("btn_dark_disabled");
+    document.getElementById("save_changes_button").classList.remove("btn_dark");
+  }
+}
+
+function borderRedIfTitleEmptyEdit() {
+  if (document.getElementById("taskTitle").value == "") {
+    document.getElementById("taskTitle").style.borderColor = "#ff8190";
+    document.getElementById("errorContainerTitle").classList.remove("hide_error");
+    document.getElementById("errorContainerTitle").classList.add("error_container");
+    disOrEnableButtonEdit();
+  } else {
+    document.getElementById("taskTitle").style.borderColor = "#a8a8a8";
+    document.getElementById("errorContainerTitle").classList.add("hide_error");
+    document.getElementById("errorContainerTitle").classList.remove("error_container");
+    disOrEnableButtonEdit();
+  }
+}
+
+function borderRedIfDateEmptyEdit() {
+  turnDateColorBlack();
+  if (document.getElementById("taskDueDate").value == "") {
+    document.getElementById("taskDueDate").style.borderColor = "#ff8190";
+    document.getElementById("errorContainerDate").classList.remove("hide_error");
+    document.getElementById("errorContainerDate").classList.add("error_container");
+    disOrEnableButtonEdit();
+  } else {
+    document.getElementById("taskDueDate").style.borderColor = "#a8a8a8";
+    document.getElementById("errorContainerDate").classList.add("hide_error");
+    document.getElementById("errorContainerDate").classList.remove("error_container");
+    disOrEnableButtonEdit();
+  }
+}
+
+function borderRedIfCategoryEmptyEdit() {
+  if (document.getElementById("buttonName").textContent == "Select task Category") {
+    document.getElementById("categoryButton").style.borderColor = "#ff8190";
+    document.getElementById("errorContainerCategory").classList.remove("hide_error");
+    document.getElementById("errorContainerCategory").classList.add("error_container");
+    disOrEnableButtonEdit();
+  } else {
+    document.getElementById("categoryButton").style.borderColor = "#a8a8a8";
+    document.getElementById("errorContainerCategory").classList.add("hide_error");
+    document.getElementById("errorContainerCategory").classList.remove("error_container");
+    disOrEnableButtonEdit();
+  }
+}
+
+function disOrEnableButtonEdit() {
+  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
+    document.getElementById("save_changes_button").classList.add("btn_dark_disabled");
+    document.getElementById("save_changes_button").classList.remove("btn_dark");
+  } else {
+    document.getElementById("save_changes_button").classList.remove("btn_dark_disabled");
+    document.getElementById("save_changes_button").classList.add("btn_dark");
+  }
 }
 
 function setPrioButton(index) {
