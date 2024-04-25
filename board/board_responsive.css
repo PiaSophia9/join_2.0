@@ -286,4 +286,8 @@ main {
   .details-h1 {
     margin-bottom: 16px;
   }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
 }
