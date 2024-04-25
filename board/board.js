@@ -1,4 +1,3 @@
-// let allTasks = [];
 let todo = [];
 let inProgress = [];
 let awaitFeedback = [];
@@ -12,6 +11,12 @@ const PRIO_IMAGE_URLS = {
 };
 let currentDraggedElement;
 
+/**
+ * Initializes the board by loading all tasks, updating the HTML display, 
+ * unlogging all sidebar links, logging the board sidebar link, and loading user initials.
+ *
+ * @return {Promise<void>} A promise that resolves when the board is successfully initialized.
+ */
 async function initBoard() {
   await loadAllTasks();
   await updateHTML(allTasks);
@@ -21,9 +26,10 @@ async function initBoard() {
 }
 
 /**
- * This function updates the task areas.
- * The todo-Array is filtered for each status and a new array for the tasks at this specific status is given back.
- * Then, these arrays are passed into the function "updateArea"
+ * Updates the HTML display based on the tasks' status in the given array.
+ *
+ * @param {Array} arrayName - The array of tasks to update the HTML display from.
+ * @return {Promise<void>} A promise that resolves when the HTML display is successfully updated.
  */
 async function updateHTML(arrayName) {
   todo = arrayName.filter((t) => t["status"] == "todo");
@@ -38,10 +44,12 @@ async function updateHTML(arrayName) {
 }
 
 /**
- * In this function, the task-area first gets cleared. After that, if the areaArray is empty, the function "generateEmptyHTML" is called. This function just return a div with the text "no tasks here".
- * If the array isn't empty, the task-element for every task in the array is created by calling the function "generateTodoHTML"
- * @param {string} areaName
- * @param {Array} areaArray
+ * Updates the HTML display of a specific area based on the tasks' status in the given array.
+ *
+ * @param {string} areaName - The ID of the HTML element representing the area.
+ * @param {Array} areaArray - The array of tasks to update the HTML display from.
+ * @param {Array} arrayName - The array of all tasks.
+ * @return {void} This function does not return anything.
  */
 function updateArea(areaName, areaArray, arrayName) {
   document.getElementById(areaName).innerHTML = "";
@@ -60,6 +68,13 @@ function updateArea(areaName, areaArray, arrayName) {
   }
 }
 
+/**
+ * Generates the HTML content for a single task element.
+ *
+ * @param {Object} element - The task object to generate HTML for.
+ * @param {Array} arrayName - The array of all tasks.
+ * @return {string} The HTML content for the task element.
+ */
 function generateTodoHTML(element, arrayName) {
   return /*html*/ `
         <div draggable="true" ondragstart="startDragging(${arrayName.indexOf(element)}); highlightAreas()" ondragend="removeHighlightAreas()" class="task" id="task${arrayName.indexOf(
@@ -81,11 +96,24 @@ function generateTodoHTML(element, arrayName) {
     `;
 }
 
+/**
+ * Starts the dragging process for a card with the given ID.
+ *
+ * @param {number} id - The ID of the card to start dragging.
+ * @return {void} This function does not return anything.
+ */
 function startDragging(id) {
   currentDraggedElement = id;
   dragCardHighlight(currentDraggedElement);
 }
 
+/**
+ * Generates the initials of the assigned users for a given element and updates the HTML display.
+ *
+ * @param {Object} element - The element containing the assigned users.
+ * @param {Array} arrayName - The array of all elements.
+ * @return {void} This function does not return anything.
+ */
 function createInitials(element, arrayName) {
   if (element["assignedTo"] == "") {
     return "";
@@ -93,11 +121,18 @@ function createInitials(element, arrayName) {
     for (let i = 0; i < element.assignedTo.length; i++) {
       document.getElementById(`assigned-to${arrayName.indexOf(element)}`).innerHTML += /*html*/ `
                 <span class="assigned-user" style="background-color: ${element.assignedTo[i].contactColor}">${element.assignedTo[i].contactInitials}</span>
-            `;
+      `;
     }
   }
 }
 
+/**
+ * Generates the priority image HTML content for a given element.
+ *
+ * @param {Object} element - The element for which the priority image is generated.
+ * @param {Array} arrayName - The array of all elements.
+ * @return {string} The HTML content for the priority image.
+ */
 function generatePrioImage(element, arrayName) {
   let imageContainer = document.getElementById(`prio-image${arrayName.indexOf(element)}`);
   if (element["priority"] == undefined) {
@@ -109,6 +144,12 @@ function generatePrioImage(element, arrayName) {
   }
 }
 
+/**
+ * Calculates the number of subtasks that are marked as "done" for a given task element.
+ *
+ * @param {Object} element - The task element to check subtask status for.
+ * @return {number} The count of subtasks that are marked as "done".
+ */
 function checkSubtaskStatus(element) {
   if (element.subtasks.length != 0) {
     let subtasksDone = 0;
@@ -121,34 +162,65 @@ function checkSubtaskStatus(element) {
   }
 }
 
+/**
+ * Calculates the subtask progress for a given element.
+ *
+ * @param {Object} element - The task element to calculate subtask progress for.
+ * @return {number} The calculated progress percentage.
+ */
 function calculateSubtaskProgress(element) {
-  // calculate progress if one ore more subtasks are marked done
   let substasksDone = checkSubtaskStatus(element);
   let progress = (substasksDone / element.subtasks.length) * 100;
   return progress;
 }
 
+/**
+ * Generates the HTML content for a "no tasks" message.
+ *
+ * @return {string} The HTML content for the "no tasks" message.
+ */
 function generateEmptyHTML() {
   return `<div class="task no-task">No tasks here</div>`;
 }
 
+/**
+ * Prevents the default behavior of the browser when an element is being dragged over a drop target.
+ *
+ * @param {DragEvent} event - The event object representing the drag and drop event.
+ * @return {void} This function does not return a value.
+ */
 function allowDrop(event) {
   event.preventDefault();
 }
 
+/**
+ * Moves the current dragged element to the specified status.
+ *
+ * @param {string} status - The status to move the dragged element to.
+ * @return {Promise<void>} A promise that resolves when the move is complete.
+ */
 async function moveTo(status) {
   allTasks[currentDraggedElement]["status"] = status;
-  // update status in database
   await storeAllTasksBoard();
-  // load tasks from database
   await loadAllTasks();
   updateHTML(allTasks);
 }
 
+/**
+ * Adds the "drag-area-highlight" class to the element with the specified ID.
+ *
+ * @param {string} id - The ID of the element to highlight.
+ * @return {void} This function does not return a value.
+ */
 function highlight(id) {
   document.getElementById(id).classList.add("drag-area-highlight");
 }
 
+/**
+ * Highlights all drag areas on the page by adding the "drag-area-highlight" class.
+ *
+ * @return {void} This function does not return a value.
+ */
 function highlightAreas() {
   let dragAreas = document.getElementsByClassName("drag-area");
   for (let i = 0; i < dragAreas.length; i++) {
@@ -156,6 +228,11 @@ function highlightAreas() {
   }
 }
 
+/**
+ * Removes the "drag-area-highlight" class from all elements with the class "drag-area".
+ *
+ * @return {void} This function does not return a value.
+ */
 function removeHighlightAreas() {
   let dragAreas = document.getElementsByClassName("drag-area");
   for (let i = 0; i < dragAreas.length; i++) {
@@ -163,19 +240,40 @@ function removeHighlightAreas() {
   }
 }
 
+/**
+ * Removes the "drag-area-highlight" class from the element with the specified ID.
+ *
+ * @param {string} id - The ID of the element to remove highlight from.
+ * @return {void} This function does not return a value.
+ */
 function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
+/**
+ * Highlights the card element being dragged by adding the "on-drag-highlight" class.
+ *
+ * @param {number} currentDraggedElement - The ID of the card element being dragged.
+ * @return {void} This function does not return a value.
+ */
 function dragCardHighlight(currentDraggedElement) {
   document.getElementById(`task${currentDraggedElement}`).classList.add("on-drag-highlight");
 }
 
+/**
+ * Asynchronously stores all tasks in the remoteTasks key of the remote storage.
+ *
+ * @return {Promise<void>} A promise that resolves when the tasks are successfully stored.
+ */
 async function storeAllTasksBoard() {
   await setItem("remoteTasks", allTasks);
 }
 
-// open addTask popup
+/**
+ * Opens the add task popup and initializes the necessary data.
+ *
+ * @return {Promise<void>} A promise that resolves when the add task popup is fully initialized.
+ */
 async function openAddTask() {
   document.getElementById("body").style.overflow = "hidden";
   let modalBg = document.getElementById("modal-bg");
@@ -189,11 +287,19 @@ async function openAddTask() {
   setPrioMedium();
 }
 
+/**
+ * Closes the modal by setting the width and left properties of the modal background element to 0 and 100% respectively.
+ * Sets the overflow property of the body element to "auto".
+ * Asynchronously calls the redoChangesToTaskForm and initBoard functions.
+ *
+ * @return {Promise<void>} A promise that resolves when the modal is closed and the necessary functions are called.
+ */
 async function closeModal() {
   let modalBg = document.getElementById("modal-bg");
   modalBg.style.width = 0;
   modalBg.style.left = "100%";
   document.getElementById("body").style.overflow = "auto";
+  document.getElementById('searchfield').value = "";
   await redoChangesToTaskForm();
   await initBoard();
 }
@@ -205,309 +311,19 @@ window.addEventListener("click", async function (event) {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
     document.getElementById("body").style.overflow = "auto";
+    document.getElementById('searchfield').value = "";
     await redoChangesToTaskForm();
     await initBoard();
   }
 });
 
-// create fullscreen tasks
-function openTaskDetails(index) {
-  document.getElementById("body").style.overflow = "hidden";
-  let modalBg = document.getElementById("modal-bg-details");
-  modalBg.style.width = "100%";
-  modalBg.style.left = 0;
-  let taskDetailsContainer = document.getElementById("task-details");
-  taskDetailsContainer.innerHTML = "";
-  taskDetailsContainer.innerHTML += createTaskDetailsHtml(index);
-  displayAssignedContacts(allTasks[index]);
-  displaySubstasks(allTasks[index]);
-}
-
-function createTaskDetailsHtml(index) {
-  let task = allTasks[index];
-  return /*html*/ `
-        <div class="details-top">
-            <span class="task-category" style="background-color: ${CATEGORY_COLORS[task.category]}">${task.category}</span>
-            <span id="close-modal" class="close-modal" onclick="closeModalDetails()">&times;</span>
-        </div>
-        <div class="details-bottom">
-            <h1 class="details-h1">${task.title}</h1>
-            <div class="description-container">
-              <p>Description: </p>
-              <p>${task.description}</p>
-            </div>
-            <div class="due-date">
-                <p>Due date:</p>
-                <p>${task.dueDate}</p>
-            </div>
-            <div class="priority-container">
-                <p>Priority:</p>
-                <div class="priority">
-                    <p>${task.priority}</p>
-                    <p>${generatePrioImage(task, allTasks)}</p>
-                </div>
-            </div>
-            <div class="assigned-to-container">
-                <p>Assigned to:</p>
-                <div class="assigned-to-contacts" id="assigned-to-contacts"></div>
-            </div>
-            <div class="subtasks-container">
-                <p class="subtasks-p" style="margin-block-end: 0.2em;">Subtasks:</p>
-                <div class="subtasks" id="subtasks"></div>
-            </div>
-            <div class="edit-and-delete-buttons">
-                <button onclick="deleteTask(${index})" onmouseover="turnBlue('delete-image', 'delete_blue.svg')" onmouseleave="turnBlack('delete-image', 'delete.svg')"><img src="../assets/img/icons/delete.svg" alt="" id="delete-image">Delete</button>
-                <img class="tiny_line_board" src="../assets/img/icons/tiny_line.png" alt="" style="height: fit-content;">
-                <button onclick="openEditTask(${index})" onmouseover="turnBlue('edit-image', 'edit_blue.svg')" onmouseleave="turnBlack('edit-image', 'edit.svg')"><img src="../assets/img/icons/edit.svg" alt="" id="edit-image">Edit</button>
-            </div>
-        </div>
-    `;
-}
-
-function displaySubstasks(task) {
-  let subtasksContainer = document.getElementById("subtasks");
-  subtasksContainer.innerHTML = "";
-  for (let i = 0; i < task["subtasks"].length; i++) {
-    const subtask = task["subtasks"][i];
-    if (subtask.statusSubtask == "inProgress") {
-      subtasksContainer.innerHTML += /*html*/ `
-                <div class="subtask">
-                    <img src="../assets/img/icons/check_box_empty.png" alt="" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})" id="subtask-checkbox${i}">
-                    <p class="subtask-text">${subtask.nameSubtask}</p>
-                </div>
-            `;
-    } else {
-      subtasksContainer.innerHTML += /*html*/ `
-                <div class="subtask">
-                    <img src="../assets/img/icons/checkbox_filled.png" alt="" id="checkbox-filled${i}" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})">
-                    <p class="subtask-text">${subtask.nameSubtask}</p>
-                </div>
-            `;
-    }
-  }
-}
-
-function toggleCheckbox(i, taskIndex) {
-  if (allTasks[taskIndex].subtasks[i].statusSubtask == "inProgress") {
-    allTasks[taskIndex].subtasks[i].statusSubtask = "done";
-    storeAllTasksBoard();
-    displaySubstasks(allTasks[taskIndex]);
-  } else {
-    allTasks[taskIndex].subtasks[i].statusSubtask = "inProgress";
-    storeAllTasksBoard();
-    displaySubstasks(allTasks[taskIndex]);
-  }
-}
-
-function displayAssignedContacts(task) {
-  let assignedContactContainer = document.getElementById("assigned-to-contacts");
-  assignedContactContainer.innerHTML = "";
-  for (let i = 0; i < task["assignedTo"].length; i++) {
-    const assignedContact = task["assignedTo"][i];
-
-    assignedContactContainer.innerHTML += /*html*/ `
-        <div class="assigned-to-contact">
-            <p class="initials_circle" style="background-color: ${assignedContact.contactColor}">${assignedContact.contactInitials}</p>
-            <p>${assignedContact.contactName}</p>
-        </div>
-    `;
-  }
-}
-
-async function deleteTask(index) {
-  allTasks.splice(index, 1);
-  await storeAllTasksBoard();
-  showSnackbarBoard('Task succesfully deleted');
-  closeModalDetails();
-  await initBoard();
-}
-
-async function closeModalDetails() {
-  let modalBg = document.getElementById("modal-bg-details");
-  modalBg.style.width = 0;
-  modalBg.style.left = "100%";
-  document.getElementById("body").style.overflow = "auto";
-  await initBoard();
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.addEventListener("click", async function (event) {
-  let modalBg = document.getElementById("modal-bg-details");
-  if (event.target == modalBg) {
-    modalBg.style.width = 0;
-    modalBg.style.left = "100%";
-    document.getElementById("body").style.overflow = "auto";
-    initBoard();
-  }
-});
-
-async function openEditTask(index) {
-  clearArrays();
-  closeModalDetails();
-  document.getElementById("body").style.overflow = "hidden";
-  let modalBg = document.getElementById("modal-bg");
-  modalBg.style.width = "100%";
-  modalBg.style.left = 0;
-  document.getElementById("add-task-heading").style.display = "none";
-  changeButtonsInTaskform(index);
-  document.getElementById('taskTitle').onkeyup = "borderRedIfTitleEmptyEdit()";
-  document.getElementById('categoryButton').setAttribute('disabled', 'true');
-  document.getElementById('taskDueDate').onchange = "borderRedIfDateEmptyEdit()";
-  await loadAllTasks();
-  await loadContacts();
-  await fillTaskFields(index);
-}
-
-async function fillTaskFields(index) {
-  document.getElementById("taskTitle").value = allTasks[index].title;
-  document.getElementById("taskDescription").value = allTasks[index].description;
-  document.getElementById("taskDueDate").value = allTasks[index].dueDate;
-  document.getElementById("assignedToDropdown").innerHTML = "";
-  document.getElementById("categoryDropdown").innerHTML = "";
-  document.getElementById("buttonName").innerHTML = allTasks[index].category;
-  setPrioButton(index);
-  allTasks[index].assignedTo.forEach((contact) => assignedContacts.push(contact));
-  allTasks[index].subtasks.forEach((subtask) => subtasks.push(subtask));
-  renderContactsToAssign();
-  showAssignedtoContacts();
-  renderCategories();
-  renderSubtasks();
-}
-
-function changeButtonsInTaskform(index) {
-  document.getElementById("buttons_container").innerHTML = /*html*/ `
-        <button onclick="checkRequiredFieldsEdit(${index})" id="save_changes_button" type="button" class="btn_dark">Ok <img src="../assets/img/icons/white_check.svg" alt="" /></button>
-    `;
-}
-
-async function saveTaskChanges(index) {
-  showSnackbarBoard('Changes saved');
-  allTasks[index].title = document.getElementById("taskTitle").value;
-  allTasks[index].description = document.getElementById("taskDescription").value;
-  allTasks[index].dueDate = document.getElementById("taskDueDate").value;
-  allTasks[index].assignedTo = assignedContacts;
-  allTasks[index].category = document.getElementById("buttonName").innerHTML;
-  allTasks[index].subtasks = subtasks;
-  allTasks[index].priority = priority;
-  await storeAllTasksBoard();
-  closeModal();
-}
-
-async function redoChangesToTaskForm() {
-  document.getElementById("add-task-heading").style.display = "block";
-  document.getElementById('buttons_container').innerHTML = /*html*/ `
-    <button id="clear-task-form-button" type="button" onmouseover="makeIconClearButtonBright()" onmouseleave="makeIconClearButtonDark()" onclick="clearForm()" class="btn_bright">Clear <img id="clearButtonImage" src="../assets/img/icons/black_x.svg" alt="" /></button>
-    <button id="submit_task_button" type="submit" class="btn_dark_disabled">Create Task <img src="../assets/img/icons/white_check.svg" alt="" /></button>
-  `;
-  document.getElementById('taskTitle').onkeyup = "borderRedIfTitleEmpty()";
-  document.getElementById('categoryButton').removeAttribute('disabled');
-}
-
-function checkRequiredFieldsEdit(index) {
-  if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
-    borderRedIfTitleEmptyEdit();
-  } else {
-    document.getElementById("save_changes_button").classList.remove("btn_dark_disabled");
-    document.getElementById("save_changes_button").classList.add("btn_dark");
-    saveTaskChanges(index);
-    document.getElementById("save_changes_button").classList.add("btn_dark_disabled");
-    document.getElementById("save_changes_button").classList.remove("btn_dark");
-  }
-}
-
-function borderRedIfTitleEmptyEdit() {
-  if (document.getElementById("taskTitle").value == "") {
-    document.getElementById("taskTitle").style.borderColor = "#ff8190";
-    document.getElementById("errorContainerTitle").classList.remove("hide_error");
-    document.getElementById("errorContainerTitle").classList.add("error_container");
-  } else {
-    document.getElementById("taskTitle").style.borderColor = "#a8a8a8";
-    document.getElementById("errorContainerTitle").classList.add("hide_error");
-    document.getElementById("errorContainerTitle").classList.remove("error_container");
-  }
-}
-
-function borderRedIfDateEmptyEdit() {
-  if (document.getElementById("taskDueDate").value == "") {
-    document.getElementById("taskDueDate").style.borderColor = "#ff8190";
-    document.getElementById("errorContainerDate").classList.remove("hide_error");
-    document.getElementById("errorContainerDate").classList.add("error_container");
-  } else {
-    document.getElementById("taskDueDate").style.borderColor = "#a8a8a8";
-    document.getElementById("errorContainerDate").classList.add("hide_error");
-    document.getElementById("errorContainerDate").classList.remove("error_container");
-  }
-}
-
-function borderRedIfCategoryEmptyEdit() {
-  if (document.getElementById("buttonName").textContent == "Select task Category") {
-    document.getElementById("categoryButton").style.borderColor = "#ff8190";
-    document.getElementById("errorContainerCategory").classList.remove("hide_error");
-    document.getElementById("errorContainerCategory").classList.add("error_container");
-  } else {
-    document.getElementById("categoryButton").style.borderColor = "#a8a8a8";
-    document.getElementById("errorContainerCategory").classList.add("hide_error");
-    document.getElementById("errorContainerCategory").classList.remove("error_container");
-  }
-}
-
-function setPrioButton(index) {
-  if (allTasks[index].priority == "urgent") {
-    setPrioUrgent();
-  } else if (allTasks[index].priority == "medium") {
-    setPrioMedium();
-  } else {
-    setPrioLow();
-  }
-}
-
-// search function
-function renderAllOrMatchingTodos() {
-  findMatchingTitles();
-  document.getElementById("errorContainer").innerHTML = "";
-  if (saveInputValue() == "") {
-    updateHTML(allTasks); // Todo
-  } else {
-    renderErrorOrMatchingDodos();
-  }
-}
-
-async function findMatchingTitles() {
-  await pushMatchingTodos(saveInputValue());
-}
-
-function saveInputValue() {
-  let search = document.getElementById("searchfield").value;
-  return search.toLowerCase();
-}
-
-async function pushMatchingTodos(search) {
-  matchingTodos = [];
-  for (let index = 0; index < allTasks.length; index++) {
-    let title = allTasks[index].title;
-    let description = allTasks[index].description;
-    if (title.toLowerCase().includes(search) || description.toLowerCase().includes(search)) {
-      matchingTodos.push(allTasks[index]);
-    }
-  }
-}
-
-function renderErrorOrMatchingDodos() {
-  if (matchingTodos.length == 0) {
-    renderErrorBoard();
-    updateHTML(matchingTodos);
-  } else {
-    updateHTML(matchingTodos); // ToDo
-  }
-}
-
-function renderErrorBoard() {
-  let errorContent = document.getElementById("errorContainer");
-  errorContent.innerHTML += `
-  Keine Ergebnisse gefunden.
-  `;
-}
-
+/**
+ * Opens the add task popup via the according status and initializes the necessary data.
+ * The status is automatically set to the status of the area.
+ *
+ * @param {string} status - The status to set.
+ * @return {Promise<void>} A promise that resolves when the add task popup is fully initialized.
+ */
 async function openAddTaskAndSetStatus(status) {
   document.getElementById("body").style.overflow = "hidden";
   let modalBg = document.getElementById("modal-bg");
@@ -520,6 +336,12 @@ async function openAddTaskAndSetStatus(status) {
   localStorage.setItem("status", status);
 }
 
+/**
+ * Displays a snackbar message on the board with the given message.
+ *
+ * @param {string} message - The message to be displayed in the snackbar.
+ * @return {Promise<void>} A promise that resolves when the snackbar is hidden after 2.5 seconds.
+ */
 async function showSnackbarBoard(message) {
   let snackbarBoard = document.getElementById("snackbar-board");
   snackbarBoard.className = "show";
