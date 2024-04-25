@@ -2,6 +2,7 @@ let allTasks = [];
 let priority;
 let categories = ["Technical Task", "User Story"];
 let assignedContacts = [];
+let subtasks = [];
 
 /**
  * Initializes the page by including HTML, loading all tasks, loading contacts, rendering contacts to assign,
@@ -38,6 +39,15 @@ async function init() {
 async function loadAllTasks() {
   let response = await getItem("remoteTasks");
   allTasks = await JSON.parse(response);
+}
+
+/**
+ * Asynchronously stores all tasks in the "remoteTasks" storage.
+ *
+ * @return {Promise<void>} A promise that resolves when the tasks are stored.
+ */
+async function storeAllTasks() {
+  await setItem("remoteTasks", allTasks);
 }
 
 /**
@@ -89,36 +99,12 @@ async function addTask(task) {
 }
 
 /**
- * Displays a snackbar with the given message and hides it after 3 seconds.
- *
- * @param {string} message - The message to be displayed in the snackbar.
- * @return {void} This function does not return anything.
- */
-function showSnackbarAddTasks(message) {
-  let snackbarAddTask = document.getElementById("snackbarAddTask");
-  snackbarAddTask.className = "show";
-  snackbarAddTask.innerHTML = message;
-  setTimeout(function () {
-    snackbarAddTask.className = snackbarAddTask.className.replace("show", "");
-  }, 3000);
-}
-
-/**
  * Adds a task to the allTasks array.
  *
  * @param {Object} task - The task object to be added.
  */
 function pushTask(task) {
   allTasks.push(task);
-}
-
-/**
- * Asynchronously stores all tasks in the "remoteTasks" storage.
- *
- * @return {Promise<void>} A promise that resolves when the tasks are stored.
- */
-async function storeAllTasks() {
-  await setItem("remoteTasks", allTasks);
 }
 
 /**
@@ -166,73 +152,6 @@ function redirectToBoard() {
 }
 
 /**
- * Sets the priority of the task to "urgent" and updates the user interface accordingly.
- *
- * @return {undefined} This function does not return a value.
- */
-function setPrioUrgent() {
-  priority = "urgent";
-  document.getElementById("urgentButton").classList.add("urgent_button");
-  document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_white.svg";
-  removeMediumPrio();
-  removeLowPrio();
-}
-
-/**
- * Sets the priority to "medium" and updates the corresponding button and image elements.
- *
- * @return {void} This function does not return a value.
- */
-function setPrioMedium() {
-  priority = "medium";
-  document.getElementById("mediumButton").classList.add("medium_button");
-  document.getElementById("mediumImage").src = "../assets/img/icons/prio_medium_white.svg";
-  removeLowPrio();
-  removeUrgentPrio();
-}
-
-/**
- * Sets the priority to low, adds a CSS class to the low button, changes the image source to a low priority icon, and removes any existing medium and urgent priorities.
- */
-function setPrioLow() {
-  priority = "low";
-  document.getElementById("lowButton").classList.add("low_button");
-  document.getElementById("lowImage").src = "../assets/img/icons/prio_low_white.svg";
-  removeMediumPrio();
-  removeUrgentPrio();
-}
-
-/**
- * Removes the "urgent" priority styling by removing the CSS class from the urgent button and changing the image source to a red priority icon.
- *
- * @return {undefined} This function does not return a value.
- */
-function removeUrgentPrio() {
-  document.getElementById("urgentButton").classList.remove("urgent_button");
-  document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_red.svg";
-}
-
-/**
- * Removes the medium priority from the button and updates the corresponding image source.
- *
- * @return {undefined} This function does not return a value.
- */
-function removeMediumPrio() {
-  document.getElementById("mediumButton").classList.remove("medium_button");
-  document.getElementById("mediumImage").src = "../assets/img/icons/prio_medium_orange.svg";
-}
-
-/**
- * Removes the low priority styling by removing the CSS class from the low button and changing the image source to a green low priority icon.
- *
- * @return {undefined} This function does not return a value.
- */
-function removeLowPrio() {
-  document.getElementById("lowButton").classList.remove("low_button");
-  document.getElementById("lowImage").src = "../assets/img/icons/prio_kow_green.svg";
-}
-
-/**
  * Sets the source of the "clearButtonImage" element to the bright version of the addTask_x icon.
  *
  * @return {void} This function does not return a value.
@@ -269,65 +188,6 @@ function turnDateColorBlack() {
 function turnDateColorGrey() {
   document.getElementById("taskDueDate").classList.add("date");
   document.getElementById("taskDueDate").classList.remove("date_after_change");
-}
-
-/**
- * Sets the border color of the "taskTitle" element to red and shows an error message if the title is empty.
- *
- * @return {undefined} This function does not return a value.
- */
-function borderRedIfTitleEmpty() {
-  if (document.getElementById("taskTitle").value == "") {
-    document.getElementById("taskTitle").style.borderColor = "#ff8190";
-    document.getElementById("errorContainerTitle").classList.remove("hide_error");
-    document.getElementById("errorContainerTitle").classList.add("error_container");
-    disOrEnableButton();
-  } else {
-    document.getElementById("taskTitle").style.borderColor = "#a8a8a8";
-    document.getElementById("errorContainerTitle").classList.add("hide_error");
-    document.getElementById("errorContainerTitle").classList.remove("error_container");
-    disOrEnableButton();
-  }
-}
-
-/**
- * Sets the border color of the "taskDueDate" element to red if it is empty and to grey otherwise.
- *
- * @return {void} This function does not return a value.
- */
-function borderRedIfDateEmpty() {
-  turnDateColorBlack();
-  if (document.getElementById("taskDueDate").value == "") {
-    document.getElementById("taskDueDate").style.borderColor = "#ff8190";
-    document.getElementById("errorContainerDate").classList.remove("hide_error");
-    document.getElementById("errorContainerDate").classList.add("error_container");
-    disOrEnableButton();
-  } else {
-    document.getElementById("taskDueDate").style.borderColor = "#a8a8a8";
-    document.getElementById("errorContainerDate").classList.add("hide_error");
-    document.getElementById("errorContainerDate").classList.remove("error_container");
-    disOrEnableButton();
-  }
-}
-
-/**
- * Sets the border color of the "categoryButton" element to red if the button name is "Select task Category" and shows an error message,
- * otherwise sets the border color to grey.
- *
- * @return {void} This function does not return a value.
- */
-function borderRedIfCategoryEmpty() {
-  if (document.getElementById("buttonName").textContent == "Select task Category") {
-    document.getElementById("categoryButton").style.borderColor = "#ff8190";
-    document.getElementById("errorContainerCategory").classList.remove("hide_error");
-    document.getElementById("errorContainerCategory").classList.add("error_container");
-    disOrEnableButton();
-  } else {
-    document.getElementById("categoryButton").style.borderColor = "#a8a8a8";
-    document.getElementById("errorContainerCategory").classList.add("hide_error");
-    document.getElementById("errorContainerCategory").classList.remove("error_container");
-    disOrEnableButton();
-  }
 }
 
 /**
@@ -467,6 +327,12 @@ function selectCategory(i) {
   borderRedIfCategoryEmpty();
 }
 
+/**
+ * Adds a checkbox image for a contact based on the comparison of contact mails.
+ *
+ * @param {number} j - The index of the contact.
+ * @return {void} This function does not return a value.
+ */
 function addCheckboxImage(j) {
   for (let i = 0; i < assignedContacts.length; i++) {
     const assContact = assignedContacts[i];
@@ -478,6 +344,12 @@ function addCheckboxImage(j) {
   }
 }
 
+/**
+ * Handles the selection of an assigned contact.
+ *
+ * @param {number} i - The index of the selected contact.
+ * @return {Promise<void>} A promise that resolves when the selection process is complete.
+ */
 async function selectAssignedContact(i) {
   if (document.getElementById(`checkBoxImage${i}`).src.endsWith("/checkbox_filled.png")) {
     document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
@@ -495,23 +367,52 @@ async function selectAssignedContact(i) {
   showAssignedtoContacts();
 }
 
+/**
+ * Sets the source of the checkbox image to the filled checkbox icon.
+ *
+ * @param {number} i - The index of the checkbox image.
+ * @return {undefined} This function does not return a value.
+ */
 function fillCheckboxImage(i) {
   document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_filled.png";
 }
 
+/**
+ * Sets the source of the checkbox image to the empty checkbox icon.
+ *
+ * @param {number} i - The index of the checkbox image.
+ * @return {void} This function does not return anything.
+ */
 function emptyCheckboxImage(i) {
   document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
 }
 
+/**
+ * Pushes the contact at index `i` from the `contacts` array into the `assignedContacts` array.
+ *
+ * @param {number} i - The index of the contact in the `contacts` array.
+ * @return {void} This function does not return a value.
+ */
 function pushAssignedContacts(i) {
   let assignedContact = contacts[i];
   assignedContacts.push(assignedContact);
 }
 
+/**
+ * A function that stops the propagation of the event.
+ *
+ * @param {type} paramName - description of parameter
+ * @return {type} description of return value
+ */
 function stopPropagation() {
   event.stopPropagation(onclick);
 }
 
+/**
+ * Renders the assigned contacts in the "assignedtoContactsContainer" element.
+ *
+ * @return {void} This function does not return anything.
+ */
 function showAssignedtoContacts() {
   document.getElementById("assignedtoContactsContainer").innerHTML = "";
   for (let i = 0; i < assignedContacts.length; i++) {
@@ -529,128 +430,14 @@ function showAssignedtoContacts() {
   }
 }
 
+/**
+ * Generates the HTML code for an initial circle element.
+ *
+ * @param {number} i - The index of the contact in the contacts array.
+ * @return {string} The generated HTML code for the initial circle element.
+ */
 function generateInitialCircles(i) {
   return `
   <div id="initialCircle${i}" style="background-color:${contacts[i].contactColor}" class="initials_circle"><span class="initials_span">${contacts[i].contactInitials}</span></div>
   `;
-}
-
-let subtasks = [];
-
-function addBorderColorBlue() {
-  document.getElementById("subtaskContainer").classList.add("subtask_container_blue_border");
-}
-
-function removeBorderColorBlue() {
-  document.getElementById("subtaskContainer").classList.remove("subtask_container_blue_border");
-}
-
-window.addEventListener("click", function (e) {
-  if (document.getElementById("subtaskContainer").contains(e.target)) {
-    addBorderColorBlue();
-  } else {
-    removeBorderColorBlue();
-  }
-});
-
-function showIconsSubtasks() {
-  if (document.getElementById("taskSubtask").value !== "") {
-    document.getElementById("iconsSubtasksContainer").classList.remove("d_none");
-  } else {
-    document.getElementById("iconsSubtasksContainer").classList.add("d_none");
-  }
-}
-
-function clearSubtask() {
-  document.getElementById("taskSubtask").value = "";
-  document.getElementById("iconsSubtasksContainer").classList.add("d_none");
-  removeBorderColorBlue();
-  event.stopPropagation();
-}
-
-function addSubtask() {
-  if (document.getElementById("taskSubtask").value) {
-    let nameSubtask = document.getElementById("taskSubtask").value;
-    let statusSubtask = "inProgress";
-    let subtask = {
-      nameSubtask: nameSubtask,
-      statusSubtask: statusSubtask,
-    };
-    subtasks.push(subtask);
-    renewSubtasks();
-  }
-  removeBorderColorBlue();
-  event.stopPropagation();
-}
-
-function renewSubtasks() {
-  clearSubtask();
-  renderSubtasks();
-}
-
-function renderSubtasks() {
-  document.getElementById("subtasksRenderContainer").innerHTML = "";
-  for (let i = 0; i < subtasks.length; i++) {
-    let subtaskName = subtasks[i].nameSubtask;
-    document.getElementById("subtasksRenderContainer").innerHTML += generateSubtasks(i, subtaskName);
-  }
-}
-
-function generateSubtasks(i, subtaskName) {
-  return `<div id="renderedSubtask${i}" onclick="makeRenderedSubtasksEditable(${i})" onmouseover="showPenAndTrash(${i})" onmouseout="hidePenAndTrash(${i})" class="rendered_subtask" contenteditable="true">
-  <div class="span_container ">
-    <span class="rendered_subtasks_span">&#x2022</span>
-    <span id="subtasName${i}"> ${subtaskName}</span>
-  </div>
-  <div id="containerPenAndTrash${i}" class="d_none">
-    <img onclick="makeRenderedSubtasksEditable(${i})" id="pen${i}" src="../assets/img/icons/subtasks_pen.png" alt="">
-    <img src="../assets/img/icons/subtask_line.png" alt="">
-    <img onclick="deleteSubtask(${i})" id="trash${i}" src="../assets/img/icons/subtask_trash.png" alt="">
-  </div>
-  <div id="containerTrashAndCheck${i}" class="d_none">
-    <img onclick="deleteRenderedSubtask(${i})" src="../assets/img/icons/subtask_trash.png" alt="">
-    <img src="../assets/img/icons/subtask_line.png" alt="">
-    <img onclick="overwriteSubtask(${i})" src="../assets/img/icons/subtask_check.png" alt="">
-  </div>
-</div>`;
-}
-
-function showPenAndTrash(i) {
-  document.getElementById(`containerPenAndTrash${i}`).classList.remove("d_none");
-}
-
-function hidePenAndTrash(i) {
-  document.getElementById(`containerPenAndTrash${i}`).classList.add("d_none");
-}
-
-function deleteSubtask(i) {
-  subtasks.splice(i, 1);
-  renderSubtasks();
-  event.stopPropagation();
-}
-
-function makeRenderedSubtasksEditable(i) {
-  document.getElementById(`renderedSubtask${i}`).setAttribute("contenteditable", true);
-  document.getElementById(`renderedSubtask${i}`).onmouseover = function () {};
-  hidePenAndTrash(i);
-  showTrashAndCheck(i);
-}
-
-function showTrashAndCheck(i) {
-  document.getElementById(`containerTrashAndCheck${i}`).classList.remove("d_none");
-}
-
-function deleteRenderedSubtask(i) {
-  deleteSubtask(i);
-  event.stopPropagation();
-}
-
-function overwriteSubtask(i) {
-  let newValueSubtaskName = document.getElementById(`subtasName${i}`).innerText;
-  subtasks[i].nameSubtask = newValueSubtaskName;
-  renderSubtasks();
-  document.getElementById(`containerTrashAndCheck${i}`).classList.add("d_none");
-  event.stopPropagation();
-  document.getElementById(`containerPenAndTrash${i}`).classList.add("d_none");
-  event.stopPropagation();
 }
