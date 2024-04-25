@@ -14,7 +14,7 @@
     <div class="header_and_main">
       <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
       <main>
-        <img class="arrow_redirect" src="../assets/img/icons/arrow_left.png" alt="go to login" onclick="window.location.href = '../summary/summary.html';">
+        <img class="arrow_redirect" src="../assets/img/icons/arrow_left.png" alt="go to login" onclick="window.location.href = '../summary/summary.html';" />
         <h1>Help</h1>
         <p>
           Welcome to the help page for <a class="link_in_legals" href="">Join</a>, your guide to using our kanban project management tool. Here, we'll provide an overview of what<a
@@ -77,7 +77,7 @@
     <script>
       async function initHelp() {
         await includeHTML();
-        loadUserInitials();
+        await loadUserInitials();
       }
     </script>
   </body>
