@@ -54,7 +54,7 @@ function resetLogInForm() {
  *
  */
 function checkBox() {
-  if (document.getElementById("email").value == "" ||document.getElementById("password").value == "") {
+  if (document.getElementById("email").value == "" || document.getElementById("password").value == "") {
     if (document.getElementById("remember_me").hasAttribute("disabled")) {
     } else {
       document.getElementById("remember_me").setAttribute("disabled", "disabled");
@@ -62,7 +62,7 @@ function checkBox() {
   } else {
     document.getElementById("remember_me").removeAttribute("disabled");
     policyCheckbox = document.getElementById("remember_me");
-    policyCheckbox.src = "../assets/img/icons/checkbox_filled.png";
+    policyCheckbox.src = "../assets/img/icons/check_full_no_padding.svg";
     saveLogInLocalStorage();
   }
 }
@@ -96,7 +96,6 @@ function loadRememberMe() {
   password.value = userPassword;
   disOrEnableLogInBtn();
 }
-
 
 /**
  * Finds a user in the users array based on the email and password entered by the user.

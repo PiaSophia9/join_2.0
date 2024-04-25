@@ -233,6 +233,15 @@ function disOrEnableButton() {
  */
 function toggleDropdownAssignedTo() {
   document.getElementById("assignedToDropdown").classList.toggle("show");
+  changeBackgroundImageAssignedTo();
+}
+
+function changeBackgroundImageAssignedTo() {
+  if (document.getElementById("assignedToButton").style.backgroundImage == 'url("../assets/img/icons/arrow_drop_down.svg")') {
+    document.getElementById("assignedToButton").style.backgroundImage = 'url("../assets/img/icons/arrow_drop_up.svg")';
+  } else {
+    document.getElementById("assignedToButton").style.backgroundImage = 'url("../assets/img/icons/arrow_drop_down.svg")';
+  }
 }
 
 /**
@@ -273,7 +282,7 @@ function generateContactToAssign(i) {
     <div  style="background-color:${contacts[i].contactColor}" class="initials_circle"><span class="initials_span">${contacts[i].contactInitials}</span></div>
     <span id="contacts${i}">${contacts[i].contactName}</span>
   </div>
-  <div id="checkboxContainer${i}"><img id="checkBoxImage${i}" src="../assets/img/icons/checkbox_empty.png" alt=""></div>
+  <div id="checkboxContainer${i}"><img class="assigned_to_checkbox_mage" id="checkBoxImage${i}" src="../assets/img/icons/check_empty_with_padding.svg" alt=""></div>
 </div>`;
 }
 
@@ -284,6 +293,15 @@ function generateContactToAssign(i) {
  */
 function toggleDropdownCategory() {
   document.getElementById("categoryDropdown").classList.toggle("show");
+  changeBackgroundImage();
+}
+
+function changeBackgroundImage() {
+  if (document.getElementById("categoryButton").style.backgroundImage == 'url("../assets/img/icons/arrow_drop_down.svg")') {
+    document.getElementById("categoryButton").style.backgroundImage = 'url("../assets/img/icons/arrow_drop_up.svg")';
+  } else {
+    document.getElementById("categoryButton").style.backgroundImage = 'url("../assets/img/icons/arrow_drop_down.svg")';
+  }
 }
 
 /**
@@ -321,8 +339,6 @@ function generateCategories(i) {
 function selectCategory(i) {
   document.getElementById("categoryButton").innerHTML = `
   <span id="buttonName">${categories[i]}</span>
-  
-  <img onclick="event.stopPropagation(); toggleDropdownCategory()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png"/>
   `;
   borderRedIfCategoryEmpty();
 }
@@ -339,7 +355,7 @@ function addCheckboxImage(j) {
     const contact = contacts[j];
 
     if (assContact.contactMail == contact.contactMail) {
-      document.getElementById(`checkBoxImage${j}`).src = "../assets/img/icons/checkbox_filled.png";
+      document.getElementById(`checkBoxImage${j}`).src = "../assets/img/icons/check_full_with_padding.svg";
     }
   }
 }
@@ -351,8 +367,8 @@ function addCheckboxImage(j) {
  * @return {Promise<void>} A promise that resolves when the selection process is complete.
  */
 async function selectAssignedContact(i) {
-  if (document.getElementById(`checkBoxImage${i}`).src.endsWith("/checkbox_filled.png")) {
-    document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
+  if (document.getElementById(`checkBoxImage${i}`).src.endsWith("/check_full_with_padding.svg")) {
+    document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/check_empty_with_padding.svg";
     let currentContact = contacts[i];
     for (let j = 0; j < assignedContacts.length; j++) {
       let assignedContact = assignedContacts[j];
@@ -374,7 +390,7 @@ async function selectAssignedContact(i) {
  * @return {undefined} This function does not return a value.
  */
 function fillCheckboxImage(i) {
-  document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_filled.png";
+  document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/check_full_with_padding.svg";
 }
 
 /**
@@ -384,7 +400,7 @@ function fillCheckboxImage(i) {
  * @return {void} This function does not return anything.
  */
 function emptyCheckboxImage(i) {
-  document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/checkbox_empty.png";
+  document.getElementById(`checkBoxImage${i}`).src = "..assets/img/icons/check_empty_with_padding.svg";
 }
 
 /**

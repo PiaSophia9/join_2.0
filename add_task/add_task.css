@@ -208,6 +208,10 @@ input:-internal-autofill-selected {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-image: url("../assets/img/icons/arrow_drop_down.svg");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-position-x: calc(100% - 16px);
 }
 
 .dropbtn:focus {
@@ -232,6 +236,10 @@ input:-internal-autofill-selected {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-image: url("../assets/img/icons/arrow_drop_down.svg");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-position-x: calc(100% - 16px);
 }
 
 .dropbtnAssignedContact:focus {
@@ -403,6 +411,11 @@ input:focus {
     background-color: #2a3647;
   }
 }
+
+/* .assigned_to_checkbox_mage {
+  width: 16px;
+  height: 16px;
+} */
 
 ::-webkit-scrollbar {
   width: 10px;

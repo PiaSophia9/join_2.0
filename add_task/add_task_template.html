@@ -14,9 +14,8 @@
           </div>
           <div class="dropdown">
             <label class="label_add_task">Assigned to</label>
-            <button type="button" onclick="toggleDropdownAssignedTo()" class="dropbtnAssignedContact">
+            <button id="assignedToButton" type="button" onclick="toggleDropdownAssignedTo()" class="dropbtnAssignedContact" style='background-image: url("../assets/img/icons/arrow_drop_down.svg")'>
               Select contacts to assign 
-              <img onclick="event.stopPropagation(); toggleDropdownAssignedTo()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png" alt="" />
           </button>
             <div id="assignedToDropdown" class="dropdown-content assignedto_dropdown">
           </div>
@@ -37,12 +36,9 @@
               <button id="lowButton" onclick="setPrioLow()" type="button" class="prio_buttons">Low <img id="lowImage" class="low_image" src="../assets/img/icons/prio_kow_green.svg" alt="" /></button>
             </div>
           </div>
-
           <div class="dropdown">
             <label class="label_add_task">Category<span class="red">*</span></label>
-            <button id="categoryButton" type="button" onclick="toggleDropdownCategory()" class="dropbtn"> <span id="buttonName">Select task Category</span>
-               
-              <img onclick="event.stopPropagation(); toggleDropdownCategory()" class="dropdown_arrow" src="../assets/img/icons/arrow_down_dropdown.png"/>
+            <button id="categoryButton" type="button" onclick="toggleDropdownCategory()" class="dropbtn" style='background-image: url("../assets/img/icons/arrow_drop_down.svg")';> <span id="buttonName">Select task Category</span>
           </button>
             <div id="categoryDropdown" class="dropdown-content">
           </div>
