@@ -149,16 +149,17 @@ h2 {
   color: #29abe2;
 }
 
-@media (max-width: 1345px) {
+@media (max-width: 1460px) {
   h2 {
     font-size: 32px;
   }
-  #logged_user {
-    font-size: 32px;
+
+  #greetings {
+    font-size: 40px;
   }
 
-  .left {
-    width: 150px;
+  #logged_user {
+    font-size: 40px;
   }
 
   .right {
@@ -187,13 +188,16 @@ h2 {
   .headline_container {
     display: block;
   }
+
   h1 {
     margin-block-start: 0;
     margin-block-end: 0;
   }
+
   .blue_line {
     content:url("../assets/img/line.png");
   }
+
   .task_container {
     width: 420px;
     gap: 8px;
@@ -211,14 +215,17 @@ h2 {
   .headline_container {
     width: 420px;
   }
+
   .overview {
     width: 100px;
     padding: 10px 20px 10px 20px;
   }
+
   .size_20 {
     width: 80px;
   }
 }
+
 @media (max-width: 700px) {
   h2 {
     position: absolute;
@@ -226,6 +233,7 @@ h2 {
     opacity: 1;
     animation: fade-out 1s ease 1s forwards;
   }
+
   #logged_user {
     position: absolute;
     z-index: 10;
@@ -233,6 +241,7 @@ h2 {
     animation: fade-out 1s ease 1s forwards;
     top: 450px;
   }
+
   .left {
     display: flex;
     justify-content: center;
@@ -246,10 +255,12 @@ h2 {
     opacity: 1;
     animation: slide-in-out 1s ease 1s forwards;
   }
+
   .headline_container {
     opacity: 0;
     animation: fade-in 1s ease 1s forwards;
   }
+
   .right {
     opacity: 0;
     animation: fade-in 1s ease 1s forwards;
@@ -325,6 +336,7 @@ h2 {
     height: 110px;  
     }
 }
+
 @media (max-width: 400px) {
     .headline_container {
         width: 200px;
