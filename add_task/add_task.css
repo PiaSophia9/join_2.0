@@ -424,6 +424,10 @@ input:focus {
 }
 
 @media (max-width: 1030px) {
+  .p_add_task {
+    margin-bottom: 24px;
+  }
+
   .upper_part {
     flex-direction: column;
     width: 100%;
@@ -529,9 +533,5 @@ input:focus {
 
   .medium_img {
     margin-bottom: 0;
-  }
-
-  .p_add_task {
-    margin-bottom: 24px;
   }
 }
