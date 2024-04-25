@@ -12,7 +12,7 @@ async function init() {
   unlogAllSidebarLinks();
   logSidebarLink("addTaskSidebar");
   setPrioMedium();
-  loadUserInitials();
+  await loadUserInitials();
 }
 
 // Bitte nicht löschen! Kann später noch verwendet werden.
