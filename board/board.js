@@ -194,6 +194,7 @@ async function openAddTask() {
   await loadContacts();
   renderContactsToAssign();
   renderCategories();
+  setPrioMedium();
 }
 
 async function closeModal() {
@@ -359,6 +360,7 @@ async function openEditTask(index) {
   changeButtonsInTaskform(index);
   document.getElementById('taskTitle').onkeyup = "borderRedIfTitleEmptyEdit()";
   document.getElementById('categoryButton').setAttribute('disabled', 'true');
+  document.getElementById('taskDueDate').onchange = "borderRedIfDateEmptyEdit()";
   await loadAllTasks();
   await loadContacts();
   await fillTaskFields(index);
@@ -412,8 +414,6 @@ async function redoChangesToTaskForm() {
 function checkRequiredFieldsEdit(index) {
   if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
     borderRedIfTitleEmptyEdit();
-    borderRedIfDateEmptyEdit();
-    borderRedIfCategoryEmptyEdit();
   } else {
     document.getElementById("save_changes_button").classList.remove("btn_dark_disabled");
     document.getElementById("save_changes_button").classList.add("btn_dark");
@@ -436,7 +436,6 @@ function borderRedIfTitleEmptyEdit() {
 }
 
 function borderRedIfDateEmptyEdit() {
-  turnDateColorBlack();
   if (document.getElementById("taskDueDate").value == "") {
     document.getElementById("taskDueDate").style.borderColor = "#ff8190";
     document.getElementById("errorContainerDate").classList.remove("hide_error");

@@ -18,36 +18,3 @@ async function getItem(key) {
       throw `Could not find data with key "${key}".`;
     });
 }
-
-// Hinweis aus dem Video: eine direkte "delete" Funktion gibt es nicht, von daher kannst du deine Daten nur "leeren". Die Lösung ist hier somit ein leeres Array hoch zu laden.
-// let users = [
-//   {
-//     id: 0,
-//     name: "Dominik",
-//     mail: "d.grunow@hotmail.de",
-//     password: "passwort123"
-//   }
-// ]
-
-// let contacts = [
-//   {
-//     users: [users.id, users.id],
-//     name: "",
-//     mail: "",
-//     phone: 252454
-//   }
-// ]
-
-// let tasks = [
-//   {
-//     user: users.id,
-//     category: "arbeit",
-//     description: "Mach was",
-//     due_date: "30.04.2024",
-
-//   },
-//   {
-//     user: users.id,
-
-//   }
-// ]

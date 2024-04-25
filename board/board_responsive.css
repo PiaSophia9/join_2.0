@@ -278,7 +278,9 @@ main {
   }
 
   .task-details {
-    padding: 16px 16px 16px 16px;
+    padding: 16px 16px 48px 16px;
+    height: 65vh;
+    width: 65%;
   }
 
   .details-h1 {
