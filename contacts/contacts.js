@@ -87,38 +87,8 @@ function displayContactDetails(i) {
   let contactContainer = document.getElementById("contact-container");
   let contact = contacts[i];
   let contactInformation = document.getElementById("contact-information");
-
-  contactContainer.innerHTML = /*html*/ `
-        <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_overview"><span class="initials_span">${contact.contactInitials}</span></div>
-        <div class="name-and-edit">
-            <div class="name_container">
-                <span class="contact_name">${contact.contactName}</span>
-            </div>
-            <div class="edit_delete_container">
-
-                <button class="edit-button" onclick="openEditContact(${i})" onmouseover="turnBlue('penContacts', 'edit_blue.svg')" onmouseleave="turnBlack('penContacts', 'edit.svg')">
-                  <img id="penContacts" class="penContacts" src="../assets/img/icons/edit.svg" alt="">
-                  Edit
-                </button>
-                <button class="edit-button" onclick="deleteContactInOverview(${i})" onmouseover="turnBlue('trashContacts', 'delete_blue.svg')" onmouseleave="turnBlack('trashContacts', 'delete.svg')">
-                  <img id="trashContacts" src="../assets/img/icons/delete.svg" alt="">
-                  Delete
-                </button>
-            </div>
-        </div>
-        <div id="editDeleteButtonContainer" class="edit_delete_button_container d_none">
-          <button class="edit_mobile_button" type="button" onclick="openEditContact(${i})">Edit</button>
-          <button class="delete_mobile_button" type="button" onclick="deleteContactInOverview(${i})">Delete</button>
-        </div>
-    `;
-
-  contactInformation.innerHTML = /*html*/ `
-        <p>Contact Information</p>
-        <h4>Email</h4>
-        <a class="contact-email" href="mailto: ${contact.contactMail}">${contact.contactMail}</a>
-        <h4>Phone</h4>
-        <span>${contact.contactPhone}</span>
-    `;
+  contactContainer.innerHTML = generateContacts(contact, i);
+  contactInformation.innerHTML = generateContactInformation(contact);
   if (window.innerWidth < 900) {
     document.getElementById("leftSection").classList.add("d_none");
     document.getElementById("rightSection").classList.add("d_block");
@@ -126,6 +96,39 @@ function displayContactDetails(i) {
     document.getElementById("personButtonContacts").classList.add("d_none");
     document.getElementById("threeDotsButtonContacts").classList.remove("d_none");
   }
+}
+
+function generateContactInformation(contact) {
+  return /*html*/ `<p>Contact Information</p>
+                  <h4>Email</h4>
+                  <a class="contact-email" href="mailto: ${contact.contactMail}">${contact.contactMail}</a>
+                  <h4>Phone</h4>
+                  <span>${contact.contactPhone}</span>`;
+}
+
+function generateContacts(contact, i) {
+  return /*html*/ `<div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_overview">
+                      <span class="initials_span">${contact.contactInitials}</span>
+                   </div>
+                      <div class="name-and-edit">
+                        <div class="name_container">
+                            <span class="contact_name">${contact.contactName}</span>
+                        </div>
+                      <div class="edit_delete_container">
+                        <button class="edit-button" onclick="openEditContact(${i})" onmouseover="turnBlue('penContacts', 'edit_blue.svg')" onmouseleave="turnBlack('penContacts', 'edit.svg')">
+                          <img id="penContacts" class="penContacts" src="../assets/img/icons/edit.svg" alt="">
+                          Edit
+                        </button>
+                        <button class="edit-button" onclick="deleteContactInOverview(${i})" onmouseover="turnBlue('trashContacts', 'delete_blue.svg')" onmouseleave="turnBlack('trashContacts', 'delete.svg')">
+                          <img id="trashContacts" src="../assets/img/icons/delete.svg" alt="">
+                          Delete
+                        </button>
+                    </div>
+                </div>
+                <div id="editDeleteButtonContainer" class="edit_delete_button_container d_none">
+                  <button class="edit_mobile_button" type="button" onclick="openEditContact(${i})">Edit</button>
+                  <button class="delete_mobile_button" type="button" onclick="deleteContactInOverview(${i})">Delete</button>
+                </div>`;
 }
 
 function showLeftSection() {

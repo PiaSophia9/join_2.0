@@ -285,6 +285,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .details-bottom {
   height: 100%;
   overflow-y: auto;
+  padding-right: 8px;
 }
 
 .due-date,
