@@ -1,6 +1,11 @@
 body {
     display: block;
 }
+.container_main_signUp {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 a {
     text-decoration: none;
@@ -16,7 +21,6 @@ a {
     overflow: hidden;
     display: flex;
     justify-content: center;
-    margin-bottom: 200px;
     position: relative;
 }
 

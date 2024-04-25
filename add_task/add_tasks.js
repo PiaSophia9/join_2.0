@@ -6,7 +6,7 @@ async function init() {
   includeHTML();
   await loadAllTasks();
   await loadContacts();
-  renderContactsToAssign();
+  await renderContactsToAssign();
   renderCategories();
   showAssignedtoContacts();
   unlogAllSidebarLinks();
@@ -90,6 +90,7 @@ function clearForm() {
   removeUrgentPrio();
   removeMediumPrio();
   removeLowPrio();
+  setPrioMedium();
   clearArrays();
   renderContactsToAssignWithemptyCheckbox();
   turnDateColorGrey();
@@ -239,7 +240,7 @@ function toggleDropdownAssignedTo() {
   document.getElementById("assignedToDropdown").classList.toggle("show");
 }
 
-function renderContactsToAssign() {
+async function renderContactsToAssign() {
   document.getElementById("assignedToDropdown").innerHTML = "";
   for (let i = 0; i < contacts.length; i++) {
     document.getElementById("assignedToDropdown").innerHTML += generateContactToAssign(i);
@@ -256,12 +257,12 @@ function renderContactsToAssignWithemptyCheckbox() {
 }
 
 function generateContactToAssign(i) {
-  return `<div class="dropdown-content-div" onclick="stopPropagation()">
+  return `<div class="dropdown-content-div" onclick="selectAssignedContact(${i}), stopPropagation()">
   <div class="dropdown_container">
     <div  style="background-color:${contacts[i].contactColor}" class="initials_circle"><span class="initials_span">${contacts[i].contactInitials}</span></div>
     <span id="contacts${i}">${contacts[i].contactName}</span>
   </div>
-  <div id="checkboxContainer${i}"><img id="checkBoxImage${i}" src="../assets/img/icons/checkbox_empty.png" alt="" onclick='selectAssignedContact(${i})'/></div>
+  <div id="checkboxContainer${i}"><img id="checkBoxImage${i}" src="../assets/img/icons/checkbox_empty.png" alt=""></div>
 </div>`;
 }
 
@@ -424,7 +425,7 @@ function renderSubtasks() {
 }
 
 function generateSubtasks(i, subtaskName) {
-  return `<div id="renderedSubtask${i}" onclick="makeRenderedSubtasksEditable(${i})" onmouseover="showPenAndTrash(${i})" onmouseout="hidePenAndTrash(${i})" class="rendered_subtask">
+  return `<div id="renderedSubtask${i}" onclick="makeRenderedSubtasksEditable(${i})" onmouseover="showPenAndTrash(${i})" onmouseout="hidePenAndTrash(${i})" class="rendered_subtask" contenteditable="true">
   <div class="span_container ">
     <span class="rendered_subtasks_span">&#x2022</span>
     <span id="subtasName${i}"> ${subtaskName}</span>

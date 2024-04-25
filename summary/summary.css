@@ -27,7 +27,8 @@ h2 {
   min-width: 300px;
 }
 .left {
-  width: 250px;
+  min-width: 250px;
+  margin-left: 40px;
 }
 .task_container {
   display: flex;
