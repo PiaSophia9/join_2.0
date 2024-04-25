@@ -1,7 +1,15 @@
 let allTasks = [];
 let priority;
 let categories = ["Technical Task", "User Story"];
+let assignedContacts = [];
 
+/**
+ * Initializes the page by including HTML, loading all tasks, loading contacts, rendering contacts to assign,
+ * rendering categories, showing assigned contacts, unlogging all sidebar links, logging the "addTaskSidebar" link,
+ * setting the priority to medium, and loading the user's initials.
+ *
+ * @return {Promise<void>} A promise that resolves when the initialization is complete.
+ */
 async function init() {
   includeHTML();
   await loadAllTasks();
@@ -22,11 +30,21 @@ async function init() {
 //   }
 // });
 
+/**
+ * Loads all tasks from the "remoteTasks" storage and parses the response.
+ *
+ * @return {Promise<void>} A promise that resolves when the tasks are loaded and parsed.
+ */
 async function loadAllTasks() {
   let response = await getItem("remoteTasks");
   allTasks = await JSON.parse(response);
 }
 
+/**
+ * Creates a task object with the values from the input fields and adds it to the task list.
+ *
+ * @return {Promise<void>} - A promise that resolves when the task is added to the list.
+ */
 async function createTask() {
   let title = document.getElementById("taskTitle").value;
   let description = document.getElementById("taskDescription").value;
@@ -53,18 +71,29 @@ async function createTask() {
   }
 }
 
+/**
+ * Adds a task to the task list and performs related actions.
+ *
+ * @param {Object} task - The task object to be added.
+ * @return {Promise<void>} - A promise that resolves when the task is added to the list.
+ */
 async function addTask(task) {
   document.getElementById("submit_task_button").setAttribute("disabled", true);
   await loadAllTasks();
   await loadContacts();
   pushTask(task);
-  // allTasks = [];
   await storeAllTasks();
   showSnackbarAddTasks("Task added to board");
   clearForm();
   redirectToBoard();
 }
 
+/**
+ * Displays a snackbar with the given message and hides it after 3 seconds.
+ *
+ * @param {string} message - The message to be displayed in the snackbar.
+ * @return {void} This function does not return anything.
+ */
 function showSnackbarAddTasks(message) {
   let snackbarAddTask = document.getElementById("snackbarAddTask");
   snackbarAddTask.className = "show";
@@ -74,14 +103,29 @@ function showSnackbarAddTasks(message) {
   }, 3000);
 }
 
+/**
+ * Adds a task to the allTasks array.
+ *
+ * @param {Object} task - The task object to be added.
+ */
 function pushTask(task) {
   allTasks.push(task);
 }
 
+/**
+ * Asynchronously stores all tasks in the "remoteTasks" storage.
+ *
+ * @return {Promise<void>} A promise that resolves when the tasks are stored.
+ */
 async function storeAllTasks() {
   await setItem("remoteTasks", allTasks);
 }
 
+/**
+ * Clears the task form and associated elements, resets button text, removes priorities, and renders contacts with checkboxes.
+ *
+ * @return {void} This function does not return anything.
+ */
 function clearForm() {
   document.getElementById("taskForm").reset();
   document.getElementById("assignedtoContactsContainer").innerHTML = "";
@@ -97,12 +141,23 @@ function clearForm() {
   setPrioMedium();
 }
 
+/**
+ * Clears the assignedContacts, priority, and subtasks arrays.
+ *
+ * @return {void} This function does not return anything.
+ */
 function clearArrays() {
   assignedContacts = [];
   priority = "";
   subtasks = [];
 }
 
+/**
+ * Redirects the user to the board page after a delay of 3 seconds.
+ *
+ * @param {string} targetUrl - The URL of the board page.
+ * @return {void} This function does not return a value.
+ */
 function redirectToBoard() {
   const targetUrl = "../board/board.html";
   setTimeout(function () {
@@ -110,8 +165,11 @@ function redirectToBoard() {
   }, 3000);
 }
 
-// Prio Buttons
-
+/**
+ * Sets the priority of the task to "urgent" and updates the user interface accordingly.
+ *
+ * @return {undefined} This function does not return a value.
+ */
 function setPrioUrgent() {
   priority = "urgent";
   document.getElementById("urgentButton").classList.add("urgent_button");
@@ -120,6 +178,11 @@ function setPrioUrgent() {
   removeLowPrio();
 }
 
+/**
+ * Sets the priority to "medium" and updates the corresponding button and image elements.
+ *
+ * @return {void} This function does not return a value.
+ */
 function setPrioMedium() {
   priority = "medium";
   document.getElementById("mediumButton").classList.add("medium_button");
@@ -128,6 +191,9 @@ function setPrioMedium() {
   removeUrgentPrio();
 }
 
+/**
+ * Sets the priority to low, adds a CSS class to the low button, changes the image source to a low priority icon, and removes any existing medium and urgent priorities.
+ */
 function setPrioLow() {
   priority = "low";
   document.getElementById("lowButton").classList.add("low_button");
@@ -136,39 +202,80 @@ function setPrioLow() {
   removeUrgentPrio();
 }
 
+/**
+ * Removes the "urgent" priority styling by removing the CSS class from the urgent button and changing the image source to a red priority icon.
+ *
+ * @return {undefined} This function does not return a value.
+ */
 function removeUrgentPrio() {
   document.getElementById("urgentButton").classList.remove("urgent_button");
   document.getElementById("urgentImage").src = "../assets/img/icons/prio_urgent_red.svg";
 }
 
+/**
+ * Removes the medium priority from the button and updates the corresponding image source.
+ *
+ * @return {undefined} This function does not return a value.
+ */
 function removeMediumPrio() {
   document.getElementById("mediumButton").classList.remove("medium_button");
   document.getElementById("mediumImage").src = "../assets/img/icons/prio_medium_orange.svg";
 }
 
+/**
+ * Removes the low priority styling by removing the CSS class from the low button and changing the image source to a green low priority icon.
+ *
+ * @return {undefined} This function does not return a value.
+ */
 function removeLowPrio() {
   document.getElementById("lowButton").classList.remove("low_button");
   document.getElementById("lowImage").src = "../assets/img/icons/prio_kow_green.svg";
 }
 
+/**
+ * Sets the source of the "clearButtonImage" element to the bright version of the addTask_x icon.
+ *
+ * @return {void} This function does not return a value.
+ */
 function makeIconClearButtonBright() {
   document.getElementById("clearButtonImage").src = "../assets/img/icons/addTask_x_bright.png";
 }
 
+/**
+ * Sets the source of the "clearButtonImage" element to the dark version of the addTask_x icon.
+ *
+ * @param {type} None - No parameters needed.
+ * @return {type} None - No return value.
+ */
 function makeIconClearButtonDark() {
   document.getElementById("clearButtonImage").src = "../assets/img/icons/addTask_x_dark.png";
 }
 
+/**
+ * Changes the color of the task due date to black by removing the 'date' class and adding the 'date_after_change' class.
+ *
+ * @return {undefined} This function does not return a value.
+ */
 function turnDateColorBlack() {
   document.getElementById("taskDueDate").classList.remove("date");
   document.getElementById("taskDueDate").classList.add("date_after_change");
 }
 
+/**
+ * Sets the color of the "taskDueDate" element to grey by adding the "date" class and removing the "date_after_change" class.
+ *
+ * @return {void} This function does not return a value.
+ */
 function turnDateColorGrey() {
   document.getElementById("taskDueDate").classList.add("date");
   document.getElementById("taskDueDate").classList.remove("date_after_change");
 }
 
+/**
+ * Sets the border color of the "taskTitle" element to red and shows an error message if the title is empty.
+ *
+ * @return {undefined} This function does not return a value.
+ */
 function borderRedIfTitleEmpty() {
   if (document.getElementById("taskTitle").value == "") {
     document.getElementById("taskTitle").style.borderColor = "#ff8190";
@@ -183,6 +290,11 @@ function borderRedIfTitleEmpty() {
   }
 }
 
+/**
+ * Sets the border color of the "taskDueDate" element to red if it is empty and to grey otherwise.
+ *
+ * @return {void} This function does not return a value.
+ */
 function borderRedIfDateEmpty() {
   turnDateColorBlack();
   if (document.getElementById("taskDueDate").value == "") {
@@ -198,6 +310,12 @@ function borderRedIfDateEmpty() {
   }
 }
 
+/**
+ * Sets the border color of the "categoryButton" element to red if the button name is "Select task Category" and shows an error message,
+ * otherwise sets the border color to grey.
+ *
+ * @return {void} This function does not return a value.
+ */
 function borderRedIfCategoryEmpty() {
   if (document.getElementById("buttonName").textContent == "Select task Category") {
     document.getElementById("categoryButton").style.borderColor = "#ff8190";
@@ -212,6 +330,13 @@ function borderRedIfCategoryEmpty() {
   }
 }
 
+/**
+ * Checks if the required fields in the task form are filled. If any of the fields are empty,
+ * it applies red border and shows error messages. If all fields are filled, it enables the
+ * submit button and calls the createTask function.
+ *
+ * @return {void} This function does not return a value.
+ */
 function checkRequiredFields() {
   if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
     borderRedIfTitleEmpty();
@@ -226,6 +351,11 @@ function checkRequiredFields() {
   }
 }
 
+/**
+ * Toggles the disabled state of the submit task button based on the values of the task title, task due date, and selected task category fields.
+ *
+ * @return {void} This function does not return a value.
+ */
 function disOrEnableButton() {
   if (document.getElementById("taskTitle").value == "" || document.getElementById("taskDueDate").value == "" || document.getElementById("buttonName").textContent == "Select task Category") {
     document.getElementById("submit_task_button").classList.add("btn_dark_disabled");
@@ -236,10 +366,20 @@ function disOrEnableButton() {
   }
 }
 
+/**
+ * Toggles the visibility of the dropdown menu for assigned to contacts.
+ *
+ * @return {void} This function does not return anything.
+ */
 function toggleDropdownAssignedTo() {
   document.getElementById("assignedToDropdown").classList.toggle("show");
 }
 
+/**
+ * Renders the contacts to assign in the "assignedToDropdown" element.
+ *
+ * @return {Promise<void>} A promise that resolves when the rendering is complete.
+ */
 async function renderContactsToAssign() {
   document.getElementById("assignedToDropdown").innerHTML = "";
   for (let i = 0; i < contacts.length; i++) {
@@ -248,6 +388,11 @@ async function renderContactsToAssign() {
   }
 }
 
+/**
+ * Renders the contacts to assign with an empty checkbox for each contact.
+ *
+ * @return {void} This function does not return anything.
+ */
 function renderContactsToAssignWithemptyCheckbox() {
   document.getElementById("assignedToDropdown").innerHTML = "";
   for (let i = 0; i < contacts.length; i++) {
@@ -256,6 +401,12 @@ function renderContactsToAssignWithemptyCheckbox() {
   }
 }
 
+/**
+ * Generates the HTML code for a contact to be assigned.
+ *
+ * @param {number} i - The index of the contact in the contacts array.
+ * @return {string} The generated HTML code for the contact.
+ */
 function generateContactToAssign(i) {
   return `<div class="dropdown-content-div" onclick="selectAssignedContact(${i}), stopPropagation()">
   <div class="dropdown_container">
@@ -266,10 +417,21 @@ function generateContactToAssign(i) {
 </div>`;
 }
 
+/**
+ * Toggles the visibility of the dropdown menu for task categories.
+ *
+ * @return {void} This function does not return anything.
+ */
 function toggleDropdownCategory() {
   document.getElementById("categoryDropdown").classList.toggle("show");
 }
 
+/**
+ * Renders the categories in the "categoryDropdown" element.
+ *
+ * @param {type} paramName - description of parameter
+ * @return {type} description of return value
+ */
 function renderCategories() {
   document.getElementById("categoryDropdown").innerHTML = "";
   for (let i = 0; i < categories.length; i++) {
@@ -277,6 +439,12 @@ function renderCategories() {
   }
 }
 
+/**
+ * Generates the HTML code for a category dropdown item.
+ *
+ * @param {number} i - The index of the category in the categories array.
+ * @return {string} The generated HTML code for the category dropdown item.
+ */
 function generateCategories(i) {
   return `<div class="dropdown-content-div" onclick="selectCategory(${i})">
   <div id='categoryName' class="dropdown_container">
@@ -284,6 +452,12 @@ function generateCategories(i) {
 `;
 }
 
+/**
+ * Updates the category button with the selected category and toggles the dropdown category.
+ *
+ * @param {number} i - The index of the selected category.
+ * @return {void} This function does not return a value.
+ */
 function selectCategory(i) {
   document.getElementById("categoryButton").innerHTML = `
   <span id="buttonName">${categories[i]}</span>
@@ -292,8 +466,6 @@ function selectCategory(i) {
   `;
   borderRedIfCategoryEmpty();
 }
-
-let assignedContacts = [];
 
 function addCheckboxImage(j) {
   for (let i = 0; i < assignedContacts.length; i++) {
