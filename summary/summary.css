@@ -195,7 +195,7 @@ h2 {
   }
 
   .blue_line {
-    content:url("../assets/img/line.png");
+    content: url("../assets/img/line.png");
   }
 
   .task_container {
@@ -269,16 +269,16 @@ h2 {
 
 @keyframes slide-in-out {
   0% {
-      left: -100%;
-      opacity: 0;
+    left: -100%;
+    opacity: 0;
   }
   50% {
-      left: 0;
-      opacity: 0;
+    left: 0;
+    opacity: 0;
   }
   100% {
-      left: -100%;
-      opacity: 0;
+    left: -100%;
+    opacity: 0;
   }
 }
 
@@ -301,67 +301,67 @@ h2 {
 }
 
 @media (max-width: 500px) {
-    .headline_container {
-        width: 320px;
-      }
-    .task_container {
-        width: 320px;
-        margin-bottom: 16px;
-        height: 130px; 
-      }
-      .tasks {
-        gap: 4px;
-        height: 130px; 
-      }
-      .size_20 {
-        width: 60px;
-        font-size: 16px;
-    }
-    .size_64 {
-        font-size: 32px;
-    }
-      .deadline_container {
-        width: 320px;
-        margin-bottom: 16px;
-        height: 130px; 
-      }
-      .urgent_task {
-        gap: 4px;
-      }
-      .overview_container {
-        width: 320px;
-        gap: 8px;
-      }
-      .overview {
-    height: 110px;  
-    }
+  .headline_container {
+    width: 320px;
+  }
+  .task_container {
+    width: 320px;
+    margin-bottom: 16px;
+    height: 130px;
+  }
+  .tasks {
+    gap: 4px;
+    height: 130px;
+  }
+  .size_20 {
+    width: 60px;
+    font-size: 16px;
+  }
+  .size_64 {
+    font-size: 32px;
+  }
+  .deadline_container {
+    width: 320px;
+    margin-bottom: 16px;
+    height: 130px;
+  }
+  .urgent_task {
+    gap: 4px;
+  }
+  .overview_container {
+    width: 320px;
+    gap: 8px;
+  }
+  .overview {
+    height: 110px;
+  }
 }
 
 @media (max-width: 400px) {
-    .headline_container {
-        width: 200px;
-    }
-    .task_container {
-        width: 270px;
-        gap: 0px;
-    }
-    .deadline_container {
-        width: 270px;
-    }
-    .overview_container {
-        width: 270px;
-      }
-      .overview {
-        width: 70px;  
-        padding: 10px 10px 10px 10px;
-        }
-        .tasks {
-        justify-content: space-evenly;
-        width: 130px; 
-        gap: 0;
-          }
-        .summary_container {
-            min-width: 200px;
-            margin-bottom: 80px;
-        }
+  .headline_container {
+    width: 200px;
+  }
+  .task_container {
+    width: 270px;
+    gap: 0px;
+  }
+  .deadline_container {
+    width: 270px;
+  }
+  .overview_container {
+    width: 270px;
+  }
+  .overview {
+    width: 70px;
+    padding: 10px 10px 10px 10px;
+  }
+  .tasks {
+    justify-content: space-evenly;
+    width: 130px;
+    gap: 0;
+  }
+  .summary_container {
+    min-width: 200px;
+    margin-bottom: 100px;
+  }
 }
