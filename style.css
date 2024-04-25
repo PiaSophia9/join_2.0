@@ -81,11 +81,10 @@ main {
   height: 100%;
   margin: 160px 130px 0 88px !important;
   max-width: 1440px;
-  
 }
 
 .your_rights {
-  word-break: break-all; 
+  word-break: break-all;
 }
 
 .arrow_redirect {
@@ -216,8 +215,4 @@ main {
   .arrow_redirect {
     top: 120px;
   }
-}
-
-::-webkit-scrollbar {
-  width: 0px !important;
 }
