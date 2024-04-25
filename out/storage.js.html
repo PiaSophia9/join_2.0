@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: storage.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,50 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: storage.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const STORAGE_TOKEN = "39JY5O3SG0HK2DPJ5AWZAZ4NV9422TX3UGN1SNUX";
+const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
 
+/**
+ * Sets an item in the storage with the given key and value.
+ *
+ * @param {string} key - The key of the item to be set.
+ * @param {any} value - The value of the item to be set.
+ * @return {Promise&lt;any>} A promise that resolves to the response from the server.
+ */
+async function setItem(key, value) {
+  const payload = {key, value, token: STORAGE_TOKEN};
+  return fetch(STORAGE_URL, {method: "POST", body: JSON.stringify(payload)}).then((res) => res.json());
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * Retrieves an item from the storage with the given key.
+ *
+ * @param {string} key - The key of the item to retrieve.
+ * @return {Promise&lt;any>} A promise that resolves to the value of the item, or throws an error if the item is not found.
+ */
+async function getItem(key) {
+  const url = `${STORAGE_URL}?key=${key}&amp;token=${STORAGE_TOKEN}`;
+  return fetch(url)
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data.value;
+      }
+      throw `Could not find data with key "${key}".`;
+    });
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

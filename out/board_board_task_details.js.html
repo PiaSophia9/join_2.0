@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: board/board_task_details.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,192 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: board/board_task_details.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Opens the task details modal and displays the details of the task at the given index.
+ *
+ * @param {number} index - The index of the task in the allTasks array.
+ * @return {void} This function does not return anything.
+ */
+function openTaskDetails(index) {
+    document.getElementById("body").style.overflow = "hidden";
+    let modalBg = document.getElementById("modal-bg-details");
+    modalBg.style.width = "100%";
+    modalBg.style.left = 0;
+    let taskDetailsContainer = document.getElementById("task-details");
+    taskDetailsContainer.innerHTML = "";
+    taskDetailsContainer.innerHTML += createTaskDetailsHtml(index);
+    displayAssignedContacts(allTasks[index]);
+    displaySubstasks(allTasks[index]);
+}
 
+/**
+ * Generates the HTML for the task details modal.
+ *
+ * @param {number} index - The index of the task in the allTasks array.
+ * @return {string} The HTML for the task details modal.
+ */
+function createTaskDetailsHtml(index) {
+    let task = allTasks[index];
+    return /*html*/ `
+          &lt;div class="details-top">
+              &lt;span class="task-category" style="background-color: ${CATEGORY_COLORS[task.category]}">${task.category}&lt;/span>
+              &lt;span id="close-modal" class="close-modal" onclick="closeModalDetails()">&amp;times;&lt;/span>
+          &lt;/div>
+          &lt;div class="details-bottom">
+              &lt;h1 class="details-h1">${task.title}&lt;/h1>
+              &lt;div class="description-container">
+                &lt;p>Description: &lt;/p>
+                &lt;p>${task.description}&lt;/p>
+              &lt;/div>
+              &lt;div class="due-date">
+                  &lt;p>Due date:&lt;/p>
+                  &lt;p>${task.dueDate}&lt;/p>
+              &lt;/div>
+              &lt;div class="priority-container">
+                  &lt;p>Priority:&lt;/p>
+                  &lt;div class="priority">
+                      &lt;p>${task.priority}&lt;/p>
+                      &lt;p>${generatePrioImage(task, allTasks)}&lt;/p>
+                  &lt;/div>
+              &lt;/div>
+              &lt;div class="assigned-to-container">
+                  &lt;p>Assigned to:&lt;/p>
+                  &lt;div class="assigned-to-contacts" id="assigned-to-contacts">&lt;/div>
+              &lt;/div>
+              &lt;div class="subtasks-container">
+                  &lt;p class="subtasks-p" style="margin-block-end: 0.2em;">Subtasks:&lt;/p>
+                  &lt;div class="subtasks" id="subtasks">&lt;/div>
+              &lt;/div>
+              &lt;div class="edit-and-delete-buttons">
+                  &lt;button onclick="deleteTask(${index})" onmouseover="turnBlue('delete-image', 'delete_blue.svg')" onmouseleave="turnBlack('delete-image', 'delete.svg')">&lt;img src="../assets/img/icons/delete.svg" alt="" id="delete-image">Delete&lt;/button>
+                  &lt;img class="tiny_line_board" src="../assets/img/icons/tiny_line.png" alt="" style="height: fit-content;">
+                  &lt;button onclick="openEditTask(${index})" onmouseover="turnBlue('edit-image', 'edit_blue.svg')" onmouseleave="turnBlack('edit-image', 'edit.svg')">&lt;img src="../assets/img/icons/edit.svg" alt="" id="edit-image">Edit&lt;/button>
+              &lt;/div>
+          &lt;/div>
+      `;
+}
 
-    <h3> </h3>
+/**
+ * Renders the subtasks of a given task onto the webpage.
+ *
+ * @param {Object} task - The task object containing subtasks to display.
+ * @return {void} This function does not return anything.
+ */
+function displaySubstasks(task) {
+    let subtasksContainer = document.getElementById("subtasks");
+    subtasksContainer.innerHTML = "";
+    for (let i = 0; i &lt; task["subtasks"].length; i++) {
+        const subtask = task["subtasks"][i];
+        if (subtask.statusSubtask == "inProgress") {
+            subtasksContainer.innerHTML += /*html*/ `
+                  &lt;div class="subtask">
+                      &lt;img src="../assets/img/icons/check_box_empty.png" alt="" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})" id="subtask-checkbox${i}">
+                      &lt;p class="subtask-text">${subtask.nameSubtask}&lt;/p>
+                  &lt;/div>
+              `;
+        } else {
+            subtasksContainer.innerHTML += /*html*/ `
+                  &lt;div class="subtask">
+                      &lt;img src="../assets/img/icons/checkbox_filled.png" alt="" id="checkbox-filled${i}" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})">
+                      &lt;p class="subtask-text">${subtask.nameSubtask}&lt;/p>
+                  &lt;/div>
+              `;
+        }
+    }
+}
 
+/**
+ * Toggles the status of a subtask checkbox and updates the task's subtasks array.
+ *
+ * @param {number} i - The index of the subtask in the subtasks array.
+ * @param {number} taskIndex - The index of the task in the allTasks array.
+ * @return {void} This function does not return anything.
+ */
+function toggleCheckbox(i, taskIndex) {
+    if (allTasks[taskIndex].subtasks[i].statusSubtask == "inProgress") {
+        allTasks[taskIndex].subtasks[i].statusSubtask = "done";
+        storeAllTasksBoard();
+        displaySubstasks(allTasks[taskIndex]);
+    } else {
+        allTasks[taskIndex].subtasks[i].statusSubtask = "inProgress";
+        storeAllTasksBoard();
+        displaySubstasks(allTasks[taskIndex]);
+    }
+}
 
+/**
+ * Displays the assigned contacts for a given task.
+ *
+ * @param {Object} task - The task object containing the assigned contacts.
+ * @return {undefined} This function does not return a value.
+ */
+function displayAssignedContacts(task) {
+    let assignedContactContainer = document.getElementById("assigned-to-contacts");
+    assignedContactContainer.innerHTML = "";
+    for (let i = 0; i &lt; task["assignedTo"].length; i++) {
+        const assignedContact = task["assignedTo"][i];
 
+        assignedContactContainer.innerHTML += /*html*/ `
+          &lt;div class="assigned-to-contact">
+              &lt;p class="initials_circle" style="background-color: ${assignedContact.contactColor}">${assignedContact.contactInitials}&lt;/p>
+              &lt;p>${assignedContact.contactName}&lt;/p>
+          &lt;/div>
+      `;
+    }
+}
 
+/**
+ * Deletes a task from the allTasks array at the specified index, shows a Toast-Message and closes the modal.
+ *
+ * @param {number} index - The index of the task to delete.
+ * @return {Promise&lt;void>} A promise that resolves when the task is successfully deleted.
+ */
+async function deleteTask(index) {
+    allTasks.splice(index, 1);
+    await storeAllTasksBoard();
+    showSnackbarBoard('Task succesfully deleted');
+    closeModalDetails();
+    await initBoard();
+}
 
+/**
+ * Closes the details modal by setting the width and left properties of the modal background element to 0 and 100% respectively.
+ * Sets the overflow property of the body element to "auto".
+ * Asynchronously calls the initBoard function to reinitialize the board.
+ *
+ * @return {Promise&lt;void>} A promise that resolves when the modal details are closed and the board is reinitialized.
+ */
+async function closeModalDetails() {
+    let modalBg = document.getElementById("modal-bg-details");
+    modalBg.style.width = 0;
+    modalBg.style.left = "100%";
+    document.getElementById("body").style.overflow = "auto";
+    document.getElementById('searchfield').value = "";
+    await initBoard();
+}
 
-
-
-
-
-    
-
-
-
-
-
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener("click", async function (event) {
+    let modalBg = document.getElementById("modal-bg-details");
+    if (event.target == modalBg) {
+        modalBg.style.width = 0;
+        modalBg.style.left = "100%";
+        document.getElementById("body").style.overflow = "auto";
+        document.getElementById('searchfield').value = "";
+        initBoard();
+    }
+});</code></pre>
+        </article>
+    </section>
 
 
 
