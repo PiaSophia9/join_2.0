@@ -7,11 +7,11 @@
 async function initSummary() {
   includeHTML();
   await loadAllTasksSummary();
+  await loadUserName();
+  await loadUserInitials();
   unlogAllSidebarLinks();
   logSidebarLink("summarySidebar");
   displayGreeting();
-  loadUserName();
-  loadUserInitials();
   showToDo();
   showDone();
   showUrgentTasks();
@@ -23,7 +23,7 @@ async function initSummary() {
 /**
  * Loads the username from local storage and sets it as the innerHTML of the element with id "logged_user".
  */
-function loadUserName() {
+async function loadUserName() {
   let loggedUser = document.getElementById("logged_user");
   let storedName = localStorage.getItem("userName");
   storedName = JSON.parse(storedName);
