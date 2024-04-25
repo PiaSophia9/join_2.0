@@ -424,7 +424,7 @@ function renderSubtasks() {
 }
 
 function generateSubtasks(i, subtaskName) {
-  return `<div id="renderedSubtask${i}" onclick="makeRenderedSubtasksEditable(${i})" onmouseover="showPenAndTrash(${i})" onmouseout="hidePenAndTrash(${i})" class="rendered_subtask">
+  return `<div id="renderedSubtask${i}" onclick="makeRenderedSubtasksEditable(${i})" onmouseover="showPenAndTrash(${i})" onmouseout="hidePenAndTrash(${i})" class="rendered_subtask" contenteditable="true">
   <div class="span_container ">
     <span class="rendered_subtasks_span">&#x2022</span>
     <span id="subtasName${i}"> ${subtaskName}</span>
