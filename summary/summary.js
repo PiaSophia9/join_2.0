@@ -99,8 +99,7 @@ function formatDate(dateString) {
  */
 function showToDo() {
   let todoAmount = document.getElementById("todo");
-  let todoBoard = todos.filter((t) => t["status"] == "toDo");
-  console.log(todoBoard);
+  let todoBoard = todos.filter((t) => t["status"] == "todo");
   todoAmount.innerHTML = todoBoard.length;
 }
 
