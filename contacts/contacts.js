@@ -4,6 +4,13 @@ const contactColors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#
 let sortedStartingLetters = [];
 let uniqueStartingLetters = [];
 
+/**
+ * Initializes the contacts by including HTML, loading contacts, loading tasks, 
+ * loading user initials, displaying contacts, unlogging all sidebar links, 
+ * and logging the "contactSidebar" link.
+ *
+ * @return {Promise<void>} A promise that resolves when the initialization is complete.
+ */
 async function initContacts() {
   includeHTML();
   await loadContacts();
@@ -14,6 +21,11 @@ async function initContacts() {
   logSidebarLink("contactSidebar");
 }
 
+/**
+ * Asynchronously loads contacts from the remote server and parses the response.
+ *
+ * @return {Promise<void>} A promise that resolves when the contacts are loaded and parsed.
+ */
 async function loadContacts() {
   try {
     let response = await getItem("remoteContacts");
@@ -23,11 +35,23 @@ async function loadContacts() {
   }
 }
 
+/**
+ * Asynchronously loads all tasks from the remote server and parses the response.
+ *
+ * @return {Promise<void>} A promise that resolves when all tasks are loaded and parsed.
+ */
 async function loadAllTasksContacts() {
   let response = await getItem("remoteTasks");
   tasks = await JSON.parse(response);
 }
 
+/**
+ * Displays the contacts by sorting them by name, creating starting letters,
+ * displaying starting letters, and rendering contacts under starting letters.
+ *
+ * @param {type} contactsContainer - the container element to display the contacts in
+ * @return {type} undefined
+ */
 function displayContacts() {
   let contactsContainer = document.getElementById("all-contacts");
   contactsContainer.innerHTML = "";
@@ -37,6 +61,12 @@ function displayContacts() {
   renderContactUnderStartingLetter();
 }
 
+/**
+ * Displays the unique starting letters for all contacts.
+ *
+ * @param {HTMLElement} contactsContainer - the container element to display the contacts in
+ * @return {void} 
+ */
 function displayStartingLetters(contactsContainer) {
   for (let i = 0; i < uniqueStartingLetters.length; i++) {
     let letter = uniqueStartingLetters[i];
@@ -47,6 +77,11 @@ function displayStartingLetters(contactsContainer) {
   }
 }
 
+/**
+ * Renders the contacts under their respective starting letters.
+ *
+ * @return {undefined} This function does not return a value.
+ */
 function renderContactUnderStartingLetter() {
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
@@ -61,6 +96,13 @@ function renderContactUnderStartingLetter() {
   }
 }
 
+/**
+ * Generates the HTML code for a contact element under its starting letter.
+ *
+ * @param {Object} contact - The contact object containing the contact details.
+ * @param {number} i - The index of the contact in the contacts array.
+ * @return {string} The generated HTML code for the contact element.
+ */
 function generateContactUnderStartingLetter(contact, i) {
   return `
     <div class="contact" id="contact${i}" onclick="displayContactDetails(${i}); toggleActiveContact(${i})">
@@ -73,6 +115,12 @@ function generateContactUnderStartingLetter(contact, i) {
  `;
 }
 
+/**
+ * Toggles the active state of a contact element based on the given index.
+ *
+ * @param {number} i - The index of the contact element to be toggled.
+ * @return {void} This function does not return a value.
+ */
 function toggleActiveContact(i) {
   let selectedContact = document.getElementById(`contact${i}`);
   let allContacts = document.querySelectorAll(".contact");
@@ -83,6 +131,12 @@ function toggleActiveContact(i) {
   selectedContact.classList.add("contact-selected");
 }
 
+/**
+ * Displays the detailed infos of a contact.
+ *
+ * @param {number} i - The index of the contact in the contacts array.
+ * @return {void} This function does not return a value.
+ */
 function displayContactDetails(i) {
   let contactContainer = document.getElementById("contact-container");
   let contact = contacts[i];
@@ -98,39 +152,63 @@ function displayContactDetails(i) {
   }
 }
 
+/**
+ * Generates the HTML code for displaying contact information.
+ *
+ * @param {Object} contact - The contact object containing the contact details.
+ * @return {string} The generated HTML code for displaying contact information.
+ */
 function generateContactInformation(contact) {
-  return /*html*/ `<p>Contact Information</p>
-                  <h4>Email</h4>
-                  <a class="contact-email" href="mailto: ${contact.contactMail}">${contact.contactMail}</a>
-                  <h4>Phone</h4>
-                  <span>${contact.contactPhone}</span>`;
+  return /*html*/ `
+    <p>Contact Information</p>
+    <h4>Email</h4>
+    <a class="contact-email" href="mailto: ${contact.contactMail}">${contact.contactMail}</a>
+    <h4>Phone</h4>
+    <span>${contact.contactPhone}</span>
+    `;
 }
 
+/**
+ * Generates HTML code for displaying contact details.
+ *
+ * @param {Object} contact - The contact object containing the contact details.
+ * @param {number} i - The index of the contact in the array.
+ * @return {string} The generated HTML code for displaying contact information.
+ */
 function generateContacts(contact, i) {
-  return /*html*/ `<div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_overview">
-                      <span class="initials_span">${contact.contactInitials}</span>
-                   </div>
-                      <div class="name-and-edit">
-                        <div class="name_container">
-                            <span class="contact_name">${contact.contactName}</span>
-                        </div>
-                      <div class="edit_delete_container">
-                        <button class="edit-button" onclick="openEditContact(${i})" onmouseover="turnBlue('penContacts', 'edit_blue.svg')" onmouseleave="turnBlack('penContacts', 'edit.svg')">
-                          <img id="penContacts" class="penContacts" src="../assets/img/icons/edit.svg" alt="">
-                          Edit
-                        </button>
-                        <button class="edit-button" onclick="deleteContactInOverview(${i})" onmouseover="turnBlue('trashContacts', 'delete_blue.svg')" onmouseleave="turnBlack('trashContacts', 'delete.svg')">
-                          <img id="trashContacts" src="../assets/img/icons/delete.svg" alt="">
-                          Delete
-                        </button>
-                    </div>
-                </div>
-                <div id="editDeleteButtonContainer" class="edit_delete_button_container d_none">
-                  <button class="edit_mobile_button" type="button" onclick="openEditContact(${i})">Edit</button>
-                  <button class="delete_mobile_button" type="button" onclick="deleteContactInOverview(${i})">Delete</button>
-                </div>`;
+  return /*html*/ `
+    <div style="background-color: ${contact.contactColor}" class="initials_circle initials_circle_overview">
+      <span class="initials_span">${contact.contactInitials}</span>
+    </div>
+    <div class="name-and-edit">
+      <div class="name_container">
+          <span class="contact_name">${contact.contactName}</span>
+      </div>
+      <div class="edit_delete_container">
+        <button class="edit-button" onclick="openEditContact(${i})" onmouseover="turnBlue('penContacts', 'edit_blue.svg')" onmouseleave="turnBlack('penContacts', 'edit.svg')">
+          <img id="penContacts" class="penContacts" src="../assets/img/icons/edit.svg" alt="">
+          Edit
+        </button>
+        <button class="edit-button" onclick="deleteContactInOverview(${i})" onmouseover="turnBlue('trashContacts', 'delete_blue.svg')" onmouseleave="turnBlack('trashContacts', 'delete.svg')">
+          <img id="trashContacts" src="../assets/img/icons/delete.svg" alt="">
+          Delete
+        </button>
+      </div>
+    </div>
+    <div id="editDeleteButtonContainer" class="edit_delete_button_container d_none">
+      <button class="edit_mobile_button" type="button" onclick="openEditContact(${i})">Edit</button>
+      <button class="delete_mobile_button" type="button" onclick="deleteContactInOverview(${i})">Delete</button>
+    </div>
+  `;
 }
 
+/**
+ * Shows the left section by removing the "d_none" class from the "leftSection" element and the "rightSection" element,
+ * and adding the "d_none" class to the "backButtonContacts" element and the "personButtonContacts" element.
+ * Also adds the "d_none" class to the "threeDotsButtonContacts" element.
+ *
+ * @return {void} This function does not return a value.
+ */
 function showLeftSection() {
   document.getElementById("leftSection").classList.remove("d_none");
   document.getElementById("rightSection").classList.remove("d_block");
@@ -139,19 +217,43 @@ function showLeftSection() {
   document.getElementById("threeDotsButtonContacts").classList.add("d_none");
 }
 
+/**
+ * Opens the edit/delete menu by removing the "d_none" class from the "editDeleteButtonContainer" element
+ * and stopping the propagation of the event.
+ *
+ * @param {Event} event - The event object.
+ * @return {void} This function does not return a value.
+ */
 function openEditDeleteMenu() {
   document.getElementById("editDeleteButtonContainer").classList.remove("d_none");
   event.stopPropagation();
 }
 
+/**
+ * Sets the source of the specified image element to a blue version of the source snippet.
+ *
+ * @param {string} imageID - The ID of the image element to update.
+ * @param {string} sourceSnippet - The source snippet to use for the updated image.
+ */
 function turnBlue(imageID, sourceSnippet) {
   document.getElementById(`${imageID}`).src = `../assets/img/icons/${sourceSnippet}`;
 }
 
+/**
+ * Sets the source of the specified image element to a black version of the source snippet.
+ *
+ * @param {string} imageID - The ID of the image element to update.
+ * @param {string} sourceSnippet - The source snippet to use for the updated image.
+ */
 function turnBlack(imageID, sourceSnippet) {
   document.getElementById(`${imageID}`).src = `../assets/img/icons/${sourceSnippet}`;
 }
 
+/**
+ * Sorts the contacts array in ascending order based on the contactName property.
+ *
+ * @return {void} This function does not return a value.
+ */
 function sortContactsByName() {
   contacts.sort(function (a, b) {
     if (a.contactName < b.contactName) {
@@ -164,6 +266,11 @@ function sortContactsByName() {
   });
 }
 
+/**
+ * Creates an array of unique starting letters from the names of contacts and sorts them alphabetically.
+ *
+ * @return {void} This function does not return a value.
+ */
 function createStartingLetters() {
   for (let i = 0; i < contacts.length; i++) {
     const contact = contacts[i];
@@ -174,47 +281,12 @@ function createStartingLetters() {
   sortedStartingLetters = [];
 }
 
-async function addContact() {
-  let contactName = document.getElementById("name-input");
-  let contactMail = document.getElementById("mail-input");
-  let contactPhone = document.getElementById("phonenumber-input");
-  let contactInitials = createContactInitials(contactName.value);
-  let contactColor = createContactColor();
-
-  let contact = {
-    contactName: contactName.value,
-    contactMail: contactMail.value,
-    contactPhone: contactPhone.value,
-    contactInitials: contactInitials,
-    contactColor: contactColor,
-  };
-
-  contacts.push(contact);
-  await storeContacts();
-  closeAddContact();
-  showSnackbar("Contact successfully created");
-  displayContacts();
-  displayContactDetails(contacts.indexOf(contact));
-  toggleActiveContact(contacts.indexOf(contact));
-  document.getElementById(`contact${contacts.indexOf(contact)}`).scrollIntoView();
-}
-
-async function editContact(i) {
-  if (document.getElementById("name-input-edit").value == "") {
-    renderError("errorContainerEditContacts");
-  } else {
-    contacts[i].contactName = document.getElementById("name-input-edit").value;
-    contacts[i].contactMail = document.getElementById("mail-input-edit").value;
-    contacts[i].contactPhone = document.getElementById("phonenumber-input-edit").value;
-    await storeContacts();
-    closeEditContact();
-    showSnackbar("Contact infos successfully changed");
-    displayContactDetails(i);
-    displayContacts();
-    toggleActiveContact(i);
-  }
-}
-
+/**
+ * Deletes a contact at the specified index, updates the contact list, and handles UI interactions accordingly.
+ *
+ * @param {number} i - The index of the contact to delete.
+ * @return {Promise<void>} A promise that resolves after the contact has been successfully deleted.
+ */
 async function deleteContact(i) {
   await deleteContactFromTasks(i);
   contacts.splice(i, 1);
@@ -233,6 +305,12 @@ async function deleteContact(i) {
   }
 }
 
+/**
+ * Deletes a contact from all tasks if it is assigned to any task.
+ *
+ * @param {number} i - The index of the contact to delete.
+ * @return {Promise<void>} A promise that resolves after the contact has been deleted from all tasks.
+ */
 async function deleteContactFromTasks(i) {
   await loadAllTasksContacts();
   for (let index = 0; index < tasks.length; index++) {
@@ -243,6 +321,13 @@ async function deleteContactFromTasks(i) {
   }
 }
 
+/**
+ * Checks the task, the contact is assigned to and removes it from this tasks.
+ *
+ * @param {Object} task - The task object to check.
+ * @param {number} i - The index of the contact in the contacts array.
+ * @return {Promise<void>} A promise that resolves after the contact has been removed from the task's assignedTo array, if it was assigned.
+ */
 async function checkIfContactAssigned(task, i) {
   for (let j = 0; j < task.assignedTo.length; j++) {
     const assignedContact = task.assignedTo[j];
@@ -255,10 +340,21 @@ async function checkIfContactAssigned(task, i) {
   }
 }
 
+/**
+ * Asynchronously stores all tasks in the "remoteTasks" storage.
+ *
+ * @return {Promise<void>} A promise that resolves when the tasks are stored.
+ */
 async function storeAllTasksContacts() {
   await setItem("remoteTasks", tasks);
 }
 
+/**
+ * Deletes a contact from the overview and updates the contact list and UI accordingly.
+ *
+ * @param {number} i - The index of the contact to delete.
+ * @return {Promise<void>} A promise that resolves after the contact has been deleted.
+ */
 async function deleteContactInOverview(i) {
   await deleteContactFromTasks(i);
   contacts.splice(i, 1);
@@ -275,99 +371,12 @@ async function deleteContactInOverview(i) {
   }
 }
 
-async function storeContacts() {
-  setItem("remoteContacts", contacts);
-}
-
-function createContactInitials(contactName) {
-  let contactAsString = contactName.toString();
-  let initials = contactAsString.match(/\b(\w)/g).join("");
-  let firstTwoInitials = initials.slice(0, 2);
-  return firstTwoInitials;
-}
-
-function createContactColor() {
-  let color = contactColors[generateRandomNumber()];
-  return color;
-}
-
-function generateRandomNumber() {
-  return Math.floor(Math.random() * 15);
-}
-
-function openAddContact() {
-  let modal = document.getElementById("modal-bg-add");
-  modal.style.width = "100%";
-  modal.style.left = 0;
-  document.getElementById("add-contact-form").reset();
-}
-
-function closeAddContact() {
-  let modal = document.getElementById("modal-bg-add");
-  modal.style.width = 0;
-  modal.style.left = "100%";
-}
-
-window.addEventListener("click", function (event) {
-  let modalBg = document.getElementById("modal-bg-add");
-  if (event.target == modalBg) {
-    modalBg.style.width = 0;
-    modalBg.style.left = "100%";
-  }
-});
-
-function openEditContact(i) {
-  setModalSizeAndPosition();
-  generateModalContent(i);
-}
-
-function setModalSizeAndPosition() {
-  let modal = document.getElementById("modal-bg-edit");
-  modal.style.width = "100%";
-  modal.style.left = 0;
-}
-
-function generateModalContent(i) {
-  let container = document.getElementById("form-and-image-edit");
-  container.innerHTML = /*html*/ `
-          <div style="background-color: ${contacts[i].contactColor}" class="initials_circle initials_circle_big margin_right inicials_circle_edit_contact_mobile"><span class="initials_span">${contacts[i].contactInitials}</span></div>
-          <div class="form_container">
-            <form action="" class="add-contact-form" id="edit-contact-form" onsubmit="event.preventDefault(); editContact(${i})">
-              <div class="contact_input_container">
-
-                <input  class="newContactName" type="text" name="name" id="name-input-edit" placeholder="Name" value="${contacts[i].contactName}" onkeyup="checkIfInputHasValue()">
-                <input class="newContactEmail" type="email" name="email" id="mail-input-edit" placeholder="Email" value="${contacts[i].contactMail}">
-                <input class="newContactPhone" type="tel" name="phonenumber" id="phonenumber-input-edit" placeholder="Phone" value="${contacts[i].contactPhone}">
-              </div>
-              <div class="cancel-and-create-buttons">
-                <button class="btn_bright" onclick="deleteContact(${i}); event.preventDefault()">Delete
-                </button>
-                <button class="btn_dark" type="submit">Save
-                  <img src="../assets/img/icons/white_check.svg" alt="">
-                </button>
-              </div>
-              <div id="errorContainerEditContacts">
-              </div>
-            </form>
-          </div>
-
-    `;
-}
-
-function closeEditContact() {
-  let modal = document.getElementById("modal-bg-edit");
-  modal.style.width = 0;
-  modal.style.left = "100%";
-}
-
-window.addEventListener("click", function (event) {
-  let modalBg = document.getElementById("modal-bg-edit");
-  if (event.target == modalBg) {
-    modalBg.style.width = 0;
-    modalBg.style.left = "100%";
-  }
-});
-
+/**
+ * Displays a snackbar message on the screen with the given message.
+ *
+ * @param {string} message - The message to be displayed in the snackbar.
+ * @return {void} This function does not return a value.
+ */
 function showSnackbar(message) {
   let snackbar = document.getElementById("snackbar");
   snackbar.className = "show";
@@ -375,27 +384,4 @@ function showSnackbar(message) {
   setTimeout(function () {
     snackbar.className = snackbar.className.replace("show", "");
   }, 3000);
-}
-
-function renderErrorOrAddContact(id) {
-  if (document.getElementById("name-input").value == "") {
-    renderError(id);
-  } else {
-    addContact();
-  }
-}
-function renderError(id) {
-  document.getElementById(id).innerHTML = `
-    Please add your name. Email and phone are optional.
-    `;
-}
-
-function removeError() {
-  document.getElementById("errorContainerContacts").innerHTML = ``;
-}
-
-function checkIfInputHasValue() {
-  if (document.getElementById("name-input").value !== "") {
-    removeError();
-  }
 }

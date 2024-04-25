@@ -334,6 +334,7 @@ async function openAddTaskAndSetStatus(status) {
   renderContactsToAssign();
   renderCategories();
   localStorage.setItem("status", status);
+  setPrioMedium();
 }
 
 /**
