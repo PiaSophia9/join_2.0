@@ -313,6 +313,7 @@ input:-internal-autofill-selected {
   width: 100%;
   margin-top: 8px;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 input:focus {

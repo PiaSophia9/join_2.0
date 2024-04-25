@@ -93,6 +93,7 @@ function clearForm() {
   clearArrays();
   renderContactsToAssignWithemptyCheckbox();
   turnDateColorGrey();
+  setPrioMedium();
 }
 
 function clearArrays() {
