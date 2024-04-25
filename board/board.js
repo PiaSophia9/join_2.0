@@ -14,26 +14,18 @@ let currentDraggedElement;
 
 async function initBoard() {
   await loadAllTasks();
-  updateHTML(allTasks);
+  await updateHTML(allTasks);
   unlogAllSidebarLinks();
   logSidebarLink("boardSidebar");
-  loadUserInitials();
+  await loadUserInitials();
 }
-
-/**
- * This function loads the array "allTasks" from the server and assign it to the array "todos"
- */
-// async function loadAllTasksBoard() {
-//     let response = await getItem('remoteTasks');
-//     todos = await JSON.parse(response);
-// }
 
 /**
  * This function updates the task areas.
  * The todo-Array is filtered for each status and a new array for the tasks at this specific status is given back.
  * Then, these arrays are passed into the function "updateArea"
  */
-function updateHTML(arrayName) {
+async function updateHTML(arrayName) {
   todo = arrayName.filter((t) => t["status"] == "todo");
   inProgress = arrayName.filter((t) => t["status"] == "in-progress");
   awaitFeedback = arrayName.filter((t) => t["status"] == "await-feedback");

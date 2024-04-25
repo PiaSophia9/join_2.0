@@ -8,7 +8,7 @@ async function initContacts() {
   includeHTML();
   await loadContacts();
   await loadAllTasksContacts();
-  loadUserInitials();
+  await loadUserInitials();
   displayContacts();
   unlogAllSidebarLinks();
   logSidebarLink("contactSidebar");
