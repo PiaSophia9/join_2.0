@@ -176,7 +176,6 @@ input:focus {
 
 .contact-selected {
   display: flex;
-  padding: 16px 16px 16px 24px;
   gap: 16px;
   align-items: center;
   font-weight: 500;
