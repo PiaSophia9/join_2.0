@@ -32,6 +32,15 @@ button {
   font-family: "Inter", sans-serif;
 }
 
+input {
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  padding: 8px 16px 8px 16px;
+  cursor: pointer;
+  height: 32px;
+  font-size: 20px;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -66,12 +75,9 @@ button:hover {
   box-shadow: -0.5px 2px 2px 1.5px rgb(0, 0, 0, 0.2);
 }
 
-input {
-  border: 1px solid #a8a8a8;
-  border-radius: 8px;
-  padding: 8px 16px 8px 16px;
-  cursor: pointer;
-  height: 32px;
+::placeholder {
+  color: #d1d1d1;
+  opacity: 1; /* Firefox */
 }
 
 main {
@@ -194,8 +200,12 @@ main {
 
 @media (max-width: 700px) {
   button {
-    /* font-size: 16px; */
+    font-size: 16px;
     height: 40px;
+  }
+
+  input {
+    font-size: 16px;
   }
 
   body {
@@ -208,10 +218,6 @@ main {
 }
 
 @media (max-width: 460px) {
-  h1 {
-    font-size: 40px;
-  }
-
   .arrow_redirect {
     top: 120px;
   }

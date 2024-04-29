@@ -10,6 +10,7 @@ a {
 .container_main {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   min-height: 100vh;
 }
 
@@ -42,7 +43,6 @@ a {
 .login_section {
   display: flex;
   justify-content: center;
-  flex: 1;
 }
 
 .wholeSite {
@@ -70,7 +70,6 @@ a {
 }
 
 .login_container {
-  margin-top: 100px;
   background-color: white;
   border-radius: 30px;
   box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
@@ -86,7 +85,11 @@ a {
 .login_form {
   display: flex;
   flex-direction: column;
-  margin-bottom: 32px;
+  width: 100%;
+  align-items: center;
+  margin-top: 48px;
+  margin-bottom: 48px;
+  gap: 32px;
 }
 
 .login_form_head {
@@ -94,28 +97,25 @@ a {
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  margin: 32px;
 }
 
 .login_form_head h1 {
   margin-block-start: 0;
   margin-block-end: 0;
-  font-size: 64px;
+  font-size: 61px;
 }
 
 .login_input {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+  width: 65%;
 }
 
 .login_btns {
-  margin-inline: 50px 50px;
-  height: 48px;
   display: flex;
   justify-content: center;
-  gap: 35px;
-  margin-top: 35px;
+  gap: 16px;
 }
 
 .login_remember_me {
@@ -127,6 +127,7 @@ a {
 
 .checkbox_login {
   padding: 0;
+  opacity: 0.5;
 }
 
 #remember_me {
@@ -136,28 +137,34 @@ a {
   border: none;
 }
 
+.remember_me_span {
+  font-size: 16px;
+}
+
 .login_footer {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   color: #a8a8a8;
+  margin-top: 24px;
   margin-bottom: 32px;
   opacity: 0;
   animation: fade-in 1s ease 1s forwards;
+  gap: 24px;
+  font-size: 16px;
 }
 
 .icon_mail {
   padding-right: 25px;
-  background: url(../assets/img/icons/mail.png) no-repeat right;
+  background: url(../assets/img/icons/mail.svg) no-repeat right;
   background-size: 20px;
   background-position-x: calc(100% - 16px);
-  font-size: 20px;
 }
 
 .icon_lock {
   padding-right: 25px;
-  background: url(../assets/img/icons/lock.png) no-repeat right;
+  background: url(../assets/img/icons/lock.svg) no-repeat right;
   background-size: 20px;
   background-position-x: calc(100% - 16px);
-  font-size: 20px;
 }
 
 .logoBig {
@@ -187,16 +194,19 @@ a {
 
 @media (max-width: 710px) {
   .login_sign_up {
-    position: absolute;
-    bottom: 72px;
     width: 320px;
     min-height: 80px;
     height: 80px;
-    top: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
+  }
+
+  .login-_header_and_section {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
   }
 
   .logoBigStart {
@@ -216,29 +226,11 @@ a {
     padding-left: 8px;
     padding-right: 8px;
   }
-}
 
-@media screen and (max-width: 500px), screen and (max-height: 845px) {
-  .login_container {
-    min-width: 300px;
+  .login_input {
+    width: 80%;
   }
 
-  .login_btns {
-    flex-direction: column;
-    margin-top: 15px;
-    margin-inline: 15px 15px;
-  }
-
-  .login_form {
-    margin-bottom: 64px;
-  }
-
-  .login_sign_up {
-    gap: 8px;
-  }
-}
-
-@media (max-width: 560px) {
   .login_sign_up {
     width: 280px;
   }
@@ -249,6 +241,45 @@ a {
 
   .font_size_20 {
     font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 500px), screen and (max-height: 845px) {
+  .login_container {
+    min-width: 300px;
+  }
+
+  .login_form_head h1 {
+    font-size: 48px;
+  }
+
+  .line_login {
+    width: 110px;
+    height: 3px;
+  }
+
+  .login_btns {
+    flex-direction: column;
+  }
+
+  .login_sign_up {
+    gap: 8px;
+  }
+
+  .login_sign_up {
+    width: 280px;
+  }
+
+  #signUpBtn {
+    font-size: 16px;
+  }
+
+  .font_size_20 {
+    font-size: 16px;
+  }
+
+  .login_input {
+    width: 95%;
   }
 }
 

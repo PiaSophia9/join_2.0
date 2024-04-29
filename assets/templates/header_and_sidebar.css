@@ -113,8 +113,6 @@ header {
 
 .legal_link:hover {
   color: #00bee8;
-  transform: scale(1.05);
-  font-weight: bold;
 }
 
 .legal_link_active {
@@ -317,6 +315,6 @@ header {
   }
 
   #help_link {
-    display: block!important;
+    display: block !important;
   }
 }
