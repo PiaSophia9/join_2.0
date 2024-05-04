@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../assets/templates/header_and_sidebar.css" />
-    <link rel="stylesheet" href="contacts.css" />
+    <link rel="stylesheet" href="./contacts.css" />
     <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
-    <script src="contacts.js"></script>
-    <script src="add_contact.js"></script>
-    <script src="edit_contact.js"></script>
+    <script src="./contacts.js"></script>
+    <script src="./add_contact.js"></script>
+    <script src="./edit_contact.js"></script>
     <script src="../storage.js"></script>
     <script src="../assets/templates/header.js"></script>
     <title>Contacts</title>
@@ -42,8 +42,8 @@
         <button id="personButtonContacts" class="floating_button_mobile_contacts" type="button" onclick="openAddContact()"></button>
         <button id="threeDotsButtonContacts" class="floating_button_three_dots d_none" type="button" onclick="openEditDeleteMenu()"></button>
       </main>
-      <div w3-include-html="add_contact_template.html"></div>
-      <div w3-include-html="edit_contact_template.html"></div>
+      <div w3-include-html="./add_contact_template.html"></div>
+      <div w3-include-html="./edit_contact_template.html"></div>
       <div id="snackbar" class="snackbar"></div>
     <script src="../assets/templates/include_header_and_sidebar.js"></script>
   </body>

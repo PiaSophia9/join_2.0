@@ -161,28 +161,28 @@ function redirectToBoard() {
  * Changes the icon of the todo item to a white version.
  */
 function changeIconTodoWhite() {
-  document.getElementById("todoImg").src = "../../assets/img/icons/todo_white.svg";
+  document.getElementById("todoImg").src = "../assets/img/icons/todo_white.svg";
 }
 
 /**
  * Changes the icon of the todo item to the default version.
  */
 function changeIconTodoBack() {
-  document.getElementById("todoImg").src = "../../assets/img/icons/todo_task.svg";
+  document.getElementById("todoImg").src = "../assets/img/icons/todo_task.svg";
 }
 
 /**
  * Changes the icon of the "Done" task item to a white version.
  */
 function changeIconDoneWhite() {
-  document.getElementById("doneImg").src = "../../assets/img/icons/done_white.svg";
+  document.getElementById("doneImg").src = "../assets/img/icons/done_white.svg";
 }
 
 /**
  * Changes the icon of the "Done" task item to the default version.
  */
 function changeIconTDoneBack() {
-  document.getElementById("doneImg").src = "../../assets/img/icons/done_task.svg";
+  document.getElementById("doneImg").src = "../assets/img/icons/done_task.svg";
 }
 
 /**
