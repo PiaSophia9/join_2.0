@@ -174,3 +174,15 @@ function redirectToSignUp() {
   const targetUrl = "../sign_up/sign_up.html";
   window.location.href = targetUrl;
 }
+
+function changeLocationSignupDiv() {
+  if (window.innerWidth < 500) {
+    document.getElementById("signUpMobile").classList.remove("d_none");
+    document.getElementById("signUpDesktop").classList.add("d_none");
+  } else {
+    document.getElementById("signUpMobile").classList.add("d_none");
+    document.getElementById("signUpDesktop").classList.remove("d_none");
+  }
+}
+
+window.onresize = changeLocationSignupDiv;

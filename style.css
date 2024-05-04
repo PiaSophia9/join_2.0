@@ -39,6 +39,12 @@ input {
   cursor: pointer;
   height: 32px;
   font-size: 20px;
+  background-color: white !important;
+}
+
+input:focus {
+  border: 1px solid #5ec0e9;
+  outline: none !important;
 }
 
 button:hover {

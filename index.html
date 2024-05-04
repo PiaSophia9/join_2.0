@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Start</title>
     <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./login/login_animation.css" />
+    <link rel="stylesheet" href="./login/login.css" />
     <link rel="icon" type="image/x-icon" href="./assets/img/logo.png" />
   </head>
   <body onload="initLogIn(); playIntro()">
@@ -15,7 +15,7 @@
 
     <div class="container_main">
       <div class="login_header">
-        <div class="login_sign_up">
+        <div id="signUpDesktop" class="login_sign_up">
           <p class="font_size_20">Not a Join user?</p>
           <button id="signUpBtn" class="btn_dark" onclick="window.location.href = './sign_up/sign_up.html';">Sign up</button>
         </div>
@@ -47,9 +47,14 @@
           </form>
         </div>
       </section>
+      <div id="signUpMobile" class="login_sign_up d_none">
+        <p class="font_size_20">Not a Join user?</p>
+        <button id="signUpBtn" class="btn_dark" onclick="window.location.href = './sign_up/sign_up.html';">Sign up</button>
+      </div>
       <div class="login_footer">
-        <a href="./privacy_policy/privacy_policy_guest.html" target="_blank">Privacy Policy</a>
-        <a href="./legal_notice/legal_notice_guest.html" target="_blank">Legal notice</a>
+        <div class="legal_links_login">
+          <a href="./privacy_policy/privacy_policy_guest.html" target="_blank">Privacy Policy</a> <a href="./legal_notice/legal_notice_guest.html" target="_blank">Legal notice</a>
+        </div>
       </div>
     </div>
     <script src="./login/login_intro.js"></script>
