@@ -1,21 +1,5 @@
 let users = [];
-let colors = [
-  "#FF7A00",
-  "#FF5EB3",
-  "#6E52FF",
-  "#9327FF",
-  "#00BEE8",
-  "#1FD7C1",
-  "#FF745E",
-  "#FFA35E",
-  "#FC71FF",
-  "#FFC701",
-  "#0038FF",
-  "#C3FF2B",
-  "#FFE62B",
-  "#FF4646",
-  "#FFBB2B",
-];
+let colors = ["#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", "#1FD7C1", "#FF745E", "#FFA35E", "#FC71FF", "#FFC701", "#0038FF", "#C3FF2B", "#FFE62B", "#FF4646", "#FFBB2B"];
 
 /**
  * Initializes the user by resetting the sign-up form, loading all users, and logging the users array.
@@ -103,7 +87,12 @@ function saveInitialsInLocalStorage(firstTwoInitials) {
  * If all fields are filled, the button is enabled and its appearance is updated.
  */
 function disOrEnableSignUpBtn() {
-  if (document.getElementById("username").value == "" ||document.getElementById("email").value == "" ||document.getElementById("password").value == "" ||document.getElementById("password_confirm").value == "") {
+  if (
+    document.getElementById("username").value == "" ||
+    document.getElementById("email").value == "" ||
+    document.getElementById("password").value == "" ||
+    document.getElementById("password_confirm").value == ""
+  ) {
     if (document.getElementById("registerBtn").hasAttribute("disabled")) {
     } else {
       document.getElementById("registerBtn").setAttribute("disabled", "disabled");
@@ -136,7 +125,7 @@ function validatePassword(user) {
   } else {
     pushUsers(user);
     saveNameAInLocalStorage();
-    errorMessage.textContent = ""; 
+    errorMessage.textContent = "";
     acceptPolicy();
     policyError.textContent = "";
   }
@@ -157,10 +146,10 @@ async function storeAllUsers() {
  * @param {string} targetUrl - The URL of the login page.
  */
 function redirectToLogin() {
-  const targetUrl = "../login/login.html";
+  const targetUrl = "../index.html";
   setTimeout(() => {
     window.location.href = targetUrl;
-  }, 3000);
+  }, 2000);
 }
 
 /**
@@ -170,7 +159,7 @@ function redirectToLogin() {
  */
 async function acceptPolicy() {
   let policyError = document.getElementById("policyError");
-  if (document.getElementById("accept_policy").src.endsWith("/checkbox_filled.png")) {
+  if (document.getElementById("accept_policy").src.endsWith("/check_empty_no_padding.svg")) {
     await storeAllUsers();
     signUpSuccessfullyInfo("You Signed Up successfully");
     redirectToLogin();
@@ -186,9 +175,8 @@ async function acceptPolicy() {
  */
 function checkBox() {
   let policyCheckbox = document.getElementById("accept_policy");
-  policyCheckbox.src = "../assets/img/icons/checkbox_filled.png";
+  policyCheckbox.src = "../assets/img/icons/check_full_no_padding.svg";
 }
-
 
 /**
  * Resets the sign-up form.
@@ -206,9 +194,9 @@ function signUpSuccessfullyInfo(message) {
   let snackbarSignUp = document.getElementById("snackbarSignUp");
   snackbarSignUp.className = "show";
   snackbarSignUp.innerHTML = message;
-  setTimeout(function () {
-    snackbarSignUp.className = snackbarSignUp.className.replace("show", "");
-  }, 2000);
+  // setTimeout(function () {
+  //   snackbarSignUp.className = "";
+  // }, 2000);
 }
 
 /**

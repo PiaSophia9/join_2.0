@@ -62,7 +62,7 @@ function checkBox() {
   } else {
     document.getElementById("remember_me").removeAttribute("disabled");
     policyCheckbox = document.getElementById("remember_me");
-    policyCheckbox.src = "../assets/img/icons/check_full_no_padding.svg";
+    policyCheckbox.src = "./assets/img/icons/check_full_no_padding.svg";
     saveLogInLocalStorage();
   }
 }

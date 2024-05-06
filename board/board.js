@@ -12,7 +12,7 @@ const PRIO_IMAGE_URLS = {
 let currentDraggedElement;
 
 /**
- * Initializes the board by loading all tasks, updating the HTML display, 
+ * Initializes the board by loading all tasks, updating the HTML display,
  * unlogging all sidebar links, logging the board sidebar link, and loading user initials.
  *
  * @return {Promise<void>} A promise that resolves when the board is successfully initialized.
@@ -81,8 +81,10 @@ function generateTodoHTML(element, arrayName) {
     element
   )}" onclick="openTaskDetails(${arrayName.indexOf(element)})">
             <span class="task-category" style="background-color: ${CATEGORY_COLORS[element.category]}">${element["category"]}</span>
-            <span class="task-title">${element["title"]}</span>
-            <span class="task-description">${element["description"]}</span>
+            <div class="task-title-and-description">
+              <span class="task-title">${element["title"]}</span>
+              <span class="task-description">${element["description"]}</span>
+            </div>
             <!-- if there are no subtasks, the progress-bar should not be displayed -->
             <div class="subtask-progress" id="subtask-progress${arrayName.indexOf(element)}" style="display: none">
                 <progress class="progress-bar" value="${calculateSubtaskProgress(element)}" max="100"></progress>
@@ -180,7 +182,7 @@ function calculateSubtaskProgress(element) {
  * @return {string} The HTML content for the "no tasks" message.
  */
 function generateEmptyHTML() {
-  return `<div class="task no-task">No tasks here</div>`;
+  return `<div class="no-task">No tasks To do</div>`;
 }
 
 /**
@@ -299,7 +301,7 @@ async function closeModal() {
   modalBg.style.width = 0;
   modalBg.style.left = "100%";
   document.getElementById("body").style.overflow = "auto";
-  document.getElementById('searchfield').value = "";
+  document.getElementById("searchfield").value = "";
   await redoChangesToTaskForm();
   await initBoard();
 }
@@ -311,7 +313,7 @@ window.addEventListener("click", async function (event) {
     modalBg.style.width = 0;
     modalBg.style.left = "100%";
     document.getElementById("body").style.overflow = "auto";
-    document.getElementById('searchfield').value = "";
+    document.getElementById("searchfield").value = "";
     await redoChangesToTaskForm();
     await initBoard();
   }

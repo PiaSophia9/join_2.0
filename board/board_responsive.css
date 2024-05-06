@@ -12,7 +12,10 @@ main {
 
 @media (max-width: 1540px) {
   main {
-    margin: 120px 40px 40px 40px !important;
+    margin: 120px 0 40px 40px !important;
+  }
+  .add-button {
+    margin-right: 40px;
   }
 }
 
@@ -33,8 +36,6 @@ main {
 }
 
 @media (max-width: 1200px) {
-  /* START resonsive footer and header - earlier than in any other page */
-  /* header */
   .join_description {
     display: none;
   }

@@ -9,11 +9,11 @@ body {
 }
 
 h1 {
-  font-size: 61px;
+  font-size: 56px;
 }
 
 h2 {
-  font-size: 48px;
+  font-size: 40px;
 }
 
 a {
@@ -38,7 +38,7 @@ input {
   padding: 8px 16px 8px 16px;
   cursor: pointer;
   height: 32px;
-  font-size: 20px;
+  font-size: 16px;
   background-color: white !important;
 }
 
@@ -54,7 +54,7 @@ button:hover {
 .btn_dark {
   background-color: #091931;
   color: white;
-  height: 48px;
+  height: 40px;
 }
 
 .btn_dark:hover {
@@ -65,14 +65,14 @@ button:hover {
 .btn_dark_disabled {
   background-color: #2a3647;
   color: white;
-  height: 48px;
+  height: 40px;
 }
 
 .btn_bright {
   background-color: transparent;
   color: #2a3647;
   border: 1px solid #2a3647;
-  height: 48px;
+  height: 40px;
 }
 
 .btn_bright:hover {

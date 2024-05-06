@@ -27,7 +27,7 @@
           </div>
 
           <div class="login_input">
-            <input onkeyup="disOrEnableSignUpBtn()" required type="text" pattern="[a-zA-Z]+" minlength="3" id="username" placeholder="Name" class="icon_person"/>
+            <input onkeyup="disOrEnableSignUpBtn()" required type="text" pattern="[a-zA-ZäöüÄÖÜß\s]+" minlength="3" id="username" placeholder="Name" class="icon_person"/>
             <input onkeyup="disOrEnableSignUpBtn()" required type="email" id="email" placeholder="Email" class="icon_mail"/>
             <input onkeyup="disOrEnableSignUpBtn()" required type="password" minlength="3" id="password" placeholder="Password" class="icon_lock"/>
             <input onkeyup="disOrEnableSignUpBtn()" required type="password" minlength="3" id="password_confirm" placeholder="Confirm Password" class="icon_lock"/>
@@ -36,7 +36,7 @@
           </div>
 
           <div class="login_remember_me">
-            <input type="image" src="../assets/img/icons/check_box_empty.png" id="accept_policy" onclick="checkBox(); return false;"/>
+            <input type="image" src="../assets/img/icons/check_empty_no_padding.svg" id="accept_policy" onclick="checkBox(); return false;"/>
             <label for="accept_policy">I accept the <a class="text_blue" href="../privacy_policy/privacy_policy_guest.html">Privacy Policy</a></label>
           </div>
 
@@ -55,7 +55,7 @@
       <a href="../legal_notice/legal_notice_guest.html" target="_blank">Legal notice</a>
     </div>
 
-    <div id="snackbarSignUp" class="snackbarSignUp"></div>
+    <div id="snackbarSignUp"></div>
   </div>
   </body>
 </html>
