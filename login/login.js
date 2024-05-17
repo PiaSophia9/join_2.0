@@ -1,3 +1,8 @@
+/**
+ * Initializes the login process by loading all users and resetting the login form.
+ *
+ * @return {Promise<void>} A promise that resolves when the login initialization is complete.
+ */
 async function initLogIn() {
   await loadAllUsers();
   resetLogInForm();

@@ -59,7 +59,7 @@ input:focus {
   justify-content: center;
   align-items: center;
   position: fixed;
-  width: 300px;
+  width: 301px;
 }
 
 .all-contacts {
@@ -88,7 +88,8 @@ input:focus {
   align-items: center;
   margin-top: 32px;
   margin-bottom: 16px;
-  gap: 16px;
+  justify-content: center;
+  height: 48px;
   width: 100%;
   &:hover {
     background-color: #29abe2;
@@ -154,6 +155,8 @@ input:focus {
 .starting-letter {
   border-bottom: 1px solid lightgray;
   padding: 17px 36px 17px 31px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .contact {

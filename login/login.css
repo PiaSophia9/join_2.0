@@ -306,10 +306,10 @@ a {
 }
 
 @media (max-height: 920px) {
-  .login_header {
+  /* .login_header {
     margin: 0 !important;
     margin-left: 34px !important;
-  }
+  } */
   .sign_up_container {
     margin-bottom: 0 !important;
   }
@@ -327,12 +327,12 @@ a {
   .login_section {
     margin-top: 130px;
   }
-  .wholeSiteStart {
+  /* .wholeSiteStart {
     top: 0;
     left: 0;
     height: 120px;
     width: 130px;
-  }
+  } */
   .login_footer {
     margin-top: 0;
     margin-bottom: 16px;
