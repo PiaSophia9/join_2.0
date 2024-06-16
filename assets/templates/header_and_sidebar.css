@@ -264,9 +264,9 @@ header {
     margin-bottom: 96px;
   }
 
-  main {
+  /* main {
     height: auto;
-  }
+  } */
 
   .menu_sidebar {
     display: flex;

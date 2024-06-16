@@ -7,7 +7,6 @@
 async function initSummary() {
   await includeHTML();
   await loadAllTasksSummary();
-  await loadUserName();
   await loadUserInitials();
   unlogAllSidebarLinks();
   logSidebarLink("summarySidebar");
@@ -18,20 +17,6 @@ async function initSummary() {
   showAllTasks();
   showInProgress();
   showAwaitFeedback();
-}
-
-/**
- * Loads the username from local storage and sets it as the innerHTML of the element with id "logged_user".
- */
-async function loadUserName() {
-  let loggedUser = document.getElementById("logged_user");
-  let storedName = localStorage.getItem("userName");
-  storedName = JSON.parse(storedName);
-  if (storedName) {
-    loggedUser.innerHTML = storedName;
-  } else {
-    loggedUser.innerHTML = "";
-  }
 }
 
 /**
@@ -194,11 +179,11 @@ function displayGreeting() {
 
   let greeting;
   if (hour >= 5 && hour < 12) {
-    greeting = "Good morning";
+    greeting = "Good morning!";
   } else if (hour >= 12 && hour < 18) {
-    greeting = "Good afternoon";
+    greeting = "Good afternoon!";
   } else {
-    greeting = "Good evening";
+    greeting = "Good evening!";
   }
 
   document.getElementById("greetings").textContent = greeting;

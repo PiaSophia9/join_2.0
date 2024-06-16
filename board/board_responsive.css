@@ -6,14 +6,14 @@
   border-radius: 32px;
 }
 
-main {
+/* main {
   max-width: 1080px;
-}
+} */
 
 @media (max-width: 1540px) {
-  main {
+  /* main {
     margin: 120px 0 40px 40px !important;
-  }
+  } */
   .add-button {
     margin-right: 40px;
   }
@@ -96,9 +96,9 @@ main {
     margin-bottom: 96px;
   }
 
-  main {
+  /* main {
     height: auto;
-  }
+  } */
 
   .menu_sidebar {
     display: flex;
@@ -261,9 +261,9 @@ main {
 }
 
 @media (max-width: 750px) {
-  main {
+  /* main {
     margin: 100px 16px 16px 16px !important;
-  }
+  } */
 
   .edit-and-delete-buttons {
     flex-direction: column;

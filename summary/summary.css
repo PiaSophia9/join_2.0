@@ -1,3 +1,11 @@
+html,
+body,
+.header_and_main,
+main,
+.summary_container {
+  height: 100% !important;
+}
+
 h1 {
   font-size: 61px;
 }
@@ -6,6 +14,22 @@ h2 {
   font-weight: 500;
   color: #2a3647;
 }
+span {
+  font-size: 20px;
+  font-weight: 400;
+  color: #454f5e;
+  text-align: center;
+}
+
+/* main {
+  margin: 160px 0 0 88px !important;
+} */
+
+.content_container {
+  height: 100%;
+  width: 100%;
+}
+
 .font_27 {
   font-size: 27px;
   font-weight: 400;
@@ -18,27 +42,47 @@ h2 {
 }
 .summary_container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  /* justify-content: space-between; */
   gap: 20px;
+  width: 100%;
   min-width: 800px;
 }
 .right {
-  min-width: 300px;
+  width: 50%;
+  height: 100%;
+  max-width: 500px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 .left {
+  width: 50%;
   min-width: 250px;
-  margin-left: 40px;
+  max-width: 500px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+  p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
 }
 .task_container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 32px;
-  width: 560px;
+  width: 100%;
+  gap: 26px;
+  height: 33.3%;
 }
 .tasks {
-  width: 264px;
-  height: 168px;
+  flex: 1;
   background-color: white;
   border-radius: 30px;
   box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
@@ -67,16 +111,17 @@ h2 {
   font-weight: 600;
   color: black;
 }
-.size_20 {
+/* .size_20 {
   font-size: 20px;
   font-weight: 400;
   color: #454f5e;
   text-align: center;
-}
+} */
 .urgent_task {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  flex: 1;
   gap: 16px;
 }
 .urgent_content {
@@ -89,12 +134,11 @@ h2 {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: 168px;
-  width: 560px;
+  width: 100%;
   background-color: white;
   border-radius: 30px;
   box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
-  margin-bottom: 32px;
+  height: 33.3%;
 }
 .deadline_container:hover {
   cursor: pointer;
@@ -109,13 +153,16 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 560px;
+  width: 100%;
+  gap: 24px;
+  height: 33.3%;
 }
 .overview {
-  width: 108px;
-  height: 148px;
+  flex: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 4px;
   background-color: white;
@@ -131,6 +178,13 @@ h2 {
   cursor: pointer;
   background: #2a3647;
   transform: scale(1.05);
+}
+
+.right_side_deadline_container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #urgentDate {
@@ -198,28 +252,28 @@ h2 {
     content: url("../assets/img/line.png");
   }
 
-  .task_container {
+  /* .task_container {
     width: 420px;
     gap: 8px;
-  }
+  } */
 
-  .deadline_container {
+  /* .deadline_container {
     width: 420px;
   }
 
   .overview_container {
     width: 420px;
     gap: 8px;
-  }
+  } */
 
   .headline_container {
     width: 420px;
   }
 
-  .overview {
+  /* .overview {
     width: 100px;
     padding: 10px 20px 10px 20px;
-  }
+  } */
 
   .size_20 {
     width: 80px;
@@ -304,62 +358,62 @@ h2 {
   .headline_container {
     width: 320px;
   }
-  .task_container {
+  /* .task_container {
     width: 320px;
     margin-bottom: 16px;
     height: 130px;
-  }
-  .tasks {
+  } */
+  /* .tasks {
     gap: 4px;
     height: 130px;
-  }
-  .size_20 {
+  } */
+  /* .size_20 {
     width: 60px;
     font-size: 16px;
   }
   .size_64 {
     font-size: 32px;
-  }
-  .deadline_container {
+  } */
+  /* .deadline_container {
     width: 320px;
     margin-bottom: 16px;
     height: 130px;
-  }
-  .urgent_task {
+  } */
+  /* .urgent_task {
     gap: 4px;
-  }
-  .overview_container {
+  } */
+  /* .overview_container {
     width: 320px;
     gap: 8px;
-  }
-  .overview {
+  } */
+  /* .overview {
     height: 110px;
-  }
+  } */
 }
 
 @media (max-width: 400px) {
   .headline_container {
     width: 200px;
   }
-  .task_container {
+  /* .task_container {
     width: 270px;
     gap: 0px;
-  }
-  .deadline_container {
+  } */
+  /* .deadline_container {
     width: 270px;
-  }
-  .overview_container {
+  } */
+  /* .overview_container {
     width: 270px;
-  }
-  .overview {
+  } */
+  /* .overview {
     width: 70px;
     padding: 10px 10px 10px 10px;
-  }
-  .tasks {
+  } */
+  /* .tasks {
     justify-content: space-evenly;
     width: 130px;
     gap: 0;
-  }
+  } */
   .summary_container {
     min-width: 200px;
     margin-bottom: 100px;

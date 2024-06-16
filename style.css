@@ -91,7 +91,7 @@ main {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  margin: 160px 130px 0 88px !important;
+  margin: 120px 0 40px 40px !important;
   max-width: 1440px;
 }
 
@@ -193,10 +193,6 @@ main {
 
   h2 {
     font-size: 32px;
-  }
-
-  main {
-    margin: 120px 40px 40px 40px !important;
   }
 
   .arrow_redirect {
