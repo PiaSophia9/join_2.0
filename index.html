@@ -12,7 +12,6 @@
     <div id="whole" class="wholeSite">
       <img id="big" src="./assets/img/logoBig.svg" alt="logo_join" class="logoBig" />
     </div>
-
     <div class="container_main">
       <div class="login_header">
         <div id="signUpDesktop" class="login_sign_up">
@@ -20,7 +19,6 @@
           <button id="signUpBtn" class="btn_dark" onclick="window.location.href = './sign_up/sign_up.html';">Sign up</button>
         </div>
       </div>
-
       <section class="login_section">
         <div class="login_container">
           <form id="logInForm" class="login_form" onsubmit="login(); return false;">
@@ -28,13 +26,11 @@
               <h1>Log in</h1>
               <img class="line_login" src="./assets/img/line.png" alt="line" />
             </div>
-
             <div class="login_input">
               <input onkeyup="disOrEnableLogInBtn()" required type="email" id="email" placeholder="Email" class="icon_mail" onclick="loadRememberMe()" />
               <input onkeyup="disOrEnableLogInBtn()" required type="password" minlength="3" id="password" placeholder="Password" class="icon_lock" />
               <div id="passwordError" style="display: none"></div>
               <div id="loginError" style="display: none">Ups! please sign up!</div>
-
               <div class="login_remember_me">
                 <img class="checkbox_login" type="image" src="./assets/img/icons/check_empty_no_padding.svg" id="remember_me" onclick="checkBox();  return false;" />
                 <span class="remember_me_span">Remember me</span>
