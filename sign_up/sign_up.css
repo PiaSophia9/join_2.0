@@ -152,6 +152,22 @@ a {
   }
 }
 
+@media (max-width: 500px) {
+  .login_header {
+    order: 1 !important;
+    margin-top: 40px !important;
+    margin-left: 40px !important;
+  }
+
+  .login_section {
+    order: 2 !important;
+  }
+
+  .login_footer {
+    order: 3 !important;
+  }
+}
+
 @media screen and (max-width: 412px) {
   .login_header {
     margin: 37px;
