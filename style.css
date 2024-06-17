@@ -174,7 +174,8 @@ button:hover {
 /* scrollbar */
 
 ::-webkit-scrollbar {
-  width: 10px;
+  min-width: 10px;
+  max-width: 10px;
 }
 
 ::-webkit-scrollbar-track {

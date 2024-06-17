@@ -27,6 +27,7 @@
     <div class="header_and_main">
         <div class="header_container" cl w3-include-html="../assets/templates/header.html"></div>
         <main>
+            <div class="content_container">
             <div class="board-header">
                 <div class="title-and-searchfield">
                     <h1>Board</h1>
@@ -38,19 +39,19 @@
                 </div>
             </div>
             <div class="drag-areas">
-                <div>
+                <div class="title-and-drag-area">
                     <div class="area-title"><h3>To do</h3><button onclick="openAddTaskAndSetStatus('todo')" class="add-task-button"></button></div>
                     <div class="drag-area" id="todo" ondrop="moveTo('todo'); removeHighlight('todo')" ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')"></div>
                 </div>
-                <div>
+                <div class="title-and-drag-area">
                     <div class="area-title"><h3>In Progress</h3><button onclick="openAddTaskAndSetStatus('in-progress')" class="add-task-button"></div>
                     <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress'); removeHighlight('in-progress')" ondragleave="removeHighlight('in-progress')" ondragover="allowDrop(event); highlight('in-progress')"></div>
                 </div>
-                <div>
+                <div class="title-and-drag-area">
                     <div class="area-title"><h3>Await Feedback</h3><button onclick="openAddTaskAndSetStatus('await-feedback')" class="add-task-button"></div>
                         <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback'); removeHighlight('await-feedback')" ondragleave="removeHighlight('await-feedback')" ondragover="allowDrop(event); highlight('await-feedback')"></div>
                 </div>
-                <div>
+                <div class="title-and-drag-area">
                     <div class="area-title"><h3>Done</h3></div>
                     <div class="drag-area" id="done" ondrop="moveTo('done'); removeHighlight('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done')"></div>
                 </div>
@@ -66,6 +67,7 @@
             <div class="task-details" id="task-details"></div>
         </div>
         <div id="snackbar-board" class="snackbar"></div>
+    </div>
     </main>
     <script src="../assets/templates/include_header_and_sidebar.js"></script>
 </body>

@@ -1,3 +1,7 @@
+main {
+  max-width: 1080px;
+}
+
 h3 {
   font-size: 20px;
 }
@@ -77,15 +81,14 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .area-title {
-  width: 252px;
-  min-width: 226px;
+  width: 100%;
+  /* min-width: 226px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 24px;
   color: #42526e;
   font-size: 20px;
-  padding: 0 8px 0 8px;
   box-sizing: border-box;
 }
 
@@ -104,13 +107,17 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .drag-areas {
   display: flex;
-  height: 100%;
+  /* height: 100%; */
   gap: 24px;
+  width: 100%;
+}
+
+.title-and-drag-area {
+  flex: 1;
 }
 
 .drag-area {
-  width: 252px;
-  min-width: 226px;
+  width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -132,7 +139,6 @@ input[type="search"]::-webkit-search-cancel-button {
   font-size: 16px;
   border-radius: 24px;
   padding: 16px;
-  width: 85%;
   display: flex;
   gap: 16px;
   flex-direction: column;
@@ -215,10 +221,11 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .no-task {
+  box-sizing: border-box;
   background-color: #e7e7e7;
   border-radius: 10px;
   color: #a8a8a8;
-  width: 85%;
+  width: 100%;
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
