@@ -374,6 +374,10 @@ input:focus {
   display: none;
 }
 
+.subtasks_input:focus {
+  border: none !important;
+}
+
 #snackbarAddTask {
   visibility: hidden;
   min-width: 250px;
