@@ -162,7 +162,6 @@ async function closeModalDetails() {
   await initBoard();
 }
 
-// When the user clicks anywhere outside of the modal, close it
 window.addEventListener("click", async function (event) {
   let modalBg = document.getElementById("modal-bg-details");
   if (event.target == modalBg) {

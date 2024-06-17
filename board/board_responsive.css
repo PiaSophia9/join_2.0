@@ -57,25 +57,9 @@
     height: 40px;
   }
 
-  /* footer/sidebar */
-  /* .sidebar {
-    bottom: 0;
-    width: 100%;
-    min-height: 80px;
-    height: 80px;
-    flex-direction: row;
-    top: auto;
-    left: auto;
-    align-items: center;
-  } */
-
   .include_html_container {
     margin-bottom: 96px;
   }
-
-  /* main {
-    height: auto;
-  } */
 
   .menu_sidebar {
     display: flex;
@@ -122,27 +106,12 @@
     margin-block-start: 0;
     margin-block-end: 0;
   }
-
-  /* END resonsive footer and header - earlier than in any other page */
 }
 
 @media (max-width: 940px) {
   .drag-areas {
     width: 870px;
   }
-
-  /* .drag-area {
-    flex-direction: row;
-    margin-bottom: 24px;
-    overflow-y: auto;
-    align-items: flex-start;
-    padding-bottom: 0;
-    overflow-x: scroll;
-  } */
-
-  /* .content_container {
-    overflow-x: scroll !important;
-  } */
 
   .title-and-searchfield {
     flex-direction: column;
@@ -207,19 +176,6 @@
     box-shadow: 0 0 0 0 white;
     border: 1px solid rgb(236, 233, 233);
   }
-
-  /* ::-webkit-scrollbar {
-    height: 0px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #a8a8a8;
-    border-radius: 8px;
-  } */
 
   .add-button {
     z-index: 1;

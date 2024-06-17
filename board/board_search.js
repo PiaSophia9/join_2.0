@@ -7,7 +7,7 @@ function renderAllOrMatchingTodos() {
   findMatchingTitles();
   document.getElementById("errorContainer").innerHTML = "";
   if (saveInputValue() == "") {
-    updateHTML(allTasks); // Todo
+    updateHTML(allTasks);
   } else {
     renderErrorOrMatchingDodos();
   }
@@ -59,7 +59,7 @@ function renderErrorOrMatchingDodos() {
     renderErrorBoard();
     updateHTML(matchingTodos);
   } else {
-    updateHTML(matchingTodos); // ToDo
+    updateHTML(matchingTodos);
   }
 }
 

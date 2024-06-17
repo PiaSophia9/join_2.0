@@ -454,11 +454,37 @@ input:focus {
 }
 
 @media (max-width: 1235px) {
-  /* main {
-    margin: 96px 24px 0 0 !important;
-  } */
   .right_section {
     margin: 24px 0 0 24px;
+  }
+}
+
+@media (max-width: 1200px) {
+  h2 {
+    font-size: 32px;
+  }
+
+  .p_add_contact {
+    display: none;
+  }
+
+  input {
+    font-size: 16px !important;
+    height: 24px;
+  }
+
+  .contact_person_image {
+    width: 80px;
+    height: auto;
+    margin-top: -40px;
+  }
+
+  .left-side-modal {
+    padding: 40px 24px 72px 24px;
+  }
+
+  .left_section {
+    padding: 0 0 0 0;
   }
 }
 
@@ -488,9 +514,7 @@ input:focus {
   h1 {
     margin-right: 16px;
   }
-}
 
-@media (max-width: 800px) {
   .initials_and_name_container {
     flex-direction: column;
     align-items: flex-start;
@@ -504,9 +528,7 @@ input:focus {
   .headline_container {
     margin-bottom: 48px;
   }
-}
 
-@media (max-width: 800px) {
   .right_section {
     display: none;
   }
@@ -748,34 +770,5 @@ input:focus {
 
   .contact-information p {
     margin-block-end: 16px;
-  }
-}
-
-@media (max-width: 1200px) {
-  h2 {
-    font-size: 32px;
-  }
-
-  .p_add_contact {
-    display: none;
-  }
-
-  input {
-    font-size: 16px !important;
-    height: 24px;
-  }
-
-  .contact_person_image {
-    width: 80px;
-    height: auto;
-    margin-top: -40px;
-  }
-
-  .left-side-modal {
-    padding: 40px 24px 72px 24px;
-  }
-
-  .left_section {
-    padding: 0 0 0 0;
   }
 }

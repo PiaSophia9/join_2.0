@@ -85,7 +85,6 @@ function generateTodoHTML(element, arrayName) {
               <span class="task-title">${element["title"]}</span>
               <span class="task-description">${element["description"]}</span>
             </div>
-            <!-- if there are no subtasks, the progress-bar should not be displayed -->
             <div class="subtask-progress" id="subtask-progress${arrayName.indexOf(element)}" style="display: none">
                 <progress class="progress-bar" value="${calculateSubtaskProgress(element)}" max="100"></progress>
                 <span>${checkSubtaskStatus(element)}/${element.subtasks.length} Subtasks</span>
@@ -306,7 +305,6 @@ async function closeModal() {
   await initBoard();
 }
 
-// When the user clicks anywhere outside of the modal, close it
 window.addEventListener("click", async function (event) {
   let modalBg = document.getElementById("modal-bg");
   if (event.target == modalBg) {

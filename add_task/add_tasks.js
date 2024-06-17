@@ -24,13 +24,6 @@ async function init() {
   await loadUserInitials();
 }
 
-// Bitte nicht löschen! Kann später noch verwendet werden.
-// input.addEventListener("keypress", function (event) {
-//   if (event.keyCode == 13) {
-//     addSubtask();
-//   }
-// });
-
 /**
  * Loads all tasks from the "remoteTasks" storage and parses the response.
  *
