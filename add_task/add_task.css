@@ -1,9 +1,9 @@
-.add_task_main {
+/* .add_task_main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 80px;
-}
+} */
 
 .upper_part {
   display: flex;
@@ -430,11 +430,11 @@ input:focus {
   border-radius: 8px;
 }
 
-@media (max-width: 1300px) {
+/* @media (max-width: 1300px) {
   .add_task_main {
     margin: 120px 40px 40px 40px !important;
   }
-}
+} */
 
 @media (max-width: 1030px) {
   .p_add_task {
@@ -492,10 +492,10 @@ input:focus {
   .btn_dark {
     min-width: 200px;
   }
-
+  /* 
   .add_task_main {
     margin: 100px 16px 56px 16px !important;
-  }
+  } */
 
   .subtasks_input {
     box-sizing: border-box;

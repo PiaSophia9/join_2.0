@@ -37,7 +37,7 @@ h3 {
   height: 40px;
   padding-right: 25px;
   background-color: white;
-  background: url(../assets/img/icons/search.png) no-repeat right;
+  background: url(../assets/img/icons/search.svg) no-repeat right;
   background-size: 20px;
   background-position-x: calc(100% - 16px);
   font-size: 20px;
@@ -90,14 +90,14 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .add-task-button {
-  background-image: url(../assets/img/icons/plus_button.png);
+  background-image: url(../assets/img/icons/plus_button.svg);
   background-position-x: right;
   background-repeat: no-repeat;
-  height: 24px;
+  height: 25px;
   width: 24px;
   background-color: #f6f7f8;
   &:hover {
-    background-image: url(../assets/img/icons/plusbutton_2.png);
+    background-image: url(../assets/img/icons/plus_button_blue.svg);
     cursor: pointer;
   }
 }

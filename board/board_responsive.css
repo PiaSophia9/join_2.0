@@ -6,19 +6,6 @@
   border-radius: 32px;
 }
 
-/* main {
-  max-width: 1080px;
-} */
-
-@media (max-width: 1540px) {
-  /* main {
-    margin: 120px 0 40px 40px !important;
-  } */
-  .add-button {
-    margin-right: 40px;
-  }
-}
-
 @media (max-width: 1400px) {
   .drag-area {
     width: 200px;
@@ -174,6 +161,7 @@
   .title-and-searchfield {
     flex-direction: column;
     align-items: flex-start;
+    max-width: 872px;
   }
 
   .searchfield {
@@ -194,7 +182,9 @@
   }
 
   .add-button {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 2;
     position: absolute;
     top: 122px;

@@ -13,7 +13,7 @@ main {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  margin: 120px 0 40px 40px;
+  margin: 120px 40px 40px 40px;
   max-width: 1440px;
 }
 
@@ -213,6 +213,10 @@ button:hover {
 }
 
 @media (max-width: 700px) {
+  main {
+    margin: 100px 16px 120px 16px;
+  }
+
   button {
     font-size: 16px;
     height: 40px;

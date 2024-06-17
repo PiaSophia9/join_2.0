@@ -454,9 +454,9 @@ input:focus {
 }
 
 @media (max-width: 1235px) {
-  main {
+  /* main {
     margin: 96px 24px 0 0 !important;
-  }
+  } */
   .right_section {
     margin: 24px 0 0 24px;
   }
