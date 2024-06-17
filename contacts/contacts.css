@@ -462,7 +462,7 @@ input:focus {
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
   .vertical_blue_line {
     display: none;
   }
@@ -490,7 +490,7 @@ input:focus {
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
   .initials_and_name_container {
     flex-direction: column;
     align-items: flex-start;
@@ -506,7 +506,7 @@ input:focus {
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
   .right_section {
     display: none;
   }

@@ -66,6 +66,10 @@
     height: 80px;
   }
 
+  body {
+    flex-direction: column;
+  }
+
   .mobile_footer_container {
     height: 80px;
   }
@@ -91,6 +95,10 @@
   .include_html_container {
     margin-bottom: 96px;
   }
+
+  /* main {
+    height: auto;
+  } */
 
   .menu_sidebar {
     display: flex;
