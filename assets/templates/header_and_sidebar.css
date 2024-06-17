@@ -200,7 +200,7 @@ header {
   display: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1200px) {
   /* @media (max-width: 700px), (max-height: 720px) { */
 
   .join_description {
@@ -248,7 +248,7 @@ header {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1200px) {
   .sidebar {
     bottom: 0;
     width: 100%;

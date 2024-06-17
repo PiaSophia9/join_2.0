@@ -8,6 +8,15 @@ body {
   font-size: 20px;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  margin: 120px 0 40px 40px;
+  max-width: 1440px;
+}
+
 h1 {
   font-size: 56px;
 }
@@ -84,15 +93,6 @@ button:hover {
 ::placeholder {
   color: #d1d1d1;
   opacity: 1; /* Firefox */
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  margin: 120px 0 40px 40px !important;
-  max-width: 1440px;
 }
 
 .your_rights {
@@ -186,6 +186,12 @@ main {
   border-radius: 8px;
 }
 
+@media (max-width: 1200px) {
+  main {
+    margin: 120px 0 120px 40px;
+  }
+}
+
 @media (max-width: 1060px) {
   h1 {
     font-size: 48px;
@@ -197,6 +203,12 @@ main {
 
   .arrow_redirect {
     top: 160px;
+  }
+}
+
+@media (max-width: 800px) {
+  main {
+    margin: 120px 40px 40px 40px;
   }
 }
 

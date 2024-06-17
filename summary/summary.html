@@ -25,14 +25,14 @@
               <div class="tasks" onclick="redirectToBoard()" onmouseover="changeIconTodoWhite()" onmouseleave="changeIconTodoBack()">
                 <img src="../assets/img/icons/todo_task.svg" alt="To-do" id="todoImg" />
                 <div class="status_content">
-                  <div id="todo" class="size_64"></div>
+                  <h3 id="todo"></h3>
                   <span class="size_20">To-do</span>
                 </div>
               </div>
               <div class="tasks" onclick="redirectToBoard()" onmouseover="changeIconDoneWhite()" onmouseleave="changeIconTDoneBack()">
                 <img src="../assets/img/icons/done_task.svg" alt="Done" class="icon_summary" id="doneImg" />
                 <div class="status_content">
-                  <div id="done" class="size_64"></div>
+                  <h3 id="done"></h3>
                   <span class="size_20">Done</span>
                 </div>
               </div>
@@ -41,28 +41,28 @@
               <div class="urgent_task">
                 <img src="../assets/img/icons/summary_urgent.png" alt="urgent image" />
                 <div class="urgent_content">
-                  <div id="urgent" class="size_64"></div>
+                  <h3 id="urgent"></h3>
                   <span class="size_20">Urgent</span>
                 </div>
               </div>
-              <img src="../assets/img/icons/summary_vertical_line.png" alt="line" />
+              <div class="vertical_line"></div>
               <div class="right_side_deadline_container">
-                <div id="urgentDate"></div>
+                <span id="urgentDate"></span>
                 <span>Upcoming Deadline</span>
               </div>
             </div>
             <div class="overview_container">
               <div class="overview" onclick="redirectToBoard()">
-                <div id="tasksInBoard" class="size_64"></div>
+                <h3 id="tasksInBoard"></h3>
                 <span class="size_20">Tasks in<br />Board</span>
               </div>
               <div class="overview" onclick="redirectToBoard()">
-                <div id="tasksInProgress" class="size_64"></div>
+                <h3 id="tasksInProgress"></h3>
                 <span class="size_20">Tasks in<br />Progress</span>
               </div>
 
               <div class="overview" onclick="redirectToBoard()">
-                <div id="awaitingFeedback" class="size_64"></div>
+                <h3 id="awaitingFeedback"></h3>
                 <span class="size_20">Awaiting Feedback</span>
               </div>
             </div>
