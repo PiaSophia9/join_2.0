@@ -98,6 +98,11 @@ span {
   justify-content: center;
   align-items: center;
   gap: 16px;
+  padding: 8px;
+  box-sizing: border-box;
+  img {
+    height: 50%;
+  }
 }
 
 .tasks:hover * {
@@ -123,6 +128,11 @@ span {
   height: 100%;
   flex: 1;
   gap: 16px;
+  padding: 8px;
+  box-sizing: border-box;
+  img {
+    height: 50%;
+  }
 }
 
 .urgent_content {
@@ -174,6 +184,8 @@ span {
   border-radius: 30px;
   box-shadow: -2px 0px 6px rgb(0, 0, 0, 0.2);
   cursor: pointer;
+  padding: 8px;
+  box-sizing: border-box;
 }
 
 .overview:hover * {
@@ -249,13 +261,6 @@ span {
 
   span {
     font-size: 16px;
-  }
-
-  .right {
-    img {
-      height: 40%;
-      width: auto;
-    }
   }
 
   span {
