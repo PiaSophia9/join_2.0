@@ -194,9 +194,9 @@ function signUpSuccessfullyInfo(message) {
   let snackbarSignUp = document.getElementById("snackbarSignUp");
   snackbarSignUp.className = "show";
   snackbarSignUp.innerHTML = message;
-  // setTimeout(function () {
-  //   snackbarSignUp.className = "";
-  // }, 2000);
+  setTimeout(function () {
+    snackbarSignUp.className = "";
+  }, 2000);
 }
 
 /**

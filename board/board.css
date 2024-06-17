@@ -415,10 +415,10 @@ input[type="search"]::-webkit-search-cancel-button {
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: #333;
+  background-color: #2a3647;
   color: #fff;
   text-align: center;
-  border-radius: 2px;
+  border-radius: 20px;
   padding: 16px;
   position: fixed;
   z-index: 1;

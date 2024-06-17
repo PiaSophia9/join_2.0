@@ -230,9 +230,6 @@ span {
   }
 }
 
-@media (max-width: 880px) {
-}
-
 @media (max-width: 460px) {
   .headline_container {
     display: block;
