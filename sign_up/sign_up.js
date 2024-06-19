@@ -118,10 +118,12 @@ function validatePassword(user) {
   if (passwordInput.value !== passwordConfirmInput.value) {
     errorMessage.style.display = "block";
     errorMessage.style.color = "#ff7f8e";
-    passwordConfirmInput.style.borderColor = "#ff7f8e";
     errorMessage.textContent = "Passwords do not match";
-    passwordInput.value = "";
-    passwordConfirmInput.value = "";
+    console.log("Passwords do not match");
+  } else if (document.getElementById("accept_policy").src.endsWith("/check_empty_no_padding.svg")) {
+    errorMessage.style.display = "block";
+    errorMessage.style.color = "#ff7f8e";
+    errorMessage.textContent = "Please accept the Privat Policy";
   } else {
     pushUsers(user);
     saveNameAInLocalStorage();
@@ -159,7 +161,8 @@ function redirectToLogin() {
  */
 async function acceptPolicy() {
   let policyError = document.getElementById("policyError");
-  if (document.getElementById("accept_policy").src.endsWith("/check_empty_no_padding.svg")) {
+  if (document.getElementById("accept_policy").src.endsWith("/check_full_no_padding.svg")) {
+    // abgeändert
     await storeAllUsers();
     signUpSuccessfullyInfo("You Signed Up successfully");
     redirectToLogin();
