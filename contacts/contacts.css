@@ -486,6 +486,10 @@ input:focus {
   .left_section {
     padding: 0 0 0 0;
   }
+
+  .all-contacts {
+    margin-bottom: 85px;
+  }
 }
 
 @media (max-width: 800px) {
