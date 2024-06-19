@@ -61,7 +61,7 @@ function updateArea(areaName, areaArray, arrayName) {
       document.getElementById(areaName).innerHTML += generateTodoHTML(element, arrayName);
       document.getElementById(`prio-image${arrayName.indexOf(element)}`).innerHTML += generatePrioImage(element, arrayName);
       createInitials(element, arrayName);
-      if (element.subtasks.length != 0) {
+      if (GetTotalNumSubtasks(element) != 0) {
         document.getElementById(`subtask-progress${arrayName.indexOf(element)}`).style.display = "flex";
       }
     }
@@ -87,7 +87,7 @@ function generateTodoHTML(element, arrayName) {
             </div>
             <div class="subtask-progress" id="subtask-progress${arrayName.indexOf(element)}" style="display: none">
                 <progress class="progress-bar" value="${calculateSubtaskProgress(element)}" max="100"></progress>
-                <span>${checkSubtaskStatus(element)}/${element.subtasks.length} Subtasks</span>
+                <span>${checkSubtaskStatus(element)}/${GetTotalNumSubtasks(element)} Subtasks</span>
             </div>
             <div class="user-and-prio">
                 <div class="assigned-to" id="assigned-to${arrayName.indexOf(element)}"></div>
@@ -116,14 +116,13 @@ function startDragging(id) {
  * @return {void} This function does not return anything.
  */
 function createInitials(element, arrayName) {
-  if (element["assignedTo"] == "") {
+  if (!element["assignedTo"] || element["assignedTo"] == "") {
     return "";
-  } else {
-    for (let i = 0; i < element.assignedTo.length; i++) {
-      document.getElementById(`assigned-to${arrayName.indexOf(element)}`).innerHTML += /*html*/ `
+  }
+  for (let i = 0; i < element.assignedTo.length; i++) {
+    document.getElementById(`assigned-to${arrayName.indexOf(element)}`).innerHTML += /*html*/ `
                 <span class="assigned-user" style="background-color: ${element.assignedTo[i].contactColor}">${element.assignedTo[i].contactInitials}</span>
       `;
-    }
   }
 }
 
@@ -146,12 +145,22 @@ function generatePrioImage(element, arrayName) {
 }
 
 /**
+ * Returns total number of subtasks for a given task element.
+ * @param {Object} element - The task element to check subtask status for.
+ */
+function GetTotalNumSubtasks(element) {
+  if (!element["subtasks"]) return 0;
+  return element.subtasks.length;
+}
+
+/**
  * Calculates the number of subtasks that are marked as "done" for a given task element.
  *
  * @param {Object} element - The task element to check subtask status for.
  * @return {number} The count of subtasks that are marked as "done".
  */
 function checkSubtaskStatus(element) {
+  if (!element["subtasks"]) return 0;
   if (element.subtasks.length != 0) {
     let subtasksDone = 0;
     element.subtasks.forEach((subtask) => {
@@ -170,6 +179,7 @@ function checkSubtaskStatus(element) {
  * @return {number} The calculated progress percentage.
  */
 function calculateSubtaskProgress(element) {
+  if (!element["subtasks"]) return 0;
   let substasksDone = checkSubtaskStatus(element);
   let progress = (substasksDone / element.subtasks.length) * 100;
   return progress;
@@ -267,7 +277,7 @@ function dragCardHighlight(currentDraggedElement) {
  * @return {Promise<void>} A promise that resolves when the tasks are successfully stored.
  */
 async function storeAllTasksBoard() {
-  await setItem("remoteTasks", allTasks);
+  await setItemX("remoteTasks", allTasks);
 }
 
 /**

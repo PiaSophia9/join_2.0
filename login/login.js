@@ -12,8 +12,7 @@ async function initLogIn() {
  * Loads all users from the "remoteUsers" storage and parses the response.
  */
 async function loadAllUsers() {
-  let response = await getItem("remoteUsers");
-  users = await JSON.parse(response);
+  users = await getItemX("remoteUsers");
 }
 
 /**

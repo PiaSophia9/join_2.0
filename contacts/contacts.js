@@ -5,8 +5,8 @@ let sortedStartingLetters = [];
 let uniqueStartingLetters = [];
 
 /**
- * Initializes the contacts by including HTML, loading contacts, loading tasks, 
- * loading user initials, displaying contacts, unlogging all sidebar links, 
+ * Initializes the contacts by including HTML, loading contacts, loading tasks,
+ * loading user initials, displaying contacts, unlogging all sidebar links,
  * and logging the "contactSidebar" link.
  *
  * @return {Promise<void>} A promise that resolves when the initialization is complete.
@@ -28,8 +28,8 @@ async function initContacts() {
  */
 async function loadContacts() {
   try {
-    let response = await getItem("remoteContacts");
-    contacts = JSON.parse(response);
+    //let response =
+    contacts = await getItemX("remoteContacts");
   } catch (error) {
     console.log("No contacts stored in database");
   }
@@ -41,8 +41,8 @@ async function loadContacts() {
  * @return {Promise<void>} A promise that resolves when all tasks are loaded and parsed.
  */
 async function loadAllTasksContacts() {
-  let response = await getItem("remoteTasks");
-  tasks = await JSON.parse(response);
+  //let response = await getItemX("remoteTasks");
+  tasks = await getItemX("remoteTasks");
 }
 
 /**
@@ -65,7 +65,7 @@ function displayContacts() {
  * Displays the unique starting letters for all contacts.
  *
  * @param {HTMLElement} contactsContainer - the container element to display the contacts in
- * @return {void} 
+ * @return {void}
  */
 function displayStartingLetters(contactsContainer) {
   for (let i = 0; i < uniqueStartingLetters.length; i++) {
@@ -346,7 +346,7 @@ async function checkIfContactAssigned(task, i) {
  * @return {Promise<void>} A promise that resolves when the tasks are stored.
  */
 async function storeAllTasksContacts() {
-  await setItem("remoteTasks", tasks);
+  await setItemX("remoteTasks", tasks);
 }
 
 /**
