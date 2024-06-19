@@ -13,9 +13,8 @@ async function initUser() {
  * Loads all users from the remote server.
  */
 async function loadAllUsers() {
-  users = await getItemX("remoteUsers");
-  setItemX("remoteUsers", users);
-  console.log("users saved");
+  users = await getItem("remoteUsers");
+  setItem("remoteUsers", users);
 }
 
 /**
@@ -138,7 +137,7 @@ function validatePassword(user) {
  */
 async function storeAllUsers() {
   // users = [];
-  await setItemX("remoteUsers", users);
+  await setItem("remoteUsers", users);
 }
 
 /**

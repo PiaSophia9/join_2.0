@@ -106,7 +106,7 @@ function renderErrorOrAddContact(id) {
  * @return {Promise<void>} A promise that resolves when the contacts are stored.
  */
 async function storeContacts() {
-  setItemX("remoteContacts", contacts);
+  setItem("remoteContacts", contacts);
 }
 
 /**

@@ -28,8 +28,7 @@ async function initContacts() {
  */
 async function loadContacts() {
   try {
-    //let response =
-    contacts = await getItemX("remoteContacts");
+    contacts = await getItem("remoteContacts");
   } catch (error) {
     console.log("No contacts stored in database");
   }
@@ -41,8 +40,7 @@ async function loadContacts() {
  * @return {Promise<void>} A promise that resolves when all tasks are loaded and parsed.
  */
 async function loadAllTasksContacts() {
-  //let response = await getItemX("remoteTasks");
-  tasks = await getItemX("remoteTasks");
+  tasks = await getItem("remoteTasks");
 }
 
 /**
@@ -346,7 +344,7 @@ async function checkIfContactAssigned(task, i) {
  * @return {Promise<void>} A promise that resolves when the tasks are stored.
  */
 async function storeAllTasksContacts() {
-  await setItemX("remoteTasks", tasks);
+  await setItem("remoteTasks", tasks);
 }
 
 /**

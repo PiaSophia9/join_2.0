@@ -30,13 +30,7 @@ async function init() {
  * @return {Promise<void>} A promise that resolves when the tasks are loaded and parsed.
  */
 async function loadAllTasks() {
-  //let response = await getItem("remoteTasks");
-  console.log("LoadAllTasks");
-  allTasks = await getItemX("remoteTasks");
-  //let response = await getItem("remoteTasks");
-  //allTasks = await JSON.parse(response);
-
-  console.log("allTasks: ", allTasks);
+  allTasks = await getItem("remoteTasks");
 }
 
 /**
@@ -45,7 +39,7 @@ async function loadAllTasks() {
  * @return {Promise<void>} A promise that resolves when the tasks are stored.
  */
 async function storeAllTasks() {
-  await setItemX("remoteTasks", allTasks);
+  await setItem("remoteTasks", allTasks);
 }
 
 /**

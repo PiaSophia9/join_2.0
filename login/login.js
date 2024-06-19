@@ -12,7 +12,7 @@ async function initLogIn() {
  * Loads all users from the "remoteUsers" storage and parses the response.
  */
 async function loadAllUsers() {
-  users = await getItemX("remoteUsers");
+  users = await getItem("remoteUsers");
 }
 
 /**

@@ -277,7 +277,7 @@ function dragCardHighlight(currentDraggedElement) {
  * @return {Promise<void>} A promise that resolves when the tasks are successfully stored.
  */
 async function storeAllTasksBoard() {
-  await setItemX("remoteTasks", allTasks);
+  await setItem("remoteTasks", allTasks);
 }
 
 /**

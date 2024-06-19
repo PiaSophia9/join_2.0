@@ -23,7 +23,7 @@ async function initSummary() {
  * Loads all tasks from the remote server and stores them in the local storage.
  */
 async function loadAllTasksSummary() {
-  todos = await getItemX("remoteTasks");
+  todos = await getItem("remoteTasks");
 }
 
 /**
