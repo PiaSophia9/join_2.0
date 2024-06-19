@@ -313,8 +313,10 @@ async function deleteContactFromTasks(i) {
   await loadAllTasksContacts();
   for (let index = 0; index < tasks.length; index++) {
     const task = tasks[index];
-    if (task.assignedTo.length != 0) {
-      await checkIfContactAssigned(task, i);
+    if (task.assignedTo) {
+      if (task.assignedTo.length != 0) {
+        await checkIfContactAssigned(task, i);
+      }
     }
   }
 }
