@@ -35,7 +35,9 @@ async function fillTaskFields(index) {
   document.getElementById("categoryDropdown").innerHTML = "";
   document.getElementById("buttonName").innerHTML = allTasks[index].category;
   setPrioButton(index);
-  allTasks[index].assignedTo.forEach((contact) => assignedContacts.push(contact));
+  if (allTasks[index].assignedTo) {
+    allTasks[index].assignedTo.forEach((contact) => assignedContacts.push(contact));
+  }
   if (allTasks[index].subtasks) {
     allTasks[index].subtasks.forEach((subtask) => subtasks.push(subtask));
   }

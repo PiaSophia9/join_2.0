@@ -213,8 +213,8 @@ function allowDrop(event) {
 async function moveTo(status) {
   allTasks[currentDraggedElement]["status"] = status;
   await storeAllTasksBoard();
-  await loadAllTasks();
   updateHTML(allTasks);
+  await storeAllTasksBoard();
 }
 
 /**
