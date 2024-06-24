@@ -72,22 +72,24 @@ function createTaskDetailsHtml(index) {
 function displaySubstasks(task) {
   let subtasksContainer = document.getElementById("subtasks");
   subtasksContainer.innerHTML = "";
-  for (let i = 0; i < task["subtasks"].length; i++) {
-    const subtask = task["subtasks"][i];
-    if (subtask.statusSubtask == "inProgress") {
-      subtasksContainer.innerHTML += /*html*/ `
+  if (task["subtasks"]) {
+    for (let i = 0; i < task["subtasks"].length; i++) {
+      const subtask = task["subtasks"][i];
+      if (subtask.statusSubtask == "inProgress") {
+        subtasksContainer.innerHTML += /*html*/ `
                   <div class="subtask">
                       <img src="../assets/img/icons/check_box_empty.png" alt="" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})" id="subtask-checkbox${i}">
                       <p class="subtask-text">${subtask.nameSubtask}</p>
                   </div>
               `;
-    } else {
-      subtasksContainer.innerHTML += /*html*/ `
+      } else {
+        subtasksContainer.innerHTML += /*html*/ `
                   <div class="subtask">
                       <img src="../assets/img/icons/checkbox_filled.png" alt="" id="checkbox-filled${i}" onclick="toggleCheckbox(${i}, ${allTasks.indexOf(task)})">
                       <p class="subtask-text">${subtask.nameSubtask}</p>
                   </div>
               `;
+      }
     }
   }
 }
@@ -120,15 +122,17 @@ function toggleCheckbox(i, taskIndex) {
 function displayAssignedContacts(task) {
   let assignedContactContainer = document.getElementById("assigned-to-contacts");
   assignedContactContainer.innerHTML = "";
-  for (let i = 0; i < task["assignedTo"].length; i++) {
-    const assignedContact = task["assignedTo"][i];
+  if (task["assignedTo"]) {
+    for (let i = 0; i < task["assignedTo"].length; i++) {
+      const assignedContact = task["assignedTo"][i];
 
-    assignedContactContainer.innerHTML += /*html*/ `
+      assignedContactContainer.innerHTML += /*html*/ `
           <div class="assigned-to-contact">
               <p class="initials_circle" style="background-color: ${assignedContact.contactColor}">${assignedContact.contactInitials}</p>
               <p>${assignedContact.contactName}</p>
           </div>
       `;
+    }
   }
 }
 
