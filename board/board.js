@@ -312,7 +312,7 @@ async function closeModal() {
   document.getElementById("body").style.overflow = "auto";
   document.getElementById("searchfield").value = "";
   await redoChangesToTaskForm();
-  await initBoard();
+  // await initBoard();
 }
 
 window.addEventListener("click", async function (event) {

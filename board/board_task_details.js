@@ -144,10 +144,11 @@ function displayAssignedContacts(task) {
  */
 async function deleteTask(index) {
   allTasks.splice(index, 1);
-  await storeAllTasksBoard();
-  showSnackbarBoard("Task succesfully deleted");
+  await updateHTML(allTasks);
   closeModalDetails();
-  await initBoard();
+  showSnackbarBoard("Task succesfully deleted");
+  await storeAllTasksBoard();
+  // await initBoard();
 }
 
 /**
@@ -163,7 +164,8 @@ async function closeModalDetails() {
   modalBg.style.left = "100%";
   document.getElementById("body").style.overflow = "auto";
   document.getElementById("searchfield").value = "";
-  await initBoard();
+  // await initBoard();
+  // initBoard wird benötigt fürs Speichern bei editTasks
 }
 
 window.addEventListener("click", async function (event) {
