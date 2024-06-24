@@ -274,7 +274,7 @@ function generateContactToAssign(i) {
     <div  style="background-color:${contacts[i].contactColor}" class="initials_circle"><span class="initials_span">${contacts[i].contactInitials}</span></div>
     <span id="contacts${i}">${contacts[i].contactName}</span>
   </div>
-  <div id="checkboxContainer${i}"><img class="assigned_to_checkbox_mage" id="checkBoxImage${i}" src="../assets/img/icons/check_empty_with_padding.svg" alt=""></div>
+   <div id="checkboxContainer${i}"><img class="assigned_to_checkbox_mage" id="checkBoxImage${i}" src="../assets/img/icons/check_empty_with_padding.svg" alt=""></div>
 </div>`;
 }
 
@@ -392,7 +392,7 @@ function fillCheckboxImage(i) {
  * @return {void} This function does not return anything.
  */
 function emptyCheckboxImage(i) {
-  document.getElementById(`checkBoxImage${i}`).src = "..assets/img/icons/check_empty_with_padding.svg";
+  document.getElementById(`checkBoxImage${i}`).src = "../assets/img/icons/check_empty_with_padding.svg";
 }
 
 /**
