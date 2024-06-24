@@ -65,13 +65,18 @@ span {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.greetings_container {
+  text-align: left;
+  width: min-content;
+  span {
+    white-space: pre-wrap;
+  }
   h2 {
     margin-block-start: 0;
     margin-block-end: 0;
-  }
-  p {
-    margin-block-start: 0;
-    margin-block-end: 0;
+    width: max-content;
   }
 }
 

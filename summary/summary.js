@@ -10,6 +10,7 @@ async function initSummary() {
   await loadUserInitials();
   unlogAllSidebarLinks();
   logSidebarLink("summarySidebar");
+  loadUserName();
   displayGreeting();
   showToDo();
   showDone();
@@ -17,6 +18,21 @@ async function initSummary() {
   showAllTasks();
   showInProgress();
   showAwaitFeedback();
+}
+
+/**
+ * Loads the username from local storage and sets it as the innerHTML of the element with id "logged_user".
+ */
+async function loadUserName() {
+  let loggedUser = document.getElementById("logged_user");
+  let storedName = localStorage.getItem("userName");
+  storedName = JSON.parse(storedName);
+  console.log("stored name: ", storedName);
+  if (storedName) {
+    loggedUser.innerHTML = storedName;
+  } else {
+    loggedUser.innerHTML = "";
+  }
 }
 
 /**
@@ -175,15 +191,24 @@ function changeIconTDoneBack() {
 function displayGreeting() {
   const now = new Date();
   const hour = now.getHours();
-
   let greeting;
   if (hour >= 5 && hour < 12) {
-    greeting = "Good morning!";
+    greeting = "Good morning";
   } else if (hour >= 12 && hour < 18) {
-    greeting = "Good afternoon!";
+    greeting = "Good afternoon";
   } else {
-    greeting = "Good evening!";
+    greeting = "Good evening";
   }
 
   document.getElementById("greetings").textContent = greeting;
+  addPunctuationMarks();
+}
+
+function addPunctuationMarks() {
+  let storedName = localStorage.getItem("userName");
+  if (storedName) {
+    document.getElementById("greetings").textContent += ",";
+  } else {
+    document.getElementById("greetings").textContent += "!";
+  }
 }
